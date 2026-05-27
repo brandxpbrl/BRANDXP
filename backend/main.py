@@ -1,7 +1,7 @@
 import os
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -10,6 +10,7 @@ from client_manager import build_client_analysis_plan, build_framework_prompt, e
 from cognitive_orchestrator import AnalysisSaveError, process_request
 from dynamic_agent_loader import load_all_agents
 from services.ai_agent_os_builder import generate_ai_agent_os
+from services.access_control import access_control_enabled, authenticate_access_key, is_client_allowed_path, is_public_path, verify_access_token
 from services.client_activation_engine import build_client_activation, create_activation_sprint, generate_client_portal_summary, generate_evolution_timeline, generate_strategic_campaign, mark_deliverables_reviewed
 from services.client_chat_engine import build_client_chat_context, run_client_chat
 from services.client_portal import build_client_portal
@@ -123,9 +124,96 @@ class ClientChatRequest(BaseModel):
 
     prompt_id: str | None = None
 
+
+class AccessLoginRequest(BaseModel):
+
+    access_key: str
+
 # =====================================================
 # ROUTE
 # =====================================================
+
+@app.middleware("http")
+async def access_control_middleware(request: Request, call_next):
+
+    if request.method == "OPTIONS" or not access_control_enabled() or is_public_path(request.url.path):
+        return await call_next(request)
+
+    token = request.headers.get("X-BEOS-Token") or request.query_params.get("access_token")
+    session = verify_access_token(token)
+
+    if not session:
+        return JSONResponse(
+            status_code=401,
+            content={
+                "detail": "Access key required.",
+                "code": "ACCESS_REQUIRED",
+            },
+        )
+
+    if session["mode"] == "client" and not is_client_allowed_path(
+        request.url.path,
+        request.method,
+        session.get("client"),
+    ):
+        return JSONResponse(
+            status_code=403,
+            content={
+                "detail": "This key can only access its assigned client space.",
+                "code": "CLIENT_SCOPE_ONLY",
+            },
+        )
+
+    request.state.access_session = session
+
+    return await call_next(request)
+
+
+@app.get("/api/access/config")
+async def access_config():
+
+    return {
+        "access_control": access_control_enabled(),
+    }
+
+
+@app.post("/api/access/login")
+async def access_login(request: AccessLoginRequest):
+
+    session = authenticate_access_key(request.access_key)
+
+    if not session:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid access key.",
+        )
+
+    return session
+
+
+@app.get("/api/access/me")
+async def access_me(request: Request):
+
+    if not access_control_enabled():
+        return {
+            "mode": "developer",
+            "client": None,
+            "access_control": False,
+        }
+
+    token = request.headers.get("X-BEOS-Token")
+    session = verify_access_token(token)
+
+    if not session:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or expired access token.",
+        )
+
+    return {
+        **session,
+        "access_control": True,
+    }
 
 @app.post("/orchestrator")
 async def orchestrator(request: PromptRequest):
@@ -151,10 +239,18 @@ async def orchestrator(request: PromptRequest):
 
 
 @app.get("/clients")
-async def clients():
+async def clients(request: Request):
+    access_session = getattr(request.state, "access_session", None)
+    all_clients = list_clients()
 
     return {
-        "clients": list_clients()
+        "clients": [
+            client
+            for client in all_clients
+            if not access_session
+            or access_session.get("mode") != "client"
+            or client.get("name", "").casefold() == access_session.get("client", "").casefold()
+        ]
     }
 
 

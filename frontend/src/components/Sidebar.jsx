@@ -1,4 +1,4 @@
-export default function Sidebar({ activeSection = "panel", onSectionChange }) {
+export default function Sidebar({ activeSection = "panel", accessMode = "developer", onSectionChange }) {
   const items = [
     { id: "panel", label: "Panel", target: "framework" },
     { id: "engine", label: "Motor cognitivo", target: "results" },
@@ -12,6 +12,9 @@ export default function Sidebar({ activeSection = "panel", onSectionChange }) {
     { id: "analytics", label: "Analitica", target: "results" },
     { id: "exports", label: "Exportaciones", target: "results" },
   ]
+  const visibleItems = accessMode === "client"
+    ? items.filter((item) => ["client_portal", "client_chat"].includes(item.id))
+    : items
 
   return (
     <aside className="sidebar">
@@ -26,7 +29,7 @@ export default function Sidebar({ activeSection = "panel", onSectionChange }) {
         </div>
 
         <nav className="nav-list">
-          {items.map((item) => (
+          {visibleItems.map((item) => (
             <button
               className={activeSection === item.id ? "nav-item active" : "nav-item"}
               key={item.id}
@@ -41,7 +44,7 @@ export default function Sidebar({ activeSection = "panel", onSectionChange }) {
 
       <div className="operator-card">
         <span>Modo</span>
-        Brand Architect
+        {accessMode === "client" ? "Client Portal" : "Brand Architect"}
       </div>
     </aside>
   )

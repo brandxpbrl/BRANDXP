@@ -15,6 +15,7 @@ import WorkspaceModuleHeader from "./components/WorkspaceModuleHeader"
 import EntityAdvisorPanel from "./components/EntityAdvisorPanel"
 import ClientPortalPanel from "./components/ClientPortalPanel"
 import ClientOperatorChat from "./components/ClientOperatorChat"
+import AccessGate from "./components/AccessGate"
 
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
@@ -75,6 +76,9 @@ export default function App() {
   const [clientChatSendError, setClientChatSendError] = useState("")
   const [clientChatSendMessage, setClientChatSendMessage] = useState("")
   const [selectedChatPromptId, setSelectedChatPromptId] = useState("")
+  const [accessChecking, setAccessChecking] = useState(true)
+  const [accessError, setAccessError] = useState("")
+  const [accessSession, setAccessSession] = useState(null)
 
   const activeClient = useMemo(
     () => clients.find((client) => client.name === clientName),
@@ -83,6 +87,109 @@ export default function App() {
 
   const currentClientName = activeClient?.name || clientName.trim()
   const deliverablesCount = deliverablesData?.items?.length || 0
+  const isClientAccess = accessSession?.mode === "client"
+
+  useEffect(() => {
+    const nativeFetch = window.fetch.bind(window)
+
+    window.fetch = (input, init = {}) => {
+      const token = window.localStorage.getItem("beos_access_token")
+      const headers = new Headers(init.headers || {})
+
+      if (token && !headers.has("X-BEOS-Token")) {
+        headers.set("X-BEOS-Token", token)
+      }
+
+      return nativeFetch(input, {
+        ...init,
+        headers,
+      })
+    }
+
+    return () => {
+      window.fetch = nativeFetch
+    }
+  }, [])
+
+  useEffect(() => {
+    let isMounted = true
+
+    const bootAccess = async () => {
+      setAccessChecking(true)
+      setAccessError("")
+
+      try {
+        const configRes = await fetch(`${API_URL}/api/access/config`)
+        const config = await configRes.json()
+
+        if (!config.access_control) {
+          if (isMounted) {
+            setAccessSession({
+              mode: "developer",
+              client: null,
+              access_control: false,
+            })
+          }
+          return
+        }
+
+        const token = window.localStorage.getItem("beos_access_token")
+        if (!token) {
+          return
+        }
+
+        const meRes = await fetch(`${API_URL}/api/access/me`)
+        const me = await meRes.json()
+
+        if (!meRes.ok) {
+          window.localStorage.removeItem("beos_access_token")
+          window.localStorage.removeItem("beos_access_mode")
+          window.localStorage.removeItem("beos_access_client")
+          return
+        }
+
+        if (isMounted) {
+          setAccessSession(me)
+          if (me.mode === "client" && me.client) {
+            setClientName(me.client)
+            setSidebarSection("client_portal")
+            setDashboardSection("portal")
+          }
+        }
+      } catch (err) {
+        if (isMounted) {
+          setAccessError(err.message)
+        }
+      } finally {
+        if (isMounted) {
+          setAccessChecking(false)
+        }
+      }
+    }
+
+    bootAccess()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const handleAccessGranted = (session) => {
+    setAccessSession(session)
+    setAccessError("")
+
+    if (session.mode === "client" && session.client) {
+      setClientName(session.client)
+      setSidebarSection("client_portal")
+      setDashboardSection("portal")
+      loadClientPortal(session.client)
+      loadEntityAdvisor(session.client)
+      loadClientChatContext(session.client)
+      return
+    }
+
+    loadClients()
+  }
 
   const loadClients = async () => {
     try {
@@ -96,6 +203,12 @@ export default function App() {
 
   useEffect(() => {
     let isMounted = true
+
+    if (!accessSession) {
+      return () => {
+        isMounted = false
+      }
+    }
 
     fetch(`${API_URL}/clients`)
       .then((res) => res.json())
@@ -113,7 +226,7 @@ export default function App() {
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [accessSession])
 
   const streamText = async (text) => {
     const words = text.split(" ")
@@ -682,6 +795,10 @@ export default function App() {
   }
 
   const changeSidebarSection = (item) => {
+    if (isClientAccess && !["portal", "client_chat"].includes(item.target)) {
+      return
+    }
+
     setSidebarSection(item.id)
     setDashboardSection(item.target)
 
@@ -850,6 +967,17 @@ export default function App() {
     }
   }
 
+  if (!accessSession) {
+    return (
+      <AccessGate
+        apiUrl={API_URL}
+        checking={accessChecking}
+        error={accessError}
+        onAccessGranted={handleAccessGranted}
+      />
+    )
+  }
+
   return (
     <div
       className="app-shell"
@@ -860,7 +988,7 @@ export default function App() {
       <div className="app-overlay" />
 
       <div className="app-content">
-        <Layout activeSection={sidebarSection} onSectionChange={changeSidebarSection}>
+        <Layout activeSection={sidebarSection} accessMode={accessSession.mode} onSectionChange={changeSidebarSection}>
           <div className="command-grid">
             <div className="panel-stack">
               <WorkspaceModuleHeader activeSection={sidebarSection} />
@@ -877,20 +1005,24 @@ export default function App() {
                   </div>
                 </div>
                 <div className="workspace-tabs" role="tablist" aria-label="Secciones del dashboard">
-                  <button
-                    className={dashboardSection === "framework" ? "workspace-tab active" : "workspace-tab"}
-                    type="button"
-                    onClick={() => setDashboardSection("framework")}
-                  >
-                    Framework
-                  </button>
-                  <button
-                    className={dashboardSection === "results" ? "workspace-tab active" : "workspace-tab"}
-                    type="button"
-                    onClick={() => setDashboardSection("results")}
-                  >
-                    Analisis y entregables
-                  </button>
+                  {!isClientAccess ? (
+                    <>
+                      <button
+                        className={dashboardSection === "framework" ? "workspace-tab active" : "workspace-tab"}
+                        type="button"
+                        onClick={() => setDashboardSection("framework")}
+                      >
+                        Framework
+                      </button>
+                      <button
+                        className={dashboardSection === "results" ? "workspace-tab active" : "workspace-tab"}
+                        type="button"
+                        onClick={() => setDashboardSection("results")}
+                      >
+                        Analisis y entregables
+                      </button>
+                    </>
+                  ) : null}
                   <button
                     className={dashboardSection === "portal" ? "workspace-tab active" : "workspace-tab"}
                     type="button"
@@ -1047,13 +1179,17 @@ export default function App() {
                 }}
               />
 
-              <ClientMemoryPanel
-                clients={clients}
-                activeClient={activeClient}
-                onSelectClient={selectClient}
-              />
-              <ThinkingFlow loading={loading} steps={flow} />
-              <RetrievedConcepts concepts={concepts} />
+              {!isClientAccess ? (
+                <>
+                  <ClientMemoryPanel
+                    clients={clients}
+                    activeClient={activeClient}
+                    onSelectClient={selectClient}
+                  />
+                  <ThinkingFlow loading={loading} steps={flow} />
+                  <RetrievedConcepts concepts={concepts} />
+                </>
+              ) : null}
             </div>
           </div>
         </Layout>
