@@ -20,10 +20,17 @@ export default function ClientWorkbench({
 }) {
   return (
     <section className="glass-panel client-workbench">
-      <div className="panel-kicker">Client Analysis Dashboard</div>
-      <div className="panel-title">Nuevo cliente y fuentes</div>
+      <div className="workbench-head">
+        <div>
+          <div className="panel-kicker">Client Analysis Dashboard</div>
+          <div className="panel-title">Nuevo cliente y fuentes</div>
+        </div>
+        <div className={clientName ? "workbench-status active" : "workbench-status"}>
+          {clientName ? "Cliente en lectura" : "Sin cliente activo"}
+        </div>
+      </div>
       <div className="panel-copy">
-        Crea el cliente, carga señales de marca y ejecuta el framework completo de Brand Experience OS.
+        Carga contexto, señales y materiales. El framework convierte esa información en diagnóstico, memoria y entregables accionables.
       </div>
 
       <div className="form-grid">

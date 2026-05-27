@@ -866,8 +866,16 @@ export default function App() {
               <WorkspaceModuleHeader activeSection={sidebarSection} />
 
               <section className="glass-panel workspace-tabs-panel">
-                <div className="panel-kicker">Dashboard operativo</div>
-                <div className="panel-title">Workspace del cliente</div>
+                <div className="workspace-tabs-head">
+                  <div>
+                    <div className="panel-kicker">Dashboard operativo</div>
+                    <div className="panel-title">Workspace del cliente</div>
+                  </div>
+                  <div className="workspace-client-chip">
+                    <span>Cliente activo</span>
+                    <strong>{currentClientName || "Sin seleccionar"}</strong>
+                  </div>
+                </div>
                 <div className="workspace-tabs" role="tablist" aria-label="Secciones del dashboard">
                   <button
                     className={dashboardSection === "framework" ? "workspace-tab active" : "workspace-tab"}

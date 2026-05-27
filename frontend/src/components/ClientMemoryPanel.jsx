@@ -1,8 +1,13 @@
 export default function ClientMemoryPanel({ clients = [], activeClient, onSelectClient }) {
   return (
-    <section className="glass-panel">
-      <div className="panel-kicker">Clientes activos</div>
-      <div className="panel-title">Memoria</div>
+    <section className="glass-panel client-memory-panel">
+      <div className="client-memory-header">
+        <div>
+          <div className="panel-kicker">Clientes activos</div>
+          <div className="panel-title">Memoria</div>
+        </div>
+        <strong>{clients.length}</strong>
+      </div>
       <div className="client-list">
         {clients.slice(0, 8).map((client) => (
           <button

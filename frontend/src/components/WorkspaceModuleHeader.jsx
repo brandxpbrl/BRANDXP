@@ -55,6 +55,12 @@ export default function WorkspaceModuleHeader({ activeSection = "panel" }) {
         <div className="panel-title">{module.title}</div>
         <p>{module.copy}</p>
       </div>
+      <div className="module-signal-strip">
+        <span>Memoria</span>
+        <span>Visual DNA</span>
+        <span>Contenido</span>
+        <span>Agent OS</span>
+      </div>
     </section>
   )
 }
