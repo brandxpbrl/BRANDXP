@@ -145,7 +145,11 @@ def _advisor_recommendation(state):
 def _entity_asset_sort_key(path):
     extension = path.suffix.casefold()
     video_priority = 0 if extension == ".mp4" else 1
-    preferred_priority = 0 if path.name == "762ae545-1c9a-42a1-9497-ea815042ce9b.mp4" else 1
+    preferred_order = {
+        "BrandIdentity.mp4": 0,
+        "762ae545-1c9a-42a1-9497-ea815042ce9b.mp4": 1,
+    }
+    preferred_priority = preferred_order.get(path.name, 9)
 
     return (video_priority, preferred_priority, path.name.casefold())
 

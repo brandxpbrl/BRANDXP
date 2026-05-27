@@ -989,6 +989,29 @@ export default function App() {
 
       <div className="app-content">
         <Layout activeSection={sidebarSection} accessMode={accessSession.mode} onSectionChange={changeSidebarSection}>
+          <div className="entity-command-stage">
+            <EntityAdvisorPanel
+              advisorData={entityAdvisorData}
+              loading={entityAdvisorLoading}
+              error={entityAdvisorError}
+              apiUrl={API_URL}
+              clientName={currentClientName}
+              onRefresh={() => loadEntityAdvisor(currentClientName)}
+              onPrimaryAction={runEntityAdvisorAction}
+              actionLoading={entityAdvisorActionLoading}
+              actionMessage={entityAdvisorActionMessage}
+              actionError={entityAdvisorActionError}
+              deliverablesReview={entityDeliverablesReview}
+              reviewLoading={entityDeliverablesReviewLoading}
+              reviewError={entityDeliverablesReviewError}
+              onOpenPortal={() => {
+                setSidebarSection("client_portal")
+                setDashboardSection("portal")
+                loadClientPortal(currentClientName)
+              }}
+            />
+          </div>
+
           <div className="command-grid">
             <div className="panel-stack">
               <WorkspaceModuleHeader activeSection={sidebarSection} />
@@ -1158,27 +1181,6 @@ export default function App() {
             </div>
 
             <div className="panel-stack">
-              <EntityAdvisorPanel
-                advisorData={entityAdvisorData}
-                loading={entityAdvisorLoading}
-                error={entityAdvisorError}
-                apiUrl={API_URL}
-                clientName={currentClientName}
-                onRefresh={() => loadEntityAdvisor(currentClientName)}
-                onPrimaryAction={runEntityAdvisorAction}
-                actionLoading={entityAdvisorActionLoading}
-                actionMessage={entityAdvisorActionMessage}
-                actionError={entityAdvisorActionError}
-                deliverablesReview={entityDeliverablesReview}
-                reviewLoading={entityDeliverablesReviewLoading}
-                reviewError={entityDeliverablesReviewError}
-                onOpenPortal={() => {
-                  setSidebarSection("client_portal")
-                  setDashboardSection("portal")
-                  loadClientPortal(currentClientName)
-                }}
-              />
-
               {!isClientAccess ? (
                 <>
                   <ClientMemoryPanel

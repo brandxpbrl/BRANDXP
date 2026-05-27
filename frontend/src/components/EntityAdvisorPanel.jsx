@@ -32,7 +32,7 @@ export default function EntityAdvisorPanel({
   const recognitionTextRef = useRef("")
 
   const defaultEntityAsset =
-    "/creative-library/asset?path=02_Assets_Visuales%2FEntidad%2F762ae545-1c9a-42a1-9497-ea815042ce9b.mp4"
+    "/creative-library/asset?path=02_Assets_Visuales%2FEntidad%2FBrandIdentity.mp4"
   const asset = advisorData?.assets?.find((item) => item.type === "video") || advisorData?.assets?.[0]
   const recommendation = advisorData?.recommendation
   const state = advisorData?.state || {}
