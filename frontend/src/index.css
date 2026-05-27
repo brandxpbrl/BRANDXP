@@ -332,9 +332,11 @@ button {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
+  gap: 0;
   overflow: hidden;
   background:
+    radial-gradient(circle at 50% 8%, rgba(69, 198, 246, 0.22), transparent 34%),
+    radial-gradient(circle at 70% 16%, rgba(217, 66, 143, 0.18), transparent 38%),
     linear-gradient(145deg, rgba(7, 18, 35, 0.96), rgba(22, 8, 30, 0.84)),
     rgba(13, 15, 24, 0.82);
   border-color: rgba(69, 198, 246, 0.2);
@@ -343,12 +345,17 @@ button {
 .entity-advisor-visual {
   position: relative;
   min-width: 0;
-  aspect-ratio: 16 / 8.5;
-  border-radius: 8px;
+  height: 286px;
+  margin: -18px -18px -18px;
+  border-radius: 0;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.32);
-  border: 1px solid rgba(69, 198, 246, 0.22);
-  box-shadow: 0 0 34px rgba(69, 198, 246, 0.08);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  isolation: isolate;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
 }
 
 .entity-advisor-visual img,
@@ -357,14 +364,21 @@ button {
   height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center 42%;
+  filter: saturate(1.16) contrast(1.07);
+  transform: scale(1.08);
 }
 
 .entity-advisor-glow {
   position: absolute;
-  inset: auto 10% 0;
-  height: 38%;
-  background: linear-gradient(180deg, transparent, rgba(217, 66, 143, 0.34));
+  inset: 0;
+  background:
+    radial-gradient(circle at 42% 35%, rgba(69, 198, 246, 0.18), transparent 26%),
+    radial-gradient(circle at 58% 46%, rgba(217, 66, 143, 0.2), transparent 28%),
+    linear-gradient(180deg, transparent 42%, rgba(7, 18, 35, 0.4) 68%, rgba(7, 18, 35, 0.94));
+  mix-blend-mode: screen;
   pointer-events: none;
+  z-index: 2;
 }
 
 .entity-advisor-placeholder {
@@ -379,10 +393,13 @@ button {
 }
 
 .entity-advisor-content {
+  position: relative;
+  z-index: 3;
   min-width: 0;
   display: grid;
   align-content: start;
   gap: 12px;
+  padding-top: 8px;
 }
 
 .entity-advisor-content .panel-title {

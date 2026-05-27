@@ -25,8 +25,8 @@ export default function EntityAdvisorPanel({
   const previewTimerRef = useRef(null)
 
   const defaultEntityAsset =
-    "/creative-library/asset?path=02_Assets_Visuales%2FEntidad%2FChatGPT%20Image%2013%20may%202026%2C%2001_17_26.png"
-  const asset = advisorData?.assets?.find((item) => item.type === "image") || advisorData?.assets?.[0]
+    "/creative-library/asset?path=02_Assets_Visuales%2FEntidad%2F762ae545-1c9a-42a1-9497-ea815042ce9b.mp4"
+  const asset = advisorData?.assets?.find((item) => item.type === "video") || advisorData?.assets?.[0]
   const recommendation = advisorData?.recommendation
   const state = advisorData?.state || {}
   const entityState = advisorData?.entity_state || {}
@@ -185,7 +185,7 @@ export default function EntityAdvisorPanel({
     <section className="glass-panel entity-advisor-panel">
       <div className="entity-advisor-visual">
         {assetUrl ? (
-          asset?.type === "video" ? (
+          asset?.type === "video" || assetUrl.endsWith(".mp4") ? (
             <video src={assetUrl} autoPlay muted loop playsInline />
           ) : (
             <img src={assetUrl} alt="Entidad Brand Experience" />

@@ -142,13 +142,21 @@ def _advisor_recommendation(state):
     }
 
 
+def _entity_asset_sort_key(path):
+    extension = path.suffix.casefold()
+    video_priority = 0 if extension == ".mp4" else 1
+    preferred_priority = 0 if path.name == "762ae545-1c9a-42a1-9497-ea815042ce9b.mp4" else 1
+
+    return (video_priority, preferred_priority, path.name.casefold())
+
+
 def _entity_assets(limit=8):
     if not ENTITY_ASSETS_DIR.is_dir():
         return []
 
     assets = []
 
-    for path in sorted(ENTITY_ASSETS_DIR.iterdir(), key=lambda item: (item.suffix.casefold() != ".png", item.name.casefold())):
+    for path in sorted(ENTITY_ASSETS_DIR.iterdir(), key=_entity_asset_sort_key):
         if len(assets) >= limit:
             break
 
