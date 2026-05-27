@@ -1,0 +1,37 @@
+{
+  "brand_name": "ryaanlouis",
+  "generated_at": "2026-05-26T04:41:42.826414",
+  "system": "Brand Experience OS",
+  "priority": "01_BRAND_MEMORY_CORE",
+  "purpose": "Persistent AI-readable brand memory.",
+  "primary_rule": "Do not design before interpreting the brand entity.",
+  "brand_logic": {
+    "perception": "Value must be felt before it is explained.",
+    "visual_goal": "Increase clarity, authority, desire, trust and memorability.",
+    "narrative": "Tension → Transformation → Proof → Action.",
+    "commercial_goal": "Convert attention into trust and action."
+  },
+  "modules": [
+    "01_ENTITY_CORE",
+    "02_VISUAL_DNA",
+    "03_SYMBOL_SYSTEM",
+    "04_TYPOGRAPHY_DNA",
+    "05_STORY_ENGINE",
+    "06_CONTENT_ENGINE",
+    "07_MOTION_SYSTEM",
+    "08_AI_RESTRICTIONS",
+    "09_PROMPT_ENGINE"
+  ],
+  "source_files": {
+    "identity_cliente.md": true,
+    "brand_memory_core_generator.py": true,
+    "visual_generation_mode.md": true,
+    "full_brand_experience_prompt_pack.md": true,
+    "logo_system_prompt.md": true,
+    "color_palette_prompt.md": true,
+    "tone_of_brand_prompt.md": true,
+    "storytelling_board_prompt.md": true,
+    "visual_universe_board_prompt.md": true,
+    "brand_identity_board_prompt.md": true
+  }
+}

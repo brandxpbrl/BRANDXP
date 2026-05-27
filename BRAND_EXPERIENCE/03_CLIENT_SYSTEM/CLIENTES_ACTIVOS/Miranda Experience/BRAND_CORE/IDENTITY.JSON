@@ -1,0 +1,71 @@
+{
+  "brand_experience_core": {
+    "identity": {
+      "brand_name": "Miranda Experience",
+      "owner": "Micaela Miranda",
+      "concept": "Brasil de Autor",
+      "tagline": "Brasil vivido con intención",
+      "brand_type": "Lifestyle Premium & Real Estate Boutique",
+      "core_purpose": "Transformar la percepción del servicio en Brasil a través de un acompañamiento humano, estético y de absoluta seguridad.",
+      "positioning": "Boutique de servicios premium para el sector pudiente que busca exclusividad, calidez de hogar y una solución integral 24/7."
+    },
+    "visual_identity": {
+      "style": [
+        "Premium Natural",
+        "Lifestyle Editorial",
+        "Warm Minimalist",
+        "Authentic High-End"
+      ],
+      "color_system": {
+        "primary": [
+          "#E8D5B7",
+          "#F2E6D2",
+          "#1E4A5F"
+        ],
+        "secondary": [
+          "#F7F5F0",
+          "#2F4F3E",
+          "#C8A46A"
+        ]
+      },
+      "typography": {
+        "titles": "Cormorant Garamond",
+        "body": "Montserrat",
+        "style_rules": {
+          "tracking": "Loose (+4 to +10)",
+          "visual_style": "Layouts aireados, elegancia clásica, estética de revista Vogue Travel."
+        }
+      },
+      "composition_rules": [
+        "Uso de márgenes amplios (Negative space)",
+        "Fotografía con luz natural Golden Hour",
+        "Superposición de tipografía Serif sobre texturas naturales",
+        "Grillas de Instagram asimétricas y minimalistas"
+      ]
+    },
+    "brand_emotion": {
+      "feelings": [
+        "Paz",
+        "Confianza absoluta",
+        "Sofisticación relajada",
+        "Pertenencia",
+        "Seguridad"
+      ],
+      "experience_goals": [
+        "Sentir el calorcito de hogar en Brasil",
+        "Eliminar el estrés de la burocracia o el turismo masivo",
+        "Acceso a una curaduría experta y de autor",
+        "Garantizar que alguien que me entiende se ocupa de todo"
+      ]
+    },
+    "content_strategy": {
+      "voice_and_tone": "Experta pero cercana, protectora, serena, inspiradora y sofisticada.",
+      "content_pillars": [
+        "Real Estate: Inversión con propósito",
+        "Lifestyle: Curaduría de experiencias",
+        "Solución Miranda: Seguridad y Gestión 24/7",
+        "Esencia: El alma detrás del servicio"
+      ]
+    }
+  }
+}

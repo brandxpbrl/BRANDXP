@@ -1,0 +1,13 @@
+{
+  "client_info": {
+    "name": "Security Check",
+    "date": "2026-05-18",
+    "status": "Discovery",
+    "industry": "Tours / travel / experience"
+  },
+  "analysis": {
+    "created_from_dashboard": true,
+    "last_prompt": "",
+    "last_analysis_at": "2026-05-18T06:32:20"
+  }
+}

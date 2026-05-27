@@ -1,0 +1,46 @@
+# CLIENT CONTEXT — mauviagenstours
+
+## INFORMACIÓN GENERAL
+
+Nombre:
+mauviagenstours
+
+Industria:
+
+Ubicación:
+
+---
+
+# HISTORIA
+
+---
+
+# PERSONALIDAD
+
+---
+
+# PROBLEMAS ACTUALES
+
+---
+
+# PERCEPCIÓN DESEADA
+
+---
+
+# EXPERIENCIA IDEAL
+
+---
+
+# UNIVERSO VISUAL
+
+---
+
+# PÚBLICO IDEAL
+
+---
+
+# EMOCIONES PRINCIPALES
+
+---
+
+# OBJETIVO DE TRANSFORMACIÓN

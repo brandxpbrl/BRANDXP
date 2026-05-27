@@ -1,0 +1,151 @@
+{
+  "client_name": "Mau Viagens Tours",
+  "generated_at": "2026-05-18T12:04:49",
+  "source": {
+    "json": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.json",
+    "markdown": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.md"
+  },
+  "entity_bible_applied": true,
+  "narrative_axis": "Narrative should move from tension to transformation to proof.",
+  "storyworld": "A premium brand world where perception, desire, trust, and proof work as one system.",
+  "emotional_tension": "Diferenciacion",
+  "story_objective": "Priorizar una promesa central, un codigo visual reconocible y una secuencia de contenido que convierta atencion en accion.",
+  "story_essence": [
+    {
+      "principle": "Transformation",
+      "description": "La marca tiene una base aprovechable; el mayor valor esta en convertir senales en sistema."
+    },
+    {
+      "principle": "Specificity",
+      "description": "Diferenciacion esta debil o poco visible en las fuentes actuales."
+    }
+  ],
+  "framework": [
+    {
+      "step": "1",
+      "name": "Current tension",
+      "description": "Las fuentes muestran senales utiles, pero el sistema debe separar identidad, percepcion visual, narrativa y conversion para operar con precision."
+    },
+    {
+      "step": "2",
+      "name": "Main gap",
+      "description": "Diferenciacion"
+    },
+    {
+      "step": "3",
+      "name": "Strategic decision",
+      "description": "Priorizar una promesa central, un codigo visual reconocible y una secuencia de contenido que convierta atencion en accion."
+    }
+  ],
+  "emotional_pillars": [
+    {
+      "name": "Trust",
+      "description": "Reduce uncertainty through evidence, process, and consistency."
+    },
+    {
+      "name": "Desire",
+      "description": "Make the desired experience feel tangible."
+    }
+  ],
+  "tone_voice": {
+    "keywords": [
+      "clear",
+      "premium",
+      "specific",
+      "useful"
+    ],
+    "description": "Speak with authority, sensory detail, and practical direction."
+  },
+  "storytelling_steps": [
+    {
+      "step": "1",
+      "name": "Tension",
+      "description": "Las fuentes muestran senales utiles, pero el sistema debe separar identidad, percepcion visual, narrativa y conversion para operar con precision."
+    },
+    {
+      "step": "2",
+      "name": "Reframe",
+      "description": "Show the perception shift that makes the brand easier to understand and desire."
+    },
+    {
+      "step": "3",
+      "name": "Proof",
+      "description": "Use assets, process, and examples to make the promise believable."
+    },
+    {
+      "step": "4",
+      "name": "Action",
+      "description": "Close with one clear next step."
+    }
+  ],
+  "content_pillars": [
+    {
+      "name": "Autoridad",
+      "description": "Demostrar criterio, metodo y dominio de la categoria."
+    },
+    {
+      "name": "Deseo",
+      "description": "Convertir el destino o servicio en una experiencia deseable, no solo en itinerario."
+    },
+    {
+      "name": "Prueba",
+      "description": "Reducir incertidumbre con evidencia, casos, testimonios y proceso."
+    },
+    {
+      "name": "Conversion",
+      "description": "Guiar al publico hacia consulta, reserva, compra o diagnostico."
+    }
+  ],
+  "formats": [
+    {
+      "name": "Short reel",
+      "purpose": "Make one strategic idea memorable."
+    },
+    {
+      "name": "Carousel",
+      "purpose": "Explain a framework, proof, or transformation."
+    },
+    {
+      "name": "Story sequence",
+      "purpose": "Move from context to desire to action."
+    }
+  ],
+  "systems": [
+    {
+      "name": "Weekly narrative arc",
+      "description": "Alternate authority, desire, proof, and conversion."
+    }
+  ],
+  "golden_rules": [
+    {
+      "name": "Show the transformation",
+      "description": "Every story should reveal before, shift, and after."
+    },
+    {
+      "name": "Use concrete evidence",
+      "description": "Ground claims in signals, assets, examples, and decisions."
+    }
+  ],
+  "story_structure": [
+    {
+      "stage": "Hook",
+      "description": "Name the tension or desire."
+    },
+    {
+      "stage": "Insight",
+      "description": "Explain what changes perception."
+    },
+    {
+      "stage": "Action",
+      "description": "Tell the audience what to do next."
+    }
+  ],
+  "impact_questions": [
+    "Que hace sentir?",
+    "Que hace pensar?",
+    "Que hace actuar?"
+  ],
+  "closing_manifesto": "Build stories that make the brand easier to feel, trust, remember, and choose.",
+  "manifesto": "The brand story should not decorate the offer. It should make the transformation visible.",
+  "footer_claim": "Designed to make the brand easier to feel, trust, remember, and choose."
+}

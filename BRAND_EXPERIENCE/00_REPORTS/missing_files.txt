@@ -1,0 +1,7 @@
+
+
+❌ FALTA: 02_BRAND_CORE/05_MANIFESTO/Manifesto_Brand_Experience.txt
+❌ FALTA: 02_BRAND_CORE/07_UNIVERSO_VISUAL/Universo_Visual_Oficial.txt
+❌ FALTA: 02_BRAND_CORE/08_DIRECCION_CINEMATOGRAFICA/Direccion_Cinematografica.txt
+❌ FALTA: 02_BRAND_CORE/09_SISTEMA_INSTAGRAM/Sistema_Instagram.txt
+❌ FALTA: 02_BRAND_CORE/10_TONO_Y_VOZ/Tono_y_Voz.txt

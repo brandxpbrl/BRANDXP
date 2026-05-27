@@ -1,0 +1,272 @@
+{
+  "brand_experience_core": {
+    "identity": {
+      "brand_name": "Brand Experience",
+      "concept": "No creamos marcas. Despertamos identidades.",
+      "brand_type": "Premium cinematic branding studio",
+      "core_purpose": "Transformar marcas en experiencias emocionales, cinematográficas y aspiracionales.",
+      "positioning": "Estudio de transformación de identidad y percepción premium.",
+      "brand_philosophy": [
+        "Toda marca tiene un alma.",
+        "Una marca no se diseña. Se revela.",
+        "Las marcas que dejan huella trascienden lo visual.",
+        "No hacemos marketing tradicional.",
+        "Creamos experiencias visuales y emocionales."
+      ]
+    },
+
+    "visual_identity": {
+      "style": [
+        "Cinematic",
+        "Luxury",
+        "Minimal",
+        "Futuristic",
+        "Emotional",
+        "Neon Premium",
+        "Dark Luxury"
+      ],
+
+      "color_system": {
+        "primary": [
+          "Deep Blue",
+          "Neon Pink",
+          "Cyan",
+          "Dark Violet"
+        ],
+        "secondary": [
+          "Warm Beige",
+          "Ocean Blue",
+          "Soft Tropical Green",
+          "Broken White"
+        ]
+      },
+
+      "typography": {
+        "titles": [
+          "Montserrat ExtraBold",
+          "Montserrat Bold"
+        ],
+        "secondary": [
+          "Montserrat Light",
+          "Poppins Light"
+        ],
+        "style_rules": {
+          "tracking": "+2 to +8",
+          "visual_style": "Luxury editorial cinematic"
+        }
+      },
+
+      "composition_rules": [
+        "Minimal layouts",
+        "Large negative space",
+        "Soft glow effects",
+        "Premium cinematic lighting",
+        "Luxury typography hierarchy",
+        "Emotional atmosphere",
+        "Dark futuristic aesthetics"
+      ]
+    },
+
+    "brand_emotion": {
+      "feelings": [
+        "Premium",
+        "Emotional",
+        "Aspirational",
+        "Human",
+        "Elegant",
+        "Futuristic",
+        "Powerful",
+        "Authentic",
+        "Cinematic"
+      ],
+
+      "experience_goals": [
+        "Create emotional connection",
+        "Generate premium perception",
+        "Awaken brand identity",
+        "Build aspirational branding",
+        "Create immersive visual storytelling"
+      ]
+    },
+
+    "creative_system": {
+      "frameworks": [
+        "ANALISIS_INSTAGRAM",
+        "BRAND_TRANSFORMATION",
+        "IDENTIDAD_EMOCIONAL",
+        "POSICIONAMIENTO_PREMIUM",
+        "UNIVERSO_VISUAL",
+        "STORYTELLING_CINEMATICO"
+      ],
+
+      "methodology": {
+        "phase_1": "Diagnóstico actual",
+        "phase_2": "Extracción de esencia",
+        "phase_3": "Posicionamiento emocional",
+        "phase_4": "Transformación visual",
+        "phase_5": "Sistema cinematográfico",
+        "phase_6": "Instagram futuro",
+        "phase_7": "Storytelling visual",
+        "phase_8": "Implementación premium"
+      }
+    },
+
+    "instagram_system": {
+      "content_style": [
+        "Cinematic reels",
+        "Luxury typography",
+        "Minimal premium layouts",
+        "Emotional storytelling",
+        "Transformation visuals",
+        "Before / After identity"
+      ],
+
+      "content_categories": [
+        "Manifestos",
+        "Brand transformation",
+        "Storytelling",
+        "Luxury visuals",
+        "Emotional branding",
+        "Cinematic reels",
+        "Identity awakening"
+      ],
+
+      "feed_rules": [
+        "Consistent luxury aesthetic",
+        "Dark premium atmosphere",
+        "Emotional visual narrative",
+        "Typography-driven design",
+        "Cinematic color grading"
+      ]
+    },
+
+    "ai_system": {
+      "platforms": [
+        "ChatGPT",
+        "Gemini",
+        "Veo",
+        "Runway",
+        "Midjourney",
+        "Sora",
+        "Claude"
+      ],
+
+      "prompt_categories": {
+        "branding": [
+          "Análisis",
+          "Identidad",
+          "Transformación",
+          "Posicionamiento",
+          "Universo visual"
+        ],
+
+        "storytelling": [
+          "Manifestos",
+          "Narrativa cinematográfica",
+          "Reels emocionales",
+          "Instagram storytelling"
+        ],
+
+        "sales": [
+          "Pitch premium",
+          "Propuestas",
+          "Onboarding",
+          "Sales scripts",
+          "Objeciones"
+        ],
+
+        "clients": [
+          "Reuniones",
+          "Preguntas estratégicas",
+          "Análisis Zoom",
+          "Extracción de esencia"
+        ],
+
+        "cinematic_video": [
+          "Luxury motion",
+          "Brand awakening",
+          "Transformation reels",
+          "Neon luxury",
+          "Cyberpunk premium",
+          "Tropical cinematic"
+        ]
+      }
+    },
+
+    "cinematic_system": {
+      "visual_effects": [
+        "Glow",
+        "Particles",
+        "Rain reflections",
+        "Film grain",
+        "Lens flares",
+        "Motion blur",
+        "Soft neon lighting",
+        "Atmospheric fog"
+      ],
+
+      "motion_style": [
+        "Slow camera movement",
+        "Elegant transitions",
+        "Minimal motion",
+        "Luxury cinematic rhythm",
+        "Emotional pacing"
+      ],
+
+      "inspirations": [
+        "Aman Resorts",
+        "Luxury editorial design",
+        "Travel cinema",
+        "Cyberpunk luxury",
+        "Minimal futuristic branding"
+      ]
+    },
+
+    "client_transformation_system": {
+      "current_state": {
+        "diagnostic": [
+          "Instagram actual",
+          "Percepción actual",
+          "Branding actual",
+          "Problemas visuales",
+          "Desconexión emocional"
+        ]
+      },
+
+      "future_state": {
+        "transformation": [
+          "Nueva identidad",
+          "Nueva percepción premium",
+          "Instagram cinematográfico",
+          "Storytelling emocional",
+          "Posicionamiento aspiracional",
+          "Experiencia visual premium"
+        ]
+      }
+    },
+
+    "operating_system": {
+      "main_structure": [
+        "00_BRAND_CORE",
+        "01_OPERATING_SYSTEM",
+        "02_CONTENT_ENGINE",
+        "03_CLIENT_SYSTEM",
+        "04_CREATIVE_LIBRARY",
+        "05_PROJECTS",
+        "06_ADMIN_BUSINESS",
+        "07_EXPORTS",
+        "08_BACKUP"
+      ],
+
+      "creative_library": [
+        "Mockups",
+        "Assets visuales",
+        "Luxury references",
+        "Music & SFX",
+        "Cinematic overlays",
+        "Typography systems"
+      ]
+    }
+  }
+}
+

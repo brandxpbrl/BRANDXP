@@ -1,0 +1,25 @@
+{
+  "brand_name": "ryaanlouis",
+  "generated_at": "2026-05-26T07:19:19.483647",
+  "system": "Brand Experience OS",
+  "priority": "04_AI_AGENT_OS",
+  "purpose": "Agent operating system for client-specific multi-agent orchestration.",
+  "main_rule": "Agents must operate as coordinated specialists, not generic assistants.",
+  "agent_logic": {
+    "context_order": [
+      "brand_memory_core",
+      "visual_dna_engine",
+      "content_intelligence_engine",
+      "ai_agent_os"
+    ],
+    "specialist_rule": "Each agent must think, diagnose and deliver from its own discipline.",
+    "synthesis_rule": "The orchestrator must preserve specialist differences while producing one executable direction."
+  },
+  "modules": [
+    "01_ORCHESTRATION_SYSTEM",
+    "02_AGENT_ROLES",
+    "03_AGENT_BEHAVIOR_RULES",
+    "04_CONTEXT_ROUTING",
+    "05_OUTPUT_PROTOCOL"
+  ]
+}

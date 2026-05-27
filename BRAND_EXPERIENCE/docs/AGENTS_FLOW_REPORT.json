@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-05-18T14:21:19",
+  "agent_files": [],
+  "flow_findings": {},
+  "agent_references": {
+    "branding_agent": [],
+    "strategy_agent": [],
+    "psychology_agent": [],
+    "cinematic_director_agent": [],
+    "cinematic_agent": [],
+    "content_agent": [],
+    "instagram_audit_agent": [],
+    "sales_agent": []
+  },
+  "key_blocks": {},
+  "inferred_status": {
+    "known_agents": {
+      "branding_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      },
+      "strategy_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      },
+      "psychology_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      },
+      "cinematic_director_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      },
+      "cinematic_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      },
+      "content_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      },
+      "instagram_audit_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      },
+      "sales_agent": {
+        "referenced": false,
+        "reference_count": 0,
+        "likely_available": false
+      }
+    },
+    "max_active_agents_line": null,
+    "warning": "MAX_ACTIVE_AGENTS not found in scanned files."
+  }
+}

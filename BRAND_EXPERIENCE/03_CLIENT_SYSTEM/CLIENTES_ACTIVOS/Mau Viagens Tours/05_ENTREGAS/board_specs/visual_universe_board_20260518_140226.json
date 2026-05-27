@@ -1,0 +1,127 @@
+{
+  "client_name": "Mau Viagens Tours",
+  "generated_at": "2026-05-18T14:02:26",
+  "source": {
+    "json": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.json",
+    "markdown": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.md"
+  },
+  "entity_bible_applied": true,
+  "visual_mood": "Premium cinematic clarity",
+  "atmosphere": "Favor cinematic composition: focus, rhythm, silence, contrast, and intentional framing.",
+  "core_essence": "La marca tiene una base aprovechable; el mayor valor esta en convertir senales en sistema.",
+  "general_atmosphere": [
+    "Editorial",
+    "Intentional",
+    "Premium but practical"
+  ],
+  "emotional_palette": [
+    {
+      "name": "Signature Accent",
+      "hex": "#D9428F",
+      "emotion": "Desire and distinction."
+    },
+    {
+      "name": "Deep Base",
+      "hex": "#0D0F18",
+      "emotion": "Focus and depth."
+    },
+    {
+      "name": "Cool Signal",
+      "hex": "#5F6EE6",
+      "emotion": "Modernity and precision."
+    }
+  ],
+  "color_meanings": [
+    {
+      "color": "#D9428F",
+      "meaning": "Use for emotional emphasis and signature moments."
+    },
+    {
+      "color": "#0D0F18",
+      "meaning": "Use as a premium base for contrast and depth."
+    }
+  ],
+  "cinematic_language": "Favor cinematic composition: focus, rhythm, silence, contrast, and intentional framing.",
+  "composition_rules": [
+    "One clear focal point per piece.",
+    "Use negative space to increase perceived value.",
+    "Build hierarchy before adding decoration.",
+    "Use contrast to guide attention and create authority."
+  ],
+  "lighting": [
+    "Soft contrast",
+    "Clear focal points",
+    "Avoid flat generic lighting"
+  ],
+  "composition": [
+    "Strong hierarchy",
+    "Generous spacing",
+    "Intentional cropping"
+  ],
+  "cinematic_style": [
+    "Close sensory details",
+    "Editorial rhythm",
+    "Before-and-after contrast"
+  ],
+  "official_elements": [
+    {
+      "name": "Percepcion premium",
+      "meaning": "Elevar prueba visual, lenguaje, ritmo de venta y empaque de oferta para justificar mayor valor percibido."
+    },
+    {
+      "name": "Coherencia visual",
+      "meaning": "Crear un sistema visual con reglas de color, composicion, fotografia, textura y jerarquia."
+    }
+  ],
+  "motion_system": [
+    "Slow reveal",
+    "Clean transitions",
+    "Text rhythm synced to key ideas"
+  ],
+  "typography": {
+    "title": "Editorial display sans",
+    "body": "Readable supporting sans",
+    "usage": "Use contrast between concise titles and calm explanatory text."
+  },
+  "instagram_direction": [
+    "Lead with one idea per post",
+    "Use recurring visual structures",
+    "Make proof easy to scan"
+  ],
+  "reels_style": [
+    "Strong first frame",
+    "Sensory proof",
+    "Clear final CTA"
+  ],
+  "symbolic_elements": [
+    {
+      "name": "Signature accent",
+      "meaning": "Use color as an emotional signal, not decoration."
+    },
+    {
+      "name": "Controlled space",
+      "meaning": "Build visual authority with hierarchy, negative space, contrast, and repeatable codes."
+    }
+  ],
+  "brand_soul": "A system that makes the brand feel recognizable before it is explained.",
+  "pillars": [
+    {
+      "name": "Autoridad",
+      "description": "Demostrar criterio, metodo y dominio de la categoria."
+    },
+    {
+      "name": "Deseo",
+      "description": "Convertir el destino o servicio en una experiencia deseable, no solo en itinerario."
+    },
+    {
+      "name": "Prueba",
+      "description": "Reducir incertidumbre con evidencia, casos, testimonios y proceso."
+    },
+    {
+      "name": "Conversion",
+      "description": "Guiar al publico hacia consulta, reserva, compra o diagnostico."
+    }
+  ],
+  "final_objective": "Create a visual world that can guide posts, reels, proposals, and client-facing assets.",
+  "footer_claim": "Designed to make the brand easier to feel, trust, remember, and choose."
+}

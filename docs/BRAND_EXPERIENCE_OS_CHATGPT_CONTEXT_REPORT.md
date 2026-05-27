@@ -1,0 +1,121 @@
+# BRAND EXPERIENCE OS CHATGPT CONTEXT REPORT
+
+Generated at: 2026-05-18T16:26:49
+
+- Output: `docs\BRAND_EXPERIENCE_OS_CHATGPT_CONTEXT.dm`
+- Final chars: `120049`
+- Truncated: `True`
+
+## Entity Core Files
+
+- `backend/entity_bible/core/brand_philosophy.md`
+- `backend/entity_bible/core/entity_framework.md`
+- `backend/entity_bible/core/identity_system.md`
+- `backend/entity_bible/core/operating_system.md`
+- `backend/entity_bible/core/positioning.md`
+- `backend/entity_bible/core/storytelling_framework.md`
+- `backend/entity_bible/core/tone_of_voice.md`
+- `backend/entity_bible/core/visual_language.md`
+- `backend/entity_bible/core/ai_behavior.md`
+
+## Entity Knowledge Files
+
+- `backend/entity_bible/knowledge/entity_detection/entity_voice.md`
+- `backend/entity_bible/knowledge/entity_detection/identity_patterns.md`
+- `backend/entity_bible/knowledge/entity_detection/visual_archetypes.md`
+- `backend/entity_bible/knowledge/luxury/luxury_perception.md`
+- `backend/entity_bible/knowledge/luxury/premium_positioning.md`
+- `backend/entity_bible/knowledge/luxury/presence_over_noise.md`
+- `backend/entity_bible/knowledge/perception/perceived_value.md`
+- `backend/entity_bible/knowledge/perception/perception_before_logic.md`
+- `backend/entity_bible/knowledge/perception/subconscious_branding.md`
+- `backend/entity_bible/knowledge/perception/visual_authority.md`
+- `backend/entity_bible/knowledge/philosophy/identity_before_design.md`
+- `backend/entity_bible/knowledge/philosophy/perception_is_reality.md`
+- `backend/entity_bible/knowledge/visual_psychology/cinematic_composition.md`
+- `backend/entity_bible/knowledge/visual_psychology/color_emotion.md`
+- `backend/entity_bible/knowledge/visual_psychology/contrast_psychology.md`
+- `backend/entity_bible/knowledge/visual_psychology/negative_space.md`
+
+## Agents
+
+### branding_agent
+- `backend/agents/AGENTS/branding_agent/identity.md`
+- `backend/agents/AGENTS/branding_agent/mission.md`
+- `backend/agents/AGENTS/branding_agent/behavior.md`
+- `backend/agents/AGENTS/branding_agent/context_rules.md`
+- `backend/agents/AGENTS/branding_agent/entity_interpretation.md`
+- `backend/agents/AGENTS/branding_agent/perception_model.md`
+- `backend/agents/AGENTS/branding_agent/visual_psychology.md`
+- `backend/agents/AGENTS/branding_agent/workflow.md`
+- `backend/agents/AGENTS/branding_agent/output_structure.md`
+- `backend/agents/AGENTS/branding_agent/prompts.md`
+- `backend/agents/AGENTS/branding_agent/forbidden_patterns.md`
+- `backend/agents/AGENTS/branding_agent/examples.md`
+- `backend/agents/AGENTS/branding_agent/memory.md`
+
+### strategy_agent
+- `backend/agents/AGENTS/strategy_agent/identity.md`
+- `backend/agents/AGENTS/strategy_agent/mission.md`
+- `backend/agents/AGENTS/strategy_agent/behavior.md`
+- `backend/agents/AGENTS/strategy_agent/context_rules.md`
+- `backend/agents/AGENTS/strategy_agent/workflow.md`
+- `backend/agents/AGENTS/strategy_agent/output_structure.md`
+- `backend/agents/AGENTS/strategy_agent/prompts.md`
+- `backend/agents/AGENTS/strategy_agent/examples.md`
+- `backend/agents/AGENTS/strategy_agent/memory.md`
+
+### psychology_agent
+- `backend/agents/AGENTS/psychology_agent/identity.md`
+- `backend/agents/AGENTS/psychology_agent/mission.md`
+- `backend/agents/AGENTS/psychology_agent/behavior.md`
+- `backend/agents/AGENTS/psychology_agent/context_rules.md`
+- `backend/agents/AGENTS/psychology_agent/workflow.md`
+- `backend/agents/AGENTS/psychology_agent/output_structure.md`
+- `backend/agents/AGENTS/psychology_agent/prompts.md`
+- `backend/agents/AGENTS/psychology_agent/examples.md`
+- `backend/agents/AGENTS/psychology_agent/memory.md`
+
+### cinematic_director_agent
+- `backend/agents/AGENTS/cinematic_director_agent/identity.md`
+- `backend/agents/AGENTS/cinematic_director_agent/mission.md`
+- `backend/agents/AGENTS/cinematic_director_agent/behavior.md`
+- `backend/agents/AGENTS/cinematic_director_agent/context_rules.md`
+- `backend/agents/AGENTS/cinematic_director_agent/workflow.md`
+- `backend/agents/AGENTS/cinematic_director_agent/output_structure.md`
+- `backend/agents/AGENTS/cinematic_director_agent/prompts.md`
+- `backend/agents/AGENTS/cinematic_director_agent/examples.md`
+- `backend/agents/AGENTS/cinematic_director_agent/memory.md`
+
+### content_agent
+- `backend/agents/AGENTS/content_agent/identity.md`
+- `backend/agents/AGENTS/content_agent/mission.md`
+- `backend/agents/AGENTS/content_agent/behavior.md`
+- `backend/agents/AGENTS/content_agent/context_rules.md`
+- `backend/agents/AGENTS/content_agent/workflow.md`
+- `backend/agents/AGENTS/content_agent/output_structure.md`
+- `backend/agents/AGENTS/content_agent/prompts.md`
+- `backend/agents/AGENTS/content_agent/examples.md`
+- `backend/agents/AGENTS/content_agent/memory.md`
+
+### instagram_audit_agent
+- `backend/agents/AGENTS/instagram_audit_agent/identity.md`
+- `backend/agents/AGENTS/instagram_audit_agent/mission.md`
+- `backend/agents/AGENTS/instagram_audit_agent/behavior.md`
+- `backend/agents/AGENTS/instagram_audit_agent/context_rules.md`
+- `backend/agents/AGENTS/instagram_audit_agent/workflow.md`
+- `backend/agents/AGENTS/instagram_audit_agent/output_structure.md`
+- `backend/agents/AGENTS/instagram_audit_agent/prompts.md`
+- `backend/agents/AGENTS/instagram_audit_agent/examples.md`
+- `backend/agents/AGENTS/instagram_audit_agent/memory.md`
+
+### sales_agent
+- `backend/agents/AGENTS/sales_agent/identity.md`
+- `backend/agents/AGENTS/sales_agent/mission.md`
+- `backend/agents/AGENTS/sales_agent/behavior.md`
+- `backend/agents/AGENTS/sales_agent/context_rules.md`
+- `backend/agents/AGENTS/sales_agent/workflow.md`
+- `backend/agents/AGENTS/sales_agent/output_structure.md`
+- `backend/agents/AGENTS/sales_agent/prompts.md`
+- `backend/agents/AGENTS/sales_agent/examples.md`
+- `backend/agents/AGENTS/sales_agent/memory.md`

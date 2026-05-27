@@ -1,0 +1,29 @@
+.env
+backend/.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+backend/.venv/
+*.pyo
+*.pyd
+
+# Node / Vite
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+frontend/node_modules/.vite/
+frontend/node_modules/.vite-temp/
+
+# Runtime data
+memory_db/
+runtime/logs/
+*.log
+
+# Temporary / OS files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db

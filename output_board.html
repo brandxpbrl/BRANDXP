@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Brand Identity Board - FELA TOURS</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            background-color: #040911;
+        }
+
+        .board-header {
+            width: 100%;
+            margin-bottom: 22px;
+            border-bottom: 2px solid #1B6CA8;
+            padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .title-area h1 {
+            font-size: 24pt;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            color: #FFFFFF;
+        }
+        
+        .title-area p {
+            font-size: 10pt;
+            margin: 4px 0 0 0;
+            color: #4DA8DA;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .meta-area {
+            text-align: right;
+            font-size: 9pt;
+            color: #8fa0b5;
+            line-height: 1.4;
+        }
+
+        .row-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        .column-60 { width: 58%; }
+        .column-40 { width: 40%; }
+        .column-100 { width: 100%; }
+
+        .panel-card {
+            background-color: #0D1B2A;
+            border: 1px solid #1B6CA8;
+            border-radius: 6px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .panel-card h2 {
+            font-size: 11pt;
+            color: #E94584;
+            margin-top: 0;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #1b2a47;
+            padding-bottom: 6px;
+        }
+        
+        .purpose-text {
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #FFFFFF;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .values-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .value-item {
+            display: flex;
+            border-bottom: 1px solid #1b2a47;
+            padding-bottom: 6px;
+            font-size: 9.5pt;
+        }
+        
+        .value-name {
+            font-weight: bold;
+            color: #4DA8DA;
+            width: 30%;
+            flex-shrink: 0;
+        }
+        
+        .value-desc {
+            color: #d1dfef;
+        }
+
+        .color-row-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .color-item {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .color-block {
+            border-radius: 4px;
+            height: 55px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .color-meta {
+            font-size: 8.5pt;
+            line-height: 1.3;
+        }
+
+        .pillars-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .pillar-cell {
+            flex: 1;
+            background-color: #091320;
+            border-left: 3px solid #E94584;
+            padding: 14px;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .pillar-title {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 6px;
+        }
+        
+        .pillar-body {
+            font-size: 8.5pt;
+            color: #a4b8cf;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="board-header">
+        <div class="title-area">
+            <h1>FELA TOURS</h1>
+            <p>Identidad de Marca & Sistema Core</p>
+        </div>
+        <div class="meta-area">
+            <strong>Fecha:</strong> 2026-05-26 &nbsp;|&nbsp; 
+            <strong>Región:</strong> Rio de Janeiro, Brasil<br>
+            <strong>Atmósfera:</strong> Cinemática, Futurista, Premium, Profunda
+        </div>
+    </div>
+
+    <div class="row-container">
+        <div class="column-60">
+            <div class="panel-card" style="height: 170px;">
+                <h2>01 / Propósito Central de Marca</h2>
+                <p class="purpose-text">"Transformar traslados y excursiones privadas en experiencias memorables impregnadas de la esencia carioca, garantizando sofisticación, seguridad y una profunda conexión con el destino."</p>
+                <p style="font-size: 9pt; color: #a4b8cf; margin-top: 12px; margin-bottom: 0;">
+                    <strong>Visión de la Entidad:</strong> Ser el referente premium absoluto en experiencias de hospitalidad y turismo receptivo en Río de Janeiro, reconocido internacionalmente por el refinamiento y la personalización de cada detalle.
+                </p>
+            </div>
+        </div>
+        
+        <div class="column-40">
+            <div class="panel-card" style="height: 170px;">
+                <h2>02 / Atributos Cardinales</h2>
+                <div class="values-list">
+                    
+                    <div class="value-item">
+                        <div class="value-name">Seguridad</div>
+                        <div class="value-desc">Viajes protegidos con conductores profesionales bajo estándares rigurosos.</div>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-name">Puntualidad</div>
+                        <div class="value-desc">Respeto absoluto por el tiempo del cliente. Siempre a término, siempre confiables.</div>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-name">Atención 24/7</div>
+                        <div class="value-desc">Disponibilidad total y personalizada adaptada al idioma del viajero.</div>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-name">Experiencias Únicas</div>
+                        <div class="value-desc">Diseño de itinerarios exclusivos que revelan el alma auténtica de la región.</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-container">
+        <div class="column-100">
+            <div class="panel-card">
+                <h2>03 / Sistema de Identidad Cromática Corporativa</h2>
+                <div class="color-row-container">
+                    
+                    <div class="color-item">
+                        <div class="color-block" style="background-color: #0D1B2A;"></div>
+                        <div class="color-meta">
+                            <span style="font-weight: bold; color: #FFFFFF;">Azul Profundo</span><br>
+                            <span style="color: #4DA8DA; font-family: monospace;">#0D1B2A</span><br>
+                            <span style="color: #8fa0b5; font-size: 8pt;">Fondo Principal / Autoridad</span>
+                        </div>
+                    </div>
+                    
+                    <div class="color-item">
+                        <div class="color-block" style="background-color: #1B6CA8;"></div>
+                        <div class="color-meta">
+                            <span style="font-weight: bold; color: #FFFFFF;">Azul Vibrante</span><br>
+                            <span style="color: #4DA8DA; font-family: monospace;">#1B6CA8</span><br>
+                            <span style="color: #8fa0b5; font-size: 8pt;">Estructura / Confianza</span>
+                        </div>
+                    </div>
+                    
+                    <div class="color-item">
+                        <div class="color-block" style="background-color: #4DA8DA;"></div>
+                        <div class="color-meta">
+                            <span style="font-weight: bold; color: #FFFFFF;">Celeste</span><br>
+                            <span style="color: #4DA8DA; font-family: monospace;">#4DA8DA</span><br>
+                            <span style="color: #8fa0b5; font-size: 8pt;">Acentos / Fluidez</span>
+                        </div>
+                    </div>
+                    
+                    <div class="color-item">
+                        <div class="color-block" style="background-color: #E94584;"></div>
+                        <div class="color-meta">
+                            <span style="font-weight: bold; color: #FFFFFF;">Rosa Fela</span><br>
+                            <span style="color: #4DA8DA; font-family: monospace;">#E94584</span><br>
+                            <span style="color: #8fa0b5; font-size: 8pt;">Conversión / Energía</span>
+                        </div>
+                    </div>
+                    
+                    <div class="color-item">
+                        <div class="color-block" style="background-color: #FFFFFF;"></div>
+                        <div class="color-meta">
+                            <span style="font-weight: bold; color: #FFFFFF;">Blanco Puro</span><br>
+                            <span style="color: #4DA8DA; font-family: monospace;">#FFFFFF</span><br>
+                            <span style="color: #8fa0b5; font-size: 8pt;">Contraste / Tipografía</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-container">
+        <div class="column-100">
+            <div class="panel-card">
+                <h2>04 / Pilares de Storytelling Estratégico</h2>
+                <div style="background-color: #1b2a47; padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 10.5pt; border-left: 3px solid #4DA8DA;">
+                    <strong>Manifiesto Core (Hook):</strong> "No vendemos traslados. Creamos los primeros y últimos recuerdos de un viaje inolvidable."
+                </div>
+                
+                <div class="pillars-container">
+                    
+                    <div class="pillar-cell">
+                        <div class="pillar-title">1 . Destinos con Intención</div>
+                        <div class="pillar-body">Mostramos la belleza real de Río desde una perspectiva premium y segura.</div>
+                    </div>
+                    
+                    <div class="pillar-cell">
+                        <div class="pillar-title">2 . Conexión Humana</div>
+                        <div class="pillar-body">Atención hiper-personalizada que entiende las aspiraciones del viajero internacional.</div>
+                    </div>
+                    
+                    <div class="pillar-cell">
+                        <div class="pillar-title">3 . Verdad antes que Perfección</div>
+                        <div class="pillar-body">Experiencias reales, auténticas y fluidas que generan confianza absoluta.</div>
+                    </div>
+                    
+                    <div class="pillar-cell">
+                        <div class="pillar-title">4 . Estilo Cinematográfico</div>
+                        <div class="pillar-body">Cuidado estético meticuloso en cada punto de contacto físico y digital.</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

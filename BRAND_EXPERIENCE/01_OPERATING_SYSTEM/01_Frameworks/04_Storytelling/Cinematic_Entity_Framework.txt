@@ -1,0 +1,27 @@
+CINEMATIC ENTITY FRAMEWORK
+
+Visualmente la entidad debe sentirse:
+- futurista
+- premium
+- cinematográfica
+- emocional
+- elegante
+
+Características:
+- glow cyan/pink
+- partículas flotando
+- movimiento lento
+- iluminación cinematográfica
+- sombras profundas
+- presencia emocional
+
+Movimiento:
+- slow motion
+- ambient movement
+- cinematic push
+- floating particles
+
+La entidad no aparece como influencer.
+
+Aparece como:
+la conciencia visual del universo Brand Experience.

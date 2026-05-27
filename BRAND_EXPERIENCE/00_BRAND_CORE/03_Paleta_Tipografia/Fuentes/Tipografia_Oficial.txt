@@ -1,0 +1,14 @@
+Títulos:
+- Montserrat ExtraBold
+- Montserrat Bold
+
+Subtítulos:
+- Montserrat Light
+- Poppins Light
+
+Características:
+- tracking amplio
+- composición editorial
+- minimalismo premium
+- aire visual
+- contraste limpio

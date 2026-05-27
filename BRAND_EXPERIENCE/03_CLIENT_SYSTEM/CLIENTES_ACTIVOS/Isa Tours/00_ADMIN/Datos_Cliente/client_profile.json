@@ -1,0 +1,13 @@
+{
+  "client_info": {
+    "name": "Isa Tours",
+    "date": "2026-05-13",
+    "status": "Discovery",
+    "industry": "Tours / travel / experience"
+  },
+  "analysis": {
+    "created_from_dashboard": true,
+    "last_prompt": "analyza esta agencia de tours \"Isa Tours\" y guarda el cliente",
+    "last_analysis_at": "2026-05-15T11:16:41"
+  }
+}

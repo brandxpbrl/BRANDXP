@@ -1,0 +1,19 @@
+{
+  "client": "j.rtransfer",
+  "generated_at": "2026-05-26T18:26:36",
+  "source": {
+    "json": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.json",
+    "markdown": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.md"
+  },
+  "deliverables": [
+    "05_ENTREGAS/brand_analysis.md",
+    "05_ENTREGAS/identity_patch.md",
+    "05_ENTREGAS/entity_bible.md",
+    "05_ENTREGAS/visual_universe.md",
+    "05_ENTREGAS/content_strategy.md",
+    "05_ENTREGAS/ai_prompts.md",
+    "05_ENTREGAS/action_plan.md"
+  ],
+  "versioned": [],
+  "archived_index": null
+}

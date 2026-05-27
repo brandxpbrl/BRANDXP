@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: brand-experience-os-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: AI_PROVIDER
+        value: gemini
+      - key: AI_TEMPERATURE
+        value: "0.55"
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: BACKEND_CORS_ORIGINS
+        sync: false
+      - key: ENTITY_VOICE_PROVIDER
+        value: mock
+
+  - type: static
+    name: brand-experience-os
+    rootDir: frontend
+    plan: free
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -1,0 +1,24 @@
+{
+  "brand_name": "ryaanlouis",
+  "generated_at": "2026-05-26T05:23:08.030686",
+  "system": "Brand Experience OS",
+  "priority": "02_VISUAL_DNA_ENGINE",
+  "purpose": "Operational visual identity rules for AI generation.",
+  "main_rule": "The brand must be recognizable even without the logo.",
+  "visual_logic": {
+    "style": "Premium cinematic clarity",
+    "composition": "One clear focal point, strong hierarchy, negative space",
+    "motion": "Cinematic pacing, controlled movement, editorial timing",
+    "instagram": "Editorial, premium, clear, aspirational, recognizable",
+    "forbidden": "Generic templates, stock design, visual noise, low hierarchy"
+  },
+  "modules": [
+    "01_GEOMETRY_SYSTEM",
+    "02_COMPOSITION_RULES",
+    "03_VISUAL_SIGNATURE",
+    "04_MOTION_DNA",
+    "05_INSTAGRAM_VISUAL_SYSTEM",
+    "06_VISUAL_PROMPT_ENGINE",
+    "07_FORBIDDEN_VISUALS"
+  ]
+}

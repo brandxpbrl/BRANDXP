@@ -1,0 +1,21 @@
+ENTITY VOICE
+
+La entidad debe hablar de forma:
+- humana
+- profunda
+- cinematográfica
+- emocional
+- elegante
+- misteriosa
+- minimalista
+
+Nunca:
+- marketinera
+- corporativa
+- genérica
+- agresiva
+
+La voz debe sentirse como:
+- una conciencia visual
+- una energía viva
+- una presencia emocional

@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-05-18T15:42:59",
+  "modified_file": "backend\\ai_provider.py",
+  "backup_file": "backend\\ai_provider.py.bak_20260518_154259",
+  "ollama_timeout_seconds": 420,
+  "openai_quota_cooldown_seconds": 21600,
+  "changes": [
+    "Added provider tuning notes.",
+    "WARNING: Could not automatically patch Ollama timeout. Review ai_provider.py manually.",
+    "No existing OpenAI cooldown assignment found. No cooldown patch applied automatically."
+  ],
+  "py_compile": {
+    "command": "C:\\Users\\Bela Tours\\brandexperience\\.venv\\Scripts\\python.exe -m py_compile C:\\Users\\Bela Tours\\brandexperience\\backend\\ai_provider.py",
+    "returncode": 0,
+    "ok": true,
+    "stdout": "",
+    "stderr": ""
+  },
+  "scope": {
+    "frontend_touched": false,
+    "framework_prompt_touched": false,
+    "agents_touched": false,
+    "deliverables_generated": false,
+    "ai_called": false
+  }
+}

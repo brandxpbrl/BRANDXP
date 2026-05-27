@@ -1,0 +1,255 @@
+{
+  "client": "ryaanlouis",
+  "created_at": "2026-05-26T09:59:05",
+  "prompt": "Analiza el cliente \"ryaanlouis\" usando el framework completo de Brand Experience OS.\n\n=== CLIENT CONTEXT ===\nFuentes cargadas:\n- Instagram: ryaanlouis\n- Links: - linktr.ee/ryaanlouis\n- Transcripcion/notas: Aquí tienes la transcripción del audio:\n\nMano, todo en la vida tiene un propósito, ¿sabes? Realmente es de admirar la valentía, como dijiste, de dejarlo todo para seguir tu propósito. Y es eso, hermano, la vida se trata de eso, realmente. Yo también me vine a Río de Janeiro, hermano, sin ninguna pretensión, como te dije, era del interior. Vine para acá, para Río de Janeiro... no, primero empecé a aprender inglés. Empecé a aprender inglés solo, trabajaba en una farmacia. Entonces, empecé a aprender el idioma.\n\nDesde entonces, he estado publicando sobre mi viaje de aprendizaje, ¿sabes? Empecé a publicar sobre el inglés, la forma en que lo aprendía, y resultó que empecé a ganar seguidores, y eso en mi ciudad. Estaba allá en mi ciudad y, bueno, la cosa fue creciendo; cuanto más videos publicaba, más crecía la cosa, hasta que me vine a Río. Fue porque alguien me llamó para hacer una colaboración, recibí un mensaje de una marca extranjera que estaba aquí en Rocinha. Creo que fue la primera vez que vine a Rocinha, y armamos el proyecto.\n\nEntonces, ¿qué pasó? Desde entonces me dije: \"Mano, me tengo que quedar aquí porque hay muchas oportunidades, mucha gente\". También vi que la gente me conocía, me asusté porque salí de mi ciudad, vine para acá a Río y vi que los extranjeros decían como: \"Ah, yo te conozco\". Y yo me quedaba como: \"¿Eh? ¿Cómo así?\". Esta cosa está llegando demasiado lejos.\n\nY entonces empecé todo, mano, tipo, dificultades, buah, ¿sabes? Intentaron hackear mi cuenta... Nosotros hicimos... también tengo una plataforma que enseña portugués para extranjeros, ¿sabes? Enseña portugués de una forma más, tipo, de jerga, no de esa forma robótica. Entonces, hasta tengo clientes en esa plataforma también, ¿sabes? Solo que no tengo cómo poner una cuenta de Brasil, así que, bueno, estoy recibiendo en la cuenta de una amiga mía.\n\nY, mano, es eso. Intentaron robar mi cuenta, la recuperé... tipo, sí, muchas cosas. Pasé por muchas dificultades aquí en Río. También, tipo, ¡llegué a dormir en la playa, hermano, una vez! Tampoco le conté esto a nadie, ¿sabes? No tenía dónde quedarme, tipo, durante unos tres o cuatro días. Dormí en la playa, me quedé en la playa con mis cosas, ¿sabes? Nadie lo sabe.\n\nY es eso, hermano, ahí vamos. Ahí vamos, tipo, sin parar, tipo, solo hacia adelante, mano. Y como te dije, todo tiene un propósito, ¿sabes? Yo creo que esto no es coincidencia, la forma en que nos estamos poniendo en contacto, ¿sabes? No sé cuál sea tu religión, pero yo creo mucho en Dios, hermano, y creo que Dios hace las cosas de la forma en que tienen que ser. No es la primera vez que esto pasa en mi vida, ¿sabes? Esta clase de cosas que otras personas dirían que son coincidencia, pero que no lo son, ¿sabes?\n\nY yo sé que Él está conmigo por eso, hermano, así que vamos con todo. Tal vez, ¿no?, nuestro propósito esté alineado, así que vamos a trabajar juntos. En lo que yo te pueda ayudar, hermano, también si puedo ayudar, lo voy a hacer. ¿De acuerdo? Vamos a estar juntos en esto más como, ¿sabes?, una sociedad fuera de todo esto, porque creo que así es como las personas deben relacionarse entre sí, ¿sabes? Vamos a trabajar juntos, pero también tenemos que ser amigos primero, ¿sabes? Entender la historia del otro y... y así.\n\nPero es eso, mano. Estamos juntos. Lo que sea necesario hacer ya para que empecemos, yo le entro. Porque tu trabajo —una vez más lo digo— es un trabajo muy chévere y realmente muy útil y eficiente, eso es muy bacano.\n- Contexto adicional: No informado\n\n=== ANALYSIS INSTRUCTIONS ===\nGenera una respuesta ejecutiva con estos entregables:\n\n1. Identity Patch\n2. Brand Analysis\n3. Entity Bible\n4. Universo Visual\n5. Estrategia de Contenido\n6. Prompts IA\n7. Exportables recomendados\n\nPara cada entregable incluye:\n- diagnostico\n- oportunidad\n- direccion recomendada\n- proximas acciones concretas\n\nMantén claridad estrategica, percepcion premium y lenguaje util para ejecutar.",
+  "system_context_omitted": true,
+  "provider": {
+    "primary_provider": "gemini",
+    "fallback_chain": [
+      "gemini",
+      "ollama"
+    ],
+    "gemini_configured": true,
+    "gemini_model": "gemini-2.5-flash",
+    "ollama_model": "mistral",
+    "ollama_host": "http://127.0.0.1:11434",
+    "gemini_disabled_reason": null,
+    "gemini_retry_after_seconds": 0,
+    "active_provider": "gemini",
+    "fallback_used": false
+  },
+  "concepts": [
+    "Brand Identity",
+    "Visual Direction",
+    "Positioning",
+    "Narrative System",
+    "Premium Perception"
+  ],
+  "agents": [
+    "Branding",
+    "Strategy",
+    "Psychology",
+    "Cinematic Director",
+    "Content",
+    "Instagram Audit",
+    "Sales"
+  ],
+  "analysis": {
+    "headline": "La marca tiene una base aprovechable; el mayor valor esta en convertir senales en sistema.",
+    "overall_score": 99,
+    "confidence": 95,
+    "diagnosis": {
+      "current_state": "Las fuentes muestran senales utiles, pero el sistema debe separar identidad, percepcion visual, narrativa y conversion para operar con precision.",
+      "main_gap": "Diferenciacion",
+      "strategic_decision": "Priorizar una promesa central, un codigo visual reconocible y una secuencia de contenido que convierta atencion en accion."
+    },
+    "scorecard": [
+      {
+        "key": "strategic_clarity",
+        "label": "Claridad estrategica",
+        "score": 100,
+        "status": "Fuerte",
+        "signal": "Claridad estrategica ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Definir una promesa central, un publico prioritario y una razon clara para elegir la marca."
+      },
+      {
+        "key": "differentiation",
+        "label": "Diferenciacion",
+        "score": 98,
+        "status": "Fuerte",
+        "signal": "Diferenciacion ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Convertir atributos genericos en codigos propietarios: rituales, lenguaje, visuales y experiencia."
+      },
+      {
+        "key": "premium_perception",
+        "label": "Percepcion premium",
+        "score": 98,
+        "status": "Fuerte",
+        "signal": "Percepcion premium ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Elevar prueba visual, lenguaje, ritmo de venta y empaque de oferta para justificar mayor valor percibido."
+      },
+      {
+        "key": "visual_coherence",
+        "label": "Coherencia visual",
+        "score": 100,
+        "status": "Fuerte",
+        "signal": "Coherencia visual ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Crear un sistema visual con reglas de color, composicion, fotografia, textura y jerarquia."
+      },
+      {
+        "key": "narrative_power",
+        "label": "Potencia narrativa",
+        "score": 100,
+        "status": "Fuerte",
+        "signal": "Potencia narrativa ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Construir una narrativa con conflicto, transformacion, prueba y frase madre de marca."
+      },
+      {
+        "key": "conversion_readiness",
+        "label": "Preparacion comercial",
+        "score": 100,
+        "status": "Fuerte",
+        "signal": "Preparacion comercial ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Traducir la estrategia en ofertas, CTA, objeciones resueltas y secuencia de contenido comercial."
+      },
+      {
+        "key": "execution_readiness",
+        "label": "Preparacion para ejecutar",
+        "score": 100,
+        "status": "Fuerte",
+        "signal": "Preparacion para ejecutar ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Cerrar el analisis con una lista de produccion: que crear, en que orden y con que criterio de exito."
+      }
+    ],
+    "priorities": [
+      {
+        "title": "Diferenciacion",
+        "urgency": "Media",
+        "reason": "Diferenciacion ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Convertir atributos genericos en codigos propietarios: rituales, lenguaje, visuales y experiencia."
+      },
+      {
+        "title": "Percepcion premium",
+        "urgency": "Media",
+        "reason": "Percepcion premium ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Elevar prueba visual, lenguaje, ritmo de venta y empaque de oferta para justificar mayor valor percibido."
+      },
+      {
+        "title": "Claridad estrategica",
+        "urgency": "Media",
+        "reason": "Claridad estrategica ya tiene senales utiles; conviene convertirlas en reglas repetibles.",
+        "action": "Definir una promesa central, un publico prioritario y una razon clara para elegir la marca."
+      }
+    ],
+    "deliverables": [
+      {
+        "name": "Identity Patch",
+        "outcome": "Promesa, esencia, personalidad y ajuste inmediato de percepcion.",
+        "actions": [
+          "Redactar frase madre de marca.",
+          "Definir 3 atributos no negociables.",
+          "Eliminar mensajes genericos o confusos."
+        ]
+      },
+      {
+        "name": "Brand Analysis",
+        "outcome": "Diagnostico de problemas, oportunidades y decisiones prioritarias.",
+        "actions": [
+          "Mapear brechas entre percepcion actual e ideal.",
+          "Separar sintomas esteticos de problemas estrategicos.",
+          "Asignar prioridades por impacto comercial."
+        ]
+      },
+      {
+        "name": "Entity Bible",
+        "outcome": "Sistema estable de personalidad, voz, rituales y codigos de marca.",
+        "actions": [
+          "Crear reglas de comportamiento de marca.",
+          "Documentar palabras permitidas y prohibidas.",
+          "Definir arquetipo operativo."
+        ]
+      },
+      {
+        "name": "Universo Visual",
+        "outcome": "Direccion visual aplicable a feed, web, piezas, videos y presentaciones.",
+        "actions": [
+          "Fijar paleta, luz, encuadres y ritmo visual.",
+          "Crear referencias de fotografia y composicion.",
+          "Diseñar reglas para piezas repetibles."
+        ]
+      },
+      {
+        "name": "Estrategia de Contenido",
+        "outcome": "Pilares, formatos y secuencia para atraer, educar y convertir.",
+        "actions": [
+          "Definir 4 pilares editoriales.",
+          "Crear hooks por etapa de conciencia.",
+          "Diseñar una semana piloto de contenidos."
+        ]
+      },
+      {
+        "name": "Prompts IA",
+        "outcome": "Prompts listos para producir textos, visuales, reels y anuncios consistentes.",
+        "actions": [
+          "Crear prompt maestro de identidad.",
+          "Crear prompts de piezas visuales.",
+          "Crear prompts para guiones y captions."
+        ]
+      },
+      {
+        "name": "Exportables",
+        "outcome": "Documentos y archivos que el cliente puede usar sin depender del analisis.",
+        "actions": [
+          "Exportar reporte ejecutivo.",
+          "Exportar guia visual resumida.",
+          "Exportar backlog de implementacion."
+        ]
+      }
+    ],
+    "content_pillars": [
+      {
+        "name": "Autoridad",
+        "role": "Demostrar criterio, metodo y dominio de la categoria.",
+        "formats": [
+          "carrusel educativo",
+          "analisis antes/despues",
+          "post de criterio"
+        ]
+      },
+      {
+        "name": "Deseo",
+        "role": "Convertir el destino o servicio en una experiencia deseable, no solo en itinerario.",
+        "formats": [
+          "reel sensorial",
+          "story de experiencia",
+          "visual manifesto",
+          "secuencia de stories"
+        ]
+      },
+      {
+        "name": "Prueba",
+        "role": "Reducir incertidumbre con evidencia, casos, testimonios y proceso.",
+        "formats": [
+          "caso corto",
+          "captura comentada",
+          "behind the scenes"
+        ]
+      },
+      {
+        "name": "Conversion",
+        "role": "Guiar al publico hacia consulta, reserva, compra o diagnostico.",
+        "formats": [
+          "oferta explicada",
+          "FAQ comercial",
+          "CTA directo"
+        ]
+      }
+    ],
+    "ai_prompts": [
+      {
+        "name": "Prompt maestro de diagnostico",
+        "prompt": "Analiza ryaanlouis y entrega brechas de posicionamiento, percepcion visual, narrativa, conversion y proximas acciones."
+      },
+      {
+        "name": "Prompt de universo visual",
+        "prompt": "Crea una direccion visual para ryaanlouis: paleta, luz, fotografia, composicion, tipografia, ritmo y reglas de uso."
+      },
+      {
+        "name": "Prompt de contenido semanal",
+        "prompt": "Genera 7 piezas de contenido para ryaanlouis usando pilares de autoridad, deseo, prueba y conversion."
+      }
+    ],
+    "next_sprint": [
+      "Consolidar briefing y fuentes del cliente en una sola memoria.",
+      "Cerrar Identity Patch y posicionamiento emocional.",
+      "Crear guia de universo visual con reglas aplicables.",
+      "Producir calendario piloto de 7 piezas.",
+      "Exportar reporte ejecutivo y backlog de implementacion."
+    ],
+    "risks": [
+      "Confundir estetica premium con estrategia premium.",
+      "Crear contenido sin una promesa de marca repetible.",
+      "Entregar ideas sueltas sin convertirlas en reglas y archivos reutilizables."
+    ]
+  }
+}

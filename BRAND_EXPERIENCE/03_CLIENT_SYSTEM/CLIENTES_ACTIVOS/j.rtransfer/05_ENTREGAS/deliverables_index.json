@@ -1,0 +1,27 @@
+{
+  "client": "j.rtransfer",
+  "generated_at": "2026-05-26T19:17:14",
+  "source": {
+    "json": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.json",
+    "markdown": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.md"
+  },
+  "deliverables": [
+    "05_ENTREGAS/brand_analysis_20260526_191714.md",
+    "05_ENTREGAS/identity_patch_20260526_191714.md",
+    "05_ENTREGAS/entity_bible_20260526_191714.md",
+    "05_ENTREGAS/visual_universe_20260526_191714.md",
+    "05_ENTREGAS/content_strategy_20260526_191714.md",
+    "05_ENTREGAS/ai_prompts_20260526_191714.md",
+    "05_ENTREGAS/action_plan_20260526_191714.md"
+  ],
+  "versioned": [
+    "05_ENTREGAS/brand_analysis_20260526_191714.md",
+    "05_ENTREGAS/identity_patch_20260526_191714.md",
+    "05_ENTREGAS/entity_bible_20260526_191714.md",
+    "05_ENTREGAS/visual_universe_20260526_191714.md",
+    "05_ENTREGAS/content_strategy_20260526_191714.md",
+    "05_ENTREGAS/ai_prompts_20260526_191714.md",
+    "05_ENTREGAS/action_plan_20260526_191714.md"
+  ],
+  "archived_index": "05_ENTREGAS/deliverables_index_20260526_191714.json"
+}

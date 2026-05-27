@@ -1,0 +1,18 @@
+{
+  "client": "ryaanlouis",
+  "updated_at": "2026-05-26T18:16:26",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Usa el Activation Board y converti el proximo paso recomendado en una secuencia operativa de 5 acciones concretas.",
+      "prompt_id": "next_step",
+      "created_at": "2026-05-26T18:16:26"
+    },
+    {
+      "role": "assistant",
+      "content": "Cliente ryaanlouis,\n\nEl sistema detecta que su marca ya tiene una base operativa sólida, con Memoria consolidada, Visual DNA activo y Contenido estructurado. El próximo paso recomendado es **Generar campaña estratégica** para convertir este sistema interno en movimiento de mercado visible.\n\nA continuación, la secuencia operativa de 5 acciones concretas para ejecutar esta recomendación:\n\n---\n\n**Secuencia Operativa: Generar Campaña Estratégica**\n\n1.  **Definir la Promesa Central de la Campaña:**\n    *   **Acción:** Articular la propuesta de valor única que la campaña comunicará, asegurando que esté alineada con la `promesa central` de su marca y que potencie la `diferenciación` identificada como brecha principal.\n    *   **Output esperado:** Una frase madre de campaña y 3 mensajes clave que resuman la esencia de la oferta.\n    *   **Propietario:** Brand Experience.\n\n2.  **Establecer el Código Visual Distintivo de la Campaña:**\n    *   **Acción:** Seleccionar y adaptar los elementos visuales clave de su `Universo Visual` para crear una identidad de campaña reconocible, `premium` y que refuerce los `códigos propietarios` de su marca.\n    *   **Output esperado:** Un mini-board visual con paleta de colores, tipografías, estilo fotográfico y elementos gráficos específicos para la campaña.\n    *   **Propietario:** Brand Experience.\n\n3.  **Desarrollar la Narrativa Maestra de la Campaña:**\n    *   **Acción:** Construir el arco narrativo principal y los mensajes clave que guiarán toda la comunicación de la campaña, extrayendo de la `Entity Bible` y potenciando la `potencia narrativa` para captar y mantener la atención.\n    *   **Output esperado:** Un documento de narrativa con el gancho inicial, el problema/oportunidad que aborda, la solución de la marca y el llamado a la acción emocional.\n    *   **Propietario:** Brand Experience.\n\n4.  **Diseñar la Secuencia de Contenido de la Campaña:**\n    *   **Acción:** Mapear los `pilares editoriales` y `formatos` específicos para cada etapa del embudo de la campaña (atracción, educación, conversión), asegurando una `secuencia de contenido que convierta atención en acción`.\n    *   **Output esperado:** Un plan de contenido detallado con 5-7 piezas de contenido clave (ej. reel, carrusel, caso corto, oferta explicada) y su asignación a los pilares de Autoridad, Deseo, Prueba y Conversión.\n    *   **Propietario:** Brand Experience.\n\n5.  **Generar el Prompt Pack de Campaña:**\n    *   **Acción:** Crear un conjunto de prompts de IA específicos para la campaña, que permitan la producción eficiente y consistente de textos, visuales y reels, garantizando la `coherencia visual` y `potencia narrativa` en todas las ejecuciones.\n    *   **Output esperado:** Un documento con 5 prompts maestros listos para usar en IA generativa, cubriendo texto para anuncios, ideas de guiones para reels, descripciones visuales, etc.\n    *   **Propietario:** Brand Experience.\n\n---\n\n**Próximo paso claro:**\nLa primera acción es **Definir la Promesa Central de la Campaña**. Una vez que tengamos esta promesa articulada, podremos avanzar con los siguientes pasos de forma coherente.\n\n¿Desea que desarrolle el prompt para la primera acción: \"Definir la Promesa Central de la Campaña\"?",
+      "provider": "gemini",
+      "created_at": "2026-05-26T18:16:26"
+    }
+  ]
+}

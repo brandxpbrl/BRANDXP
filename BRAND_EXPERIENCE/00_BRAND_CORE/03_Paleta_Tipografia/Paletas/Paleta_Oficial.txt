@@ -1,0 +1,6 @@
+#0D1117 → Azul profundo
+#111827 → Azul noche
+#00E5FF → Cyan neon
+#FF2D95 → Rosa neon
+#7B61FF → Violeta eléctrico
+#FFFFFF → Blanco

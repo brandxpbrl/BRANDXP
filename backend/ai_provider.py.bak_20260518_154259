@@ -1,0 +1,194 @@
+import json
+import os
+import urllib.error
+import urllib.request
+from pathlib import Path
+from time import time
+
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+
+OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses"
+DEFAULT_OPENAI_MODEL = "gpt-5.4-mini"
+DEFAULT_OLLAMA_MODEL = "mistral"
+DEFAULT_OLLAMA_HOST = "http://127.0.0.1:11434"
+OPENAI_TIMEOUT_SECONDS = 20
+OLLAMA_TIMEOUT_SECONDS = 25
+OPENAI_RETRY_AFTER_SECONDS = 120
+
+PROVIDER_STATE = {
+    "openai_disabled_reason": None,
+    "openai_disabled_until": 0,
+}
+
+
+def _load_env_file(path):
+    if not path.exists():
+        return
+
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+def load_environment():
+    _load_env_file(PROJECT_ROOT / ".env")
+    _load_env_file(BASE_DIR / ".env")
+
+
+def get_provider_status():
+    load_environment()
+
+    return {
+        "openai_configured": bool(os.getenv("OPENAI_API_KEY")),
+        "openai_model": os.getenv("OPENAI_MODEL", DEFAULT_OPENAI_MODEL),
+        "ollama_model": os.getenv("OLLAMA_MODEL", DEFAULT_OLLAMA_MODEL),
+        "ollama_host": os.getenv("OLLAMA_HOST", DEFAULT_OLLAMA_HOST),
+        "primary_provider": "openai",
+        "fallback_provider": "ollama",
+        "openai_disabled_reason": PROVIDER_STATE.get("openai_disabled_reason"),
+        "openai_retry_after_seconds": max(
+            0,
+            round(PROVIDER_STATE.get("openai_disabled_until", 0) - time()),
+        ),
+    }
+
+
+def reset_provider_state():
+    PROVIDER_STATE["openai_disabled_reason"] = None
+    PROVIDER_STATE["openai_disabled_until"] = 0
+
+    return get_provider_status()
+
+
+def _extract_response_text(data):
+    if isinstance(data.get("output_text"), str) and data["output_text"].strip():
+        return data["output_text"]
+
+    text_parts = []
+
+    for output_item in data.get("output", []):
+        for content_item in output_item.get("content", []):
+            text = content_item.get("text")
+
+            if isinstance(text, str):
+                text_parts.append(text)
+
+    if text_parts:
+        return "\n".join(text_parts)
+
+    raise RuntimeError("OpenAI response did not include text output.")
+
+
+def _openai_response(messages):
+    load_environment()
+
+    api_key = os.getenv("OPENAI_API_KEY")
+
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is not configured.")
+
+    payload = {
+        "model": os.getenv("OPENAI_MODEL", DEFAULT_OPENAI_MODEL),
+        "input": messages,
+        "temperature": float(os.getenv("OPENAI_TEMPERATURE", "0.55")),
+        "store": False,
+    }
+
+    request = urllib.request.Request(
+        OPENAI_RESPONSES_URL,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=OPENAI_TIMEOUT_SECONDS) as response:
+            data = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as error:
+        details = error.read().decode("utf-8", errors="ignore")
+        try:
+            parsed = json.loads(details)
+            api_error = parsed.get("error", {})
+            message = api_error.get("message", details)
+            code = api_error.get("code") or api_error.get("type") or "api_error"
+            details = f"{code}: {message}"
+        except json.JSONDecodeError:
+            pass
+
+        raise RuntimeError(f"OpenAI HTTP {error.code}: {details}") from error
+
+    return _extract_response_text(data)
+
+
+def _ollama_chat(messages):
+    load_environment()
+
+    host = os.getenv("OLLAMA_HOST", DEFAULT_OLLAMA_HOST).rstrip("/")
+    model = os.getenv("OLLAMA_MODEL", DEFAULT_OLLAMA_MODEL)
+    payload = {
+        "model": model,
+        "messages": messages,
+        "stream": False,
+    }
+
+    request = urllib.request.Request(
+        f"{host}/api/chat",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+
+    with urllib.request.urlopen(request, timeout=OLLAMA_TIMEOUT_SECONDS) as response:
+        data = json.loads(response.read().decode("utf-8"))
+
+    return data["message"]["content"]
+
+
+def chat_completion(messages):
+    openai_disabled_reason = PROVIDER_STATE.get("openai_disabled_reason")
+    openai_disabled_until = PROVIDER_STATE.get("openai_disabled_until", 0)
+    skipped_openai = False
+
+    try:
+        if openai_disabled_reason and time() < openai_disabled_until:
+            skipped_openai = True
+            raise RuntimeError(openai_disabled_reason)
+
+        PROVIDER_STATE["openai_disabled_reason"] = None
+        PROVIDER_STATE["openai_disabled_until"] = 0
+
+        return {
+            "content": _openai_response(messages),
+            "provider": "openai",
+            "fallback_used": False,
+            "error": None,
+        }
+    except Exception as openai_error:
+        if not skipped_openai:
+            PROVIDER_STATE["openai_disabled_reason"] = str(openai_error)
+            PROVIDER_STATE["openai_disabled_until"] = time() + OPENAI_RETRY_AFTER_SECONDS
+
+        try:
+            return {
+                "content": _ollama_chat(messages),
+                "provider": "ollama",
+                "fallback_used": True,
+                "error": str(openai_error),
+            }
+        except Exception as ollama_error:
+            raise RuntimeError(
+                f"OpenAI failed: {openai_error}. Ollama fallback failed: {ollama_error}"
+            ) from ollama_error

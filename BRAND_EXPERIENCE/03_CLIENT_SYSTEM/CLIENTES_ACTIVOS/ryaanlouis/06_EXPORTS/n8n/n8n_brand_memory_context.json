@@ -1,0 +1,17 @@
+{
+  "client": "ryaanlouis",
+  "workflow_context": "Brand Memory Core",
+  "recommended_files": [
+    "01_IDENTITY/identity_cliente.md",
+    "02_MEMORY/BRAND_MEMORY_CORE_MASTER.md",
+    "02_MEMORY/brand_memory_core.json"
+  ],
+  "agent_instruction": "Use brand memory before generating any visual, copy, content, funnel, campaign or commercial output.",
+  "modules": {
+    "identity": "01_IDENTITY",
+    "memory": "02_MEMORY",
+    "prompts": "04_PROMPTS",
+    "assets": "05_ASSETS",
+    "exports": "06_EXPORTS"
+  }
+}

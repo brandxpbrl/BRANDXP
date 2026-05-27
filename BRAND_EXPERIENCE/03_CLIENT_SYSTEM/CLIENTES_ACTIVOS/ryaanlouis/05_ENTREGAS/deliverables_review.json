@@ -1,0 +1,533 @@
+{
+  "client": "ryaanlouis",
+  "reviewed_at": "2026-05-26T17:51:47",
+  "status": "reviewed",
+  "review": {
+    "client": "ryaanlouis",
+    "summary": {
+      "total_files": 117,
+      "markdown_files": 80,
+      "visual_assets": 12,
+      "prompt_pack_files": 11,
+      "core_deliverables": 8,
+      "duplicate_groups": 12,
+      "has_master": true
+    },
+    "signals": [
+      "8 entregables principales detectados.",
+      "12 activos visuales disponibles.",
+      "11 archivos de prompt pack disponibles."
+    ],
+    "duplicates": [
+      {
+        "base": "action_plan",
+        "count": 7,
+        "items": [
+          {
+            "name": "action_plan_20260526_171336.md",
+            "relative_path": "05_ENTREGAS/action_plan_20260526_171336.md",
+            "modified_at": "2026-05-26T17:13:36"
+          },
+          {
+            "name": "action_plan_20260526_101859.md",
+            "relative_path": "05_ENTREGAS/action_plan_20260526_101859.md",
+            "modified_at": "2026-05-26T10:18:59"
+          },
+          {
+            "name": "action_plan_20260526_095407.md",
+            "relative_path": "05_ENTREGAS/action_plan_20260526_095407.md",
+            "modified_at": "2026-05-26T09:54:07"
+          },
+          {
+            "name": "action_plan_20260526_064526.md",
+            "relative_path": "05_ENTREGAS/action_plan_20260526_064526.md",
+            "modified_at": "2026-05-26T06:45:26"
+          },
+          {
+            "name": "action_plan_20260526_032756.md",
+            "relative_path": "05_ENTREGAS/action_plan_20260526_032756.md",
+            "modified_at": "2026-05-26T03:27:56"
+          },
+          {
+            "name": "action_plan_20260526_030905.md",
+            "relative_path": "05_ENTREGAS/action_plan_20260526_030905.md",
+            "modified_at": "2026-05-26T03:09:05"
+          },
+          {
+            "name": "action_plan.md",
+            "relative_path": "05_ENTREGAS/action_plan.md",
+            "modified_at": "2026-05-26T02:06:00"
+          }
+        ]
+      },
+      {
+        "base": "ai_prompts",
+        "count": 7,
+        "items": [
+          {
+            "name": "ai_prompts_20260526_171336.md",
+            "relative_path": "05_ENTREGAS/ai_prompts_20260526_171336.md",
+            "modified_at": "2026-05-26T17:13:36"
+          },
+          {
+            "name": "ai_prompts_20260526_101859.md",
+            "relative_path": "05_ENTREGAS/ai_prompts_20260526_101859.md",
+            "modified_at": "2026-05-26T10:18:59"
+          },
+          {
+            "name": "ai_prompts_20260526_095407.md",
+            "relative_path": "05_ENTREGAS/ai_prompts_20260526_095407.md",
+            "modified_at": "2026-05-26T09:54:07"
+          },
+          {
+            "name": "ai_prompts_20260526_064526.md",
+            "relative_path": "05_ENTREGAS/ai_prompts_20260526_064526.md",
+            "modified_at": "2026-05-26T06:45:26"
+          },
+          {
+            "name": "ai_prompts_20260526_032756.md",
+            "relative_path": "05_ENTREGAS/ai_prompts_20260526_032756.md",
+            "modified_at": "2026-05-26T03:27:56"
+          },
+          {
+            "name": "ai_prompts_20260526_030905.md",
+            "relative_path": "05_ENTREGAS/ai_prompts_20260526_030905.md",
+            "modified_at": "2026-05-26T03:09:05"
+          },
+          {
+            "name": "ai_prompts.md",
+            "relative_path": "05_ENTREGAS/ai_prompts.md",
+            "modified_at": "2026-05-26T02:06:00"
+          }
+        ]
+      },
+      {
+        "base": "brand_identity_board",
+        "count": 14,
+        "items": [
+          {
+            "name": "brand_identity_board_20260526_171338.png",
+            "relative_path": "05_ENTREGAS/visuals/brand_identity_board_20260526_171338.png",
+            "modified_at": "2026-05-26T17:13:39"
+          },
+          {
+            "name": "brand_identity_board_20260526_171338.json",
+            "relative_path": "05_ENTREGAS/board_specs/brand_identity_board_20260526_171338.json",
+            "modified_at": "2026-05-26T17:13:38"
+          },
+          {
+            "name": "brand_identity_board_20260526_171338.md",
+            "relative_path": "05_ENTREGAS/brand_identity_board_20260526_171338.md",
+            "modified_at": "2026-05-26T17:13:38"
+          },
+          {
+            "name": "brand_identity_board_20260526_035224.json",
+            "relative_path": "05_ENTREGAS/board_specs/brand_identity_board_20260526_035224.json",
+            "modified_at": "2026-05-26T03:52:24"
+          },
+          {
+            "name": "brand_identity_board_20260526_035224.md",
+            "relative_path": "05_ENTREGAS/brand_identity_board_20260526_035224.md",
+            "modified_at": "2026-05-26T03:52:24"
+          },
+          {
+            "name": "brand_identity_board_20260526_035224.png",
+            "relative_path": "05_ENTREGAS/visuals/brand_identity_board_20260526_035224.png",
+            "modified_at": "2026-05-26T03:52:24"
+          },
+          {
+            "name": "brand_identity_board_20260526_032757.json",
+            "relative_path": "05_ENTREGAS/board_specs/brand_identity_board_20260526_032757.json",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "brand_identity_board_20260526_032757.md",
+            "relative_path": "05_ENTREGAS/brand_identity_board_20260526_032757.md",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "brand_identity_board_20260526_032758.png",
+            "relative_path": "05_ENTREGAS/visuals/brand_identity_board_20260526_032758.png",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "brand_identity_board_20260526_030906.json",
+            "relative_path": "05_ENTREGAS/board_specs/brand_identity_board_20260526_030906.json",
+            "modified_at": "2026-05-26T03:09:06"
+          },
+          {
+            "name": "brand_identity_board_20260526_030906.md",
+            "relative_path": "05_ENTREGAS/brand_identity_board_20260526_030906.md",
+            "modified_at": "2026-05-26T03:09:06"
+          },
+          {
+            "name": "brand_identity_board.png",
+            "relative_path": "05_ENTREGAS/visuals/brand_identity_board.png",
+            "modified_at": "2026-05-26T03:09:06"
+          },
+          {
+            "name": "brand_identity_board.json",
+            "relative_path": "05_ENTREGAS/board_specs/brand_identity_board.json",
+            "modified_at": "2026-05-26T02:05:58"
+          },
+          {
+            "name": "brand_identity_board.md",
+            "relative_path": "05_ENTREGAS/brand_identity_board.md",
+            "modified_at": "2026-05-26T02:05:58"
+          }
+        ]
+      },
+      {
+        "base": "storytelling_strategy_board",
+        "count": 14,
+        "items": [
+          {
+            "name": "storytelling_strategy_board_20260526_171338.png",
+            "relative_path": "05_ENTREGAS/visuals/storytelling_strategy_board_20260526_171338.png",
+            "modified_at": "2026-05-26T17:13:40"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_171338.json",
+            "relative_path": "05_ENTREGAS/board_specs/storytelling_strategy_board_20260526_171338.json",
+            "modified_at": "2026-05-26T17:13:38"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_171338.md",
+            "relative_path": "05_ENTREGAS/storytelling_strategy_board_20260526_171338.md",
+            "modified_at": "2026-05-26T17:13:38"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_035224.png",
+            "relative_path": "05_ENTREGAS/visuals/storytelling_strategy_board_20260526_035224.png",
+            "modified_at": "2026-05-26T03:52:25"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_035224.json",
+            "relative_path": "05_ENTREGAS/board_specs/storytelling_strategy_board_20260526_035224.json",
+            "modified_at": "2026-05-26T03:52:24"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_035224.md",
+            "relative_path": "05_ENTREGAS/storytelling_strategy_board_20260526_035224.md",
+            "modified_at": "2026-05-26T03:52:24"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_032757.json",
+            "relative_path": "05_ENTREGAS/board_specs/storytelling_strategy_board_20260526_032757.json",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_032757.md",
+            "relative_path": "05_ENTREGAS/storytelling_strategy_board_20260526_032757.md",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_032758.png",
+            "relative_path": "05_ENTREGAS/visuals/storytelling_strategy_board_20260526_032758.png",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "storytelling_strategy_board.png",
+            "relative_path": "05_ENTREGAS/visuals/storytelling_strategy_board.png",
+            "modified_at": "2026-05-26T03:09:07"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_030906.json",
+            "relative_path": "05_ENTREGAS/board_specs/storytelling_strategy_board_20260526_030906.json",
+            "modified_at": "2026-05-26T03:09:06"
+          },
+          {
+            "name": "storytelling_strategy_board_20260526_030906.md",
+            "relative_path": "05_ENTREGAS/storytelling_strategy_board_20260526_030906.md",
+            "modified_at": "2026-05-26T03:09:06"
+          },
+          {
+            "name": "storytelling_strategy_board.json",
+            "relative_path": "05_ENTREGAS/board_specs/storytelling_strategy_board.json",
+            "modified_at": "2026-05-26T02:05:58"
+          },
+          {
+            "name": "storytelling_strategy_board.md",
+            "relative_path": "05_ENTREGAS/storytelling_strategy_board.md",
+            "modified_at": "2026-05-26T02:05:58"
+          }
+        ]
+      },
+      {
+        "base": "visual_universe_board",
+        "count": 14,
+        "items": [
+          {
+            "name": "visual_universe_board_20260526_171338.png",
+            "relative_path": "05_ENTREGAS/visuals/visual_universe_board_20260526_171338.png",
+            "modified_at": "2026-05-26T17:13:41"
+          },
+          {
+            "name": "visual_universe_board_20260526_171338.json",
+            "relative_path": "05_ENTREGAS/board_specs/visual_universe_board_20260526_171338.json",
+            "modified_at": "2026-05-26T17:13:38"
+          },
+          {
+            "name": "visual_universe_board_20260526_171338.md",
+            "relative_path": "05_ENTREGAS/visual_universe_board_20260526_171338.md",
+            "modified_at": "2026-05-26T17:13:38"
+          },
+          {
+            "name": "visual_universe_board_20260526_035224.png",
+            "relative_path": "05_ENTREGAS/visuals/visual_universe_board_20260526_035224.png",
+            "modified_at": "2026-05-26T03:52:25"
+          },
+          {
+            "name": "visual_universe_board_20260526_035224.json",
+            "relative_path": "05_ENTREGAS/board_specs/visual_universe_board_20260526_035224.json",
+            "modified_at": "2026-05-26T03:52:24"
+          },
+          {
+            "name": "visual_universe_board_20260526_035224.md",
+            "relative_path": "05_ENTREGAS/visual_universe_board_20260526_035224.md",
+            "modified_at": "2026-05-26T03:52:24"
+          },
+          {
+            "name": "visual_universe_board_20260526_032757.json",
+            "relative_path": "05_ENTREGAS/board_specs/visual_universe_board_20260526_032757.json",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "visual_universe_board_20260526_032757.md",
+            "relative_path": "05_ENTREGAS/visual_universe_board_20260526_032757.md",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "visual_universe_board_20260526_032758.png",
+            "relative_path": "05_ENTREGAS/visuals/visual_universe_board_20260526_032758.png",
+            "modified_at": "2026-05-26T03:27:58"
+          },
+          {
+            "name": "visual_universe_board.png",
+            "relative_path": "05_ENTREGAS/visuals/visual_universe_board.png",
+            "modified_at": "2026-05-26T03:09:07"
+          },
+          {
+            "name": "visual_universe_board_20260526_030906.json",
+            "relative_path": "05_ENTREGAS/board_specs/visual_universe_board_20260526_030906.json",
+            "modified_at": "2026-05-26T03:09:06"
+          },
+          {
+            "name": "visual_universe_board_20260526_030906.md",
+            "relative_path": "05_ENTREGAS/visual_universe_board_20260526_030906.md",
+            "modified_at": "2026-05-26T03:09:06"
+          },
+          {
+            "name": "visual_universe_board.json",
+            "relative_path": "05_ENTREGAS/board_specs/visual_universe_board.json",
+            "modified_at": "2026-05-26T02:05:58"
+          },
+          {
+            "name": "visual_universe_board.md",
+            "relative_path": "05_ENTREGAS/visual_universe_board.md",
+            "modified_at": "2026-05-26T02:05:58"
+          }
+        ]
+      },
+      {
+        "base": "brand_analysis",
+        "count": 7,
+        "items": [
+          {
+            "name": "brand_analysis_20260526_171336.md",
+            "relative_path": "05_ENTREGAS/brand_analysis_20260526_171336.md",
+            "modified_at": "2026-05-26T17:13:36"
+          },
+          {
+            "name": "brand_analysis_20260526_101859.md",
+            "relative_path": "05_ENTREGAS/brand_analysis_20260526_101859.md",
+            "modified_at": "2026-05-26T10:18:59"
+          },
+          {
+            "name": "brand_analysis_20260526_095407.md",
+            "relative_path": "05_ENTREGAS/brand_analysis_20260526_095407.md",
+            "modified_at": "2026-05-26T09:54:07"
+          },
+          {
+            "name": "brand_analysis_20260526_064526.md",
+            "relative_path": "05_ENTREGAS/brand_analysis_20260526_064526.md",
+            "modified_at": "2026-05-26T06:45:26"
+          },
+          {
+            "name": "brand_analysis_20260526_032756.md",
+            "relative_path": "05_ENTREGAS/brand_analysis_20260526_032756.md",
+            "modified_at": "2026-05-26T03:27:56"
+          },
+          {
+            "name": "brand_analysis_20260526_030905.md",
+            "relative_path": "05_ENTREGAS/brand_analysis_20260526_030905.md",
+            "modified_at": "2026-05-26T03:09:05"
+          },
+          {
+            "name": "brand_analysis.md",
+            "relative_path": "05_ENTREGAS/brand_analysis.md",
+            "modified_at": "2026-05-26T02:06:00"
+          }
+        ]
+      },
+      {
+        "base": "content_strategy",
+        "count": 7,
+        "items": [
+          {
+            "name": "content_strategy_20260526_171336.md",
+            "relative_path": "05_ENTREGAS/content_strategy_20260526_171336.md",
+            "modified_at": "2026-05-26T17:13:36"
+          },
+          {
+            "name": "content_strategy_20260526_101859.md",
+            "relative_path": "05_ENTREGAS/content_strategy_20260526_101859.md",
+            "modified_at": "2026-05-26T10:18:59"
+          },
+          {
+            "name": "content_strategy_20260526_095407.md",
+            "relative_path": "05_ENTREGAS/content_strategy_20260526_095407.md",
+            "modified_at": "2026-05-26T09:54:07"
+          },
+          {
+            "name": "content_strategy_20260526_064526.md",
+            "relative_path": "05_ENTREGAS/content_strategy_20260526_064526.md",
+            "modified_at": "2026-05-26T06:45:26"
+          },
+          {
+            "name": "content_strategy_20260526_032756.md",
+            "relative_path": "05_ENTREGAS/content_strategy_20260526_032756.md",
+            "modified_at": "2026-05-26T03:27:56"
+          },
+          {
+            "name": "content_strategy_20260526_030905.md",
+            "relative_path": "05_ENTREGAS/content_strategy_20260526_030905.md",
+            "modified_at": "2026-05-26T03:09:05"
+          },
+          {
+            "name": "content_strategy.md",
+            "relative_path": "05_ENTREGAS/content_strategy.md",
+            "modified_at": "2026-05-26T02:06:00"
+          }
+        ]
+      },
+      {
+        "base": "deliverables_index",
+        "count": 7,
+        "items": [
+          {
+            "name": "deliverables_index.json",
+            "relative_path": "05_ENTREGAS/deliverables_index.json",
+            "modified_at": "2026-05-26T17:13:36"
+          },
+          {
+            "name": "deliverables_index_20260526_171336.json",
+            "relative_path": "05_ENTREGAS/deliverables_index_20260526_171336.json",
+            "modified_at": "2026-05-26T10:18:59"
+          },
+          {
+            "name": "deliverables_index_20260526_101859.json",
+            "relative_path": "05_ENTREGAS/deliverables_index_20260526_101859.json",
+            "modified_at": "2026-05-26T09:54:07"
+          },
+          {
+            "name": "deliverables_index_20260526_095407.json",
+            "relative_path": "05_ENTREGAS/deliverables_index_20260526_095407.json",
+            "modified_at": "2026-05-26T06:45:26"
+          },
+          {
+            "name": "deliverables_index_20260526_064526.json",
+            "relative_path": "05_ENTREGAS/deliverables_index_20260526_064526.json",
+            "modified_at": "2026-05-26T03:27:56"
+          },
+          {
+            "name": "deliverables_index_20260526_032756.json",
+            "relative_path": "05_ENTREGAS/deliverables_index_20260526_032756.json",
+            "modified_at": "2026-05-26T03:09:05"
+          },
+          {
+            "name": "deliverables_index_20260526_030905.json",
+            "relative_path": "05_ENTREGAS/deliverables_index_20260526_030905.json",
+            "modified_at": "2026-05-26T02:06:00"
+          }
+        ]
+      }
+    ],
+    "primary_deliverables": [
+      {
+        "name": "action_plan.md",
+        "relative_path": "05_ENTREGAS/action_plan.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "ai_prompts.md",
+        "relative_path": "05_ENTREGAS/ai_prompts.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "brand_analysis.md",
+        "relative_path": "05_ENTREGAS/brand_analysis.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "content_strategy.md",
+        "relative_path": "05_ENTREGAS/content_strategy.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "entity_bible.md",
+        "relative_path": "05_ENTREGAS/entity_bible.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "identity_patch.md",
+        "relative_path": "05_ENTREGAS/identity_patch.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "MASTER_BRAND_EXPERIENCE.md",
+        "relative_path": "05_ENTREGAS/MASTER_BRAND_EXPERIENCE.md",
+        "modified_at": "2026-05-26T02:05:26"
+      },
+      {
+        "name": "visual_universe.md",
+        "relative_path": "05_ENTREGAS/visual_universe.md",
+        "modified_at": "2026-05-26T02:06:00"
+      }
+    ],
+    "recommended_review": [
+      {
+        "name": "action_plan.md",
+        "relative_path": "05_ENTREGAS/action_plan.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "ai_prompts.md",
+        "relative_path": "05_ENTREGAS/ai_prompts.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "brand_analysis.md",
+        "relative_path": "05_ENTREGAS/brand_analysis.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "content_strategy.md",
+        "relative_path": "05_ENTREGAS/content_strategy.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "entity_bible.md",
+        "relative_path": "05_ENTREGAS/entity_bible.md",
+        "modified_at": "2026-05-26T02:06:00"
+      },
+      {
+        "name": "identity_patch.md",
+        "relative_path": "05_ENTREGAS/identity_patch.md",
+        "modified_at": "2026-05-26T02:06:00"
+      }
+    ],
+    "recommendation": "Revisar versiones duplicadas, conservar las mas recientes y limpiar piezas antiguas antes de exportar.",
+    "next_action": "Ordenar entregables"
+  }
+}

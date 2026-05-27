@@ -1,0 +1,202 @@
+{
+  "client_name": "ryaanlouis",
+  "generated_at": "2026-05-26T17:13:38",
+  "source": {
+    "json": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.json",
+    "markdown": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.md"
+  },
+  "entity_bible_applied": true,
+  "layout_theme": "premium_editorial_entity_system",
+  "hero_title": "ryaanlouis",
+  "hero_subtitle": "Brand Identity Board",
+  "brand_promise": "Priorizar una promesa central, un codigo visual reconocible y una secuencia de contenido que convierta atencion en accion.",
+  "perception_angle": "Perception first: make value felt before it is explained.",
+  "premium_positioning": "Premium positioning through restraint, coherence, and emotional precision.",
+  "visual_authority": "Build visual authority with hierarchy, negative space, contrast, and repeatable codes.",
+  "tagline": "La marca tiene una base aprovechable; el mayor valor esta en convertir senales en sistema.",
+  "brand_descriptor": "Las fuentes muestran senales utiles, pero el sistema debe separar identidad, percepcion visual, narrativa y conversion para operar con precision.",
+  "identity_sections": [
+    {
+      "name": "Logo principal",
+      "description": "Marca madre como senal inmediata de reconocimiento."
+    },
+    {
+      "name": "Variantes",
+      "description": "Versiones flat, monocromo, icono y aplicacion digital."
+    },
+    {
+      "name": "Aplicaciones",
+      "description": "Instagram, WhatsApp Business, web, propuesta y materiales comerciales."
+    }
+  ],
+  "logo_system": {
+    "primary": "Use current primary logo as the main recognition asset.",
+    "variants": [
+      "Horizontal lockup",
+      "Compact lockup",
+      "Single-color version"
+    ],
+    "icon": "Use or derive a simplified symbol from the most recognizable brand mark."
+  },
+  "palette": [
+    {
+      "name": "Signature Accent",
+      "hex": "#D9428F",
+      "meaning": "Emotional distinction and premium attention."
+    },
+    {
+      "name": "Deep Base",
+      "hex": "#0D0F18",
+      "meaning": "Depth, contrast, and editorial focus."
+    },
+    {
+      "name": "Clarity Light",
+      "hex": "#FFFFFF",
+      "meaning": "Legibility, simplicity, and trust."
+    }
+  ],
+  "typography": {
+    "primary": "High-contrast editorial sans",
+    "secondary": "Clean supporting sans",
+    "usage": "Use strong hierarchy for titles and restrained supporting text for details."
+  },
+  "brand_tone": [
+    {
+      "name": "Diferenciacion",
+      "description": "Convertir atributos genericos en codigos propietarios: rituales, lenguaje, visuales y experiencia."
+    },
+    {
+      "name": "Premium confidence",
+      "description": "Sound curated, specific, and operational rather than generic."
+    }
+  ],
+  "tone_cards": [
+    {
+      "name": "Precise",
+      "description": "Use language that removes ambiguity and supports premium perception."
+    },
+    {
+      "name": "Atmospheric",
+      "description": "Let the brand transmit feeling before over-explaining the offer."
+    },
+    {
+      "name": "Authoritative",
+      "description": "Make every claim concrete through assets, proof, and visual order."
+    }
+  ],
+  "fundamental_values": [
+    {
+      "name": "Identidad",
+      "description": "Revelar la esencia real y hacerla reconocible."
+    },
+    {
+      "name": "Percepcion",
+      "description": "Elevar el valor sentido antes de explicar la oferta."
+    },
+    {
+      "name": "Emocion",
+      "description": "Crear deseo, confianza y memoria emocional."
+    },
+    {
+      "name": "Autenticidad",
+      "description": "Construir desde verdad, no desde decoracion."
+    },
+    {
+      "name": "Experiencia",
+      "description": "Convertir cada contacto en una senal de marca."
+    }
+  ],
+  "applications": [
+    {
+      "name": "Digital presence",
+      "description": "Apply the identity consistently across website, social profile, and sales material."
+    },
+    {
+      "name": "Client proposal",
+      "description": "Translate the identity into offer pages, highlights, and proof points."
+    }
+  ],
+  "digital_applications": [
+    {
+      "name": "Foto perfil Instagram",
+      "description": "Icono simple, reconocible y legible en pequeno."
+    },
+    {
+      "name": "WhatsApp Business",
+      "description": "Perfil comercial con promesa clara, beneficios y horario visible."
+    },
+    {
+      "name": "Favicon / web",
+      "description": "Sistema compacto para presencia digital coherente."
+    }
+  ],
+  "instagram_style": [
+    {
+      "pillar": "Autoridad",
+      "description": "Demostrar criterio, metodo y dominio de la categoria."
+    },
+    {
+      "pillar": "Deseo",
+      "description": "Convertir el destino o servicio en una experiencia deseable, no solo en itinerario."
+    },
+    {
+      "pillar": "Prueba",
+      "description": "Reducir incertidumbre con evidencia, casos, testimonios y proceso."
+    },
+    {
+      "pillar": "Conversion",
+      "description": "Guiar al publico hacia consulta, reserva, compra o diagnostico."
+    }
+  ],
+  "feed_system": [
+    {
+      "name": "Promesa",
+      "description": "Posts que hacen tangible el valor principal."
+    },
+    {
+      "name": "Experiencia",
+      "description": "Escenas que muestran el resultado emocional."
+    },
+    {
+      "name": "Prueba",
+      "description": "Evidencia, proceso, testimonios y detalle operativo."
+    },
+    {
+      "name": "Conversion",
+      "description": "Piezas directas para reserva, consulta o compra."
+    }
+  ],
+  "commercial_example": {
+    "offer": "Premium brand experience package",
+    "services": [
+      "Diagnosis",
+      "Identity direction",
+      "Content system",
+      "Execution roadmap"
+    ],
+    "cta": "Book a strategic discovery session."
+  },
+  "commercial_offer": {
+    "title": "Signature Experience",
+    "promise": "Priorizar una promesa central, un codigo visual reconocible y una secuencia de contenido que convierta atencion en accion.",
+    "cta": "Start with a strategic diagnosis."
+  },
+  "benefits": [
+    {
+      "name": "Sharper perception",
+      "description": "Help the audience understand the value faster."
+    },
+    {
+      "name": "Reusable system",
+      "description": "Turn scattered ideas into rules that can guide future assets."
+    }
+  ],
+  "benefit_bar": [
+    "Sharper perception",
+    "Recognizable assets",
+    "Premium trust",
+    "Clearer conversion",
+    "Reusable system"
+  ],
+  "footer_claim": "Designed to make the brand easier to feel, trust, remember, and choose."
+}

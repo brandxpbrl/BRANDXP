@@ -1,0 +1,7 @@
+Desarrolla un sistema de storytelling visual para Instagram.
+
+La cuenta debe sentirse:
+- cinematográfica
+- premium
+- emocional
+- aspiracional

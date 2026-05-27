@@ -1,0 +1,52 @@
+{
+  "brand_name": "ryaanlouis",
+  "generated_at": "2026-05-26T05:30:03.298720",
+  "system": "Brand Experience OS",
+  "priority": "03_CONTENT_INTELLIGENCE_ENGINE",
+  "purpose": "Content, funnel and conversion engine for AI-assisted brand execution.",
+  "main_rule": "Content must move perception toward action.",
+  "content_logic": {
+    "pillars": [
+      "authority",
+      "desire",
+      "proof",
+      "conversion"
+    ],
+    "funnel": [
+      "awareness",
+      "interest",
+      "trust",
+      "desire",
+      "action"
+    ],
+    "carousel_structure": [
+      "promise",
+      "tension",
+      "insight",
+      "system",
+      "proof",
+      "transformation",
+      "cta"
+    ],
+    "reel_structure": [
+      "hook",
+      "context",
+      "system",
+      "proof",
+      "cta"
+    ],
+    "campaign_logic": "A campaign is a sequence of perception, not a set of isolated posts."
+  },
+  "modules": [
+    "01_CONTENT_STRATEGY",
+    "02_FUNNEL_SYSTEM",
+    "03_HOOK_ENGINE",
+    "04_CAROUSEL_ENGINE",
+    "05_REELS_ENGINE",
+    "06_STORIES_ENGINE",
+    "07_CTA_ENGINE",
+    "08_CAMPAIGN_ENGINE",
+    "09_CONTENT_CALENDAR_ENGINE",
+    "10_CONTENT_PROMPT_ENGINE"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "client_name": "Mau Viagens Tours",
+  "generated_at": "2026-05-18T08:25:52",
+  "source": {
+    "json": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.json",
+    "markdown": "01_DIAGNOSTICO_ACTUAL/Analisis_Brand_Experience/LATEST_ANALYSIS.md"
+  },
+  "tagline": "La marca tiene una base aprovechable; el mayor valor esta en convertir senales en sistema.",
+  "brand_descriptor": "Las fuentes muestran senales utiles, pero el sistema debe separar identidad, percepcion visual, narrativa y conversion para operar con precision.",
+  "logo_system": {
+    "primary": "Use current primary logo as the main recognition asset.",
+    "variants": [
+      "Horizontal lockup",
+      "Compact lockup",
+      "Single-color version"
+    ],
+    "icon": "Use or derive a simplified symbol from the most recognizable brand mark."
+  },
+  "palette": [
+    {
+      "name": "Signature Accent",
+      "hex": "#D9428F",
+      "meaning": "Emotional distinction and premium attention."
+    },
+    {
+      "name": "Deep Base",
+      "hex": "#0D0F18",
+      "meaning": "Depth, contrast, and editorial focus."
+    },
+    {
+      "name": "Clarity Light",
+      "hex": "#FFFFFF",
+      "meaning": "Legibility, simplicity, and trust."
+    }
+  ],
+  "typography": {
+    "primary": "High-contrast editorial sans",
+    "secondary": "Clean supporting sans",
+    "usage": "Use strong hierarchy for titles and restrained supporting text for details."
+  },
+  "brand_tone": [
+    {
+      "name": "Diferenciacion",
+      "description": "Convertir atributos genericos en codigos propietarios: rituales, lenguaje, visuales y experiencia."
+    },
+    {
+      "name": "Premium confidence",
+      "description": "Sound curated, specific, and operational rather than generic."
+    }
+  ],
+  "applications": [
+    {
+      "name": "Digital presence",
+      "description": "Apply the identity consistently across website, social profile, and sales material."
+    },
+    {
+      "name": "Client proposal",
+      "description": "Translate the identity into offer pages, highlights, and proof points."
+    }
+  ],
+  "instagram_style": [
+    {
+      "pillar": "Autoridad",
+      "description": "Demostrar criterio, metodo y dominio de la categoria."
+    },
+    {
+      "pillar": "Deseo",
+      "description": "Convertir el destino o servicio en una experiencia deseable, no solo en itinerario."
+    },
+    {
+      "pillar": "Prueba",
+      "description": "Reducir incertidumbre con evidencia, casos, testimonios y proceso."
+    },
+    {
+      "pillar": "Conversion",
+      "description": "Guiar al publico hacia consulta, reserva, compra o diagnostico."
+    }
+  ],
+  "commercial_example": {
+    "offer": "Premium brand experience package",
+    "services": [
+      "Diagnosis",
+      "Identity direction",
+      "Content system",
+      "Execution roadmap"
+    ],
+    "cta": "Book a strategic discovery session."
+  },
+  "benefits": [
+    {
+      "name": "Sharper perception",
+      "description": "Help the audience understand the value faster."
+    },
+    {
+      "name": "Reusable system",
+      "description": "Turn scattered ideas into rules that can guide future assets."
+    }
+  ]
+}
