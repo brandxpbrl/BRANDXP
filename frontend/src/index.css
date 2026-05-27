@@ -164,6 +164,30 @@ button {
   animation-delay: 1.5s;
 }
 
+.brand-audio-gate {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 1px solid rgba(69, 198, 246, 0.28);
+  border-radius: 999px;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(217, 66, 143, 0.62), rgba(69, 198, 246, 0.38)),
+    rgba(0, 0, 0, 0.34);
+  box-shadow: 0 0 28px rgba(69, 198, 246, 0.18);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 .brand-welcome-dialogue {
   width: min(100%, 760px);
   display: grid;

@@ -1,91 +1,51 @@
 import { useEffect, useRef, useState } from "react"
 
-const WELCOME_SCRIPT =
-  "Hola, soy Brand. Guiaré tu experiencia por el ecosistema que desarrollo todos los días para ser más eficaz y rápido. Dime cómo te llamas y qué estás pensando crear hoy."
+const IDENTITY_VIDEO_PATH =
+  "02_Assets_Visuales/Entidad/Generated Video May 13, 2026 - 1_32AM.mp4"
 
 export default function BrandWelcomeGate({ apiUrl, onContinue }) {
   const [name, setName] = useState("")
   const [idea, setIdea] = useState("")
-  const [voiceState, setVoiceState] = useState("preparing")
-  const [voiceBlocked, setVoiceBlocked] = useState(false)
+  const [audioBlocked, setAudioBlocked] = useState(false)
+  const [audioActive, setAudioActive] = useState(false)
+  const videoRef = useRef(null)
   const nameInputRef = useRef(null)
-  const voiceStartRef = useRef(null)
 
-  const videoUrl = `${apiUrl}/creative-library/asset?path=02_Assets_Visuales%2FEntidad%2FBrandIdentity.mp4`
+  const videoUrl = `${apiUrl}/creative-library/asset?path=${encodeURIComponent(IDENTITY_VIDEO_PATH)}`
 
-  const getSpanishVoice = () => {
-    if (!("speechSynthesis" in window)) {
-      return null
-    }
+  const playVideoWithSound = async (restart = false) => {
+    const video = videoRef.current
 
-    const voices = window.speechSynthesis.getVoices()
-    return (
-      voices.find((voice) => voice.lang?.toLowerCase().startsWith("es-")) ||
-      voices.find((voice) => voice.lang?.toLowerCase().startsWith("es")) ||
-      voices[0] ||
-      null
-    )
-  }
-
-  const speakWelcome = (manual = false) => {
-    if (!("speechSynthesis" in window)) {
-      setVoiceState("blocked")
-      setVoiceBlocked(true)
+    if (!video) {
       return
     }
 
-    window.clearTimeout(voiceStartRef.current)
-    window.speechSynthesis.cancel()
-
-    const utterance = new SpeechSynthesisUtterance(WELCOME_SCRIPT)
-    const spanishVoice = getSpanishVoice()
-
-    if (spanishVoice) {
-      utterance.voice = spanishVoice
+    if (restart) {
+      video.currentTime = 0
     }
 
-    utterance.lang = spanishVoice?.lang || "es-ES"
-    utterance.rate = 0.82
-    utterance.pitch = 0.9
-    utterance.volume = 0.92
-    utterance.onstart = () => {
-      setVoiceState("speaking")
-      setVoiceBlocked(false)
-    }
-    utterance.onend = () => {
-      setVoiceState("done")
-      nameInputRef.current?.focus()
-    }
-    utterance.onerror = () => {
-      setVoiceState("blocked")
-      setVoiceBlocked(true)
-    }
+    video.muted = false
+    video.volume = 1
 
-    setVoiceState("preparing")
-    window.speechSynthesis.speak(utterance)
-
-    voiceStartRef.current = window.setTimeout(() => {
-      if (!window.speechSynthesis.speaking && !manual) {
-        setVoiceState("blocked")
-        setVoiceBlocked(true)
-      }
-    }, 1400)
+    try {
+      await video.play()
+      setAudioActive(true)
+      setAudioBlocked(false)
+    } catch {
+      video.muted = true
+      setAudioActive(false)
+      setAudioBlocked(true)
+      await video.play().catch(() => {})
+    }
   }
 
   useEffect(() => {
-    const startVoice = () => speakWelcome(false)
-    const voiceTimer = window.setTimeout(startVoice, 500)
-
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.onvoiceschanged = startVoice
-    }
+    const videoTimer = window.setTimeout(() => playVideoWithSound(false), 350)
 
     return () => {
-      window.clearTimeout(voiceTimer)
-      window.clearTimeout(voiceStartRef.current)
-      if ("speechSynthesis" in window) {
-        window.speechSynthesis.onvoiceschanged = null
-        window.speechSynthesis.cancel()
+      window.clearTimeout(videoTimer)
+      if (videoRef.current) {
+        videoRef.current.pause()
       }
     }
   }, [])
@@ -93,8 +53,8 @@ export default function BrandWelcomeGate({ apiUrl, onContinue }) {
   const submitWelcome = (event) => {
     event.preventDefault()
 
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel()
+    if (videoRef.current) {
+      videoRef.current.pause()
     }
 
     window.sessionStorage.setItem("brand_welcome_seen", "true")
@@ -113,29 +73,38 @@ export default function BrandWelcomeGate({ apiUrl, onContinue }) {
         <button
           className="brand-welcome-video-wrap"
           type="button"
-          onClick={() => speakWelcome(true)}
-          aria-label="Escuchar voz de Brand"
+          onClick={() => playVideoWithSound(true)}
+          aria-label="Escuchar video de Brand"
         >
-          <video src={videoUrl} autoPlay muted loop playsInline />
+          <video
+            ref={videoRef}
+            src={videoUrl}
+            autoPlay
+            playsInline
+            onEnded={() => {
+              setAudioActive(false)
+              nameInputRef.current?.focus()
+            }}
+            onPlaying={() => {
+              setAudioActive(!videoRef.current?.muted)
+            }}
+            onVolumeChange={() => {
+              setAudioActive(Boolean(videoRef.current && !videoRef.current.muted))
+            }}
+          />
           <div className="brand-welcome-video-glow" />
-          <div className={voiceState === "speaking" ? "brand-voice-ring speaking" : "brand-voice-ring"}>
+          <div className={audioActive ? "brand-voice-ring speaking" : "brand-voice-ring"}>
             <i />
             <i />
             <i />
             <i />
           </div>
+          {audioBlocked ? (
+            <span className="brand-audio-gate">Escuchar Brand</span>
+          ) : null}
         </button>
 
         <form className="brand-welcome-dialogue" onSubmit={submitWelcome}>
-          <h1 className="sr-only">Hola, soy Brand.</h1>
-          <p className="sr-only">{WELCOME_SCRIPT}</p>
-          <div className="brand-welcome-voice-status" aria-live="polite">
-            <span translate="no">Brand Experience OS</span>
-            <button className="brand-voice-trigger" type="button" onClick={() => speakWelcome(true)}>
-              {voiceState === "speaking" ? "Brand está hablando" : voiceBlocked ? "Activar voz" : "Repetir voz"}
-            </button>
-          </div>
-
           <div className="brand-welcome-fields">
             <input
               ref={nameInputRef}
