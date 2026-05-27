@@ -29,6 +29,7 @@ export default function EntityAdvisorPanel({
   const audioRef = useRef(null)
   const previewTimerRef = useRef(null)
   const recognitionRef = useRef(null)
+  const recognitionTextRef = useRef("")
 
   const defaultEntityAsset =
     "/creative-library/asset?path=02_Assets_Visuales%2FEntidad%2F762ae545-1c9a-42a1-9497-ea815042ce9b.mp4"
@@ -73,7 +74,13 @@ export default function EntityAdvisorPanel({
   }
 
   useEffect(() => {
-    return () => stopEntityVoice()
+    return () => {
+      stopEntityVoice()
+      if (recognitionRef.current) {
+        recognitionRef.current.stop()
+        recognitionRef.current = null
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -250,11 +257,16 @@ export default function EntityAdvisorPanel({
     }
   }
 
-  const startListening = () => {
+  const startListening = async () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
     if (!SpeechRecognition) {
-      setConversationError("Este navegador no tiene reconocimiento de voz disponible.")
+      setConversationError("Este navegador no tiene reconocimiento de voz disponible. Usa Chrome o Edge, o escribe tu mensaje.")
+      return
+    }
+
+    if (!window.isSecureContext && !window.location.hostname.includes("localhost") && window.location.hostname !== "127.0.0.1") {
+      setConversationError("El navegador solo permite escuchar por HTTPS o localhost.")
       return
     }
 
@@ -263,33 +275,74 @@ export default function EntityAdvisorPanel({
       recognitionRef.current = null
     }
 
+    try {
+      if (navigator.mediaDevices?.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+        stream.getTracks().forEach((track) => track.stop())
+      }
+    } catch (err) {
+      setConversationError("No tengo permiso para usar el microfono. Habilitalo en el navegador y probamos otra vez.")
+      return
+    }
+
     const recognition = new SpeechRecognition()
     recognitionRef.current = recognition
+    recognitionTextRef.current = ""
     recognition.lang = "es-ES"
     recognition.interimResults = true
     recognition.continuous = false
+    recognition.maxAlternatives = 1
 
     recognition.onstart = () => {
       setListening(true)
       setConversationError("")
+      setConversationDraft("")
     }
     recognition.onresult = (event) => {
-      const transcript = Array.from(event.results)
-        .map((result) => result[0]?.transcript || "")
-        .join(" ")
-        .trim()
-      setConversationDraft(transcript)
+      let interimText = ""
+
+      for (let index = event.resultIndex; index < event.results.length; index += 1) {
+        const transcript = event.results[index][0]?.transcript || ""
+
+        if (event.results[index].isFinal) {
+          recognitionTextRef.current = `${recognitionTextRef.current} ${transcript}`.trim()
+        } else {
+          interimText = `${interimText} ${transcript}`.trim()
+        }
+      }
+
+      setConversationDraft(`${recognitionTextRef.current} ${interimText}`.trim())
     }
-    recognition.onerror = () => {
+    recognition.onerror = (event) => {
       setListening(false)
-      setConversationError("No pude escuchar con claridad. Probemos escribiendo o intenta otra vez.")
+      recognitionRef.current = null
+
+      const messages = {
+        "not-allowed": "El microfono esta bloqueado. Habilitalo desde el candado del navegador.",
+        "audio-capture": "No encuentro un microfono activo en este dispositivo.",
+        "no-speech": "No detecte voz. Probemos de nuevo hablando un poco mas cerca del microfono.",
+        network: "El reconocimiento de voz no pudo conectar. Probemos otra vez o escribe el mensaje.",
+      }
+      setConversationError(messages[event.error] || "No pude escuchar con claridad. Probemos escribiendo o intenta otra vez.")
     }
     recognition.onend = () => {
       setListening(false)
       recognitionRef.current = null
+      const finalText = recognitionTextRef.current.trim()
+
+      if (finalText) {
+        setConversationDraft(finalText)
+        window.setTimeout(() => sendEntityConversation(finalText), 250)
+      }
     }
 
-    recognition.start()
+    try {
+      recognition.start()
+    } catch (err) {
+      setListening(false)
+      recognitionRef.current = null
+      setConversationError("No pude iniciar la escucha. Cerrá otra escucha activa o recargá la página.")
+    }
   }
 
   const stopListening = () => {
