@@ -81,7 +81,16 @@ export default function App() {
   const [accessError, setAccessError] = useState("")
   const [accessSession, setAccessSession] = useState(null)
   const [welcomeComplete, setWelcomeComplete] = useState(
-    () => window.sessionStorage.getItem("brand_welcome_seen") === "true"
+    () => {
+      if (new URLSearchParams(window.location.search).has("resetWelcome")) {
+        window.sessionStorage.removeItem("brand_welcome_seen")
+        window.sessionStorage.removeItem("brand_welcome_name")
+        window.sessionStorage.removeItem("brand_welcome_idea")
+        return false
+      }
+
+      return window.sessionStorage.getItem("brand_welcome_seen") === "true"
+    }
   )
   const [visitorName, setVisitorName] = useState(
     () => window.sessionStorage.getItem("brand_welcome_name") || ""
