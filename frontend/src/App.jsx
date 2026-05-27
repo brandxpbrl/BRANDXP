@@ -868,8 +868,8 @@ export default function App() {
               <section className="glass-panel workspace-tabs-panel">
                 <div className="workspace-tabs-head">
                   <div>
-                    <div className="panel-kicker">Dashboard operativo</div>
-                    <div className="panel-title">Workspace del cliente</div>
+                    <div className="panel-kicker">Client workspace</div>
+                    <div className="panel-title">Mesa de activación</div>
                   </div>
                   <div className="workspace-client-chip">
                     <span>Cliente activo</span>

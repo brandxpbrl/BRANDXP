@@ -56,7 +56,7 @@ button {
   background:
     radial-gradient(circle at 72% 14%, rgba(69, 198, 246, 0.12), transparent 28%),
     radial-gradient(circle at 10% 18%, rgba(217, 66, 143, 0.12), transparent 26%),
-    linear-gradient(115deg, rgba(4, 6, 12, 0.97), rgba(4, 8, 17, 0.86) 52%, rgba(4, 5, 10, 0.94)),
+    linear-gradient(115deg, rgba(4, 6, 12, 0.98), rgba(5, 10, 22, 0.9) 52%, rgba(6, 4, 12, 0.96)),
     rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(8px) saturate(115%);
 }
@@ -73,7 +73,7 @@ button {
 }
 
 .sidebar {
-  width: 286px;
+  width: 292px;
   min-height: 100vh;
   padding: 24px;
   display: flex;
@@ -95,8 +95,8 @@ button {
 
 .brand-title {
   color: #ffffff;
-  max-width: 210px;
-  font-size: 21px;
+  max-width: 220px;
+  font-size: 25px;
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: 0;
@@ -113,12 +113,13 @@ button {
 .brand-subtitle {
   margin-top: 8px;
   font-size: 13px;
+  color: rgba(167, 247, 255, 0.72);
 }
 
 .nav-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
 }
 
 .nav-item {
@@ -165,7 +166,7 @@ button {
 
 .main-surface {
   flex: 1;
-  width: min(100%, calc(100vw - 286px));
+  width: min(100%, calc(100vw - 292px));
   padding: 28px;
 }
 
@@ -175,11 +176,11 @@ button {
   gap: 24px;
   align-items: flex-start;
   margin-bottom: 22px;
-  padding: 22px 24px;
+  padding: 26px 28px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(69, 198, 246, 0.08), rgba(217, 66, 143, 0.055)),
+    linear-gradient(135deg, rgba(69, 198, 246, 0.12), rgba(217, 66, 143, 0.075)),
     rgba(6, 9, 18, 0.62);
   box-shadow: 0 24px 90px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(24px);
@@ -197,8 +198,8 @@ button {
 .topbar h1 {
   margin: 0 0 8px;
   color: #ffffff;
-  font-size: clamp(31px, 4.2vw, 52px);
-  line-height: 1;
+  font-size: clamp(38px, 5.4vw, 70px);
+  line-height: 0.94;
   letter-spacing: 0;
 }
 
@@ -277,7 +278,7 @@ button {
 
 .command-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.48fr) minmax(360px, 0.62fr);
+  grid-template-columns: minmax(0, 1.55fr) minmax(390px, 0.6fr);
   gap: 20px;
   align-items: start;
 }
@@ -291,11 +292,11 @@ button {
 .entity-advisor-panel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(128px, 0.38fr) minmax(0, 1fr);
+  grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
   gap: 18px;
   overflow: hidden;
   background:
-    linear-gradient(145deg, rgba(11, 18, 35, 0.94), rgba(20, 8, 27, 0.8)),
+    linear-gradient(145deg, rgba(7, 18, 35, 0.96), rgba(22, 8, 30, 0.84)),
     rgba(13, 15, 24, 0.82);
   border-color: rgba(69, 198, 246, 0.2);
 }
@@ -303,7 +304,7 @@ button {
 .entity-advisor-visual {
   position: relative;
   min-width: 0;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 4.35;
   border-radius: 8px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.32);
@@ -347,7 +348,7 @@ button {
 
 .entity-advisor-content .panel-title {
   margin-top: 2px;
-  font-size: 25px;
+  font-size: 29px;
 }
 
 .entity-advisor-message {
@@ -764,9 +765,9 @@ button {
 .glass-panel {
   border: 1px solid rgba(255, 255, 255, 0.095);
   border-radius: 8px;
-  padding: 22px;
+  padding: 24px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.035), transparent),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), transparent 55%),
     rgba(9, 13, 24, 0.72);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(24px);
@@ -823,6 +824,18 @@ button {
   font-weight: 850;
   background: rgba(255, 255, 255, 0.045);
   border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.client-memory-panel {
+  border-color: rgba(69, 198, 246, 0.16);
+}
+
+.client-memory-header > strong {
+  min-width: 38px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .workbench-status.active {
@@ -934,6 +947,10 @@ button {
 .workspace-tabs-panel {
   display: grid;
   gap: 16px;
+  border-color: rgba(217, 66, 143, 0.14);
+  background:
+    linear-gradient(135deg, rgba(217, 66, 143, 0.085), rgba(69, 198, 246, 0.045)),
+    rgba(9, 13, 24, 0.72);
 }
 
 .workspace-module-header {
@@ -941,6 +958,11 @@ button {
   align-items: flex-end;
   justify-content: space-between;
   gap: 18px;
+  min-height: 126px;
+  border-color: rgba(69, 198, 246, 0.18);
+  background:
+    linear-gradient(120deg, rgba(69, 198, 246, 0.11), rgba(217, 66, 143, 0.045)),
+    rgba(9, 13, 24, 0.76);
 }
 
 .workspace-module-header p {
@@ -963,7 +985,7 @@ button {
   place-items: center;
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 850;
   background: rgba(69, 198, 246, 0.055);
   border: 1px solid rgba(69, 198, 246, 0.14);
@@ -976,11 +998,11 @@ button {
 }
 
 .workspace-tab {
-  min-height: 46px;
+  min-height: 50px;
   border-radius: 8px;
   padding: 11px 14px;
   color: rgba(255, 255, 255, 0.72);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.09);
   cursor: pointer;
   font-weight: 850;
@@ -990,7 +1012,7 @@ button {
 .workspace-tab.active {
   color: #ffffff;
   background:
-    linear-gradient(90deg, rgba(217, 66, 143, 0.72), rgba(95, 110, 230, 0.72)),
+    linear-gradient(90deg, rgba(217, 66, 143, 0.82), rgba(95, 110, 230, 0.78)),
     rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.18);
 }
@@ -1573,10 +1595,10 @@ button {
 .results-hub-client {
   display: grid;
   gap: 6px;
-  padding: 16px;
+  padding: 18px;
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(217, 66, 143, 0.18), rgba(95, 110, 230, 0.1)),
+    linear-gradient(135deg, rgba(217, 66, 143, 0.24), rgba(69, 198, 246, 0.1)),
     rgba(255, 255, 255, 0.045);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1614,7 +1636,7 @@ button {
   min-width: 0;
   border-radius: 8px;
   padding: 14px;
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(255, 255, 255, 0.038);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 

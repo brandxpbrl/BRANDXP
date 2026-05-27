@@ -9,8 +9,8 @@ export default function TopBar() {
       </div>
 
       <div className="topbar-actions">
-        <div className="status-pill">Live OS</div>
-        <div className="status-pill soft">Gemini</div>
+        <div className="status-pill">Sistema online</div>
+        <div className="status-pill soft">Gemini AI</div>
       </div>
     </header>
   )

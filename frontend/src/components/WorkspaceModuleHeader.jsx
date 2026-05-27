@@ -1,7 +1,7 @@
 const moduleCopy = {
   panel: {
-    title: "Panel operativo",
-    copy: "Carga el contexto del cliente, guarda fuentes y ejecuta el framework completo.",
+    title: "Command Center",
+    copy: "Carga contexto, activa el framework y convierte señales de marca en una lectura ejecutable.",
   },
   engine: {
     title: "Motor cognitivo",
@@ -24,8 +24,8 @@ const moduleCopy = {
     copy: "Analisis guardado, contexto recuperado y entregables asociados a la memoria del cliente.",
   },
   entity_bible: {
-    title: "Biblia de la Entidad",
-    copy: "Base para revisar el diagnostico, la identidad revelada y el universo estrategico del cliente.",
+    title: "Entity Bible",
+    copy: "Base viva para revisar identidad, narrativa, memoria y universo estrategico del cliente.",
   },
   visual_ai: {
     title: "IA visual",
@@ -57,7 +57,7 @@ export default function WorkspaceModuleHeader({ activeSection = "panel" }) {
       </div>
       <div className="module-signal-strip">
         <span>Memoria</span>
-        <span>Visual DNA</span>
+        <span>ADN visual</span>
         <span>Contenido</span>
         <span>Agent OS</span>
       </div>
