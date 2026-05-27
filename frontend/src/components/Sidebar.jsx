@@ -18,10 +18,10 @@ export default function Sidebar({ activeSection = "panel", onSectionChange }) {
       <div>
         <div className="brand-lockup">
           <div className="brand-title">
-            BRAND EXPERIENCE OS
+            BRAND EXPERIENCE
           </div>
           <div className="brand-subtitle">
-            Creative Intelligence System
+            Creative Intelligence OS
           </div>
         </div>
 

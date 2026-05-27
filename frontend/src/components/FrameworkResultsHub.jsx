@@ -16,8 +16,8 @@ export default function FrameworkResultsHub({
     <section className="glass-panel results-hub">
       <div className="panel-header">
         <div>
-          <div className="panel-kicker">Framework ejecutado</div>
-          <div className="panel-title">Centro de analisis y entregables</div>
+          <div className="panel-kicker">Framework intelligence</div>
+          <div className="panel-title">Análisis y entregables</div>
         </div>
         <div className="dashboard-actions results-hub-actions">
           <button className="secondary-action" type="button" onClick={onRefreshDeliverables} disabled={!clientName}>
