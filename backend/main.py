@@ -13,6 +13,7 @@ from services.ai_agent_os_builder import generate_ai_agent_os
 from services.access_control import access_control_enabled, authenticate_access_key, is_client_allowed_path, is_public_path, verify_access_token
 from services.client_activation_engine import build_client_activation, create_activation_sprint, generate_client_portal_summary, generate_evolution_timeline, generate_strategic_campaign, mark_deliverables_reviewed
 from services.client_chat_engine import build_client_chat_context, run_client_chat
+from services.entity_conversation_engine import build_entity_conversation_context, run_entity_conversation
 from services.client_portal import build_client_portal
 from services.deliverables_review_engine import review_client_deliverables
 from services.entity_advisor import build_entity_advisor, get_creative_library_asset_path
@@ -123,6 +124,13 @@ class ClientChatRequest(BaseModel):
     message: str
 
     prompt_id: str | None = None
+
+
+class EntityConversationRequest(BaseModel):
+
+    message: str
+
+    mode: str = "internal"
 
 
 class AccessLoginRequest(BaseModel):
@@ -289,6 +297,44 @@ async def entity_reasoning(client_name: str):
         "reasoning": result["reasoning"],
         "fluid_messages": result["fluid_messages"],
     }
+
+
+@app.get("/api/entity/conversation/{client_name}")
+async def entity_conversation_context(client_name: str):
+
+    result = build_entity_conversation_context(client_name)
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.post("/api/entity/conversation/{client_name}")
+async def entity_conversation(client_name: str, request: EntityConversationRequest):
+
+    try:
+        result = run_entity_conversation(
+            client_name,
+            request.message,
+            request.mode,
+        )
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
 
 
 @app.post("/api/entity/voice-script")

@@ -166,6 +166,9 @@ def client_name_from_path(path):
     if len(parts) >= 2 and parts[0] == "entity-advisor":
         return parts[1]
 
+    if len(parts) >= 4 and parts[0] == "api" and parts[1] == "entity" and parts[2] == "conversation":
+        return parts[3]
+
     return None
 
 
@@ -181,6 +184,9 @@ def is_client_allowed_path(path, method, client):
         return False
 
     if path.startswith("/entity-advisor/") and method == "GET":
+        return True
+
+    if path.startswith("/api/entity/conversation/") and method in {"GET", "POST"}:
         return True
 
     if path.startswith("/api/clients/") and "/portal" in path and method == "GET":

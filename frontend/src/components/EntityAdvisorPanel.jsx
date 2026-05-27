@@ -21,8 +21,14 @@ export default function EntityAdvisorPanel({
   const [voiceScript, setVoiceScript] = useState("")
   const [voiceStatus, setVoiceStatus] = useState("")
   const [voiceError, setVoiceError] = useState("")
+  const [conversationDraft, setConversationDraft] = useState("")
+  const [conversationMessages, setConversationMessages] = useState([])
+  const [conversationLoading, setConversationLoading] = useState(false)
+  const [conversationError, setConversationError] = useState("")
+  const [listening, setListening] = useState(false)
   const audioRef = useRef(null)
   const previewTimerRef = useRef(null)
+  const recognitionRef = useRef(null)
 
   const defaultEntityAsset =
     "/creative-library/asset?path=02_Assets_Visuales%2FEntidad%2F762ae545-1c9a-42a1-9497-ea815042ce9b.mp4"
@@ -69,6 +75,12 @@ export default function EntityAdvisorPanel({
   useEffect(() => {
     return () => stopEntityVoice()
   }, [])
+
+  useEffect(() => {
+    setConversationMessages([])
+    setConversationDraft("")
+    setConversationError("")
+  }, [clientName])
 
   const speakPreview = (script) => {
     if (!("speechSynthesis" in window) || !script) {
@@ -179,6 +191,113 @@ export default function EntityAdvisorPanel({
     } finally {
       setVoiceLoading(false)
     }
+  }
+
+  const speakEntityText = (text) => {
+    setVoiceScript(text)
+    setVoiceStatus("La entidad está leyendo...")
+    stopEntityVoice()
+    speakPreview(text)
+  }
+
+  const sendEntityConversation = async (messageOverride = "") => {
+    const message = (messageOverride || conversationDraft).trim()
+
+    if (!clientName || !message) {
+      setConversationError("Selecciona un cliente y escribe una pregunta para la Entidad.")
+      return
+    }
+
+    setConversationLoading(true)
+    setConversationError("")
+    setConversationMessages((items) => [
+      ...items,
+      {
+        role: "user",
+        content: message,
+      },
+    ])
+    setConversationDraft("")
+
+    try {
+      const res = await fetch(`${apiUrl}/api/entity/conversation/${encodeURIComponent(clientName)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message,
+          mode: "internal",
+        }),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.detail || "La Entidad no pudo responder.")
+      }
+
+      const assistantMessage = {
+        role: "assistant",
+        content: data.answer,
+        provider: data.provider,
+      }
+      setConversationMessages(data.history?.length ? data.history.slice(-8) : (items) => [...items, assistantMessage])
+      speakEntityText(data.answer)
+    } catch (err) {
+      setConversationError(err.message)
+    } finally {
+      setConversationLoading(false)
+    }
+  }
+
+  const startListening = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+    if (!SpeechRecognition) {
+      setConversationError("Este navegador no tiene reconocimiento de voz disponible.")
+      return
+    }
+
+    if (recognitionRef.current) {
+      recognitionRef.current.stop()
+      recognitionRef.current = null
+    }
+
+    const recognition = new SpeechRecognition()
+    recognitionRef.current = recognition
+    recognition.lang = "es-ES"
+    recognition.interimResults = true
+    recognition.continuous = false
+
+    recognition.onstart = () => {
+      setListening(true)
+      setConversationError("")
+    }
+    recognition.onresult = (event) => {
+      const transcript = Array.from(event.results)
+        .map((result) => result[0]?.transcript || "")
+        .join(" ")
+        .trim()
+      setConversationDraft(transcript)
+    }
+    recognition.onerror = () => {
+      setListening(false)
+      setConversationError("No pude escuchar con claridad. Probemos escribiendo o intenta otra vez.")
+    }
+    recognition.onend = () => {
+      setListening(false)
+      recognitionRef.current = null
+    }
+
+    recognition.start()
+  }
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop()
+      recognitionRef.current = null
+    }
+    setListening(false)
   }
 
   return (
@@ -373,6 +492,57 @@ export default function EntityAdvisorPanel({
               <span>{deliverablesReview.summary?.core_deliverables || 0} principales</span>
               <span>{deliverablesReview.summary?.duplicate_groups || 0} duplicados</span>
             </div>
+          </div>
+        ) : null}
+
+        {clientName ? (
+          <div className="entity-conversation-card">
+            <div className="entity-conversation-header">
+              <div>
+                <span>Conversar con la Entidad</span>
+                <strong>{listening ? "Escuchando..." : conversationLoading ? "Razonando..." : "Lista para escuchar"}</strong>
+              </div>
+              <button
+                className={listening ? "secondary-action entity-listen active" : "secondary-action entity-listen"}
+                type="button"
+                onClick={listening ? stopListening : startListening}
+              >
+                {listening ? "Detener" : "Escuchar"}
+              </button>
+            </div>
+
+            <div className="entity-conversation-messages">
+              {conversationMessages.length ? (
+                conversationMessages.slice(-4).map((message, index) => (
+                  <article className={`entity-conversation-message ${message.role}`} key={`${message.role}-${index}`}>
+                    <span>{message.role === "user" ? "Vos" : "Entidad"}</span>
+                    <p>{message.content}</p>
+                  </article>
+                ))
+              ) : (
+                <article className="entity-conversation-message assistant">
+                  <span>Entidad</span>
+                  <p>Estoy lista para escuchar. Puedo ayudarte a decidir, sintetizar, crear una respuesta para el cliente o convertir una idea en una accion concreta.</p>
+                </article>
+              )}
+            </div>
+
+            <div className="entity-conversation-input">
+              <textarea
+                value={conversationDraft}
+                onChange={(event) => setConversationDraft(event.target.value)}
+                placeholder="Hablale a la Entidad: que deberiamos hacer con este cliente, que falta, como lo presentamos, que generamos ahora..."
+              />
+              <button
+                className="primary-action"
+                type="button"
+                onClick={() => sendEntityConversation()}
+                disabled={conversationLoading || !conversationDraft.trim()}
+              >
+                {conversationLoading ? "Razonando..." : "Enviar"}
+              </button>
+            </div>
+            {conversationError ? <p className="entity-advisor-note warning">{conversationError}</p> : null}
           </div>
         ) : null}
       </div>
