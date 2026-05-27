@@ -91,6 +91,14 @@ button {
   align-items: end;
 }
 
+.brand-welcome-media-grid {
+  position: relative;
+  width: min(100%, 1180px);
+  min-height: min(72vh, 720px);
+  display: grid;
+  place-items: center;
+}
+
 .brand-welcome-video-wrap {
   position: relative;
   width: min(52vw, 460px);
@@ -101,6 +109,22 @@ button {
   border: 0;
   background: transparent;
   cursor: pointer;
+}
+
+.brand-welcome-video-wrap--side {
+  position: absolute;
+  left: clamp(0px, 2vw, 22px);
+  top: 50%;
+  width: min(28vw, 310px);
+  height: min(58vh, 580px);
+  transform: translateY(-50%);
+  justify-self: start;
+}
+
+.brand-welcome-video-wrap--center {
+  width: min(52vw, 460px);
+  height: min(72vh, 720px);
+  cursor: default;
 }
 
 .brand-welcome-video-wrap video {
@@ -148,6 +172,10 @@ button {
 
 .brand-voice-ring.speaking i {
   animation: brandVoicePulse 2.6s ease-out infinite;
+}
+
+.brand-welcome-video-wrap--side .brand-voice-ring {
+  width: min(36vw, 340px);
 }
 
 .brand-voice-ring i:nth-child(2) {
@@ -200,37 +228,6 @@ button {
     rgba(0, 0, 0, 0.36);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
   backdrop-filter: blur(18px);
-}
-
-.brand-welcome-voice-status {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.brand-welcome-voice-status > span {
-  color: var(--pink);
-  font-size: 12px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.brand-voice-trigger {
-  min-height: 34px;
-  padding: 8px 12px;
-  border: 1px solid rgba(69, 198, 246, 0.22);
-  border-radius: 999px;
-  color: rgba(255, 255, 255, 0.76);
-  background: rgba(0, 0, 0, 0.22);
-  font-size: 12px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.brand-voice-trigger:hover {
-  border-color: rgba(217, 66, 143, 0.45);
-  color: #ffffff;
 }
 
 .brand-welcome-fields {
@@ -2874,6 +2871,10 @@ button {
   .client-chat-grid {
     grid-template-columns: 1fr;
   }
+
+  .brand-welcome-video-wrap--side {
+    width: min(26vw, 250px);
+  }
 }
 
 @media (max-width: 720px) {
@@ -2949,9 +2950,28 @@ button {
     min-height: calc(100vh - 40px);
   }
 
+  .brand-welcome-media-grid {
+    min-height: auto;
+    gap: 8px;
+  }
+
   .brand-welcome-video-wrap {
     width: min(88vw, 360px);
     height: 52vh;
+  }
+
+  .brand-welcome-video-wrap--side {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(72vw, 240px);
+    height: 30vh;
+    transform: none;
+  }
+
+  .brand-welcome-video-wrap--center {
+    width: min(86vw, 340px);
+    height: 44vh;
   }
 
   .brand-welcome-dialogue {
