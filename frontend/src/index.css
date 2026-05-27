@@ -597,6 +597,58 @@ button {
   color: #ffb7d7;
 }
 
+.entity-mode-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid rgba(69, 198, 246, 0.16);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(69, 198, 246, 0.035)),
+    rgba(0, 0, 0, 0.18);
+}
+
+.entity-mode-tab {
+  position: relative;
+  min-height: 42px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 900;
+  cursor: pointer;
+  background: transparent;
+  overflow: hidden;
+}
+
+.entity-mode-tab::after {
+  position: absolute;
+  inset: auto 18% 7px;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--pink), transparent);
+  opacity: 0;
+  transform: scaleX(0.3);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.entity-mode-tab.active {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(69, 198, 246, 0.16), transparent 32%),
+    linear-gradient(135deg, rgba(217, 66, 143, 0.16), rgba(69, 198, 246, 0.1));
+  box-shadow: inset 0 0 0 1px rgba(69, 198, 246, 0.2);
+}
+
+.entity-mode-tab.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.entity-mode-tab:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
 .entity-advisor-next {
   display: grid;
   gap: 5px;
@@ -705,6 +757,18 @@ button {
   color: #ffffff;
   background: rgba(69, 198, 246, 0.16);
   box-shadow: 0 0 24px rgba(69, 198, 246, 0.18);
+  animation: entityListenPulse 1.45s ease-in-out infinite;
+}
+
+@keyframes entityListenPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(69, 198, 246, 0.16), inset 0 0 0 1px rgba(69, 198, 246, 0.18);
+  }
+
+  50% {
+    box-shadow: 0 0 34px rgba(69, 198, 246, 0.34), 0 0 48px rgba(217, 66, 143, 0.14), inset 0 0 0 1px rgba(69, 198, 246, 0.34);
+  }
 }
 
 .entity-conversation-messages {

@@ -208,6 +208,26 @@ def build_entity_advisor(client_name):
     }
 
 
+def chat_with_entity(client_name, message, mode="internal"):
+    clean_client_name = _sanitize_client_name(client_name)
+    clean_message = (message or "").strip()
+    clean_mode = mode if mode in {"internal", "client"} else "internal"
+
+    if not clean_client_name:
+        raise ValueError("Client is required.")
+
+    if not clean_message:
+        raise ValueError("Message is required.")
+
+    from services.entity_conversation_engine import run_entity_conversation
+
+    return run_entity_conversation(
+        clean_client_name,
+        clean_message,
+        clean_mode,
+    )
+
+
 def get_creative_library_asset_path(relative_path):
     if not relative_path:
         raise FileNotFoundError("Creative asset path is required.")

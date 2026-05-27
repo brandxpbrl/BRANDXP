@@ -16,7 +16,7 @@ from services.client_chat_engine import build_client_chat_context, run_client_ch
 from services.entity_conversation_engine import build_entity_conversation_context, run_entity_conversation
 from services.client_portal import build_client_portal
 from services.deliverables_review_engine import review_client_deliverables
-from services.entity_advisor import build_entity_advisor, get_creative_library_asset_path
+from services.entity_advisor import build_entity_advisor, chat_with_entity, get_creative_library_asset_path
 from services.entity_voice_profile import get_entity_voice_profile
 from services.entity_voice_script_engine import build_entity_voice_script
 from services.tts_service import generate_entity_voice
@@ -127,6 +127,15 @@ class ClientChatRequest(BaseModel):
 
 
 class EntityConversationRequest(BaseModel):
+
+    message: str
+
+    mode: str = "internal"
+
+
+class EntityChatRequest(BaseModel):
+
+    client: str
 
     message: str
 
@@ -319,6 +328,41 @@ async def entity_conversation(client_name: str, request: EntityConversationReque
     try:
         result = run_entity_conversation(
             client_name,
+            request.message,
+            request.mode,
+        )
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.post("/api/entity/chat")
+async def entity_chat(request: EntityChatRequest, http_request: Request):
+    access_session = getattr(http_request.state, "access_session", None)
+
+    if (
+        access_session
+        and access_session.get("mode") == "client"
+        and request.client.casefold() != access_session.get("client", "").casefold()
+    ):
+        raise HTTPException(
+            status_code=403,
+            detail="This key can only chat with its assigned client entity."
+        )
+
+    try:
+        result = chat_with_entity(
+            request.client,
             request.message,
             request.mode,
         )

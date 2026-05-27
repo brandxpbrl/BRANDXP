@@ -26,6 +26,7 @@ export default function EntityAdvisorPanel({
   const [conversationLoading, setConversationLoading] = useState(false)
   const [conversationError, setConversationError] = useState("")
   const [listening, setListening] = useState(false)
+  const [entityTab, setEntityTab] = useState("reading")
   const audioRef = useRef(null)
   const previewTimerRef = useRef(null)
   const recognitionRef = useRef(null)
@@ -87,6 +88,7 @@ export default function EntityAdvisorPanel({
     setConversationMessages([])
     setConversationDraft("")
     setConversationError("")
+    setEntityTab("reading")
   }, [clientName])
 
   const speakPreview = (script) => {
@@ -217,6 +219,7 @@ export default function EntityAdvisorPanel({
 
     setConversationLoading(true)
     setConversationError("")
+    setEntityTab("conversation")
     setConversationMessages((items) => [
       ...items,
       {
@@ -227,12 +230,13 @@ export default function EntityAdvisorPanel({
     setConversationDraft("")
 
     try {
-      const res = await fetch(`${apiUrl}/api/entity/conversation/${encodeURIComponent(clientName)}`, {
+      const res = await fetch(`${apiUrl}/api/entity/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          client: clientName,
           message,
           mode: "internal",
         }),
@@ -259,6 +263,7 @@ export default function EntityAdvisorPanel({
 
   const startListening = async () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    setEntityTab("conversation")
 
     if (!SpeechRecognition) {
       setConversationError("Este navegador no tiene reconocimiento de voz disponible. Usa Chrome o Edge, o escribe tu mensaje.")
@@ -371,184 +376,205 @@ export default function EntityAdvisorPanel({
       <div className="entity-advisor-content">
         <div className="panel-kicker">Entidad asesora</div>
         <div className="panel-title" translate="no">Brand Experience</div>
+        <div className="entity-mode-tabs" role="tablist" aria-label="Modos de la Entidad">
+          <button
+            className={entityTab === "reading" ? "entity-mode-tab active" : "entity-mode-tab"}
+            type="button"
+            onClick={() => setEntityTab("reading")}
+          >
+            Lectura
+          </button>
+          <button
+            className={entityTab === "conversation" ? "entity-mode-tab active" : "entity-mode-tab"}
+            type="button"
+            onClick={() => setEntityTab("conversation")}
+            disabled={!clientName}
+          >
+            Conversar
+          </button>
+        </div>
 
-        {!clientName ? (
-          <p className="entity-advisor-message">
-            Selecciona un cliente para activar la lectura de la Entidad.
-          </p>
-        ) : loading ? (
-          <p className="entity-advisor-message">Observando el sistema del cliente...</p>
-        ) : error ? (
-          <p className="entity-advisor-message warning">{error}</p>
-        ) : recommendation ? (
+        {entityTab === "reading" ? (
           <>
-            <p className="entity-advisor-message">
-              {fluidMessages.status_reading || recommendation.message}
-            </p>
-            <div className="entity-advisor-next">
-              <span>Proximo paso</span>
-              <strong>{recommendation.next_action}</strong>
-              {recommendation.reason ? <small>{recommendation.reason}</small> : null}
-            </div>
-            <div className="entity-engine-grid">
-              {activeEngines.map(([label, enabled]) => (
-                <div className={enabled ? "entity-engine active" : "entity-engine"} key={label}>
-                  <span>{label}</span>
-                  <strong>{enabled ? "Activo" : "Pendiente"}</strong>
+            {!clientName ? (
+              <p className="entity-advisor-message">
+                Selecciona un cliente para activar la lectura de la Entidad.
+              </p>
+            ) : loading ? (
+              <p className="entity-advisor-message">Observando el sistema del cliente...</p>
+            ) : error ? (
+              <p className="entity-advisor-message warning">{error}</p>
+            ) : recommendation ? (
+              <>
+                <p className="entity-advisor-message">
+                  {fluidMessages.status_reading || recommendation.message}
+                </p>
+                <div className="entity-advisor-next">
+                  <span>Proximo paso</span>
+                  <strong>{recommendation.next_action}</strong>
+                  {recommendation.reason ? <small>{recommendation.reason}</small> : null}
                 </div>
-              ))}
-            </div>
-            <div className="entity-live-panel">
-              <div className="entity-live-header">
-                <span>Lectura cognitiva</span>
-                <strong>Senales detectadas</strong>
-              </div>
-              <div className="entity-signal-list">
-                {signals.slice(0, 4).map((signal) => (
-                  <div className={`entity-signal ${signal.status}`} key={signal.id}>
-                    <span>{signal.label}</span>
-                    <small>{signal.interpretation}</small>
-                  </div>
-                ))}
-              </div>
-              <div className="entity-score-grid">
-                {[
-                  ["Claridad", scores.clarity],
-                  ["Diferenciacion", scores.differentiation],
-                  ["Premium", scores.premium_perception],
-                  ["Visual", scores.visual_coherence],
-                  ["Narrativa", scores.narrative_power],
-                  ["Conversion", scores.conversion_readiness],
-                ].map(([label, value]) => (
-                  <div className="entity-score" key={label}>
-                    <div>
+                <div className="entity-engine-grid">
+                  {activeEngines.map(([label, enabled]) => (
+                    <div className={enabled ? "entity-engine active" : "entity-engine"} key={label}>
                       <span>{label}</span>
-                      <strong>{value ?? 0}</strong>
-                    </div>
-                    <i style={{ "--score": `${Math.max(0, Math.min(100, value ?? 0))}%` }} />
-                  </div>
-                ))}
-              </div>
-              <div className="entity-reasoning-grid">
-                <div>
-                  <span>Fortaleza</span>
-                  <p>{opportunities[0] || entityState.oportunidad_principal || "Sistema con avance listo para ordenar."}</p>
-                </div>
-                <div>
-                  <span>Riesgo</span>
-                  <p>{risks[0] || "No convertir suficientes avances en una sintesis facil de aprobar."}</p>
-                </div>
-              </div>
-              {reasoning.executive_reading ? (
-                <div className="entity-criterion-card">
-                  <div className="entity-criterion-header">
-                    <span>Criterio de la Entidad</span>
-                    <strong>{reasoning.entity_presence || "observando"}</strong>
-                  </div>
-                  <p>{reasoning.executive_reading}</p>
-                  <small>Confianza: {reasoning.confidence || "inicial"}</small>
-                </div>
-              ) : null}
-              {reasoning.strategic_questions?.length ? (
-                <div className="entity-question-card">
-                  <span>Preguntas estrategicas</span>
-                  {reasoning.strategic_questions.map((question) => (
-                    <p key={question}>{question}</p>
-                  ))}
-                </div>
-              ) : null}
-              {reasoning.action_routes?.length ? (
-                <div className="entity-route-list">
-                  {reasoning.action_routes.map((route) => (
-                    <div className={`entity-route ${route.type}`} key={`${route.type}-${route.label}`}>
-                      <span>{route.type}</span>
-                      <strong>{route.label}</strong>
-                      <small>{route.reason}</small>
+                      <strong>{enabled ? "Activo" : "Pendiente"}</strong>
                     </div>
                   ))}
                 </div>
-              ) : null}
-            </div>
-          </>
-        ) : (
-          <p className="entity-advisor-message">
-            La Entidad esta lista para evaluar el proximo movimiento.
-          </p>
-        )}
+                <div className="entity-live-panel">
+                  <div className="entity-live-header">
+                    <span>Lectura cognitiva</span>
+                    <strong>Senales detectadas</strong>
+                  </div>
+                  <div className="entity-signal-list">
+                    {signals.slice(0, 4).map((signal) => (
+                      <div className={`entity-signal ${signal.status}`} key={signal.id}>
+                        <span>{signal.label}</span>
+                        <small>{signal.interpretation}</small>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="entity-score-grid">
+                    {[
+                      ["Claridad", scores.clarity],
+                      ["Diferenciacion", scores.differentiation],
+                      ["Premium", scores.premium_perception],
+                      ["Visual", scores.visual_coherence],
+                      ["Narrativa", scores.narrative_power],
+                      ["Conversion", scores.conversion_readiness],
+                    ].map(([label, value]) => (
+                      <div className="entity-score" key={label}>
+                        <div>
+                          <span>{label}</span>
+                          <strong>{value ?? 0}</strong>
+                        </div>
+                        <i style={{ "--score": `${Math.max(0, Math.min(100, value ?? 0))}%` }} />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="entity-reasoning-grid">
+                    <div>
+                      <span>Fortaleza</span>
+                      <p>{opportunities[0] || entityState.oportunidad_principal || "Sistema con avance listo para ordenar."}</p>
+                    </div>
+                    <div>
+                      <span>Riesgo</span>
+                      <p>{risks[0] || "No convertir suficientes avances en una sintesis facil de aprobar."}</p>
+                    </div>
+                  </div>
+                  {reasoning.executive_reading ? (
+                    <div className="entity-criterion-card">
+                      <div className="entity-criterion-header">
+                        <span>Criterio de la Entidad</span>
+                        <strong>{reasoning.entity_presence || "observando"}</strong>
+                      </div>
+                      <p>{reasoning.executive_reading}</p>
+                      <small>Confianza: {reasoning.confidence || "inicial"}</small>
+                    </div>
+                  ) : null}
+                  {reasoning.strategic_questions?.length ? (
+                    <div className="entity-question-card">
+                      <span>Preguntas estrategicas</span>
+                      {reasoning.strategic_questions.map((question) => (
+                        <p key={question}>{question}</p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {reasoning.action_routes?.length ? (
+                    <div className="entity-route-list">
+                      {reasoning.action_routes.map((route) => (
+                        <div className={`entity-route ${route.type}`} key={`${route.type}-${route.label}`}>
+                          <span>{route.type}</span>
+                          <strong>{route.label}</strong>
+                          <small>{route.reason}</small>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              </>
+            ) : (
+              <p className="entity-advisor-message">
+                La Entidad esta lista para evaluar el proximo movimiento.
+              </p>
+            )}
 
-        {clientName ? (
-          <div className="entity-advisor-actions">
-            {recommendation?.action_key ? (
-              <button
-                className="primary-action entity-advisor-action"
-                type="button"
-                onClick={() => onPrimaryAction?.(recommendation.action_key)}
-                disabled={actionLoading}
-              >
-                {actionLoading ? "Ejecutando..." : recommendation.next_action}
-              </button>
+            {clientName ? (
+              <div className="entity-advisor-actions">
+                {recommendation?.action_key ? (
+                  <button
+                    className="primary-action entity-advisor-action"
+                    type="button"
+                    onClick={() => onPrimaryAction?.(recommendation.action_key)}
+                    disabled={actionLoading}
+                  >
+                    {actionLoading ? "Ejecutando..." : recommendation.next_action}
+                  </button>
+                ) : null}
+                <button className="secondary-action entity-advisor-refresh" type="button" onClick={onRefresh}>
+                  Actualizar lectura
+                </button>
+                <button
+                  className="secondary-action entity-advisor-voice"
+                  type="button"
+                  onClick={playEntityVoice}
+                  disabled={voiceLoading || !recommendation}
+                >
+                  {voiceLoading ? "Preparando..." : "Escuchar entidad"}
+                </button>
+                <button
+                  className="secondary-action entity-advisor-pause"
+                  type="button"
+                  onClick={stopEntityVoice}
+                  disabled={!voiceReading && !voiceLoading}
+                >
+                  Pausar
+                </button>
+                <button className="secondary-action entity-advisor-refresh" type="button" onClick={onOpenPortal}>
+                  Abrir portal
+                </button>
+              </div>
             ) : null}
-            <button className="secondary-action entity-advisor-refresh" type="button" onClick={onRefresh}>
-              Actualizar lectura
-            </button>
-            <button
-              className="secondary-action entity-advisor-voice"
-              type="button"
-              onClick={playEntityVoice}
-              disabled={voiceLoading || !recommendation}
-            >
-              {voiceLoading ? "Preparando..." : "Escuchar entidad"}
-            </button>
-            <button
-              className="secondary-action entity-advisor-pause"
-              type="button"
-              onClick={stopEntityVoice}
-              disabled={!voiceReading && !voiceLoading}
-            >
-              Pausar
-            </button>
-            <button className="secondary-action entity-advisor-refresh" type="button" onClick={onOpenPortal}>
-              Abrir portal
-            </button>
-          </div>
-        ) : null}
 
-        {(voiceReading || voiceStatus || voiceScript || voiceError) && clientName ? (
-          <div className={voiceReading ? "entity-voice-card reading" : "entity-voice-card"}>
-            <div className="entity-voice-header">
-              <span>{voiceReading ? "La entidad está leyendo..." : voiceStatus || "Entity Voice Preview"}</span>
-              <div className="entity-voice-waves" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-                <i />
+            {(voiceReading || voiceStatus || voiceScript || voiceError) && clientName ? (
+              <div className={voiceReading ? "entity-voice-card reading" : "entity-voice-card"}>
+                <div className="entity-voice-header">
+                  <span>{voiceReading ? "La entidad está leyendo..." : voiceStatus || "Entity Voice Preview"}</span>
+                  <div className="entity-voice-waves" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                </div>
+                {voiceScript ? <p>{voiceScript}</p> : null}
+                {voiceError ? <strong>{voiceError}</strong> : null}
               </div>
-            </div>
-            {voiceScript ? <p>{voiceScript}</p> : null}
-            {voiceError ? <strong>{voiceError}</strong> : null}
-          </div>
+            ) : null}
+
+            {actionMessage ? <p className="entity-advisor-note">{actionMessage}</p> : null}
+            {actionError ? <p className="entity-advisor-note warning">{actionError}</p> : null}
+            {reviewLoading ? <p className="entity-advisor-note">La Entidad esta revisando entregables...</p> : null}
+            {reviewError ? <p className="entity-advisor-note warning">{reviewError}</p> : null}
+            {deliverablesReview ? (
+              <div className="entity-review-card">
+                <div>
+                  <span>Revision de entregables</span>
+                  <strong>{deliverablesReview.recommendation}</strong>
+                </div>
+                <div className="entity-review-stats">
+                  <span>{deliverablesReview.summary?.total_files || 0} archivos</span>
+                  <span>{deliverablesReview.summary?.core_deliverables || 0} principales</span>
+                  <span>{deliverablesReview.summary?.duplicate_groups || 0} duplicados</span>
+                </div>
+              </div>
+            ) : null}
+          </>
         ) : null}
 
-        {actionMessage ? <p className="entity-advisor-note">{actionMessage}</p> : null}
-        {actionError ? <p className="entity-advisor-note warning">{actionError}</p> : null}
-        {reviewLoading ? <p className="entity-advisor-note">La Entidad esta revisando entregables...</p> : null}
-        {reviewError ? <p className="entity-advisor-note warning">{reviewError}</p> : null}
-        {deliverablesReview ? (
-          <div className="entity-review-card">
-            <div>
-              <span>Revision de entregables</span>
-              <strong>{deliverablesReview.recommendation}</strong>
-            </div>
-            <div className="entity-review-stats">
-              <span>{deliverablesReview.summary?.total_files || 0} archivos</span>
-              <span>{deliverablesReview.summary?.core_deliverables || 0} principales</span>
-              <span>{deliverablesReview.summary?.duplicate_groups || 0} duplicados</span>
-            </div>
-          </div>
-        ) : null}
-
-        {clientName ? (
+        {entityTab === "conversation" && clientName ? (
           <div className="entity-conversation-card">
             <div className="entity-conversation-header">
               <div>

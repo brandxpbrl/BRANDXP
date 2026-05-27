@@ -176,7 +176,7 @@ def is_client_allowed_path(path, method, client):
     if path == "/clients" and method == "GET":
         return True
 
-    if path in {"/api/entity/voice-script", "/api/entity/voice"} and method == "POST":
+    if path in {"/api/entity/voice-script", "/api/entity/voice", "/api/entity/chat"} and method == "POST":
         return True
 
     path_client = client_name_from_path(path)
