@@ -17,10 +17,10 @@ export default function Sidebar({ activeSection = "panel", onSectionChange }) {
     <aside className="sidebar">
       <div>
         <div className="brand-lockup">
-          <div className="brand-title">
+          <div className="brand-title" translate="no">
             BRAND EXPERIENCE
           </div>
-          <div className="brand-subtitle">
+          <div className="brand-subtitle" translate="no">
             Creative Intelligence OS
           </div>
         </div>

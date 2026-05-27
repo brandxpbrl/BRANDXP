@@ -198,7 +198,7 @@ export default function EntityAdvisorPanel({
 
       <div className="entity-advisor-content">
         <div className="panel-kicker">Entidad asesora</div>
-        <div className="panel-title">Brand Experience</div>
+        <div className="panel-title" translate="no">Brand Experience</div>
 
         {!clientName ? (
           <p className="entity-advisor-message">

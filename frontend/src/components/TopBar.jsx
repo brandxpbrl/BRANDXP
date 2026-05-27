@@ -2,9 +2,9 @@ export default function TopBar() {
   return (
     <header className="topbar">
       <div>
-        <h1>Creative Command Center</h1>
+        <h1 translate="no">Brand Experience OS</h1>
         <div className="topbar-copy">
-          Sistema vivo para leer marcas, activar agentes y transformar contexto en entregables observables.
+          Centro de inteligencia creativa para leer marcas, activar agentes y convertir estrategia en entregables observables.
         </div>
       </div>
 
