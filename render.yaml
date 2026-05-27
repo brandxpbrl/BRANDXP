@@ -21,17 +21,17 @@ services:
       - key: ENTITY_VOICE_PROVIDER
         value: mock
 
-  -    - type: web
-         name: brand-experience-os
-         runtime: static
-         rootDir: frontend
-         plan: free
-         buildCommand: npm ci && npm run build
-         staticPublishPath: dist
-         envVars:
-         - key: VITE_API_URL
-         sync: false
-         routes:
-          - type: rewrite
-         source: /*
-         destination: /index.html
+  - type: web
+    name: brand-experience-os
+    runtime: static
+    rootDir: frontend
+    plan: free
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
