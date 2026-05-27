@@ -16,6 +16,7 @@ import EntityAdvisorPanel from "./components/EntityAdvisorPanel"
 import ClientPortalPanel from "./components/ClientPortalPanel"
 import ClientOperatorChat from "./components/ClientOperatorChat"
 import AccessGate from "./components/AccessGate"
+import BrandWelcomeGate from "./components/BrandWelcomeGate"
 
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
@@ -79,6 +80,15 @@ export default function App() {
   const [accessChecking, setAccessChecking] = useState(true)
   const [accessError, setAccessError] = useState("")
   const [accessSession, setAccessSession] = useState(null)
+  const [welcomeComplete, setWelcomeComplete] = useState(
+    () => window.sessionStorage.getItem("brand_welcome_seen") === "true"
+  )
+  const [visitorName, setVisitorName] = useState(
+    () => window.sessionStorage.getItem("brand_welcome_name") || ""
+  )
+  const [creationIntent, setCreationIntent] = useState(
+    () => window.sessionStorage.getItem("brand_welcome_idea") || ""
+  )
 
   const activeClient = useMemo(
     () => clients.find((client) => client.name === clientName),
@@ -189,6 +199,16 @@ export default function App() {
     }
 
     loadClients()
+  }
+
+  const handleWelcomeContinue = ({ name, idea }) => {
+    setVisitorName(name)
+    setCreationIntent(idea)
+    setWelcomeComplete(true)
+
+    if (idea && !clientNotes.trim()) {
+      setClientNotes(`Idea inicial de ${name || "usuario"}: ${idea}`)
+    }
   }
 
   const loadClients = async () => {
@@ -965,6 +985,15 @@ export default function App() {
     } finally {
       setLoading(false)
     }
+  }
+
+  if (!welcomeComplete) {
+    return (
+      <BrandWelcomeGate
+        apiUrl={API_URL}
+        onContinue={handleWelcomeContinue}
+      />
+    )
   }
 
   if (!accessSession) {
