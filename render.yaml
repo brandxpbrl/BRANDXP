@@ -3,7 +3,6 @@ services:
     name: brand-experience-os-api
     runtime: python
     rootDir: backend
-    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
@@ -25,7 +24,6 @@ services:
     name: brand-experience-os
     runtime: static
     rootDir: frontend
-    plan: free
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
     envVars:
