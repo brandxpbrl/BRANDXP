@@ -10,8 +10,13 @@ import time
 TOKEN_TTL_SECONDS = 60 * 60 * 12
 
 
+def access_keys_configured():
+    return bool(_developer_key() or _client_keys())
+
+
 def access_control_enabled():
-    return os.getenv("BEOS_ACCESS_CONTROL", "false").strip().lower() in {"1", "true", "yes", "on"}
+    is_enabled = os.getenv("BEOS_ACCESS_CONTROL", "false").strip().lower() in {"1", "true", "yes", "on"}
+    return is_enabled and access_keys_configured()
 
 
 def _secret():
@@ -144,6 +149,7 @@ def authenticate_access_key(access_key):
 def is_public_path(path):
     public_prefixes = (
         "/api/access",
+        "/api/public",
         "/health",
         "/docs",
         "/openapi.json",

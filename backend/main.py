@@ -10,7 +10,7 @@ from client_manager import build_client_analysis_plan, build_framework_prompt, e
 from cognitive_orchestrator import AnalysisSaveError, process_request
 from dynamic_agent_loader import load_all_agents
 from services.ai_agent_os_builder import generate_ai_agent_os
-from services.access_control import access_control_enabled, authenticate_access_key, is_client_allowed_path, is_public_path, verify_access_token
+from services.access_control import access_control_enabled, access_keys_configured, authenticate_access_key, is_client_allowed_path, is_public_path, verify_access_token
 from services.client_activation_engine import build_client_activation, create_activation_sprint, generate_client_portal_summary, generate_evolution_timeline, generate_strategic_campaign, mark_deliverables_reviewed
 from services.client_chat_engine import build_client_chat_context, run_client_chat
 from services.entity_conversation_engine import build_entity_conversation_context, run_entity_conversation
@@ -146,6 +146,27 @@ class AccessLoginRequest(BaseModel):
 
     access_key: str
 
+
+def _split_public_links(raw_links: str | None):
+    if not raw_links:
+        return []
+
+    return [
+        link.strip()
+        for link in raw_links.splitlines()
+        if link.strip()
+    ]
+
+
+def _public_client_notes(payload: dict):
+    sections = []
+
+    for label, value in payload.items():
+        if value:
+            sections.append(f"{label}: {value}")
+
+    return "\n".join(sections)
+
 # =====================================================
 # ROUTE
 # =====================================================
@@ -191,6 +212,7 @@ async def access_config():
 
     return {
         "access_control": access_control_enabled(),
+        "access_configured": access_keys_configured(),
     }
 
 
@@ -230,6 +252,99 @@ async def access_me(request: Request):
     return {
         **session,
         "access_control": True,
+    }
+
+
+@app.post("/api/public/client-intake")
+async def public_client_intake(
+    brand_name: str = Form(...),
+    instagram: str = Form(...),
+    contact_name: str = Form(""),
+    contact_email: str = Form(""),
+    project_goal: str = Form(""),
+    services: str = Form(""),
+    audience: str = Form(""),
+    links: str = Form(""),
+    notes: str = Form(""),
+    files: list[UploadFile] | None = File(default=None),
+):
+
+    clean_brand_name = brand_name.strip()
+    clean_instagram = instagram.strip()
+
+    if not clean_brand_name:
+        raise HTTPException(
+            status_code=400,
+            detail="Brand name is required."
+        )
+
+    if not clean_instagram:
+        raise HTTPException(
+            status_code=400,
+            detail="Instagram is required."
+        )
+
+    public_notes = _public_client_notes(
+        {
+            "Contacto": contact_name.strip(),
+            "Email": contact_email.strip(),
+            "Objetivo": project_goal.strip(),
+            "Servicios": services.strip(),
+            "Audiencia": audience.strip(),
+            "Notas": notes.strip(),
+            "Origen": "Solicitud publica de analisis",
+        }
+    )
+    intake = {
+        "instagram": clean_instagram,
+        "links": _split_public_links(links),
+        "transcription": "",
+        "notes": public_notes,
+        "contact_name": contact_name.strip(),
+        "contact_email": contact_email.strip(),
+        "project_goal": project_goal.strip(),
+        "services": services.strip(),
+        "audience": audience.strip(),
+        "source": "public_client_intake",
+    }
+
+    try:
+        intake_result = save_client_intake(clean_brand_name, intake)
+        uploaded_files = []
+
+        for file in files or []:
+            if not file or not file.filename:
+                continue
+
+            upload_result = save_uploaded_file(
+                clean_brand_name,
+                file.file,
+                file.filename,
+                "Cliente_Nuevo",
+            )
+            uploaded_files.append(
+                {
+                    "filename": upload_result["filename"],
+                    "category": "Cliente_Nuevo",
+                }
+            )
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail="Public intake failed. Check backend logs for details."
+        ) from error
+
+    return {
+        "status": "received",
+        "client": intake_result["client"],
+        "intake_file": intake_result["intake_file"],
+        "uploaded_files": uploaded_files,
+        "next_step": "Brand Experience OS recibio el contexto. El equipo puede ejecutar el framework desde el dashboard privado.",
     }
 
 @app.post("/orchestrator")

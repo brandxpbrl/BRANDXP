@@ -200,6 +200,10 @@ button {
   backdrop-filter: blur(22px);
 }
 
+.access-card.new-client-card {
+  width: min(100%, 760px);
+}
+
 .access-mark {
   width: 58px;
   height: 58px;
@@ -248,6 +252,90 @@ button {
   box-shadow: 0 0 0 3px rgba(69, 198, 246, 0.12);
 }
 
+.access-mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.access-mode-switch button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.62);
+  background: transparent;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.access-mode-switch button.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(231, 68, 166, 0.72), rgba(86, 114, 242, 0.78));
+  box-shadow: 0 14px 36px rgba(231, 68, 166, 0.18);
+}
+
+.new-client-intake {
+  display: grid;
+  gap: 10px;
+}
+
+.new-client-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.new-client-intake input,
+.new-client-intake textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(7, 10, 20, 0.82);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.new-client-intake input {
+  min-height: 46px;
+  padding: 0 14px;
+}
+
+.new-client-intake textarea {
+  min-height: 76px;
+  resize: vertical;
+  padding: 12px 14px;
+  line-height: 1.45;
+}
+
+.new-client-intake input:focus,
+.new-client-intake textarea:focus {
+  border-color: rgba(231, 68, 166, 0.56);
+  box-shadow: 0 0 0 3px rgba(231, 68, 166, 0.12);
+}
+
+.new-client-upload {
+  min-height: 52px;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  border: 1px dashed rgba(69, 198, 246, 0.34);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(69, 198, 246, 0.06);
+  cursor: pointer;
+}
+
+.new-client-upload input {
+  display: none;
+}
+
 .access-message {
   color: rgba(255, 255, 255, 0.56);
   font-size: 13px;
@@ -255,6 +343,22 @@ button {
 
 .access-message.warning {
   color: #ffb7d7;
+}
+
+.access-message.success {
+  color: #9df7e6;
+}
+
+@media (max-width: 720px) {
+  .access-form,
+  .new-client-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .access-card,
+  .access-card.new-client-card {
+    width: min(100%, 94vw);
+  }
 }
 
 .app-shell {

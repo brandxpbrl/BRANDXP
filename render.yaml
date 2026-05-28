@@ -19,6 +19,14 @@ services:
         sync: false
       - key: ENTITY_VOICE_PROVIDER
         value: mock
+      - key: BEOS_ACCESS_CONTROL
+        value: "true"
+      - key: BEOS_ACCESS_SECRET
+        sync: false
+      - key: BEOS_DEVELOPER_KEY
+        sync: false
+      - key: BEOS_CLIENT_KEYS
+        sync: false
 
   - type: web
     name: brand-experience-os
