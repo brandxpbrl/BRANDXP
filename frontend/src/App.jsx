@@ -18,6 +18,7 @@ import ClientOperatorChat from "./components/ClientOperatorChat"
 import CinematicCampaignBuilder from "./components/CinematicCampaignBuilder"
 import AccessGate from "./components/AccessGate"
 import BrandWelcomeGate from "./components/BrandWelcomeGate"
+import OnboardingWizard from "./components/OnboardingWizard"
 
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
@@ -1149,6 +1150,13 @@ export default function App() {
                       >
                         Analisis y entregables
                       </button>
+                      <button
+                        className={dashboardSection === "onboarding" ? "workspace-tab active" : "workspace-tab"}
+                        type="button"
+                        onClick={() => setDashboardSection("onboarding")}
+                      >
+                        Onboarding Wizard
+                      </button>
                     </>
                   ) : null}
                   <button
@@ -1220,6 +1228,11 @@ export default function App() {
                     onCheck={checkAnalysisPlan}
                   />
                 </>
+              ) : dashboardSection === "onboarding" ? (
+                <OnboardingWizard
+                  apiUrl={API_URL}
+                  onLoadClients={loadClients}
+                />
               ) : dashboardSection === "portal" ? (
                 <ClientPortalPanel
                   clientName={currentClientName}
