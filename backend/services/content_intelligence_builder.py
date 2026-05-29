@@ -38,7 +38,7 @@ def _load_json(path: Path) -> dict:
 
 
 def _extract_section(text: str, title: str) -> str:
-    pattern = rf"(##+\s+.*{re.escape(title)}.*?)(?=\n##+\s+|\Z)"
+    pattern = rf"(##+\s+[^#\n]*{re.escape(title)}.*?)(?=\n##+\s+|\Z)"
     match = re.search(pattern, text, flags=re.IGNORECASE | re.DOTALL)
     return match.group(1).strip() if match else ""
 
@@ -530,9 +530,27 @@ def generate_content_intel_json(brand_name: str, modules: dict) -> dict:
     }
 
 
+def resolve_client_path(client_name: str) -> Path:
+    slug = slugify(client_name)
+    path = CLIENTS_ROOT / slug
+    if path.exists():
+        return path
+    path = CLIENTS_ROOT / client_name
+    if path.exists():
+        return path
+    if CLIENTS_ROOT.exists():
+        for candidate in CLIENTS_ROOT.iterdir():
+            if candidate.is_dir():
+                if candidate.name.casefold() == client_name.casefold():
+                    return candidate
+                if slugify(candidate.name) == slug:
+                    return candidate
+    return CLIENTS_ROOT / slug
+
+
 def build_content_intelligence_engine(client_name: str) -> dict:
-    client_slug = slugify(client_name)
-    client_path = CLIENTS_ROOT / client_slug
+    client_path = resolve_client_path(client_name)
+    client_slug = slugify(client_path.name)
 
     if not client_path.exists():
         raise FileNotFoundError(f"Client folder not found: {client_path}")
