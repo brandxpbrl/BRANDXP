@@ -62,20 +62,26 @@ CAMPAIGN_INTELLIGENCE_FIELDS = {
 
 
 RECOMMENDED_BRIEF_FALLBACKS = [
+    "entity_bible.md",
+    "strategic_synthesis.md",
+    "LATEST_ANALYSIS.md",
+    "brand_analysis.md",
+    "visual_universe.md",
     "05_ENTREGAS/campaigns/STRATEGIC_CAMPAIGN.md",
     "05_ENTREGAS/campaigns/campaign_brief.md",
     "identity_cliente.md",
-    "brand_analysis.md",
 ]
 
 
 CONTEXT_SOURCE_FILES = [
-    "identity_cliente.md",
-    "brand_analysis.md",
     "entity_bible.md",
+    "strategic_synthesis.md",
+    "LATEST_ANALYSIS.md",
+    "brand_analysis.md",
     "visual_universe.md",
     "05_ENTREGAS/campaigns/STRATEGIC_CAMPAIGN.md",
     "05_ENTREGAS/campaigns/campaign_brief.md",
+    "identity_cliente.md",
 ]
 
 
@@ -286,7 +292,92 @@ def _first_useful_paragraph(text):
     )
 
 
+PLACEHOLDERS = {
+    "publico ideal de la marca",
+    "marca con sistema de experiencia",
+    "base aprovechable",
+    "publico objetivo",
+    "mensaje principal",
+    "deseo, confianza y claridad",
+    "una lectura estratégica que convierte",
+    "marca con sistema de experiencia y comunicación visual",
+    "premium cinematic realism, elegant visual restraint, coherent brand atmosphere",
+    "vertical cinematic realism with controlled movement, premium light and emotionally precise framing",
+    "Una marca con dirección, presencia y valor perceptual.",
+    "Convertir la estrategia de marca en una campaña vertical clara y accionable."
+}
+
+
+def _is_placeholder(val):
+    if not val:
+        return True
+    val_lower = str(val).lower()
+    return any(ph in val_lower for ph in PLACEHOLDERS)
+
+
+def _synthesize_campaign_intelligence_via_ai(client_name, context_text):
+    if not context_text or len(context_text.strip()) < 40:
+        return {}
+
+    system_instruction = (
+        "You are the Creative Director and Brand Experience Strategist.\n"
+        "Your task is to analyze the provided brand experience framework outputs and extract/synthesize "
+        "an Executive Creative Brief for a cinematic video campaign.\n"
+        "You must return a JSON object with the following fields:\n"
+        "{\n"
+        '  "brand_objective": "...",\n'
+        '  "brand_type": "...",\n'
+        '  "aesthetic_identity": "...",\n'
+        '  "core_concept": "...",\n'
+        '  "audience": "...",\n'
+        '  "main_emotion": "...",\n'
+        '  "differentiator": "...",\n'
+        '  "recommended_visual_direction": "...",\n'
+        '  "campaign_message": "..."\n'
+        "}\n\n"
+        "Rules:\n"
+        "1. Extract visual direction (aesthetic_identity and recommended_visual_direction) directly from the Visual Universe sections or files if available.\n"
+        "2. Extract emotional direction (main_emotion) from the Strategic Synthesis, Entity Psychology or Brand Essence sections.\n"
+        "3. Extract differentiators (differentiator) from the Entity Core or unique positioning values.\n"
+        "4. Extract campaign message (campaign_message) and core_concept from the Brand Positioning or core strategy.\n"
+        "5. Avoid any generic placeholders. Do not use: 'publico ideal de la marca', 'marca con sistema de experiencia', 'base aprovechable', 'publico objetivo', 'mensaje principal'.\n"
+        "Instead, identify and synthesize the strongest, most specific and evocative strategic concepts found in the source text.\n"
+        "6. The brief should read like an Executive Creative Brief of a high-end luxury brand.\n"
+        "7. Return only a valid JSON object."
+    )
+
+    user_content = f"Client Name: {client_name}\n\nContext files:\n{context_text}"
+
+    try:
+        from services.ai_client import chat_completion
+        res = chat_completion([
+            {"role": "system", "content": system_instruction},
+            {"role": "user", "content": user_content}
+        ])
+        parsed = _extract_json(res["content"])
+        if isinstance(parsed, dict):
+            if "campaign_intelligence_summary" in parsed:
+                return parsed["campaign_intelligence_summary"]
+
+            return {
+                "brand_objective": _clean(parsed.get("brand_objective")),
+                "brand_type": _clean(parsed.get("brand_type")),
+                "aesthetic_identity": _clean(parsed.get("aesthetic_identity") or parsed.get("visual_direction")),
+                "core_concept": _clean(parsed.get("core_concept")),
+                "audience": _clean(parsed.get("audience")),
+                "main_emotion": _clean(parsed.get("main_emotion")),
+                "differentiator": _clean(parsed.get("differentiator")),
+                "recommended_visual_direction": _clean(parsed.get("recommended_visual_direction") or parsed.get("aesthetic_identity") or parsed.get("visual_direction")),
+                "campaign_message": _clean(parsed.get("campaign_message")),
+            }
+    except Exception:
+        pass
+    return {}
+
+
 def _campaign_intelligence_from_text(client_name, text):
+    ai_result = _synthesize_campaign_intelligence_via_ai(client_name, text)
+
     objective = _field_from_source(text, "video_objective")
     message = _field_from_source(text, "central_message")
     emotion = _field_from_source(text, "main_emotion")
@@ -296,7 +387,7 @@ def _campaign_intelligence_from_text(client_name, text):
     differentiator = _field_from_source(text, "differentiator")
     first_paragraph = _first_useful_paragraph(text)
 
-    return {
+    regex_result = {
         "brand_objective": objective or "Convertir la estrategia de marca en una campaña vertical clara y accionable.",
         "brand_type": brand_type or "marca con sistema de experiencia y comunicación visual",
         "aesthetic_identity": aesthetic or "premium cinematic realism, elegant visual restraint, coherent brand atmosphere",
@@ -308,14 +399,33 @@ def _campaign_intelligence_from_text(client_name, text):
         "campaign_message": message or first_paragraph[:280] or "Una marca con dirección, presencia y valor perceptual.",
     }
 
+    result = {}
+    for key in regex_result:
+        ai_val = ai_result.get(key)
+        if ai_val and not _is_placeholder(ai_val):
+            result[key] = ai_val
+        else:
+            reg_val = regex_result[key]
+            result[key] = reg_val
+
+    return result
+
 
 def _merge_intelligence(primary, secondary):
     merged = dict(CAMPAIGN_INTELLIGENCE_FIELDS)
-    merged.update(primary or {})
 
-    for key, value in (secondary or {}).items():
-        if not _clean(merged.get(key)) and _clean(value):
-            merged[key] = _clean(value)
+    for key in CAMPAIGN_INTELLIGENCE_FIELDS:
+        p_val = _clean((primary or {}).get(key))
+        s_val = _clean((secondary or {}).get(key))
+
+        if p_val and not _is_placeholder(p_val):
+            merged[key] = p_val
+        elif s_val and not _is_placeholder(s_val):
+            merged[key] = s_val
+        elif p_val:
+            merged[key] = p_val
+        else:
+            merged[key] = s_val or ""
 
     return merged
 
@@ -331,27 +441,29 @@ def _derive_brief_from_text(client_name, text, context_text=""):
     brief["visual_aesthetic"] = _field_from_source(text, "visual_aesthetic") or _field_from_source(combined_text, "visual_aesthetic")
     brief["final_cta"] = _field_from_source(text, "final_cta") or _field_from_source(combined_text, "final_cta")
 
-    if not brief["video_objective"]:
-        brief["video_objective"] = "Convertir la recomendacion estrategica en una pieza cinematografica vertical."
-
-    if not brief["central_message"]:
-        brief["central_message"] = _first_useful_paragraph(text)[:360]
-
-    if not brief["main_emotion"]:
-        brief["main_emotion"] = "deseo, confianza y claridad"
-
-    if not brief["audience"]:
-        brief["audience"] = "publico ideal de la marca"
-
-    if not brief["visual_aesthetic"]:
-        brief["visual_aesthetic"] = "premium cinematic realism, elegant visual restraint, coherent brand atmosphere"
-
-    if not brief["final_cta"]:
-        brief["final_cta"] = "Dar el proximo paso"
-
     primary_intelligence = _campaign_intelligence_from_text(client_name, text)
     context_intelligence = _campaign_intelligence_from_text(client_name, context_text) if context_text else {}
     brief["campaign_intelligence_summary"] = _merge_intelligence(primary_intelligence, context_intelligence)
+
+    intel = brief["campaign_intelligence_summary"]
+
+    if not brief["video_objective"] or _is_placeholder(brief["video_objective"]):
+        brief["video_objective"] = intel.get("brand_objective") or "Convertir la recomendacion estrategica en una pieza cinematografica vertical."
+
+    if not brief["central_message"] or _is_placeholder(brief["central_message"]):
+        brief["central_message"] = intel.get("campaign_message") or intel.get("core_concept") or _first_useful_paragraph(text)[:360]
+
+    if not brief["main_emotion"] or _is_placeholder(brief["main_emotion"]):
+        brief["main_emotion"] = intel.get("main_emotion") or "deseo, confianza y claridad"
+
+    if not brief["audience"] or _is_placeholder(brief["audience"]):
+        brief["audience"] = intel.get("audience") or "publico ideal de la marca"
+
+    if not brief["visual_aesthetic"] or _is_placeholder(brief["visual_aesthetic"]):
+        brief["visual_aesthetic"] = intel.get("recommended_visual_direction") or intel.get("aesthetic_identity") or "premium cinematic realism, elegant visual restraint, coherent brand atmosphere"
+
+    if not brief["final_cta"] or _is_placeholder(brief["final_cta"]):
+        brief["final_cta"] = "Dar el proximo paso"
 
     return brief
 
