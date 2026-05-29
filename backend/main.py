@@ -10,6 +10,9 @@ from client_manager import build_client_analysis_plan, build_framework_prompt, e
 from cognitive_orchestrator import AnalysisSaveError, process_request
 from dynamic_agent_loader import load_all_agents
 from services.ai_agent_os_builder import generate_ai_agent_os
+from services.brand_memory_builder import build_brand_memory_core
+from services.visual_dna_builder import build_visual_dna_engine
+from services.content_intelligence_builder import build_content_intelligence_engine
 from services.access_control import access_control_enabled, access_keys_configured, authenticate_access_key, is_client_allowed_path, is_public_path, verify_access_token
 from services.cinematic_campaign_builder import generate_cinematic_campaign, get_recommended_cinematic_brief, list_generated_cinematic_campaigns
 from services.client_activation_engine import build_client_activation, create_activation_sprint, generate_client_portal_summary, generate_evolution_timeline, generate_strategic_campaign, mark_deliverables_reviewed
@@ -992,6 +995,86 @@ async def client_generate_ai_agent_os(client_name: str):
             detail="Client not found."
         )
 
+    return result
+
+
+@app.get("/api/clients/{client_name}/engines/status")
+async def client_engines_status(client_name: str):
+    from services.brand_memory_builder import CLIENTS_ROOT, slugify
+    client_slug = slugify(client_name)
+    client_path = CLIENTS_ROOT / client_slug
+
+    if not client_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    brand_memory_core = (client_path / "02_MEMORY" / "BRAND_MEMORY_CORE_MASTER.md").is_file()
+    visual_dna_engine = (client_path / "07_VISUAL_DNA_ENGINE" / "VISUAL_DNA_ENGINE_MASTER.md").is_file()
+    content_intelligence_engine = (client_path / "08_CONTENT_INTELLIGENCE_ENGINE" / "CONTENT_INTELLIGENCE_ENGINE_MASTER.md").is_file()
+    ai_agent_os = (client_path / "09_AI_AGENT_OS" / "AI_AGENT_OS_MASTER.md").is_file()
+
+    return {
+        "client": client_name,
+        "slug": client_slug,
+        "engines": {
+            "brand_memory_core": brand_memory_core,
+            "visual_dna_engine": visual_dna_engine,
+            "content_intelligence_engine": content_intelligence_engine,
+            "ai_agent_os": ai_agent_os
+        }
+    }
+
+
+@app.post("/api/clients/{client_name}/memory/generate")
+async def client_generate_memory_core(client_name: str):
+    try:
+        result = build_brand_memory_core(client_name)
+    except FileNotFoundError as error:
+        raise HTTPException(
+            status_code=404,
+            detail=str(error)
+        ) from error
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+    return result
+
+
+@app.post("/api/clients/{client_name}/visual-dna/generate")
+async def client_generate_visual_dna(client_name: str):
+    try:
+        result = build_visual_dna_engine(client_name)
+    except FileNotFoundError as error:
+        raise HTTPException(
+            status_code=404,
+            detail=str(error)
+        ) from error
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+    return result
+
+
+@app.post("/api/clients/{client_name}/content-intelligence/generate")
+async def client_generate_content_intelligence(client_name: str):
+    try:
+        result = build_content_intelligence_engine(client_name)
+    except FileNotFoundError as error:
+        raise HTTPException(
+            status_code=404,
+            detail=str(error)
+        ) from error
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
     return result
 
 
