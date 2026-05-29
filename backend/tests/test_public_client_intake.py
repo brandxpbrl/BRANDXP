@@ -58,9 +58,18 @@ class PublicClientIntakeTests(unittest.TestCase):
                 instagram="@novamarca",
                 contact_name="Ana",
                 contact_email="ana@example.com",
-                project_goal="Quiero diagnosticar mi marca.",
-                services="Experiencias premium.",
-                audience="Clientes de alto valor.",
+                origin="Nacio para resolver una brecha clara.",
+                vision="Construir una marca referente.",
+                purpose="Transformar la forma en que el cliente compra.",
+                beneficiaries="Emprendedores premium.",
+                main_objective="Quiero diagnosticar mi marca.",
+                target_audience="Clientes de alto valor.",
+                market="Brasil",
+                identity_words="premium, humana, estrategica",
+                personality="Cercana y elegante.",
+                differentiation="Acompana con metodo propio.",
+                impact_phrase="Experiencias que transforman.",
+                person_description="Seria una asesora calma y visionaria.",
                 links="https://example.com\nhttps://instagram.com/novamarca",
                 notes="Referencia visual enviada despues.",
                 files=[],
@@ -68,11 +77,17 @@ class PublicClientIntakeTests(unittest.TestCase):
         )
 
         self.assertEqual(result["status"], "received")
+        self.assertTrue(result["framework_ready"])
         self.assertEqual(result["client"]["name"], "Nova Marca")
         self.assertEqual(calls[0][0], "Nova Marca")
         self.assertEqual(calls[0][1]["instagram"], "@novamarca")
         self.assertEqual(calls[0][1]["source"], "public_client_intake")
+        self.assertTrue(calls[0][1]["framework_ready"])
         self.assertIn("Quiero diagnosticar mi marca.", calls[0][1]["notes"])
+        self.assertEqual(
+            calls[0][1]["strategic_questionnaire"]["identity_words"],
+            "premium, humana, estrategica",
+        )
         self.assertEqual(
             calls[0][1]["links"],
             ["https://example.com", "https://instagram.com/novamarca"],

@@ -1,25 +1,115 @@
 import { useState } from "react"
 
+const INITIAL_NEW_CLIENT_FORM = {
+  brandName: "",
+  instagram: "",
+  contactName: "",
+  contactEmail: "",
+  origin: "",
+  vision: "",
+  purpose: "",
+  beneficiaries: "",
+  mainObjective: "",
+  targetAudience: "",
+  market: "",
+  identityWords: "",
+  personality: "",
+  differentiation: "",
+  impactPhrase: "",
+  personDescription: "",
+  links: "",
+  notes: "",
+}
+
+const BRAND_QUESTIONNAIRE = [
+  {
+    field: "origin",
+    title: "1. Origen",
+    prompt: "¿Cómo nació tu marca?",
+    placeholder: "Cuéntanos la historia detrás del proyecto, qué te inspiró y por qué decidiste crearlo.",
+  },
+  {
+    field: "vision",
+    title: "2. Visión",
+    prompt: "¿Qué quieres construir con tu marca?",
+    placeholder: "Describe el impacto, la empresa o el futuro que imaginas.",
+  },
+  {
+    field: "purpose",
+    title: "3. Propósito",
+    prompt: "¿Qué problema resuelve tu marca?",
+    placeholder: "Qué necesidad cubres o qué transformación generas en las personas.",
+  },
+  {
+    field: "beneficiaries",
+    title: "4. Beneficiarios",
+    prompt: "¿Quién se beneficia con tu marca?",
+    placeholder: "A quién ayudas y cómo mejora su vida, negocio o experiencia.",
+  },
+  {
+    field: "mainObjective",
+    title: "5. Objetivo principal",
+    prompt: "¿Cuál es el objetivo principal de tu marca actualmente?",
+    placeholder: "Ejemplos: vender más, posicionarse, generar autoridad, captar clientes, expandirse.",
+  },
+  {
+    field: "targetAudience",
+    title: "6. Público objetivo",
+    prompt: "¿Cuál es tu público ideal?",
+    placeholder: "Describe a las personas que quieres atraer.",
+  },
+  {
+    field: "market",
+    title: "7. Nacionalidad o mercado",
+    prompt: "¿De qué país o países es tu público principal?",
+    placeholder: "País, ciudad, región o mercado principal.",
+  },
+  {
+    field: "identityWords",
+    title: "8. Identidad",
+    prompt: "Define tu marca en 3 palabras.",
+    placeholder: "Ejemplo: premium, cercana, transformadora.",
+  },
+  {
+    field: "personality",
+    title: "9. Personalidad",
+    prompt: "¿Cómo habla tu marca?",
+    placeholder: "Ejemplos: profesional, cercana, divertida, premium, técnica, inspiradora, elegante, disruptiva.",
+  },
+  {
+    field: "differentiation",
+    title: "10. Diferenciación",
+    prompt: "¿Qué hace única a tu marca?",
+    placeholder: "Por qué alguien debería elegirte a ti y no a la competencia.",
+  },
+  {
+    field: "impactPhrase",
+    title: "11. Frase de impacto",
+    prompt: "¿Cuál es tu frase, lema o mensaje principal?",
+    placeholder: "La frase que mejor representa la esencia de tu marca.",
+  },
+  {
+    field: "personDescription",
+    title: "Reflexión final",
+    prompt: "Si tu marca fuera una persona, ¿cómo la describirías?",
+    placeholder: "Esta respuesta ayuda a comprender la personalidad profunda de la marca.",
+  },
+]
+
 export default function AccessGate({ apiUrl, checking, error, onAccessGranted }) {
   const [mode, setMode] = useState("access")
   const [accessKey, setAccessKey] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [loginError, setLoginError] = useState("")
-  const [newClientForm, setNewClientForm] = useState({
-    brandName: "",
-    instagram: "",
-    contactName: "",
-    contactEmail: "",
-    projectGoal: "",
-    services: "",
-    audience: "",
-    links: "",
-    notes: "",
-  })
+  const [newClientForm, setNewClientForm] = useState(INITIAL_NEW_CLIENT_FORM)
   const [newClientFiles, setNewClientFiles] = useState([])
   const [newClientSubmitting, setNewClientSubmitting] = useState(false)
   const [newClientStatus, setNewClientStatus] = useState("")
   const [newClientError, setNewClientError] = useState("")
+
+  const answeredQuestionCount = BRAND_QUESTIONNAIRE.filter((question) =>
+    newClientForm[question.field]?.trim()
+  ).length
 
   const updateNewClientField = (field, value) => {
     setNewClientForm((current) => ({
@@ -84,9 +174,18 @@ export default function AccessGate({ apiUrl, checking, error, onAccessGranted })
       formData.append("instagram", newClientForm.instagram.trim())
       formData.append("contact_name", newClientForm.contactName.trim())
       formData.append("contact_email", newClientForm.contactEmail.trim())
-      formData.append("project_goal", newClientForm.projectGoal.trim())
-      formData.append("services", newClientForm.services.trim())
-      formData.append("audience", newClientForm.audience.trim())
+      formData.append("origin", newClientForm.origin.trim())
+      formData.append("vision", newClientForm.vision.trim())
+      formData.append("purpose", newClientForm.purpose.trim())
+      formData.append("beneficiaries", newClientForm.beneficiaries.trim())
+      formData.append("main_objective", newClientForm.mainObjective.trim())
+      formData.append("target_audience", newClientForm.targetAudience.trim())
+      formData.append("market", newClientForm.market.trim())
+      formData.append("identity_words", newClientForm.identityWords.trim())
+      formData.append("personality", newClientForm.personality.trim())
+      formData.append("differentiation", newClientForm.differentiation.trim())
+      formData.append("impact_phrase", newClientForm.impactPhrase.trim())
+      formData.append("person_description", newClientForm.personDescription.trim())
       formData.append("links", newClientForm.links.trim())
       formData.append("notes", newClientForm.notes.trim())
 
@@ -106,17 +205,7 @@ export default function AccessGate({ apiUrl, checking, error, onAccessGranted })
 
       setNewClientStatus("Solicitud recibida. Brand Experience OS ya guardó tu Instagram y contexto para el análisis.")
       setNewClientFiles([])
-      setNewClientForm({
-        brandName: "",
-        instagram: "",
-        contactName: "",
-        contactEmail: "",
-        projectGoal: "",
-        services: "",
-        audience: "",
-        links: "",
-        notes: "",
-      })
+      setNewClientForm(INITIAL_NEW_CLIENT_FORM)
     } catch (err) {
       setNewClientError(err.message)
     } finally {
@@ -168,6 +257,13 @@ export default function AccessGate({ apiUrl, checking, error, onAccessGranted })
           </form>
         ) : (
           <form className="new-client-intake" onSubmit={submitNewClient}>
+            <div className="new-client-intro">
+              <span>Cuestionario de esencia</span>
+              <p>
+                Antes de comenzar, queremos comprender la esencia de tu marca para construir una identidad sólida, auténtica y diferenciada.
+              </p>
+            </div>
+
             <div className="new-client-grid">
               <input
                 placeholder="Nombre de la marca"
@@ -195,32 +291,35 @@ export default function AccessGate({ apiUrl, checking, error, onAccessGranted })
               />
             </div>
 
+            <div className="new-client-questionnaire">
+              {BRAND_QUESTIONNAIRE.map((question) => (
+                <label className="new-client-question" key={question.field}>
+                  <span>{question.title}</span>
+                  <strong>{question.prompt}</strong>
+                  <textarea
+                    placeholder={question.placeholder}
+                    value={newClientForm[question.field]}
+                    onChange={(event) => updateNewClientField(question.field, event.target.value)}
+                    disabled={newClientSubmitting}
+                  />
+                </label>
+              ))}
+            </div>
+
+            <div className="new-client-progress">
+              {answeredQuestionCount} de {BRAND_QUESTIONNAIRE.length} respuestas completadas
+            </div>
+
             <textarea
-              placeholder="Qué querés crear o mejorar con tu marca"
-              value={newClientForm.projectGoal}
-              onChange={(event) => updateNewClientField("projectGoal", event.target.value)}
-              disabled={newClientSubmitting}
-            />
-            <textarea
-              placeholder="Servicios, productos o experiencia que vendés"
-              value={newClientForm.services}
-              onChange={(event) => updateNewClientField("services", event.target.value)}
-              disabled={newClientSubmitting}
-            />
-            <textarea
-              placeholder="Público, cliente ideal o mercado"
-              value={newClientForm.audience}
-              onChange={(event) => updateNewClientField("audience", event.target.value)}
-              disabled={newClientSubmitting}
-            />
-            <textarea
-              placeholder="Links adicionales, uno por línea"
+              className="new-client-aux-field"
+              placeholder="Links adicionales: Instagram, web, referencias, competencia o material público. Uno por línea."
               value={newClientForm.links}
               onChange={(event) => updateNewClientField("links", event.target.value)}
               disabled={newClientSubmitting}
             />
             <textarea
-              placeholder="Notas extra, referencias o problema actual"
+              className="new-client-aux-field"
+              placeholder="Notas extra, referencias visuales, urgencias o información que quieras sumar."
               value={newClientForm.notes}
               onChange={(event) => updateNewClientField("notes", event.target.value)}
               disabled={newClientSubmitting}

@@ -166,7 +166,8 @@ button {
   display: grid;
   place-items: center;
   padding: 28px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background:
     radial-gradient(circle at 50% 24%, rgba(69, 198, 246, 0.16), transparent 34%),
     radial-gradient(circle at 66% 60%, rgba(217, 66, 143, 0.14), transparent 36%),
@@ -202,6 +203,17 @@ button {
 
 .access-card.new-client-card {
   width: min(100%, 760px);
+  max-height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+
+.access-card.new-client-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.access-card.new-client-card::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(69, 198, 246, 0.22);
 }
 
 .access-mark {
@@ -281,7 +293,31 @@ button {
 
 .new-client-intake {
   display: grid;
-  gap: 10px;
+  gap: 12px;
+}
+
+.new-client-intro {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid rgba(69, 198, 246, 0.16);
+  border-radius: 10px;
+  background: rgba(69, 198, 246, 0.06);
+}
+
+.new-client-intro span,
+.new-client-progress {
+  color: #ff66bd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.new-client-intro p {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .new-client-grid {
@@ -312,6 +348,51 @@ button {
   resize: vertical;
   padding: 12px 14px;
   line-height: 1.45;
+}
+
+.new-client-questionnaire {
+  display: grid;
+  gap: 10px;
+}
+
+.new-client-question {
+  display: grid;
+  gap: 7px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.new-client-question span {
+  color: rgba(69, 198, 246, 0.92);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.new-client-question strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.new-client-question textarea {
+  min-height: 92px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.new-client-progress {
+  justify-self: start;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 102, 189, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 102, 189, 0.08);
+}
+
+.new-client-aux-field {
+  min-height: 86px;
 }
 
 .new-client-intake input:focus,

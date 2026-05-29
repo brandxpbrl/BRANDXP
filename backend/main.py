@@ -167,6 +167,13 @@ def _public_client_notes(payload: dict):
 
     return "\n".join(sections)
 
+
+def _clean_public_value(value):
+    if isinstance(value, str):
+        return value.strip()
+
+    return ""
+
 # =====================================================
 # ROUTE
 # =====================================================
@@ -264,6 +271,18 @@ async def public_client_intake(
     project_goal: str = Form(""),
     services: str = Form(""),
     audience: str = Form(""),
+    origin: str = Form(""),
+    vision: str = Form(""),
+    purpose: str = Form(""),
+    beneficiaries: str = Form(""),
+    main_objective: str = Form(""),
+    target_audience: str = Form(""),
+    market: str = Form(""),
+    identity_words: str = Form(""),
+    personality: str = Form(""),
+    differentiation: str = Form(""),
+    impact_phrase: str = Form(""),
+    person_description: str = Form(""),
     links: str = Form(""),
     notes: str = Form(""),
     files: list[UploadFile] | None = File(default=None),
@@ -271,6 +290,24 @@ async def public_client_intake(
 
     clean_brand_name = brand_name.strip()
     clean_instagram = instagram.strip()
+    clean_contact_name = _clean_public_value(contact_name)
+    clean_contact_email = _clean_public_value(contact_email)
+    clean_project_goal = _clean_public_value(project_goal)
+    clean_services = _clean_public_value(services)
+    clean_audience = _clean_public_value(audience)
+    clean_origin = _clean_public_value(origin)
+    clean_vision = _clean_public_value(vision)
+    clean_purpose = _clean_public_value(purpose)
+    clean_beneficiaries = _clean_public_value(beneficiaries)
+    clean_main_objective = _clean_public_value(main_objective)
+    clean_target_audience = _clean_public_value(target_audience)
+    clean_market = _clean_public_value(market)
+    clean_identity_words = _clean_public_value(identity_words)
+    clean_personality = _clean_public_value(personality)
+    clean_differentiation = _clean_public_value(differentiation)
+    clean_impact_phrase = _clean_public_value(impact_phrase)
+    clean_person_description = _clean_public_value(person_description)
+    clean_notes = _clean_public_value(notes)
 
     if not clean_brand_name:
         raise HTTPException(
@@ -286,26 +323,56 @@ async def public_client_intake(
 
     public_notes = _public_client_notes(
         {
-            "Contacto": contact_name.strip(),
-            "Email": contact_email.strip(),
-            "Objetivo": project_goal.strip(),
-            "Servicios": services.strip(),
-            "Audiencia": audience.strip(),
-            "Notas": notes.strip(),
-            "Origen": "Solicitud publica de analisis",
+            "Contacto": clean_contact_name,
+            "Email": clean_contact_email,
+            "Origen": clean_origin,
+            "Vision": clean_vision,
+            "Proposito": clean_purpose,
+            "Beneficiarios": clean_beneficiaries,
+            "Objetivo principal": clean_main_objective or clean_project_goal,
+            "Publico objetivo": clean_target_audience or clean_audience,
+            "Nacionalidad o mercado": clean_market,
+            "Identidad en 3 palabras": clean_identity_words,
+            "Personalidad": clean_personality,
+            "Diferenciacion": clean_differentiation,
+            "Frase de impacto": clean_impact_phrase,
+            "Reflexion final": clean_person_description,
+            "Servicios": clean_services,
+            "Notas": clean_notes,
+            "Fuente": "Solicitud publica de analisis",
         }
     )
+    strategic_questionnaire = {
+        "origin": clean_origin,
+        "vision": clean_vision,
+        "purpose": clean_purpose,
+        "beneficiaries": clean_beneficiaries,
+        "main_objective": clean_main_objective or clean_project_goal,
+        "target_audience": clean_target_audience or clean_audience,
+        "market": clean_market,
+        "identity_words": clean_identity_words,
+        "personality": clean_personality,
+        "differentiation": clean_differentiation,
+        "impact_phrase": clean_impact_phrase,
+        "person_description": clean_person_description,
+    }
     intake = {
         "instagram": clean_instagram,
         "links": _split_public_links(links),
         "transcription": "",
         "notes": public_notes,
-        "contact_name": contact_name.strip(),
-        "contact_email": contact_email.strip(),
-        "project_goal": project_goal.strip(),
-        "services": services.strip(),
-        "audience": audience.strip(),
+        "contact_name": clean_contact_name,
+        "contact_email": clean_contact_email,
+        "project_goal": clean_main_objective or clean_project_goal,
+        "services": clean_services,
+        "audience": clean_target_audience or clean_audience,
+        "strategic_questionnaire": strategic_questionnaire,
         "source": "public_client_intake",
+        "framework_ready": bool(
+            clean_brand_name
+            and clean_instagram
+            and any(strategic_questionnaire.values())
+        ),
     }
 
     try:
@@ -344,7 +411,8 @@ async def public_client_intake(
         "client": intake_result["client"],
         "intake_file": intake_result["intake_file"],
         "uploaded_files": uploaded_files,
-        "next_step": "Brand Experience OS recibio el contexto. El equipo puede ejecutar el framework desde el dashboard privado.",
+        "framework_ready": intake["framework_ready"],
+        "next_step": "Brand Experience OS recibio el contexto. El framework queda listo para ejecutarse desde el dashboard privado.",
     }
 
 @app.post("/orchestrator")
