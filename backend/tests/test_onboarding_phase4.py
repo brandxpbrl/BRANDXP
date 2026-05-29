@@ -83,7 +83,8 @@ class TestOnboardingPhase4(unittest.TestCase):
     # endpoint until COMPLETED/FAILED, matching production behavior.       #
     # ------------------------------------------------------------------ #
 
-    def test_post_returns_started_immediately(self):
+    @patch("cognitive_orchestrator.chat_completion", side_effect=mock_chat_completion)
+    def test_post_returns_started_immediately(self, mock_chat):
         """POST must return job_id + STARTED without waiting for orchestration."""
         os.environ["BEOS_ACCESS_CONTROL"] = "false"
 
@@ -123,7 +124,8 @@ class TestOnboardingPhase4(unittest.TestCase):
 
         del ONBOARD_JOBS[job_id]
 
-    def test_onboard_zero_data_polls_to_completed(self):
+    @patch("cognitive_orchestrator.chat_completion", side_effect=mock_chat_completion)
+    def test_onboard_zero_data_polls_to_completed(self, mock_chat):
         """Zero-data client: POST returns STARTED, polling reaches COMPLETED."""
         os.environ["BEOS_ACCESS_CONTROL"] = "false"
 

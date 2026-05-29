@@ -1354,6 +1354,36 @@ def _run_onboarding_background(job_id: str, client_name: str, category: str, int
             intake_data=intake_data
         )
         final_status = "COMPLETED" if result.get("status") == "COMPLETED" else "FAILED"
+        
+        if final_status == "COMPLETED":
+            try:
+                # Generate Baseline Analysis for Entity Advisor
+                prompt = build_framework_prompt(client_name, intake_data)
+                client = ensure_client(client_name, "Baseline framework analysis started after onboarding.")
+                save_client_analysis(
+                    client,
+                    prompt,
+                    "Analisis base en progreso post-onboarding.",
+                    provider=get_provider_status(),
+                    concepts=["Baseline Framework"],
+                    agents=[],
+                    structured_analysis={
+                        "headline": "Analisis base en progreso.",
+                        "overall_score": 0,
+                        "confidence": 0,
+                        "diagnosis": {
+                            "current_state": "El sistema esta generando el diagnostico base (LATEST_ANALYSIS).",
+                            "main_gap": "Pendiente de sintesis final",
+                            "strategic_decision": "Esperar la respuesta final del orquestador.",
+                        },
+                    },
+                    status="running",
+                )
+                analysis_result = process_request(prompt, client_name)
+                result["baseline_analysis"] = "COMPLETED"
+            except Exception as analysis_e:
+                result["baseline_analysis"] = f"FAILED: {str(analysis_e)}"
+
         ONBOARD_JOBS[job_id].update({
             "status": final_status,
             "result": result

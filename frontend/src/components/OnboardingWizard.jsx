@@ -427,6 +427,18 @@ export default function OnboardingWizard({ apiUrl, onComplete, onLoadClients }) 
                 {getEngineProgressIcon(jobStatus?.result?.engines?.status?.ai_agent_os)}
               </strong>
             </div>
+
+            {/* 7. Baseline Analysis */}
+            <div style={{ display: "flex", justifyContent: "space-between", padding: "12px", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", background: "rgba(255,255,255,0.015)" }}>
+              <span>Baseline Diagnosis (Entity Advisor)</span>
+              <strong>
+                {jobStatus?.status === "COMPLETED" ? (
+                  jobStatus?.result?.baseline_analysis === "COMPLETED" ? "✓" : "✕"
+                ) : (
+                  jobStatus?.result?.engines?.status?.ai_agent_os === "COMPLETED" ? "⚡" : "○"
+                )}
+              </strong>
+            </div>
           </div>
 
           {/* Completion Details */}
