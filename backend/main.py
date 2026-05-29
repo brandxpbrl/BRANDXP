@@ -36,7 +36,7 @@ LOCAL_FRONTEND_ORIGINS = [
 def _cors_origins():
     configured_origins = os.getenv("BACKEND_CORS_ORIGINS", "")
     origins = [
-        origin.strip()
+        origin.strip().strip('"').strip("'")
         for origin in configured_origins.split(",")
         if origin.strip()
     ]
@@ -56,13 +56,6 @@ app = FastAPI(
 # CORS
 # =====================================================
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=_cors_origins(),
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # =====================================================
 # REQUEST MODEL
@@ -93,6 +86,8 @@ class IntakeRequest(BaseModel):
     transcription: str | None = None
 
     notes: str | None = None
+
+    force_overwrite: bool = False
 
     intake_already_saved: bool = False
 
@@ -237,6 +232,14 @@ async def access_control_middleware(request: Request, call_next):
     request.state.access_session = session
 
     return await call_next(request)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_cors_origins(),
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/api/access/config")
@@ -1151,14 +1154,22 @@ async def client_intake(request: IntakeRequest):
             detail="Client name is required."
         )
 
+    try:
+        latest = load_latest_client_intake(request.client_name)
+        existing_intake = latest.get("intake", {})
+    except ValueError:
+        existing_intake = {}
+
+    merged_intake = {
+        "instagram": request.instagram if (request.instagram or request.force_overwrite) else existing_intake.get("instagram", ""),
+        "links": request.links if (request.links or request.force_overwrite) else existing_intake.get("links", []),
+        "transcription": request.transcription if (request.transcription or request.force_overwrite) else existing_intake.get("transcription", ""),
+        "notes": request.notes if (request.notes or request.force_overwrite) else existing_intake.get("notes", ""),
+    }
+
     result = save_client_intake(
         request.client_name,
-        {
-            "instagram": request.instagram,
-            "links": request.links,
-            "transcription": request.transcription,
-            "notes": request.notes,
-        }
+        merged_intake
     )
 
     return result
@@ -1173,17 +1184,23 @@ async def analyze_client(request: IntakeRequest):
             detail="Client name is required."
         )
 
-    intake = {
-        "instagram": request.instagram,
-        "links": request.links,
-        "transcription": request.transcription,
-        "notes": request.notes,
+    try:
+        latest = load_latest_client_intake(request.client_name)
+        existing_intake = latest.get("intake", {})
+    except ValueError:
+        existing_intake = {}
+
+    merged_intake = {
+        "instagram": request.instagram if (request.instagram or request.force_overwrite) else existing_intake.get("instagram", ""),
+        "links": request.links if (request.links or request.force_overwrite) else existing_intake.get("links", []),
+        "transcription": request.transcription if (request.transcription or request.force_overwrite) else existing_intake.get("transcription", ""),
+        "notes": request.notes if (request.notes or request.force_overwrite) else existing_intake.get("notes", ""),
     }
 
     if not request.intake_already_saved:
-        save_client_intake(request.client_name, intake)
+        save_client_intake(request.client_name, merged_intake)
 
-    prompt = build_framework_prompt(request.client_name, intake)
+    prompt = build_framework_prompt(request.client_name, merged_intake)
     client = ensure_client(request.client_name, "Framework analysis started.")
     save_client_analysis(
         client,
