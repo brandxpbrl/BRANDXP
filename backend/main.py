@@ -11,7 +11,7 @@ from cognitive_orchestrator import AnalysisSaveError, process_request
 from dynamic_agent_loader import load_all_agents
 from services.ai_agent_os_builder import generate_ai_agent_os
 from services.access_control import access_control_enabled, access_keys_configured, authenticate_access_key, is_client_allowed_path, is_public_path, verify_access_token
-from services.cinematic_campaign_builder import generate_cinematic_campaign, get_recommended_cinematic_brief
+from services.cinematic_campaign_builder import generate_cinematic_campaign, get_recommended_cinematic_brief, list_generated_cinematic_campaigns
 from services.client_activation_engine import build_client_activation, create_activation_sprint, generate_client_portal_summary, generate_evolution_timeline, generate_strategic_campaign, mark_deliverables_reviewed
 from services.client_chat_engine import build_client_chat_context, run_client_chat
 from services.entity_conversation_engine import build_entity_conversation_context, run_entity_conversation
@@ -789,6 +789,20 @@ async def client_generate_cinematic_campaign(client_name: str, request: Cinemati
 async def client_cinematic_campaign_recommended_brief(client_name: str):
 
     result = get_recommended_cinematic_brief(client_name)
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/cinematic-campaigns")
+async def client_cinematic_campaigns(client_name: str):
+
+    result = list_generated_cinematic_campaigns(client_name)
 
     if result is None:
         raise HTTPException(

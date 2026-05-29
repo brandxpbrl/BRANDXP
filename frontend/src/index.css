@@ -2297,7 +2297,8 @@ button {
 }
 
 .cinematic-builder-form,
-.cinematic-output {
+.cinematic-output,
+.cinematic-saved-campaigns {
   display: grid;
   gap: 18px;
 }
@@ -2312,13 +2313,15 @@ button {
   grid-column: span 3;
 }
 
-.cinematic-summary-grid {
+.cinematic-summary-grid,
+.cinematic-intelligence-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
 .cinematic-summary-grid article,
+.cinematic-intelligence-grid article,
 .cinematic-structure,
 .cinematic-scene-card {
   border-radius: 8px;
@@ -2328,9 +2331,12 @@ button {
 }
 
 .cinematic-summary-grid span,
+.cinematic-intelligence-grid span,
 .cinematic-structure span,
 .cinematic-scene-head span,
-.cinematic-edit-text span {
+.cinematic-edit-text span,
+.cinematic-prompt-block span,
+.cinematic-audit-grid span {
   color: rgba(255, 255, 255, 0.52);
   font-size: 11px;
   font-weight: 850;
@@ -2338,9 +2344,11 @@ button {
 }
 
 .cinematic-summary-grid p,
+.cinematic-intelligence-grid p,
 .cinematic-structure p,
 .cinematic-role,
-.cinematic-edit-text p {
+.cinematic-edit-text p,
+.cinematic-audit-grid p {
   margin: 8px 0 0;
   color: rgba(255, 255, 255, 0.74);
   line-height: 1.55;
@@ -2348,7 +2356,32 @@ button {
 
 .cinematic-structure {
   display: grid;
-  gap: 8px;
+  gap: 10px;
+}
+
+.cinematic-structure-step {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cinematic-structure-step strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.cinematic-structure-step p,
+.cinematic-structure-step small {
+  margin: 0;
+}
+
+.cinematic-structure-step small {
+  color: rgba(167, 247, 255, 0.76);
+  line-height: 1.5;
 }
 
 .cinematic-scene-list {
@@ -2358,7 +2391,7 @@ button {
 
 .cinematic-scene-card {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .cinematic-scene-head {
@@ -2387,9 +2420,115 @@ button {
   border: 1px solid rgba(69, 198, 246, 0.18);
 }
 
+.cinematic-intelligence-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cinematic-intelligence-grid article {
+  min-height: 118px;
+}
+
+.cinematic-audit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cinematic-audit-grid article {
+  min-height: 130px;
+  padding: 13px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cinematic-audit-grid article:last-child {
+  grid-column: span 2;
+  min-height: auto;
+  background: rgba(69, 198, 246, 0.07);
+  border-color: rgba(69, 198, 246, 0.16);
+}
+
+.cinematic-prompt-block {
+  display: grid;
+  gap: 8px;
+}
+
 .cinematic-edit-text {
   border-left: 2px solid rgba(217, 66, 143, 0.58);
   padding-left: 12px;
+}
+
+.compact-actions {
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.cinematic-campaign-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.cinematic-campaign-card {
+  display: grid;
+  gap: 10px;
+  min-height: 180px;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cinematic-campaign-card.latest {
+  background:
+    linear-gradient(135deg, rgba(217, 66, 143, 0.14), rgba(69, 198, 246, 0.08)),
+    rgba(255, 255, 255, 0.045);
+  border-color: rgba(69, 198, 246, 0.24);
+}
+
+.cinematic-campaign-card-head {
+  display: grid;
+  gap: 5px;
+}
+
+.cinematic-campaign-card-head span,
+.cinematic-campaign-meta span {
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.cinematic-campaign-card-head strong {
+  color: #ffffff;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.cinematic-campaign-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+}
+
+.cinematic-campaign-card small {
+  color: rgba(255, 255, 255, 0.4);
+  overflow-wrap: anywhere;
+}
+
+.cinematic-campaign-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cinematic-campaign-meta span {
+  border-radius: 8px;
+  padding: 6px 8px;
+  background: rgba(69, 198, 246, 0.08);
+  border: 1px solid rgba(69, 198, 246, 0.15);
 }
 
 .results-hub {
@@ -3040,8 +3179,14 @@ button {
   .client-chat-hero,
   .client-chat-grid,
   .cinematic-builder-hero,
-  .cinematic-summary-grid {
+  .cinematic-summary-grid,
+  .cinematic-intelligence-grid,
+  .cinematic-audit-grid {
     grid-template-columns: 1fr;
+  }
+
+  .cinematic-audit-grid article:last-child {
+    grid-column: span 1;
   }
 
 }
@@ -3081,8 +3226,14 @@ button {
     .activation-metrics,
   .content-move-grid,
   .cinematic-form-grid,
+  .cinematic-intelligence-grid,
+  .cinematic-audit-grid,
   .cinematic-specs {
     grid-template-columns: 1fr;
+  }
+
+  .cinematic-audit-grid article:last-child {
+    grid-column: span 1;
   }
 
   .form-grid {
