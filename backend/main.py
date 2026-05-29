@@ -1323,3 +1323,74 @@ async def reset_provider():
         "status": "reset",
         "provider": reset_provider_state(),
     }
+
+
+# =====================================================
+# ONBOARDING ENDPOINTS
+# =====================================================
+
+import uuid
+from services.automated_onboarding_orchestrator import onboard_new_client
+
+class OnboardRequest(BaseModel):
+    client_name: str = Field(..., min_length=1)
+    category: str = "default"
+    instagram: str | None = None
+    links: list[str] = []
+    transcription: str | None = None
+    notes: str | None = None
+
+ONBOARD_JOBS = {}
+
+@app.post("/api/clients/onboard")
+async def onboard_client(request: Request, payload: OnboardRequest):
+    access_session = getattr(request.state, "access_session", None)
+    if access_session and access_session.get("mode") == "client":
+        raise HTTPException(
+            status_code=403,
+            detail="Clients are not allowed to perform onboarding."
+        )
+
+    job_id = uuid.uuid4().hex
+    
+    # Run onboarding orchestration synchronously
+    result = onboard_new_client(
+        client_name=payload.client_name,
+        category=payload.category,
+        intake_data={
+            "instagram": payload.instagram,
+            "links": payload.links,
+            "transcription": payload.transcription,
+            "notes": payload.notes
+        }
+    )
+    
+    status = "COMPLETED" if result.get("status") == "COMPLETED" else "FAILED"
+    
+    job_report = {
+        "job_id": job_id,
+        "status": status,
+        "result": result
+    }
+    
+    ONBOARD_JOBS[job_id] = job_report
+    return job_report
+
+@app.get("/api/clients/onboard/status/{job_id}")
+async def onboard_status(request: Request, job_id: str):
+    access_session = getattr(request.state, "access_session", None)
+    if access_session and access_session.get("mode") == "client":
+        raise HTTPException(
+            status_code=403,
+            detail="Clients are not allowed to view onboarding status."
+        )
+
+    job_report = ONBOARD_JOBS.get(job_id)
+    if not job_report:
+        raise HTTPException(
+            status_code=404,
+            detail="Onboarding job not found."
+        )
+        
+    return job_report
+
