@@ -18,6 +18,9 @@ export default function ClientWorkbench({
   onSaveIntake,
   onExecuteFramework,
   onExecuteSavedIntake,
+  isExistingClient,
+  clientJustCreated,
+  onBuildAdvancedOS,
 }) {
   return (
     <section className="glass-panel client-workbench">
@@ -103,7 +106,7 @@ export default function ClientWorkbench({
           Guardar fuentes
         </button>
         <button className="primary-action" onClick={onExecuteFramework} disabled={loading || saving || !clientName.trim()}>
-          {loading ? "Analizando..." : "Ejecutar framework"}
+          {loading ? "Analizando..." : (isExistingClient ? "Actualizar diagnóstico" : "Ejecutar framework")}
         </button>
         <button className="secondary-action" onClick={onExecuteSavedIntake} disabled={loading || saving || !clientName.trim()}>
           Ejecutar intake guardado
@@ -111,6 +114,52 @@ export default function ClientWorkbench({
       </div>
 
       {intakeStatus ? <div className="soft-status">{intakeStatus}</div> : null}
+
+      {clientJustCreated && (
+        <div style={{
+          marginTop: "16px",
+          padding: "16px 20px",
+          borderRadius: "12px",
+          background: "linear-gradient(135deg, rgba(251,191,36,0.12), rgba(245,158,11,0.08))",
+          border: "1px solid rgba(251,191,36,0.35)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+        }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+            <span style={{ fontSize: "22px", lineHeight: 1 }}>⚠️</span>
+            <div>
+              <div style={{ fontWeight: 700, color: "#fbbf24", fontSize: "0.92rem", marginBottom: "4px" }}>
+                Borrador básico — sin Advanced OS
+              </div>
+              <div style={{ fontSize: "0.83rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.5 }}>
+                Este cliente fue creado como borrador. Todavía <strong>no tiene</strong> memoria de marca, Visual DNA Engine, Content Intelligence ni AI Agent OS. El Asesor de Entidad no podrá leer su estado real.
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={onBuildAdvancedOS}
+            disabled={loading || saving}
+            style={{
+              alignSelf: "flex-start",
+              padding: "10px 20px",
+              borderRadius: "8px",
+              border: "1px solid rgba(251,191,36,0.5)",
+              background: "rgba(251,191,36,0.15)",
+              color: "#fbbf24",
+              fontWeight: 700,
+              fontSize: "0.88rem",
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              letterSpacing: "0.02em",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(251,191,36,0.28)"; e.currentTarget.style.borderColor = "#fbbf24" }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(251,191,36,0.15)"; e.currentTarget.style.borderColor = "rgba(251,191,36,0.5)" }}
+          >
+            🚀 Construir Advanced OS
+          </button>
+        </div>
+      )}
     </section>
   )
 }

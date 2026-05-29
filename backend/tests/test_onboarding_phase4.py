@@ -212,5 +212,47 @@ class TestOnboardingPhase4(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
 
+    @patch("cognitive_orchestrator.chat_completion", side_effect=mock_chat_completion)
+    def test_legacy_framework_does_not_overwrite_intake(self, mock_chat):
+        """Verify POST /clients/intake and analyze-latest-intake do not wipe existing data."""
+        os.environ["BEOS_ACCESS_CONTROL"] = "false"
+        test_client = "LegacyOverwriteClient"
+        
+        # 1. Simulate Onboarding Intake with rich data
+        payload = {
+            "client_name": test_client,
+            "category": "Technology",
+            "notes": "Original robust notes",
+            "links": ["https://original.com"]
+        }
+        res = self.client.post("/api/clients/onboard", json=payload)
+        self.assertEqual(res.status_code, 200)
+        job_id = res.json()["job_id"]
+        poll_until_done(self.client, job_id)
+        
+        # 2. Simulate clicking "Ejecutar Framework" (legacy) with empty UI state
+        empty_intake = {
+            "client_name": test_client,
+            "instagram": "",
+            "links": [],
+            "transcription": "",
+            "notes": ""
+        }
+        res_intake = self.client.post("/clients/intake", json=empty_intake)
+        self.assertEqual(res_intake.status_code, 200)
+        
+        # 3. Verify the intake was MERGED, not overwritten
+        from client_manager import load_latest_client_intake
+        latest = load_latest_client_intake(test_client)
+        self.assertEqual(latest["intake"]["notes"], "Original robust notes")
+        self.assertEqual(latest["intake"]["links"], ["https://original.com"])
+        
+        # 4. Simulate the safe execution path
+        res_analyze = self.client.post(f"/clients/{test_client}/analyze-latest-intake")
+        self.assertEqual(res_analyze.status_code, 200)
+        
+        # Clean up
+        shutil.rmtree(CLIENTS_ROOT / test_client, ignore_errors=True)
+
 if __name__ == "__main__":
     unittest.main()

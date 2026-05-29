@@ -100,6 +100,7 @@ export default function App() {
   const [creationIntent, setCreationIntent] = useState(
     () => window.sessionStorage.getItem("brand_welcome_idea") || ""
   )
+  const [clientJustCreated, setClientJustCreated] = useState(false)
 
   const activeClient = useMemo(
     () => clients.find((client) => client.name === clientName),
@@ -866,7 +867,13 @@ export default function App() {
       }
 
       setClientName(data.client.name)
-      setIntakeStatus(data.client.created ? "Cliente creado." : "Cliente actualizado.")
+      if (data.client.created) {
+        setIntakeStatus("Borrador creado. Este cliente aún no tiene Advanced OS.")
+        setClientJustCreated(true)
+      } else {
+        setIntakeStatus("Cliente actualizado.")
+        setClientJustCreated(false)
+      }
       await loadClients()
       await loadEntityAdvisor(data.client.name)
     } catch (err) {
@@ -874,6 +881,13 @@ export default function App() {
     } finally {
       setSaving(false)
     }
+  }
+
+  const buildAdvancedOS = () => {
+    // Save any intake the user has filled in, then open the Onboarding Wizard tab.
+    // The wizard already handles POST /api/clients/onboard with the current client name.
+    setClientJustCreated(false)
+    setDashboardSection("onboarding")
   }
 
   const saveIntake = async () => {
@@ -932,28 +946,39 @@ export default function App() {
       return
     }
 
+    const currentClient = clients.find((c) => c.name.toLowerCase() === clientName.trim().toLowerCase())
+    const isExistingClient = Boolean(currentClient)
+
     setLoading(true)
     setResponse("")
     setConcepts([])
-    setFlow(["Creando cliente", "Guardando fuentes", "Ejecutando framework"])
+    setFlow(isExistingClient ? ["Analizando cliente existente"] : ["Creando cliente", "Guardando fuentes", "Ejecutando framework"])
     setAgents([])
     setAnalysisMeta(null)
     setStructuredAnalysis(null)
 
     try {
-      await createClient()
-      await saveIntake()
+      let res;
+      
+      if (isExistingClient) {
+        res = await fetch(`${API_URL}/clients/${encodeURIComponent(clientName.trim())}/analyze-latest-intake`, {
+          method: "POST"
+        })
+      } else {
+        await createClient()
+        await saveIntake()
 
-      const res = await fetch(`${API_URL}/clients/analyze`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...getIntakePayload(),
-          intake_already_saved: true,
-        }),
-      })
+        res = await fetch(`${API_URL}/clients/analyze`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...getIntakePayload(),
+            intake_already_saved: true,
+          }),
+        })
+      }
 
       const data = await res.json()
 
@@ -1218,6 +1243,9 @@ export default function App() {
                     onSaveIntake={saveIntake}
                     onExecuteFramework={executeFramework}
                     onExecuteSavedIntake={executeFrameworkFromSavedIntake}
+                    isExistingClient={Boolean(clients.find(c => c.name.toLowerCase() === clientName.trim().toLowerCase()))}
+                    clientJustCreated={clientJustCreated}
+                    onBuildAdvancedOS={buildAdvancedOS}
                   />
 
                   <AnalysisReadinessPanel
