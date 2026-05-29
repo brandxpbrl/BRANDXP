@@ -1,6 +1,6 @@
 import os
 
-from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -1342,8 +1342,34 @@ class OnboardRequest(BaseModel):
 
 ONBOARD_JOBS = {}
 
+
+def _run_onboarding_background(job_id: str, client_name: str, category: str, intake_data: dict):
+    """Background task: runs the full onboarding orchestrator and updates job state."""
+    ONBOARD_JOBS[job_id]["status"] = "RUNNING"
+
+    try:
+        result = onboard_new_client(
+            client_name=client_name,
+            category=category,
+            intake_data=intake_data
+        )
+        final_status = "COMPLETED" if result.get("status") == "COMPLETED" else "FAILED"
+        ONBOARD_JOBS[job_id].update({
+            "status": final_status,
+            "result": result
+        })
+    except Exception as e:
+        ONBOARD_JOBS[job_id].update({
+            "status": "FAILED",
+            "result": {
+                "error": str(e),
+                "rollback_executed": False
+            }
+        })
+
+
 @app.post("/api/clients/onboard")
-async def onboard_client(request: Request, payload: OnboardRequest):
+async def onboard_client(request: Request, payload: OnboardRequest, background_tasks: BackgroundTasks):
     access_session = getattr(request.state, "access_session", None)
     if access_session and access_session.get("mode") == "client":
         raise HTTPException(
@@ -1352,29 +1378,29 @@ async def onboard_client(request: Request, payload: OnboardRequest):
         )
 
     job_id = uuid.uuid4().hex
-    
-    # Run onboarding orchestration synchronously
-    result = onboard_new_client(
-        client_name=payload.client_name,
-        category=payload.category,
-        intake_data={
+
+    # Register job immediately — client can start polling right away
+    ONBOARD_JOBS[job_id] = {
+        "job_id": job_id,
+        "status": "STARTED",
+        "result": None
+    }
+
+    # Schedule full orchestration in background — this call returns instantly
+    background_tasks.add_task(
+        _run_onboarding_background,
+        job_id,
+        payload.client_name,
+        payload.category,
+        {
             "instagram": payload.instagram,
             "links": payload.links,
             "transcription": payload.transcription,
             "notes": payload.notes
         }
     )
-    
-    status = "COMPLETED" if result.get("status") == "COMPLETED" else "FAILED"
-    
-    job_report = {
-        "job_id": job_id,
-        "status": status,
-        "result": result
-    }
-    
-    ONBOARD_JOBS[job_id] = job_report
-    return job_report
+
+    return ONBOARD_JOBS[job_id]
 
 @app.get("/api/clients/onboard/status/{job_id}")
 async def onboard_status(request: Request, job_id: str):

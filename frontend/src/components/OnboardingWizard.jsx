@@ -150,8 +150,22 @@ export default function OnboardingWizard({ apiUrl, onComplete, onLoadClients }) 
     if (jobStatus.status === "FAILED") return "✕"
     if (engineState === "COMPLETED") return "✓"
     if (engineState === "FAILED") return "✕"
-    return "⚡"
+    if (jobStatus.status === "RUNNING") return "⚡"
+    return "○"
   }
+
+  const getStatusLabel = () => {
+    if (!jobStatus) return "Iniciando..."
+    switch (jobStatus.status) {
+      case "STARTED":  return "INICIADO"
+      case "RUNNING":  return "GENERANDO MOTORES..."
+      case "COMPLETED": return "READY"
+      case "FAILED":   return "ERROR"
+      default:         return jobStatus.status
+    }
+  }
+
+  const isInProgress = jobStatus?.status === "STARTED" || jobStatus?.status === "RUNNING"
 
   return (
     <section className="glass-panel onboarding-wizard-panel">
@@ -344,8 +358,13 @@ export default function OnboardingWizard({ apiUrl, onComplete, onLoadClients }) 
             <div>
               <div style={{ fontSize: "12px", textTransform: "uppercase", color: "var(--muted)" }}>Estado de Ejecución</div>
               <div style={{ fontSize: "20px", fontWeight: "900", color: jobStatus?.status === "COMPLETED" ? "#9df7e6" : jobStatus?.status === "FAILED" ? "#ffb7d7" : "var(--cyan)" }}>
-                {jobStatus?.status === "COMPLETED" ? "READY" : jobStatus?.status === "FAILED" ? "ERROR" : "PROCESANDO MOTORES..."}
+                {getStatusLabel()}
               </div>
+              {isInProgress && (
+                <div style={{ fontSize: "12px", color: "var(--muted)", marginTop: "6px" }}>
+                  Generando motores avanzados. Esto puede tardar 1–2 minutos.
+                </div>
+              )}
             </div>
             {jobStatus?.result?.classification && (
               <div style={{ textAlign: "right" }}>
