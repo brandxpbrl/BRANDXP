@@ -15,6 +15,7 @@ import WorkspaceModuleHeader from "./components/WorkspaceModuleHeader"
 import EntityAdvisorPanel from "./components/EntityAdvisorPanel"
 import ClientPortalPanel from "./components/ClientPortalPanel"
 import ClientOperatorChat from "./components/ClientOperatorChat"
+import CinematicCampaignBuilder from "./components/CinematicCampaignBuilder"
 import AccessGate from "./components/AccessGate"
 import BrandWelcomeGate from "./components/BrandWelcomeGate"
 
@@ -996,6 +997,72 @@ export default function App() {
     }
   }
 
+  const executeFrameworkFromSavedIntake = async () => {
+    const targetClient = currentClientName || clientName.trim()
+
+    if (!targetClient) {
+      setIntakeStatus("Selecciona un cliente con intake guardado.")
+      return
+    }
+
+    setLoading(true)
+    setResponse("")
+    setConcepts([])
+    setFlow(["Cargando intake guardado", "Ejecutando framework"])
+    setAgents([])
+    setAnalysisMeta(null)
+    setStructuredAnalysis(null)
+    setIntakeStatus("Ejecutando framework con el ultimo intake guardado...")
+
+    try {
+      const res = await fetch(`${API_URL}/clients/${encodeURIComponent(targetClient)}/analyze-latest-intake`, {
+        method: "POST",
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.detail || "No se pudo ejecutar el intake guardado.")
+      }
+
+      if (!data.saved_analysis?.latest) {
+        throw new Error("El framework respondio, pero no confirmo el guardado de LATEST_ANALYSIS.")
+      }
+
+      setClientName(data.client?.name || targetClient)
+      setConcepts(data.concepts || [])
+      setFlow(data.flow || [])
+      setAgents(data.agents || [])
+      setStructuredAnalysis(data.structured_analysis || null)
+      setAnalysisMeta({
+        duration: data.duration_ms,
+        error: data.error,
+        provider: data.provider,
+        providerErrors: data.provider_errors || [],
+        client: data.client,
+        savedAnalysis: data.saved_analysis,
+        intakeSource: data.intake_source,
+      })
+      setIntakeStatus("Framework ejecutado desde intake guardado y analisis actualizado.")
+      setDashboardSection("results")
+      await loadClientDeliverables(data.client?.name || targetClient)
+      await loadEntityAdvisor(data.client?.name || targetClient)
+      await loadClientPortal(data.client?.name || targetClient)
+      await loadClientChatContext(data.client?.name || targetClient)
+
+      await streamText(data.response || "No response was generated.")
+    } catch (err) {
+      setFlow(["Intake guardado no ejecutado", "Revision requerida"])
+      setResponse(err.message)
+      setIntakeStatus(err.message)
+      setAnalysisMeta({
+        error: err.message,
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   if (!welcomeComplete) {
     return (
       <BrandWelcomeGate
@@ -1106,6 +1173,18 @@ export default function App() {
                   >
                     Chat operativo
                   </button>
+                  {!isClientAccess ? (
+                    <button
+                      className={dashboardSection === "cinematic_campaign" ? "workspace-tab active" : "workspace-tab"}
+                      type="button"
+                      onClick={() => {
+                        setSidebarSection("cinematic_campaign")
+                        setDashboardSection("cinematic_campaign")
+                      }}
+                    >
+                      Cinematic Campaign
+                    </button>
+                  ) : null}
                 </div>
               </section>
 
@@ -1130,6 +1209,7 @@ export default function App() {
                     onCreateClient={createClient}
                     onSaveIntake={saveIntake}
                     onExecuteFramework={executeFramework}
+                    onExecuteSavedIntake={executeFrameworkFromSavedIntake}
                   />
 
                   <AnalysisReadinessPanel
@@ -1172,6 +1252,16 @@ export default function App() {
                   sendError={clientChatSendError}
                   sendMessage={clientChatSendMessage}
                 />
+              ) : dashboardSection === "cinematic_campaign" ? (
+                <CinematicCampaignBuilder
+                  clientName={currentClientName}
+                  apiUrl={API_URL}
+                  onGenerated={(data) => {
+                    setDeliverablesActionMessage(`Campana cinematografica generada: ${data.files?.length || 0} archivos.`)
+                    loadClientDeliverables(currentClientName)
+                    loadEntityAdvisor(currentClientName)
+                  }}
+                />
               ) : (
                 <>
                   <FrameworkResultsHub
@@ -1182,6 +1272,7 @@ export default function App() {
                     deliverablesLoading={deliverablesLoading}
                     onRefreshDeliverables={() => loadClientDeliverables(currentClientName)}
                     onRunAgain={executeFramework}
+                    onRunSavedIntake={executeFrameworkFromSavedIntake}
                   />
 
                   <OutputPanel

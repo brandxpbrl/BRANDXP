@@ -2253,6 +2253,145 @@ button {
   color: #ffb7d7;
 }
 
+.cinematic-builder {
+  display: grid;
+  gap: 18px;
+}
+
+.cinematic-builder-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(69, 198, 246, 0.15), transparent 34%),
+    linear-gradient(135deg, rgba(217, 66, 143, 0.13), rgba(92, 107, 255, 0.08)),
+    rgba(255, 255, 255, 0.035);
+}
+
+.cinematic-builder-hero p {
+  max-width: 760px;
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.55;
+}
+
+.cinematic-specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(92px, 1fr));
+  gap: 10px;
+}
+
+.cinematic-specs span {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 10px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+  background: rgba(69, 198, 246, 0.08);
+  border: 1px solid rgba(69, 198, 246, 0.22);
+}
+
+.cinematic-builder-form,
+.cinematic-output {
+  display: grid;
+  gap: 18px;
+}
+
+.cinematic-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.cinematic-form-grid .field-block.wide {
+  grid-column: span 3;
+}
+
+.cinematic-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.cinematic-summary-grid article,
+.cinematic-structure,
+.cinematic-scene-card {
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cinematic-summary-grid span,
+.cinematic-structure span,
+.cinematic-scene-head span,
+.cinematic-edit-text span {
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.cinematic-summary-grid p,
+.cinematic-structure p,
+.cinematic-role,
+.cinematic-edit-text p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.55;
+}
+
+.cinematic-structure {
+  display: grid;
+  gap: 8px;
+}
+
+.cinematic-scene-list {
+  display: grid;
+  gap: 14px;
+}
+
+.cinematic-scene-card {
+  display: grid;
+  gap: 12px;
+}
+
+.cinematic-scene-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.cinematic-scene-head strong {
+  display: block;
+  margin-top: 6px;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.cinematic-prompt {
+  margin: 0;
+  white-space: pre-wrap;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.55;
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(69, 198, 246, 0.18);
+}
+
+.cinematic-edit-text {
+  border-left: 2px solid rgba(217, 66, 143, 0.58);
+  padding-left: 12px;
+}
+
 .results-hub {
   display: grid;
   gap: 18px;
@@ -2899,7 +3038,9 @@ button {
   .client-portal-hero,
   .portal-section-grid,
   .client-chat-hero,
-  .client-chat-grid {
+  .client-chat-grid,
+  .cinematic-builder-hero,
+  .cinematic-summary-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2935,15 +3076,26 @@ button {
   .results-summary-grid,
   .portal-status-grid,
   .portal-deliverables-grid,
-  .portal-analysis-grid,
-  .activation-decision-grid,
-  .activation-metrics,
-  .content-move-grid {
+    .portal-analysis-grid,
+    .activation-decision-grid,
+    .activation-metrics,
+  .content-move-grid,
+  .cinematic-form-grid,
+  .cinematic-specs {
     grid-template-columns: 1fr;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .cinematic-form-grid .field-block.wide {
+    grid-column: span 1;
+  }
+
+  .cinematic-scene-head {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .entity-advisor-panel {

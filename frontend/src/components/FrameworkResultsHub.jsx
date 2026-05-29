@@ -6,6 +6,7 @@ export default function FrameworkResultsHub({
   deliverablesLoading = false,
   onRefreshDeliverables,
   onRunAgain,
+  onRunSavedIntake,
 }) {
   const savedAnalysis = analysisMeta?.savedAnalysis
   const score = structuredAnalysis?.overall_score
@@ -25,6 +26,9 @@ export default function FrameworkResultsHub({
           </button>
           <button className="primary-action" type="button" onClick={onRunAgain} disabled={!clientName}>
             Ejecutar de nuevo
+          </button>
+          <button className="secondary-action" type="button" onClick={onRunSavedIntake} disabled={!clientName}>
+            Usar intake guardado
           </button>
         </div>
       </div>

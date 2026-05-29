@@ -137,6 +137,48 @@ class FrameworkFlowTests(unittest.TestCase):
         self.assertEqual(data["response"], "ok")
         self.assertEqual(calls, [])
 
+    def test_analyze_latest_intake_uses_saved_public_context(self):
+        saved = client_manager.save_client_intake(
+            "ClientA",
+            {
+                "instagram": "@client",
+                "links": ["https://example.com"],
+                "transcription": "",
+                "notes": "Cuestionario publico con origen, vision y diferenciacion.",
+                "strategic_questionnaire": {
+                    "origin": "Nacio desde una oportunidad clara.",
+                    "vision": "Ser una referencia premium.",
+                },
+                "source": "public_client_intake",
+                "framework_ready": True,
+            },
+        )
+        calls = []
+
+        def fake_process_request(prompt, client_name=None):
+            calls.append((prompt, client_name))
+            return {
+                "response": "ok",
+                "client": {"name": client_name},
+                "saved_analysis": {"latest": "LATEST_ANALYSIS.md"},
+            }
+
+        main.process_request = fake_process_request
+
+        status, data = asyncio.run(
+            _asgi_post_json(
+                "/clients/ClientA/analyze-latest-intake",
+                {},
+            )
+        )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(data["response"], "ok")
+        self.assertEqual(data["intake_source"]["intake_file"], saved["intake_file"])
+        self.assertEqual(calls[0][1], "ClientA")
+        self.assertIn("@client", calls[0][0])
+        self.assertIn("Cuestionario publico", calls[0][0])
+
     def test_load_client_excludes_deliverables_outputs(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

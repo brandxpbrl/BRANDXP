@@ -17,6 +17,7 @@ export default function ClientWorkbench({
   onCreateClient,
   onSaveIntake,
   onExecuteFramework,
+  onExecuteSavedIntake,
 }) {
   return (
     <section className="glass-panel client-workbench">
@@ -103,6 +104,9 @@ export default function ClientWorkbench({
         </button>
         <button className="primary-action" onClick={onExecuteFramework} disabled={loading || saving || !clientName.trim()}>
           {loading ? "Analizando..." : "Ejecutar framework"}
+        </button>
+        <button className="secondary-action" onClick={onExecuteSavedIntake} disabled={loading || saving || !clientName.trim()}>
+          Ejecutar intake guardado
         </button>
       </div>
 

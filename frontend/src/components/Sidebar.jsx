@@ -5,6 +5,7 @@ export default function Sidebar({ activeSection = "panel", accessMode = "develop
     { id: "entities", label: "Entidades", target: "results" },
     { id: "client_portal", label: "Portal del Cliente", target: "portal" },
     { id: "client_chat", label: "Chat operativo", target: "client_chat" },
+    { id: "cinematic_campaign", label: "Cinematic Campaign", target: "cinematic_campaign" },
     { id: "memory", label: "Nucleo de memoria", target: "results" },
     { id: "entity_bible", label: "Biblia de la Entidad", target: "results" },
     { id: "visual_ai", label: "IA visual", target: "results" },

@@ -19,6 +19,10 @@ const moduleCopy = {
     title: "Chat operativo",
     copy: "Operador contextual por cliente para ejecutar prompts, proximos pasos y acciones derivadas del Activation Board.",
   },
+  cinematic_campaign: {
+    title: "Cinematic Campaign Builder",
+    copy: "Generador aislado de campanas cinematograficas, escenas de 8 segundos y prompts verticales optimizados para Veo.",
+  },
   memory: {
     title: "Nucleo de memoria",
     copy: "Analisis guardado, contexto recuperado y entregables asociados a la memoria del cliente.",

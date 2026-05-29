@@ -4090,6 +4090,47 @@ def save_client_intake(client_name, intake):
     }
 
 
+def load_latest_client_intake(client_name):
+    resolved_client_name, client_path = _resolve_existing_client_path(client_name)
+
+    if not client_path:
+        raise ValueError("Client not found.")
+
+    intake_dir = client_path / "01_DIAGNOSTICO_ACTUAL" / "Analisis_Brand_Experience"
+
+    if not intake_dir.is_dir():
+        raise ValueError("No intake files found for this client.")
+
+    intake_files = sorted(
+        intake_dir.glob("intake_*.json"),
+        key=lambda path: path.stat().st_mtime,
+        reverse=True,
+    )
+
+    if not intake_files:
+        raise ValueError("No intake files found for this client.")
+
+    latest_file = intake_files[0]
+
+    try:
+        payload = json.loads(latest_file.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        raise ValueError("Latest intake file is invalid.") from error
+
+    intake = payload.get("intake")
+
+    if not isinstance(intake, dict):
+        raise ValueError("Latest intake file has no intake payload.")
+
+    return {
+        "client": resolved_client_name,
+        "client_path": str(client_path),
+        "intake_file": str(latest_file),
+        "intake": intake,
+        "created_at": payload.get("created_at"),
+    }
+
+
 def save_uploaded_file(client_name, file_obj, filename, category="Material_Actual"):
     submitted_name = Path(filename).name
     safe_filename = re.sub(r'[<>:"/\\|?*\x00-\x1f]', "", submitted_name).strip()

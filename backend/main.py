@@ -6,11 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from ai_provider import get_provider_status, reset_provider_state
-from client_manager import build_client_analysis_plan, build_framework_prompt, ensure_client, generate_client_deliverables, generate_client_prompt_pack, generate_client_visual_board_specs, generate_master_deliverable, get_client_deliverable_asset_path, get_client_deliverable_content, list_client_deliverables, list_clients, render_client_visual_board_images, save_client_analysis, save_client_intake, save_uploaded_file
+from client_manager import build_client_analysis_plan, build_framework_prompt, ensure_client, generate_client_deliverables, generate_client_prompt_pack, generate_client_visual_board_specs, generate_master_deliverable, get_client_deliverable_asset_path, get_client_deliverable_content, list_client_deliverables, list_clients, load_latest_client_intake, render_client_visual_board_images, save_client_analysis, save_client_intake, save_uploaded_file
 from cognitive_orchestrator import AnalysisSaveError, process_request
 from dynamic_agent_loader import load_all_agents
 from services.ai_agent_os_builder import generate_ai_agent_os
 from services.access_control import access_control_enabled, access_keys_configured, authenticate_access_key, is_client_allowed_path, is_public_path, verify_access_token
+from services.cinematic_campaign_builder import generate_cinematic_campaign, get_recommended_cinematic_brief
 from services.client_activation_engine import build_client_activation, create_activation_sprint, generate_client_portal_summary, generate_evolution_timeline, generate_strategic_campaign, mark_deliverables_reviewed
 from services.client_chat_engine import build_client_chat_context, run_client_chat
 from services.entity_conversation_engine import build_entity_conversation_context, run_entity_conversation
@@ -91,6 +92,27 @@ class IntakeRequest(BaseModel):
     notes: str | None = None
 
     intake_already_saved: bool = False
+
+
+class CinematicCampaignRequest(BaseModel):
+
+    brand: str | None = None
+
+    video_objective: str | None = None
+
+    central_message: str | None = None
+
+    main_emotion: str | None = None
+
+    audience: str | None = None
+
+    visual_aesthetic: str | None = None
+
+    duration: str | int | None = None
+
+    platform: str | None = None
+
+    final_cta: str | None = None
 
 
 class EntityVoiceScriptRequest(BaseModel):
@@ -746,6 +768,37 @@ async def client_generate_campaign(client_name: str):
     return result
 
 
+@app.post("/api/clients/{client_name}/cinematic-campaigns/generate")
+async def client_generate_cinematic_campaign(client_name: str, request: CinematicCampaignRequest):
+
+    result = generate_cinematic_campaign(
+        client_name,
+        request.model_dump() if hasattr(request, "model_dump") else request.dict(),
+    )
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/cinematic-campaigns/recommended-brief")
+async def client_cinematic_campaign_recommended_brief(client_name: str):
+
+    result = get_recommended_cinematic_brief(client_name)
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
 @app.post("/api/clients/{client_name}/timeline/generate")
 async def client_generate_timeline(client_name: str):
 
@@ -1065,6 +1118,64 @@ async def analyze_client(request: IntakeRequest):
             status_code=500,
             detail=str(error)
         ) from error
+
+
+@app.post("/clients/{client_name}/analyze-latest-intake")
+async def analyze_latest_client_intake(client_name: str):
+
+    if not client_name.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Client name is required."
+        )
+
+    try:
+        latest = load_latest_client_intake(client_name)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=404,
+            detail=str(error)
+        ) from error
+
+    intake = latest["intake"]
+    prompt = build_framework_prompt(latest["client"], intake)
+    client = ensure_client(latest["client"], "Framework analysis started from latest saved intake.")
+    save_client_analysis(
+        client,
+        prompt,
+        "Analisis en progreso. Brand Experience OS cargo el ultimo intake guardado y esta ejecutando el flujo multiagente.",
+        provider=get_provider_status(),
+        concepts=["Latest intake framework run"],
+        agents=[],
+        structured_analysis={
+            "headline": "Analisis en progreso desde intake guardado.",
+            "overall_score": 0,
+            "confidence": 0,
+            "diagnosis": {
+                "current_state": "El sistema esta procesando el framework multiagente con el ultimo intake del cliente.",
+                "main_gap": "Pendiente de sintesis final",
+                "strategic_decision": "Esperar la respuesta final del orquestador.",
+            },
+        },
+        status="running",
+    )
+
+    try:
+        result = process_request(
+            prompt,
+            latest["client"]
+        )
+    except AnalysisSaveError as error:
+        raise HTTPException(
+            status_code=500,
+            detail=str(error)
+        ) from error
+
+    result["intake_source"] = {
+        "intake_file": latest["intake_file"],
+        "created_at": latest.get("created_at"),
+    }
+    return result
 
 
 @app.post("/clients/{client_name}/uploads")
