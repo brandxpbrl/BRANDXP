@@ -336,14 +336,15 @@ def _synthesize_campaign_intelligence_via_ai(client_name, context_text):
         '  "campaign_message": "..."\n'
         "}\n\n"
         "Rules:\n"
-        "1. Extract visual direction (aesthetic_identity and recommended_visual_direction) directly from the Visual Universe sections or files if available.\n"
-        "2. Extract emotional direction (main_emotion) from the Strategic Synthesis, Entity Psychology or Brand Essence sections.\n"
-        "3. Extract differentiators (differentiator) from the Entity Core or unique positioning values.\n"
-        "4. Extract campaign message (campaign_message) and core_concept from the Brand Positioning or core strategy.\n"
-        "5. Avoid any generic placeholders. Do not use: 'publico ideal de la marca', 'marca con sistema de experiencia', 'base aprovechable', 'publico objetivo', 'mensaje principal'.\n"
+        "1. Extract visual direction (aesthetic_identity and recommended_visual_direction) directly from Tier 3 (Visual Universe) sections or files if available.\n"
+        "2. Extract emotional direction (main_emotion) from Tier 1 (full_brand_experience_prompt_pack/identity_cliente), Tier 2 (MASTER_BRAND_EXPERIENCE), or Tier 4 (storytelling_strategy_board) sections.\n"
+        "3. Extract differentiators (differentiator) from Tier 1 or Tier 2 sections.\n"
+        "4. Extract campaign message (campaign_message) and core_concept from Tier 1 or Tier 2 sections.\n"
+        "5. Use Tier 5 (LATEST_ANALYSIS, etc.) ONLY to understand gaps and opportunities. NEVER let it override consolidated identity files from Tier 1 or Tier 2.\n"
+        "6. Avoid any generic placeholders. Do not use: 'publico ideal de la marca', 'marca con sistema de experiencia', 'base aprovechable', 'publico objetivo', 'mensaje principal'.\n"
         "Instead, identify and synthesize the strongest, most specific and evocative strategic concepts found in the source text.\n"
-        "6. The brief should read like an Executive Creative Brief of a high-end luxury brand.\n"
-        "7. Return only a valid JSON object."
+        "7. The brief should read like an Executive Creative Brief of a high-end luxury brand.\n"
+        "8. Return only a valid JSON object."
     )
 
     user_content = f"Client Name: {client_name}\n\nContext files:\n{context_text}"
@@ -468,34 +469,84 @@ def _derive_brief_from_text(client_name, text, context_text=""):
     return brief
 
 
-def _load_cinematic_context(client_path):
+def _generate_campaign_context_file(client_path):
+    lines = [
+        "# Campaign Generation Context",
+        "",
+        f"- Generated: {datetime.now().isoformat(timespec='seconds')}",
+        "- Hierarchy Ingested: Tier 1 to Tier 5",
+        "",
+        "## Ingested Sources Metadata",
+    ]
+
     sources = []
-    seen = set()
+    seen_paths = set()
 
-    for source_name in CONTEXT_SOURCE_FILES:
-        for path in _candidate_brief_paths(client_path, source_name):
-            if path in seen:
-                continue
+    hierarchy = [
+        ("Tier 1", ["prompt_pack/full_brand_experience_prompt_pack.md", "identity_cliente.md"]),
+        ("Tier 2", ["MASTER_BRAND_EXPERIENCE.md"]),
+        ("Tier 3", ["visual_universe_board.md", "visual_universe.md"]),
+        ("Tier 4", ["storytelling_strategy_board.md"]),
+        ("Tier 5", ["LATEST_ANALYSIS.md", "identity_patch.md", "content_strategy.md"]),
+    ]
 
-            text = _read_brief_source(path, MAX_CONTEXT_SOURCE_CHARS)
+    tier_files = {tier[0]: [] for tier in hierarchy}
 
-            if len(text) < 40:
-                continue
+    for tier_name, patterns in hierarchy:
+        for pattern in patterns:
+            paths = _candidate_brief_paths(client_path, pattern)
+            if paths:
+                p = paths[0]
+                if p not in seen_paths:
+                    text = _read_brief_source(p, MAX_CONTEXT_SOURCE_CHARS)
+                    if len(text) >= 40:
+                        rel_path = _client_relative_path(client_path, p)
+                        mtime = datetime.fromtimestamp(p.stat().st_mtime).strftime("%Y-%m-%d")
+                        tier_files[tier_name].append({
+                            "path": p,
+                            "rel_path": rel_path,
+                            "mtime": mtime,
+                            "text": text,
+                        })
+                        seen_paths.add(p)
+                        break
 
-            sources.append(
-                {
-                    "source": _client_relative_path(client_path, path),
-                    "text": text,
-                }
-            )
-            seen.add(path)
-            break
+    for tier_name, _ in hierarchy:
+        for item in tier_files[tier_name]:
+            lines.append(f"* [{tier_name}] Source: {item['rel_path']} (mtime: {item['mtime']})")
+            sources.append(item)
 
-    combined = "\n\n".join(f"## Source: {item['source']}\n{item['text']}" for item in sources)
+    lines.append("")
+    lines.append("---")
+    lines.append("")
 
+    for tier_name, _ in hierarchy:
+        lines.append(f"# {tier_name} Content")
+        lines.append("")
+        if tier_files[tier_name]:
+            for item in tier_files[tier_name]:
+                lines.append(f"## Source: {item['rel_path']}")
+                lines.append("")
+                lines.append(item["text"])
+                lines.append("")
+        else:
+            lines.append(f"No sources loaded for {tier_name}.")
+            lines.append("")
+
+    context_markdown = "\n".join(lines).rstrip() + "\n"
+
+    target_dir = _safe_campaign_dir(client_path)
+    context_file_path = target_dir / "campaign_context.md"
+    context_file_path.write_text(context_markdown, encoding="utf-8")
+
+    return context_file_path, context_markdown, [s["rel_path"] for s in sources]
+
+
+def _load_cinematic_context(client_path):
+    _, context_markdown, sources = _generate_campaign_context_file(client_path)
     return {
-        "sources": sources,
-        "combined_text": combined[:MAX_CONTEXT_CHARS],
+        "sources": [{"source": s} for s in sources],
+        "combined_text": context_markdown[:MAX_CONTEXT_CHARS],
     }
 
 
@@ -811,6 +862,12 @@ def _fallback_campaign(payload):
         "campaign_intelligence_summary": _merge_intelligence(intelligence, CAMPAIGN_INTELLIGENCE_FIELDS),
         "concept": f"La campaña convierte la estrategia en una secuencia cinematografica: {concept}.",
         "campaign_objective": objective,
+        "evolution_timeline": (
+            "Escenas 1-2: sombras profundas / tensión / baja intensidad lumínica / ritmo expectante.\n"
+            "Escenas 3-4: claridad estratégica / contraste controlado / ritmo pausado y seguro.\n"
+            "Escenas 5-6: acentos signature / transformación cromática / alta intensidad dramática.\n"
+            "Escenas 7-8: presencia premium / cierre icónico / atmósfera cromática unificada."
+        ),
         "narrative_structure": _narrative_structure_for_payload(payload),
         "scenes": scenes,
         "final_editing_guide": (
@@ -968,6 +1025,7 @@ def _normalize_campaign(raw, payload):
         "campaign_intelligence_summary": intelligence,
         "concept": _clean(raw.get("concept") or raw.get("campaign_concept")) or fallback["concept"],
         "campaign_objective": _clean(raw.get("campaign_objective")) or fallback["campaign_objective"],
+        "evolution_timeline": _clean(raw.get("evolution_timeline") or raw.get("timeline")) or fallback.get("evolution_timeline") or "Hook -> Tension -> Escalate -> Climax -> Resolution",
         "narrative_structure": _normalize_structure(raw.get("narrative_structure"), payload),
         "scenes": scenes,
         "final_editing_guide": _clean(raw.get("final_editing_guide")) or fallback["final_editing_guide"],
@@ -1005,11 +1063,11 @@ def _user_prompt(payload):
         if key != "context_text"
     }
 
-    return f"""Generate a V2 cinematic campaign for Veo using this input:
+    return f"""Generate a V3 cinematic campaign for Veo using this input:
 
 {json.dumps(ai_payload, ensure_ascii=False, indent=2)}
 
-Strategic context from Brand Experience framework:
+Strategic context from campaign_context:
 {payload.get("context_text") or "No additional framework context available."}
 
 Fixed narrative map:
@@ -1030,6 +1088,7 @@ Required JSON shape:
   }},
   "concept": "campaign concept",
   "campaign_objective": "interpreted objective",
+  "evolution_timeline": "Escenas 1-2: [narrative + visual progression focusing on lighting/contrast/rhythm/color]. Escenas 3-4: [...]. Escenas 5-6: [...]. Escenas 7-8: [...]. (Must cover: dramatic intensity, emotional evolution, lighting progression, contrast, color, visual rhythm)",
   "narrative_structure": [
     {{
       "scene_number": 1,
@@ -1101,7 +1160,7 @@ def _render_structure(lines, structure):
 
 def _render_markdown(client_name, payload, campaign, metadata):
     lines = [
-        "# Cinematic Campaign Builder",
+        "# Cinematic Campaign Builder - V3",
         "",
         f"- Client: {client_name}",
         f"- Generated at: {metadata['generated_at']}",
@@ -1123,6 +1182,10 @@ def _render_markdown(client_name, payload, campaign, metadata):
             "## Campaign Concept",
             "",
             campaign["concept"],
+            "",
+            "## Evolution Timeline",
+            "",
+            campaign.get("evolution_timeline") or "Hook -> Tension -> Escalate -> Climax -> Resolution",
             "",
             "## Narrative Structure",
             "",
@@ -1240,17 +1303,25 @@ def generate_cinematic_campaign(client_name, request_data):
     }
     target_dir = _safe_campaign_dir(client_path)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
     latest_path = target_dir / "campaign_latest.md"
+    prompts_veo_path = target_dir / "PROMPTS_VEO_CAMPAIGN.md"
     history_path = target_dir / f"campaign_{timestamp}.md"
+    history_veo_path = target_dir / f"campaign_veo_{timestamp}.md"
+
     markdown = _render_markdown(resolved_client_name, payload, campaign, metadata)
 
     latest_path.write_text(markdown, encoding="utf-8")
+    prompts_veo_path.write_text(markdown, encoding="utf-8")
     history_path.write_text(markdown, encoding="utf-8")
+    history_veo_path.write_text(markdown, encoding="utf-8")
 
     return {
         "client": resolved_client_name,
         "status": "created",
         "files": [
+            _client_relative_path(client_path, prompts_veo_path),
+            _client_relative_path(client_path, history_veo_path),
             _client_relative_path(client_path, latest_path),
             _client_relative_path(client_path, history_path),
         ],
