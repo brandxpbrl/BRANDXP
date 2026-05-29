@@ -77,6 +77,16 @@ class EntityAdvisorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             entity_advisor.get_creative_library_asset_path("../secret.png")
 
+    def test_welcome_audio_can_be_served_without_entering_visual_rotation(self):
+        audio = self._write("04_CREATIVE_LIBRARY/02_Assets_Visuales/Entidad/bienvenida.mp3", b"mp3")
+        self._write("04_CREATIVE_LIBRARY/02_Assets_Visuales/Entidad/entity.png", b"png")
+
+        resolved = entity_advisor.get_creative_library_asset_path("02_Assets_Visuales/Entidad/bienvenida.mp3")
+        assets = entity_advisor._entity_assets()
+
+        self.assertEqual(resolved, audio.resolve())
+        self.assertNotIn("bienvenida.mp3", [asset["name"] for asset in assets])
+
 
 if __name__ == "__main__":
     unittest.main()

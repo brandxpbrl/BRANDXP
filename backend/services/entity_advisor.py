@@ -13,6 +13,7 @@ ALLOWED_ENTITY_ASSET_EXTENSIONS = {
     ".gif",
     ".jpeg",
     ".jpg",
+    ".mp3",
     ".mp4",
     ".png",
     ".webp",
@@ -165,6 +166,9 @@ def _entity_assets(limit=8):
             break
 
         if not path.is_file() or path.suffix.casefold() not in ALLOWED_ENTITY_ASSET_EXTENSIONS:
+            continue
+
+        if path.suffix.casefold() == ".mp3":
             continue
 
         relative_path = path.relative_to(CREATIVE_LIBRARY_ROOT).as_posix()
