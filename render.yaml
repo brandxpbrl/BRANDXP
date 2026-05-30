@@ -3,7 +3,9 @@ services:
     name: brand-experience-os-api
     runtime: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
+    buildCommand: >-
+      pip install -r requirements.txt &&
+      cp -rn /opt/render/project/src/BRAND_EXPERIENCE /opt/render/project/src/BRAND_EXPERIENCE_git_seed || true
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     envVars:
