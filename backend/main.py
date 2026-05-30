@@ -24,6 +24,10 @@ from services.entity_advisor import build_entity_advisor, chat_with_entity, get_
 from services.entity_voice_profile import get_entity_voice_profile
 from services.entity_voice_script_engine import build_entity_voice_script
 from services.tts_service import generate_entity_voice
+from services.disk_seed import seed_disk_if_needed
+
+# Seed persistent disk on startup (no-op locally or if already seeded)
+seed_disk_if_needed()
 
 LOCAL_FRONTEND_ORIGINS = [
     "http://127.0.0.1:5173",
