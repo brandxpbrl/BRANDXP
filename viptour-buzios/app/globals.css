@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+@theme {
+  /* ========================================================
+     DESIGN TOKEN ENGINE - CSS VARIABLES
+     ======================================================== */
+
+  /* Colors */
+  --color-primary: #0ea5e9;    /* Ocean Blue */
+  --color-secondary: #facc15;  /* Buggy Yellow */
+  --color-accent: #2dd4bf;     /* Turquoise */
+  
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  --color-neutral: #64748b;
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-overlay: rgba(15, 23, 42, 0.7);
+  --color-border: #e2e8f0;
+
+  --color-text-primary: #0f172a;   /* Dark Navy */
+  --color-text-secondary: #475569;
+  --color-text-inverse: #ffffff;
+  --color-text-disabled: #94a3b8;
+
+  --color-interactive-hover: #0284c7;
+  --color-interactive-focus: #38bdf8;
+  --color-interactive-disabled: #cbd5e1;
+  --color-interactive-active: #0369a1;
+
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6; /* Sand */
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Spacing */
+  --spacing-2: 0.125rem;  /* 2px */
+  --spacing-4: 0.25rem;   /* 4px */
+  --spacing-8: 0.5rem;    /* 8px */
+  --spacing-12: 0.75rem;  /* 12px */
+  --spacing-16: 1rem;     /* 16px */
+  --spacing-20: 1.25rem;  /* 20px */
+  --spacing-24: 1.5rem;   /* 24px */
+  --spacing-32: 2rem;     /* 32px */
+  --spacing-40: 2.5rem;   /* 40px */
+  --spacing-48: 3rem;     /* 48px */
+  --spacing-56: 3.5rem;   /* 56px */
+  --spacing-64: 4rem;     /* 64px */
+  --spacing-80: 5rem;     /* 80px */
+  --spacing-96: 6rem;     /* 96px */
+  --spacing-120: 7.5rem;  /* 120px */
+  --spacing-160: 10rem;   /* 160px */
+  --spacing-192: 12rem;   /* 192px */
+  --spacing-240: 15rem;   /* 240px */
+
+  /* Typography */
+  --font-primary: "Montserrat", sans-serif;
+  --font-secondary: "Montserrat", sans-serif;
+
+  --text-display-xl: 4.5rem;
+  --text-display-l: 3.75rem;
+  --text-display-m: 3rem;
+  --text-h1: 2.25rem;
+  --text-h2: 1.875rem;
+  --text-h3: 1.5rem;
+  --text-h4: 1.25rem;
+  --text-h5: 1.125rem;
+  --text-h6: 1rem;
+  --text-body-xl: 1.25rem;
+  --text-body-l: 1.125rem;
+  --text-body: 1rem;
+  --text-body-small: 0.875rem;
+  --text-caption: 0.75rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --text-label: 0.875rem;
+  --text-button: 1rem;
+  --text-navigation: 1rem;
+  --text-hero: 4.5rem;
+
+  /* Border Radius */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 15px rgba(14, 165, 233, 0.5); /* Ocean blue glow */
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.04);
+  --shadow-floating: 0 10px 40px -10px rgba(0, 0, 0, 0.15);
+  --shadow-hero: inset 0 -100px 100px -50px rgba(0, 0, 0, 0.5);
+  --shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+  /* Elevation */
+  --elevation-surface: 0;
+  --elevation-raised: 10;
+  --elevation-overlay: 300;
+  --elevation-floating: 600;
+
+  /* Motion */
+  --motion-duration-fast: 150ms;
+  --motion-duration-normal: 300ms;
+  --motion-duration-slow: 500ms;
+  --motion-duration-ultra: 1000ms;
+
+  --motion-delay-short: 100ms;
+  --motion-delay-medium: 300ms;
+  --motion-delay-long: 500ms;
+
+  --motion-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --motion-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  --motion-hover: translateY(-2px);
+  --motion-scale: scale(1.05);
+  --motion-reveal: translateY(20px);
+  --motion-parallax: translateY(50px);
+  --motion-fade: opacity(0);
+  --motion-slide: translateX(20px);
+  --motion-zoom: scale(0.95);
+
+  /* Containers */
+  --container-narrow: 768px;
+  --container-default: 1280px;
+  --container-wide: 1536px;
+  --container-ultra-wide: 1920px;
+}
+
+/* ========================================================
+   BASE STYLES & THEME MODES
+   ======================================================== */
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-gray-900);
+    --foreground: var(--color-gray-50);
+    --color-surface: var(--color-gray-800);
+    --color-border: var(--color-gray-700);
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================================
+   SEMANTIC UTILITY CLASSES (Phase 1 specific classes)
+   ======================================================== */
+
+.section-padding {
+  @apply py-16 md:py-24 lg:py-32;
+}
+
+.container-padding {
+  @apply px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto;
+}
+
+.surface {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: all var(--motion-duration-normal) var(--motion-ease-out);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-floating);
+  transform: var(--motion-hover);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-glass);
+}
+
+.hero-surface {
+  background-color: var(--background);
+  box-shadow: var(--shadow-hero);
+  position: relative;
+  overflow: hidden;
+}
+
+.section {
+  @apply py-16 md:py-24 lg:py-32;
+  position: relative;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--color-border);
+  width: 100%;
+}
+
+.cta {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-16) var(--spacing-32);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-button);
+  transition: all var(--motion-duration-normal) var(--motion-ease-out);
+  box-shadow: var(--shadow-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta:hover {
+  background-color: var(--color-interactive-hover);
+  box-shadow: var(--shadow-lg);
+  transform: var(--motion-hover);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--radius-full);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--color-gray-100);
+  color: var(--color-text-primary);
+}
+
+.interactive {
+  cursor: pointer;
+  transition: all var(--motion-duration-fast) var(--motion-ease-in-out);
+}
+
+.interactive:hover {
+  opacity: 0.8;
+}
+
+.interactive:active {
+  transform: scale(0.95);
+}
