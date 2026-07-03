@@ -5,14 +5,8 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { navigationStructure } from "@/architecture/navigation.structure";
-import { siteConfig } from "@/config/site";
-import { ctaStrategy } from "@/experience/experience.cta";
 import { zIndex, typography } from "@/design-system";
 import { NavbarLogo } from "./NavbarLogo";
-
-const drawerWhatsAppCta = ctaStrategy.find(
-  (cta) => cta.text === "Falar no WhatsApp",
-)!;
 
 type MobileDrawerProps = {
   isOpen: boolean;
@@ -99,9 +93,9 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             >
               <ul className="flex flex-col gap-1">
                 {navigationStructure.navbar.items.map((item) => (
-                  <li key={item.anchor}>
+                  <li key={item.href}>
                     <Link
-                      href={item.anchor}
+                      href={item.href}
                       onClick={handleNavClick}
                       className="interactive block rounded-lg px-3 py-4 font-semibold text-text-primary transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-interactive-focus"
                       style={{ fontSize: typography.semantics.navigation }}
@@ -114,13 +108,11 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
               <div className="mt-auto border-t border-border pt-6">
                 <a
-                  href={siteConfig.links.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={navigationStructure.navbar.primaryCta.href}
                   className="cta interactive w-full gap-2"
                   onClick={handleNavClick}
                 >
-                  {drawerWhatsAppCta.text}
+                  {navigationStructure.navbar.primaryCta.label}
                 </a>
               </div>
             </nav>

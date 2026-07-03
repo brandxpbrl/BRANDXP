@@ -32,11 +32,11 @@ export function ServicesSection() {
           </p>
           <h2
             id="services-title"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+            className="mt-3 text-h2 text-slate-950"
           >
             {servicesTitle}
           </h2>
-          <p className="mt-4 text-base leading-7 text-slate-600">
+          <p className="mt-4 text-body text-slate-600">
             {servicesDescription}
           </p>
         </div>
@@ -46,7 +46,7 @@ export function ServicesSection() {
             <motion.article
               key={service.title}
               variants={serviceCardVariants}
-              className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-50 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl"
+              className="card overflow-hidden bg-slate-50"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
@@ -93,7 +93,7 @@ export function ServicesSection() {
                     href={service.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-11 items-center gap-2 rounded-full border border-[color:var(--color-primary)] px-4 text-sm font-semibold text-[color:var(--color-primary)] transition-colors hover:bg-[color:var(--color-primary)] hover:text-white"
+                    className="interactive inline-flex h-11 items-center gap-2 rounded-full border border-[color:var(--color-primary)] px-4 text-sm font-semibold text-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)] hover:text-white"
                   >
                     {service.ctaLabel}
                     <ArrowRight className="h-4 w-4" aria-hidden />

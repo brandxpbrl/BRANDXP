@@ -50,7 +50,7 @@ export function HeroSection() {
           <div className="max-w-3xl">
             <motion.p
               variants={heroItemVariants}
-              className="mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold tracking-wide text-white/90 backdrop-blur-md"
+              className="mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-caption font-semibold text-white/90 backdrop-blur-md"
             >
               {heroEyebrow}
             </motion.p>
@@ -58,14 +58,14 @@ export function HeroSection() {
             <motion.h1
               id="hero-title"
               variants={heroItemVariants}
-              className="max-w-2xl text-4xl font-extrabold leading-[0.95] tracking-tight sm:text-5xl lg:text-7xl"
+              className="max-w-2xl text-display"
             >
               {heroTitle}
             </motion.h1>
 
             <motion.p
               variants={heroItemVariants}
-              className="mt-6 max-w-xl text-base leading-7 text-white/80 sm:text-lg"
+              className="mt-6 max-w-xl text-subtitle text-white/80"
             >
               {heroDescription}
             </motion.p>
@@ -76,7 +76,7 @@ export function HeroSection() {
             >
               {heroCtas.map((cta) => {
                 const sharedClass =
-                  "inline-flex h-14 items-center justify-center rounded-full px-6 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/80";
+                  "interactive inline-flex h-14 items-center justify-center rounded-full px-6 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/80";
 
                 if (cta.external) {
                   return (
@@ -159,7 +159,7 @@ export function HeroSection() {
 
       <motion.a
         href="#passeios"
-        className="absolute bottom-6 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-3 text-sm font-semibold text-white/85 backdrop-blur-md"
+        className="interactive absolute bottom-6 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-3 text-sm font-semibold text-white/85 backdrop-blur-md"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}

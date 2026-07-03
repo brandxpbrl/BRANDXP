@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Star, ExternalLink } from "lucide-react";
-import { googleReviewsCta, googleReviewsDescription, googleReviewsLabel, googleReviewsTitle, reviewCards } from "./constants";
-import { googleReviewItemVariants, googleReviewsSectionVariants } from "./animations";
+import { ExternalLink, MessageCircleWarning } from "lucide-react";
+import { googleReviewsCta, googleReviewsDescription, googleReviewsLabel, googleReviewsTitle } from "./constants";
+import { googleReviewsSectionVariants } from "./animations";
 
 export function GoogleReviewsSection() {
   return (
@@ -27,11 +27,11 @@ export function GoogleReviewsSection() {
             </p>
             <h2
               id="google-reviews-title"
-              className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+              className="mt-3 text-h2 text-slate-950"
             >
               {googleReviewsTitle}
             </h2>
-            <p className="mt-4 text-base leading-7 text-slate-600">
+            <p className="mt-4 text-body text-slate-600">
               {googleReviewsDescription}
             </p>
           </div>
@@ -40,32 +40,27 @@ export function GoogleReviewsSection() {
             href={googleReviewsCta.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-full border border-[color:var(--color-primary)] px-5 text-sm font-semibold text-[color:var(--color-primary)] transition-colors hover:bg-[color:var(--color-primary)] hover:text-white"
+            className="interactive inline-flex h-12 items-center gap-2 rounded-full border border-[color:var(--color-primary)] px-5 text-sm font-semibold text-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)] hover:text-white"
           >
             {googleReviewsCta.label}
             <ExternalLink className="h-4 w-4" aria-hidden />
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {reviewCards.map((review) => (
-            <motion.article
-              key={review.author}
-              variants={googleReviewItemVariants}
-              className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm"
-            >
-              <div className="flex items-center gap-1 text-[color:var(--color-secondary)]">
-                {Array.from({ length: review.rating }).map((_, index) => (
-                  <Star key={index} className="h-4 w-4 fill-current" aria-hidden />
-                ))}
-              </div>
-              <p className="mt-4 text-sm leading-6 text-slate-700">{review.text}</p>
-              <div className="mt-5 border-t border-slate-200 pt-4">
-                <p className="text-sm font-bold text-slate-950">{review.author}</p>
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{review.source}</p>
-              </div>
-            </motion.article>
-          ))}
+        <div className="card mt-10 rounded-[1.75rem] bg-white p-6">
+          <div className="flex items-start gap-4">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--color-secondary)] text-slate-950">
+              <MessageCircleWarning className="h-5 w-5" aria-hidden />
+            </span>
+            <div>
+              <h3 className="text-lg font-bold text-slate-950">
+                Espacio listo para reseñas reales
+              </h3>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+                Aquí puedes pegar las reseñas auténticas de Google cuando quieras. El diseño ya está preparado para mostrarlas con confianza sin usar testimonios ficticios.
+              </p>
+            </div>
+          </div>
         </div>
       </motion.div>
     </section>

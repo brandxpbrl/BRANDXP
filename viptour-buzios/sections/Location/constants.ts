@@ -12,4 +12,5 @@ export const locationPoints: LocationPoint[] = [
   { label: "Horario", value: "Lun 09:00-21:00 | Mié-Sáb 09:00-22:00 | Dom 24h" },
 ];
 
-export const locationMapUrl = siteConfig.location.mapUrl;
+export const locationMapUrl = siteConfig.location.mapEmbedUrl;
+export const locationMapLink = siteConfig.location.mapUrl;

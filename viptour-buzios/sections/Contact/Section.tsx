@@ -21,7 +21,7 @@ export function ContactSection() {
       className="section-padding bg-slate-950 px-4 text-white sm:px-6 lg:px-8"
     >
       <motion.div
-        className="mx-auto w-full max-w-[var(--container-default)] rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm lg:p-8"
+        className="mx-auto w-full max-w-[var(--container-default)] rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl lg:p-8"
         variants={contactSectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -34,11 +34,11 @@ export function ContactSection() {
             </p>
             <h2
               id="contact-title"
-              className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"
+              className="mt-3 text-h2"
             >
               {contactTitle}
             </h2>
-            <p className="mt-4 text-base leading-7 text-white/75">
+            <p className="mt-4 text-body text-white/75">
               {contactDescription}
             </p>
 
@@ -49,7 +49,7 @@ export function ContactSection() {
                   <motion.article
                     key={item.label}
                     variants={contactItemVariants}
-                    className="rounded-[1.25rem] border border-white/10 bg-black/20 p-4"
+                    className="card rounded-[1.25rem] border border-white/10 bg-black/20 p-4"
                   >
                     <div className="flex items-center gap-3">
                       {Icon ? (
@@ -75,7 +75,7 @@ export function ContactSection() {
               href={contactCta.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[color:var(--color-secondary)] px-6 py-4 text-sm font-bold text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
+              className="cta interactive inline-flex w-full items-center justify-center gap-2 bg-[color:var(--color-secondary)] text-slate-950 hover:bg-[color:var(--color-secondary)]"
             >
               {contactCta.label}
             </Link>

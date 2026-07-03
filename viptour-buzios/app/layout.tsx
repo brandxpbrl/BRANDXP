@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/config/site";
+import { portalConfig } from "@/config/portal";
 import { Navbar } from "@/components/layout";
-import { LocalBusinessSchema } from "@/seo/LocalBusinessSchema";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,56 +12,45 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(portalConfig.url),
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.shortName}`,
+    default: portalConfig.name,
+    template: `%s | ${portalConfig.shortName}`,
   },
-  description: siteConfig.longDescription,
+  description: portalConfig.description,
   keywords: [
-    "Búzios",
-    "buggy",
-    "excursiones",
-    "alquiler de buggy",
-    "guías bilingües",
-    "WhatsApp",
+    "Brand Experience",
+    "MPE",
+    "QUBIT",
+    "ecosistema digital",
+    "portal oficial",
   ],
   authors: [
     {
-      name: "VIPTOUR BÚZIOS",
-      url: siteConfig.url,
+      name: portalConfig.name,
+      url: portalConfig.url,
     },
   ],
-  creator: "VIPTOUR BÚZIOS",
+  creator: portalConfig.name,
   openGraph: {
     type: "website",
     locale: "es_AR",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.longDescription,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
+    url: portalConfig.url,
+    title: portalConfig.name,
+    description: portalConfig.description,
+    siteName: portalConfig.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.longDescription,
-    images: [siteConfig.ogImage],
-    creator: "@viptourbuzios",
+    title: portalConfig.name,
+    description: portalConfig.description,
   },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
+  manifest: "/site.webmanifest",
   alternates: {
     canonical: "/",
   },
@@ -75,9 +63,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${montserrat.variable} scroll-smooth`}>
-      <head>
-        <LocalBusinessSchema />
-      </head>
       <body className="antialiased min-h-screen flex flex-col">
         <Navbar />
         {children}

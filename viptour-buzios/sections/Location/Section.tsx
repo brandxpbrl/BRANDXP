@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPinned, ArrowRight } from "lucide-react";
-import { locationDescription, locationLabel, locationMapUrl, locationPoints, locationTitle } from "./constants";
+import { locationDescription, locationLabel, locationMapLink, locationMapUrl, locationPoints, locationTitle } from "./constants";
 import { locationItemVariants, locationSectionVariants } from "./animations";
 
 export function LocationSection() {
@@ -26,11 +26,11 @@ export function LocationSection() {
           </p>
           <h2
             id="location-title"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+            className="mt-3 text-h2 text-slate-950"
           >
             {locationTitle}
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
+          <p className="mt-4 max-w-2xl text-body text-slate-600">
             {locationDescription}
           </p>
 
@@ -39,7 +39,7 @@ export function LocationSection() {
               <motion.article
                 key={point.label}
                 variants={locationItemVariants}
-                className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5"
+                className="card rounded-[1.5rem] bg-slate-50 p-5"
               >
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
                   {point.label}
@@ -52,7 +52,7 @@ export function LocationSection() {
 
         <motion.div
           variants={locationItemVariants}
-          className="rounded-[1.75rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-xl"
+          className="card rounded-[1.75rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-xl"
         >
           <div className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[color:var(--color-secondary)] text-slate-950">
@@ -77,10 +77,10 @@ export function LocationSection() {
           </div>
 
           <Link
-            href={locationMapUrl}
+            href={locationMapLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex h-12 items-center gap-2 rounded-full bg-[color:var(--color-secondary)] px-5 text-sm font-bold text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
+            className="cta interactive mt-5 inline-flex h-12 items-center gap-2 bg-[color:var(--color-secondary)] px-5 text-sm font-bold text-slate-950 hover:bg-[color:var(--color-secondary)]"
           >
             Cómo llegar
             <ArrowRight className="h-4 w-4" aria-hidden />

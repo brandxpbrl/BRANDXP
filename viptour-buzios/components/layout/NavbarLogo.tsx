@@ -14,9 +14,9 @@ export function NavbarLogo({ variant }: NavbarLogoProps) {
 
   return (
     <Link
-      href="#hero"
+      href="/"
       className="interactive flex shrink-0 items-center gap-3 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-interactive-focus"
-      aria-label={`${brandStrategy.identity} — Início`}
+      aria-label={`${brandStrategy.identity} — Portal`}
     >
       <span className={`flex h-12 w-12 items-center justify-center rounded-full p-1.5 shadow-sm ring-1 ${shellClass}`}>
         <Image

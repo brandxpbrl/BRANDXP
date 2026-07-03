@@ -25,11 +25,11 @@ export function FAQSection() {
           </p>
           <h2
             id="faq-title"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+            className="mt-3 text-h2 text-slate-950"
           >
             {faqTitle}
           </h2>
-          <p className="mt-4 text-base leading-7 text-slate-600">
+          <p className="mt-4 text-body text-slate-600">
             {faqDescription}
           </p>
         </div>
@@ -39,7 +39,7 @@ export function FAQSection() {
             <motion.details
               key={item.question}
               variants={faqItemVariants}
-              className="group rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm"
+              className="card group rounded-[1.5rem] bg-white p-5"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-base font-bold text-slate-950">
                 {item.question}

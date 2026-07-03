@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Menu, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { navigationStructure } from "@/architecture/navigation.structure";
-import { siteConfig } from "@/config/site";
 import { zIndex, typography } from "@/design-system";
 import { useSmartHeader } from "./useSmartHeader";
 import { MobileDrawer } from "./MobileDrawer";
@@ -51,9 +50,9 @@ export function Navbar() {
           >
             <ul className="flex items-center gap-8">
               {items.map((item) => (
-                <li key={item.anchor}>
+                <li key={item.href}>
                   <Link
-                    href={item.anchor}
+                    href={item.href}
                     className={`interactive font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-interactive-focus ${linkClass}`}
                     style={{ fontSize: typography.semantics.navigation }}
                   >
@@ -65,15 +64,10 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
-              href={siteConfig.links.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta interactive hidden gap-1.5 lg:inline-flex"
-            >
+            <Link href={primaryCta.href} className="cta interactive hidden gap-1.5 lg:inline-flex">
               {primaryCta.label}
               <ChevronRight size={18} aria-hidden className="opacity-80" />
-            </a>
+            </Link>
 
             <button
               type="button"

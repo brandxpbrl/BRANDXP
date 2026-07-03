@@ -5,13 +5,13 @@ export const siteConfig = {
     "Alugue um buggy em Búzios ou reserve excursiones guiadas com praticidade, segurança e liberdade para explorar praias, miradores e atrações no seu ritmo.",
   longDescription:
     "VIPTOUR BÚZIOS ofrece alquiler de buggy y excursiones guiadas en Búzios con atención personalizada, guías bilingües y rutas pensadas para casais, familias y grupos. Exploramos playas, miradores y atracciones de la península con libertad, seguridad y practicidad. Reservas rápidas por WhatsApp y experiencias diseñadas para disfrutar Búzios a tu ritmo.",
-  url: "https://viptourbuzios.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.riovibestransfer.com",
   ogImage: "/images/og-image.jpg",
   links: {
     instagram: "https://www.instagram.com/viptourbuzios",
     whatsapp: "https://wa.me/552223503366",
     whatsappMessage: "https://wa.me/552223503366?text=Ol%C3%A1%2C%20quero%20reservar%20um%20buggy%20ou%20uma%20excurs%C3%A3o%20em%20B%C3%BAzios.",
-    maps: "https://maps.google.com/?q=Rua%20Luiz%20Joaquim%20Pereira%20192%20-%20Centro%2C%20Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%20-%20RJ%2C%2028950-000",
+    maps: "https://www.google.com/maps/search/?api=1&query=Rua%20Luiz%20Joaquim%20Pereira%20192%20-%20Centro%2C%20Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%20-%20RJ%2C%2028950-000",
   },
   contacts: {
     email: "contato@viptourbuzios.com",
@@ -21,7 +21,8 @@ export const siteConfig = {
   location: {
     address: "Rua Luiz Joaquim Pereira 192 - Centro, Armação dos Búzios - RJ, 28950-000",
     area: "Armação dos Búzios, RJ, Brasil",
-    mapUrl: "https://maps.google.com/?q=Rua%20Luiz%20Joaquim%20Pereira%20192%20-%20Centro%2C%20Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%20-%20RJ%2C%2028950-000",
+    mapUrl: "https://www.google.com/maps/search/?api=1&query=Rua%20Luiz%20Joaquim%20Pereira%20192%20-%20Centro%2C%20Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%20-%20RJ%2C%2028950-000",
+    mapEmbedUrl: "https://www.google.com/maps?q=Rua%20Luiz%20Joaquim%20Pereira%20192%20-%20Centro%2C%20Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%20-%20RJ%2C%2028950-000&output=embed",
   },
   business: {
     category: "Excursiones",
