@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { brandStrategy } from "@/brand/brand.strategy";
+import { portalConfig } from "@/config/portal";
 
 type NavbarLogoProps = {
   variant: "light" | "dark";
@@ -9,26 +8,21 @@ type NavbarLogoProps = {
 export function NavbarLogo({ variant }: NavbarLogoProps) {
   const shellClass =
     variant === "light"
-      ? "bg-white/90 ring-white/30"
-      : "bg-white ring-black/5";
+      ? "bg-sky-500 text-white ring-white/30"
+      : "bg-sky-600 text-white ring-black/5";
 
   return (
     <Link
       href="/"
       className="interactive flex shrink-0 items-center gap-3 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-interactive-focus"
-      aria-label={`${brandStrategy.identity} — Portal`}
+      aria-label={`${portalConfig.name} — Portal`}
     >
-      <span className={`flex h-12 w-12 items-center justify-center rounded-full p-1.5 shadow-sm ring-1 ${shellClass}`}>
-        <Image
-          src="/brand/logo-viptour.png"
-          alt=""
-          width={48}
-          height={48}
-          className="h-full w-full object-contain"
-          priority
-        />
+      <span className={`flex h-12 w-12 items-center justify-center rounded-full shadow-md font-black tracking-tighter text-lg ring-1 ${shellClass}`}>
+        BE
       </span>
-      <span className="sr-only">{brandStrategy.identity}</span>
+      <span className="font-extrabold tracking-tight text-text-primary text-base hidden sm:inline">
+        Brand Experience OS
+      </span>
     </Link>
   );
 }

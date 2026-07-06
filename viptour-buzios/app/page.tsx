@@ -60,15 +60,14 @@ export default function Home() {
               {portalConfig.name}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-              Un punto de acceso claro para navegar Brand Experience, MPE, QUBIT, servicios y casos de
-              éxito como VIPTOUR BÚZIOS.
+              Un punto de acceso claro para navegar Brand Experience, MPE, QUBIT, servicios y soluciones de conversión.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/projects/viptour" className="cta interactive">
-                Ver caso VIPTOUR
+              <Link href="/brandexperience" className="cta interactive">
+                Ver Brand Experience
               </Link>
               <Link href="/projects" className="interactive rounded-full border border-border px-5 py-3 text-sm font-semibold text-text-primary transition-colors hover:bg-surface">
-                Ver proyectos
+                Ver Casos de Éxito
               </Link>
             </div>
           </div>
