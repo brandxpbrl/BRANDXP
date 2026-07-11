@@ -11,6 +11,7 @@ import FrameworkResultsHub from "./components/FrameworkResultsHub"
 import ClientMemoryPanel from "./components/ClientMemoryPanel"
 import ClientWorkbench from "./components/ClientWorkbench"
 import AnalysisReadinessPanel from "./components/AnalysisReadinessPanel"
+import CommandCenterPanel from "./components/CommandCenterPanel"
 import WorkspaceModuleHeader from "./components/WorkspaceModuleHeader"
 import EntityAdvisorPanel from "./components/EntityAdvisorPanel"
 import ClientPortalPanel from "./components/ClientPortalPanel"
@@ -19,8 +20,21 @@ import CinematicCampaignBuilder from "./components/CinematicCampaignBuilder"
 import AccessGate from "./components/AccessGate"
 import BrandWelcomeGate from "./components/BrandWelcomeGate"
 import OnboardingWizard from "./components/OnboardingWizard"
+import McosWorkspace from "./components/mcos/McosWorkspace"
 
-const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+const getApiUrl = () => {
+  if (typeof window !== "undefined") {
+    // Si estamos corriendo en producción en el servidor del dominio,
+    // la API vive bajo el mismo host (mismo dominio o subdominio/backend).
+    // De lo contrario, usamos el puerto por defecto 8000.
+    if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+      return window.location.origin; // O tu dominio de API en producción
+    }
+  }
+  return "http://127.0.0.1:8000";
+};
+
+const API_URL = import.meta.env.VITE_API_URL || getApiUrl();
 
 export default function App() {
   const [loading, setLoading] = useState(false)
@@ -35,6 +49,12 @@ export default function App() {
   const [analysisPlan, setAnalysisPlan] = useState(null)
   const [analysisPlanLoading, setAnalysisPlanLoading] = useState(false)
   const [analysisPlanError, setAnalysisPlanError] = useState("")
+  const [clientReadiness, setClientReadiness] = useState(null)
+  const [clientReadinessLoading, setClientReadinessLoading] = useState(false)
+  const [clientReadinessError, setClientReadinessError] = useState("")
+  const [commandCenterData, setCommandCenterData] = useState(null)
+  const [commandCenterLoading, setCommandCenterLoading] = useState(false)
+  const [commandCenterError, setCommandCenterError] = useState("")
   const [deliverablesData, setDeliverablesData] = useState(null)
   const [deliverablesLoading, setDeliverablesLoading] = useState(false)
   const [deliverablesError, setDeliverablesError] = useState("")
@@ -207,6 +227,7 @@ export default function App() {
       loadClientPortal(session.client)
       loadEntityAdvisor(session.client)
       loadClientChatContext(session.client)
+      loadCommandCenter(session.client)
       return
     }
 
@@ -286,28 +307,103 @@ export default function App() {
     if (!clientName.trim()) {
       setAnalysisPlan(null)
       setAnalysisPlanError("Selecciona o crea un cliente para verificar fuentes.")
+      setClientReadiness(null)
+      setClientReadinessError("Selecciona o crea un cliente para auditar readiness.")
       return
     }
 
     setAnalysisPlanLoading(true)
     setAnalysisPlanError("")
+    setClientReadinessLoading(true)
+    setClientReadinessError("")
 
     try {
-      const res = await fetch(`${API_URL}/clients/${encodeURIComponent(clientName.trim())}/analysis-plan`, {
-        method: "POST",
-      })
+      const [planRes, readinessRes] = await Promise.all([
+        fetch(`${API_URL}/clients/${encodeURIComponent(clientName.trim())}/analysis-plan`, {
+          method: "POST",
+        }),
+        fetch(`${API_URL}/api/clients/${encodeURIComponent(clientName.trim())}/readiness`),
+      ])
+      const planData = await planRes.json()
+      const readinessData = await readinessRes.json()
+
+      if (!planRes.ok) {
+        throw new Error(planData.detail || "No se pudo verificar fuentes.")
+      }
+
+      setAnalysisPlan(planData)
+
+      if (!readinessRes.ok) {
+        throw new Error(readinessData.detail || "No se pudo auditar readiness.")
+      }
+
+      setClientReadiness(readinessData)
+    } catch (err) {
+      setAnalysisPlan(null)
+      setClientReadiness(null)
+      setAnalysisPlanError(err.message)
+      setClientReadinessError(err.message)
+    } finally {
+      setAnalysisPlanLoading(false)
+      setClientReadinessLoading(false)
+    }
+  }
+
+  const loadClientReadiness = async (clientOverride = "") => {
+    const targetClient = clientOverride || activeClient?.name || clientName.trim()
+
+    if (!targetClient) {
+      setClientReadiness(null)
+      setClientReadinessError("Selecciona o crea un cliente para auditar readiness.")
+      return
+    }
+
+    setClientReadinessLoading(true)
+    setClientReadinessError("")
+
+    try {
+      const res = await fetch(`${API_URL}/api/clients/${encodeURIComponent(targetClient)}/readiness`)
       const data = await res.json()
 
       if (!res.ok) {
-        throw new Error(data.detail || "No se pudo verificar fuentes.")
+        throw new Error(data.detail || "No se pudo auditar readiness.")
       }
 
-      setAnalysisPlan(data)
+      setClientReadiness(data)
     } catch (err) {
-      setAnalysisPlan(null)
-      setAnalysisPlanError(err.message)
+      setClientReadiness(null)
+      setClientReadinessError(err.message)
     } finally {
-      setAnalysisPlanLoading(false)
+      setClientReadinessLoading(false)
+    }
+  }
+
+  const loadCommandCenter = async (clientOverride = "") => {
+    const targetClient = clientOverride || activeClient?.name || clientName.trim()
+
+    if (!targetClient) {
+      setCommandCenterData(null)
+      setCommandCenterError("Selecciona un cliente para unificar salidas.")
+      return
+    }
+
+    setCommandCenterLoading(true)
+    setCommandCenterError("")
+
+    try {
+      const res = await fetch(`${API_URL}/api/clients/${encodeURIComponent(targetClient)}/command-center`)
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.detail || "No se pudo cargar el Command Center.")
+      }
+
+      setCommandCenterData(data)
+    } catch (err) {
+      setCommandCenterData(null)
+      setCommandCenterError(err.message)
+    } finally {
+      setCommandCenterLoading(false)
     }
   }
 
@@ -446,6 +542,7 @@ export default function App() {
       await loadClientPortal(targetClient)
       await loadClientDeliverables(targetClient)
       await loadEntityAdvisor(targetClient)
+      await loadCommandCenter(targetClient)
     } catch (err) {
       setClientPortalActionError(err.message)
     } finally {
@@ -561,6 +658,7 @@ export default function App() {
         setDashboardSection("results")
         await loadClientDeliverables(targetClient)
         await loadClientPortal(targetClient)
+        await loadCommandCenter(targetClient)
       } catch (err) {
         setEntityDeliverablesReview(null)
         setEntityDeliverablesReviewError(err.message)
@@ -575,11 +673,38 @@ export default function App() {
       setDashboardSection("results")
       await generateVisualBoardSpecs()
       await loadEntityAdvisor(targetClient)
+      await loadCommandCenter(targetClient)
+      return
+    }
+
+    if (actionKey === "run_framework") {
+      setDashboardSection("framework")
+      setEntityAdvisorActionMessage("Ejecutando framework con el intake guardado...")
+      setEntityAdvisorActionError("")
+      await executeFrameworkFromSavedIntake()
+      await loadEntityAdvisor(targetClient)
+      await loadClientReadiness(targetClient)
+      await loadCommandCenter(targetClient)
+      return
+    }
+
+    if (actionKey === "prepare_commercial_expansion") {
+      setSidebarSection("client_chat")
+      setDashboardSection("client_chat")
+      setSelectedChatPromptId("commercial_expansion")
+      setEntityAdvisorActionMessage("Expansion comercial preparada en el chat operativo.")
+      setEntityAdvisorActionError("")
+      await loadClientChatContext(targetClient)
+      await loadCommandCenter(targetClient)
       return
     }
 
     const actionEndpoints = {
+      generate_brand_memory_core: `/api/clients/${encodeURIComponent(targetClient)}/memory/generate`,
+      generate_visual_dna_engine: `/api/clients/${encodeURIComponent(targetClient)}/visual-dna/generate`,
+      generate_content_intelligence_engine: `/api/clients/${encodeURIComponent(targetClient)}/content-intelligence/generate`,
       generate_ai_agent_os: `/clients/${encodeURIComponent(targetClient)}/ai-agent-os/generate`,
+      generate_master: `/clients/${encodeURIComponent(targetClient)}/deliverables/generate-master`,
       generate_campaign: `/api/clients/${encodeURIComponent(targetClient)}/campaign/generate`,
       generate_evolution_timeline: `/api/clients/${encodeURIComponent(targetClient)}/timeline/generate`,
     }
@@ -606,7 +731,11 @@ export default function App() {
       }
 
       const actionMessages = {
+        generate_brand_memory_core: `Brand Memory Core generado: ${data.created_files?.length || data.created?.length || 0} archivos.`,
+        generate_visual_dna_engine: `Visual DNA Engine generado: ${data.created_files?.length || data.created?.length || 0} archivos.`,
+        generate_content_intelligence_engine: `Content Intelligence Engine generado: ${data.created_files?.length || data.created?.length || 0} archivos.`,
         generate_ai_agent_os: `AI Agent OS generado: ${data.created?.length || 0} archivos.`,
+        generate_master: `Master Brand Experience generado: ${(data.created?.length || data.file) ? 1 : 0} archivo.`,
         generate_campaign: `Campaña estrategica generada: ${data.files?.length || 0} archivos.`,
         generate_evolution_timeline: `Timeline de evolucion generado: ${data.files?.length || 0} archivos.`,
       }
@@ -614,6 +743,8 @@ export default function App() {
       await loadEntityAdvisor(targetClient)
       await loadClientDeliverables(targetClient)
       await loadClientPortal(targetClient)
+      await loadClientReadiness(targetClient)
+      await loadCommandCenter(targetClient)
     } catch (err) {
       setEntityAdvisorActionError(err.message)
     } finally {
@@ -646,6 +777,7 @@ export default function App() {
 
       setDeliverablesActionMessage(`Entregables generados: ${data.created?.length || 0} archivos.`)
       await loadClientDeliverables(targetClient)
+      await loadCommandCenter(targetClient)
     } catch (err) {
       setDeliverablesActionError(err.message)
     } finally {
@@ -689,6 +821,7 @@ export default function App() {
         `Visual boards generados: ${data.created?.length || 0} specs y ${imageData.created?.length || 0} imagenes.`,
       )
       await loadClientDeliverables(targetClient)
+      await loadCommandCenter(targetClient)
     } catch (err) {
       setDeliverablesActionError(err.message)
     } finally {
@@ -721,6 +854,7 @@ export default function App() {
 
       setDeliverablesActionMessage(`Master generado: ${data.created || "archivo creado"}.`)
       await loadClientDeliverables(targetClient)
+      await loadCommandCenter(targetClient)
     } catch (err) {
       setDeliverablesActionError(err.message)
     } finally {
@@ -753,6 +887,7 @@ export default function App() {
 
       setDeliverablesActionMessage("Prompt Pack generado correctamente.")
       await loadClientDeliverables(targetClient)
+      await loadCommandCenter(targetClient)
     } catch (err) {
       setDeliverablesActionError(err.message)
     } finally {
@@ -804,6 +939,8 @@ export default function App() {
     loadEntityAdvisor(activeClient.name)
     loadClientPortal(activeClient.name)
     loadClientChatContext(activeClient.name)
+    loadClientReadiness(activeClient.name)
+    loadCommandCenter(activeClient.name)
   }, [activeClient?.name])
 
   const selectClient = (name) => {
@@ -815,6 +952,9 @@ export default function App() {
       setAnalysisMeta(null)
       setStructuredAnalysis(null)
       setAnalysisPlan(null)
+      setClientReadiness(null)
+      setCommandCenterData(null)
+      setCommandCenterError("")
       setDeliverablesActionMessage("")
       setDeliverablesActionError("")
       setEntityDeliverablesReview(null)
@@ -1120,8 +1260,12 @@ export default function App() {
 
       <div className="app-content">
         <Layout activeSection={sidebarSection} accessMode={accessSession.mode} onSectionChange={changeSidebarSection}>
-          <div className="entity-command-stage">
-            <EntityAdvisorPanel
+          {sidebarSection === "mcos" ? (
+            <McosWorkspace apiUrl={API_URL} />
+          ) : (
+            <>
+              <div className="entity-command-stage">
+                <EntityAdvisorPanel
               advisorData={entityAdvisorData}
               loading={entityAdvisorLoading}
               error={entityAdvisorError}
@@ -1146,6 +1290,16 @@ export default function App() {
           <div className="command-grid">
             <div className="panel-stack">
               <WorkspaceModuleHeader activeSection={sidebarSection} />
+
+              <CommandCenterPanel
+                commandCenter={commandCenterData}
+                loading={commandCenterLoading}
+                error={commandCenterError}
+                clientName={currentClientName}
+                onRefresh={() => loadCommandCenter(currentClientName)}
+                onRunAction={runEntityAdvisorAction}
+                actionLoading={entityAdvisorActionLoading}
+              />
 
               <section className="glass-panel workspace-tabs-panel">
                 <div className="workspace-tabs-head">
@@ -1251,8 +1405,11 @@ export default function App() {
                   <AnalysisReadinessPanel
                     clientName={clientName}
                     analysisPlan={analysisPlan}
+                    readiness={clientReadiness}
                     loading={analysisPlanLoading}
+                    readinessLoading={clientReadinessLoading}
                     error={analysisPlanError}
+                    readinessError={clientReadinessError}
                     onCheck={checkAnalysisPlan}
                   />
                 </>
@@ -1364,6 +1521,8 @@ export default function App() {
               ) : null}
             </div>
           </div>
+          </>
+          )}
         </Layout>
       </div>
     </div>
