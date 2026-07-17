@@ -1,0 +1,86 @@
+[
+  {
+    "id": "sofia-luz",
+    "name": "Sofía Luz - Psicotherapia & Luz",
+    "category": "Psicología & Neurociencia",
+    "geometry": "Toroide (Torus)",
+    "geometry_desc": "Representa el flujo continuo del campo electromagnético del corazón, integrando neurociencia y espiritualidad en un bucle evolutivo infinito.",
+    "colors": [
+      "#8b5cf6",
+      "#1e1b4b",
+      "#faf5ff"
+    ],
+    "description": "Universo visual diseñado en conjunto con sensores QUBIT, sintetizando astrología, neurociencia y psicología holística en un lenguaje cromático de alta vibración.",
+    "images": [
+      "/brandexperience/portfolio/clientes/sofia-luz/02_identity_board/ChatGPT Image 15 may 2026, 05_05_44.png",
+      "/brandexperience/portfolio/clientes/sofia-luz/02_identity_board/ChatGPT Image 15 may 2026, 05_05_50.png",
+      "/brandexperience/portfolio/clientes/sofia-luz/02_identity_board/ChatGPT Image 15 may 2026, 05_05_59.png",
+      "/brandexperience/portfolio/clientes/sofia-luz/02_identity_board/ChatGPT Image 15 may 2026, 05_12_06.png",
+      "/brandexperience/portfolio/clientes/sofia-luz/02_identity_board/ChatGPT Image 15 may 2026, 05_17_50.png",
+      "/brandexperience/portfolio/clientes/sofia-luz/02_identity_board/ChatGPT Image 15 may 2026, 05_44_13.png"
+    ]
+  },
+  {
+    "id": "miranda-experience",
+    "name": "Miranda Experience",
+    "category": "Turismo Premium",
+    "geometry": "Línea Vectorial (Line)",
+    "geometry_desc": "Dirección, intención enfocada y simetría. Refleja exclusividad, viajes concierge uno a uno y curaduría premium.",
+    "colors": [
+      "#c084fc",
+      "#1e1b4b",
+      "#faf5ff"
+    ],
+    "description": "Turismo receptivo boutique en Río de Janeiro. Experiencias diseñadas para clientes de alta gama con enfoque estético cinematográfico.",
+    "images": [
+      "/brandexperience/portfolio/clientes/miranda-experience/05_visual_system/ChatGPT Image 1 jul 2026, 01_44_55 a.m..png",
+      "/brandexperience/portfolio/clientes/miranda-experience/05_visual_system/ChatGPT Image 1 jul 2026, 11_35_26 p.m..png",
+      "/brandexperience/portfolio/clientes/miranda-experience/05_visual_system/ChatGPT Image 1 jul 2026, 12_34_53 a.m..png",
+      "/brandexperience/portfolio/clientes/miranda-experience/05_visual_system/ChatGPT Image 1 jul 2026, 17_35_07.png",
+      "/brandexperience/portfolio/clientes/miranda-experience/05_visual_system/ChatGPT Image 14 may 2026, 03_48_59.png",
+      "/brandexperience/portfolio/clientes/miranda-experience/05_visual_system/ChatGPT Image 14 may 2026, 20_47_03.png"
+    ]
+  },
+  {
+    "id": "zapt-delivery",
+    "name": "Zapt Delivery",
+    "category": "Logística & Servicios",
+    "geometry": "Red Reticular (Net)",
+    "geometry_desc": "Interconexión molecular de nodos y flujo de datos óptimo. Estructura de máxima conectividad y velocidad de entrega.",
+    "colors": [
+      "#10b981",
+      "#064e3b",
+      "#ecfdf5"
+    ],
+    "description": "Campaña visual y dirección de marca para servicios de entregas y logística express ultra-conectada.",
+    "images": [
+      "/brandexperience/portfolio/clientes/zapt-delivery/08_campaigns/ChatGPT Image 13 may 2026, 06_20_12.png",
+      "/brandexperience/portfolio/clientes/zapt-delivery/08_campaigns/ChatGPT Image 13 may 2026, 06_20_22.png",
+      "/brandexperience/portfolio/clientes/zapt-delivery/08_campaigns/ChatGPT Image 13 may 2026, 07_06_08.png",
+      "/brandexperience/portfolio/clientes/zapt-delivery/08_campaigns/ChatGPT Image 13 may 2026, 07_09_24.png",
+      "/brandexperience/portfolio/clientes/zapt-delivery/08_campaigns/ChatGPT Image 13 may 2026, 07_19_32.png",
+      "/brandexperience/portfolio/clientes/zapt-delivery/08_campaigns/ChatGPT Image 13 may 2026, 07_28_23.png"
+    ]
+  },
+  {
+    "id": "mau-viagens",
+    "name": "Mau Viagens Tours",
+    "category": "Agencia de Viajes",
+    "geometry": "Vector Equilibrium",
+    "geometry_desc": "La geometría del balance total en el vacío cuántico. Equilibrio absoluto de fuerzas de expansión y atracción.",
+    "colors": [
+      "#f43f5e",
+      "#4c0519",
+      "#fff1f2"
+    ],
+    "description": "Operadora de viajes de conexión entre Argentina y Brasil, revelando el alma de los destinos de playa tradicionales.",
+    "images": [
+      "/brandexperience/portfolio/clientes/mau-viagens/05_visual_system/ChatGPT Image 11 jun 2026, 06_30_37 p.m..png",
+      "/brandexperience/portfolio/clientes/mau-viagens/05_visual_system/ChatGPT Image 11 jun 2026, 06_33_25 p.m..png",
+      "/brandexperience/portfolio/clientes/mau-viagens/05_visual_system/ChatGPT Image 11 jun 2026, 06_35_25 p.m..png",
+      "/brandexperience/portfolio/clientes/mau-viagens/05_visual_system/ChatGPT Image 11 jun 2026, 06_37_36 p.m..png",
+      "/brandexperience/portfolio/clientes/mau-viagens/05_visual_system/ChatGPT Image 11 jun 2026, 06_40_02 p.m..png",
+      "/brandexperience/portfolio/clientes/mau-viagens/05_visual_system/ChatGPT Image 11 jun 2026, 06_43_51 p.m..png"
+    ]
+  }
+]
