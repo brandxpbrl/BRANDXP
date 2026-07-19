@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function CaseStudy() {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -15,69 +16,81 @@ export default function CaseStudy() {
       <div className="max-w-7xl mx-auto">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-16">
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             <span className="text-xs font-bold tracking-[0.2em] text-[#D6A24A] uppercase">
               Case Destaque
             </span>
             <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-[#F7F7F7] leading-tight">
               BUZIOSAMA
             </h2>
-            <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-              Pousada Boutique: Como redefinimos o posicionamento de uma marca premium local, levando sua presença de amadora a extraordinária.
+            <p className="text-gray-400 text-lg leading-relaxed max-w-2xl font-serif">
+              “Donde el verdadeiro luxo es volver a estar presente.” Uma pousada boutique e comunidade de prática em Caravelas, Búzios.
             </p>
           </div>
           
-          <div className="lg:col-span-6 flex flex-wrap gap-3 text-xs font-mono text-gray-500 uppercase justify-start lg:justify-end">
+          <div className="lg:col-span-5 flex flex-wrap gap-3 text-xs font-mono text-gray-500 uppercase justify-start lg:justify-end">
             <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">Branding Estratégico</span>
-            <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">Direção Criativa</span>
-            <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">Produção Fotográfica</span>
-            <span className="bg-[#D6A24A]/10 border border-[#D6A24A]/30 text-[#D6A24A] px-3 py-1.5 rounded-full">Conteúdo & Resultados</span>
+            <span className="bg-[#D6A24A]/10 border border-[#D6A24A]/30 text-[#D6A24A] px-3 py-1.5 rounded-full">Direção Criativa</span>
+            <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">Luz Natural & Presença</span>
           </div>
         </div>
 
         {/* Before / After Slider Component */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
           
           <div className="lg:col-span-7">
             <div className="relative aspect-video w-full rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl select-none">
               
               {/* After (New Brand Experience Style) */}
-              <div className="absolute inset-0 w-full h-full bg-[#050505] flex flex-col justify-between p-8">
-                {/* Note: High-end AFTER photo of Búziosama (luxurious view) */}
-                <div className="absolute inset-0 bg-radial from-black/10 to-black/70" />
-                <div className="relative z-10">
+              <div className="absolute inset-0 w-full h-full bg-[#050505] flex flex-col justify-between">
+                <Image 
+                  src="/images/buziosama-retiros.jpg"
+                  alt="Búziosama Posicionamento Premium Depois"
+                  fill
+                  className="object-cover opacity-60"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
+                <div className="relative z-10 p-8">
                   <span className="text-[9px] font-bold tracking-[0.3em] text-[#D6A24A] uppercase bg-[#D6A24A]/20 px-3 py-1 rounded border border-[#D6A24A]/30">
-                    DEPOIS: EXPERIÊNCIA PREMIUM
+                    DEPOIS: VIVÍ NATURAL. VIVÍ CONSCIENTE.
                   </span>
                 </div>
-                <div className="relative z-10">
+                <div className="relative z-10 p-8">
                   <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-tight">
-                    Imagens que posicionam. Arquitetura de marca que transforma.
+                    Experiência sensorial e descanso consciente.
                   </h4>
                   <p className="text-gray-400 text-xs sm:text-sm mt-2 max-w-lg">
-                    Fotografia real e narrativa que despertam o desejo de reserva imediata.
+                    Fotografia de sentimento e presença real sob a luz dourada de Búzios.
                   </p>
                 </div>
               </div>
 
               {/* Before (Old Style - Crop slider mask) */}
               <div 
-                className="absolute inset-y-0 left-0 overflow-hidden bg-slate-900 flex flex-col justify-between p-8"
+                className="absolute inset-y-0 left-0 overflow-hidden bg-slate-900"
                 style={{ width: `${sliderPosition}%` }}
               >
-                <div className="absolute inset-0 min-w-[700px] h-full w-full bg-slate-950 p-8 flex flex-col justify-between">
-                  <div className="absolute inset-0 bg-black/60" />
-                  <div className="relative z-10">
+                <div className="absolute inset-0 min-w-[700px] h-full w-full bg-slate-950 flex flex-col justify-between">
+                  <Image 
+                    src="/images/buziosama-board.jpg"
+                    alt="Búziosama Posicionamento Antes"
+                    fill
+                    className="object-cover opacity-30 grayscale"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-black/60 pointer-events-none" />
+                  <div className="relative z-10 p-8">
                     <span className="text-[9px] font-bold tracking-[0.3em] text-red-500 uppercase bg-red-950/40 px-3 py-1 rounded border border-red-500/20">
-                      ANTES: IMAGENS DE BANCO COMUNS
+                      ANTES: PRESENÇA FRAGMENTADA E DE BANCO
                     </span>
                   </div>
-                  <div className="relative z-10">
+                  <div className="relative z-10 p-8">
                     <h4 className="text-xl sm:text-2xl font-bold text-gray-500 tracking-tight leading-tight">
-                      Falta de consistência e conexão humana.
+                      Falta de conexão e essência.
                     </h4>
                     <p className="text-gray-600 text-xs sm:text-sm mt-2 max-w-lg">
-                      Imagens sem propósito de design estratégico.
+                      Imagens frias que não capturavam a hospitalidade de Victoria.
                     </p>
                   </div>
                 </div>
@@ -109,27 +122,75 @@ export default function CaseStudy() {
 
           <div className="lg:col-span-5 space-y-6">
             <div>
-              <h3 className="text-xs font-bold tracking-widest text-[#D6A24A] uppercase">O Problema</h3>
-              <p className="text-gray-400 mt-2 text-sm leading-relaxed">
-                Apesar de possuir uma das melhores localizações e infraestrutura de Búzios, a imagem digital comunicava inconsistência, atraindo clientes de baixo ticket e forçando a marca a competir por preço.
+              <h3 className="text-xs font-bold tracking-widest text-[#D6A24A] uppercase">A Essência</h3>
+              <p className="text-gray-400 mt-2 text-sm leading-relaxed font-serif">
+                BUZIOSAMA nasceu como uma decisão de vida de Victoria e seus filhos Antonella e Gonzalo. Um refúgio com apenas três suítes de hospitalidade intencional, focado em yoga, bem-estar, retiros de mindfulness e descanso mental consciente.
               </p>
             </div>
             
             <div>
-              <h3 className="text-xs font-bold tracking-widest text-[#D6A24A] uppercase">O Processo de Transformação</h3>
+              <h3 className="text-xs font-bold tracking-widest text-[#D6A24A] uppercase">O Processo Criativo</h3>
               <p className="text-gray-400 mt-2 text-sm leading-relaxed">
-                Desenvolvemos um Brand System minimalista focado na hospitalidade sensorial. Planejamos sessões de fotografia golden hour com fator humano real e aplicamos UX integrada de alta conversão.
+                Capturamos a natureza intocada de Caravelas, o silêncio da mata, e a luz dourada do entardecer. Redesenhamos a marca sob a premissa de que o verdadeiro luxo é voltar a habitar o momento presente.
               </p>
             </div>
 
             <div>
-              <h3 className="text-xs font-bold tracking-widest text-[#D6A24A] uppercase">Resultados e Escala</h3>
+              <h3 className="text-xs font-bold tracking-widest text-[#D6A24A] uppercase">Proteção de Experiência</h3>
               <p className="text-gray-400 mt-2 text-sm leading-relaxed">
-                Posicionamento de mercado redefinido, libertando a pousada da dependência de OTAs e gerando atração direta qualificada.
+                Reposicionamos a marca para afastar o turismo masivo. BUZIOSAMA protege a paz e o silêncio de seus visitantes, gerando conexões reais e profundas com viajantes alinhados a esse propósito.
               </p>
             </div>
           </div>
 
+        </div>
+
+        {/* Cinematic Grid of the transformation showing new assets */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16 border-t border-white/5 pt-16">
+          <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-[#0d0d0d] group">
+            <Image 
+              src="/images/buziosama-experiencias.jpg"
+              alt="Búziosama Retiro Experiencia"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 pointer-events-none" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <span className="text-[10px] text-[#D6A24A] font-bold tracking-widest uppercase">CONEXÃO</span>
+              <h4 className="text-lg font-bold text-white mt-1">Descanso Mental</h4>
+            </div>
+          </div>
+
+          <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-[#0d0d0d] group">
+            <Image 
+              src="/images/buziosama-quarto.jpg"
+              alt="Búziosama Suíte Suite"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 pointer-events-none" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <span className="text-[10px] text-[#FF3D8E] font-bold tracking-widest uppercase">HOSPITALIDADE</span>
+              <h4 className="text-lg font-bold text-white mt-1">Conforto Intencional</h4>
+            </div>
+          </div>
+
+          <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-[#0d0d0d] group">
+            <Image 
+              src="/images/buziosama-decor.jpg"
+              alt="Búziosama Livro Café"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 pointer-events-none" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <span className="text-[10px] text-[#29B8FF] font-bold tracking-widest uppercase">SILÊNCIO</span>
+              <h4 className="text-lg font-bold text-white mt-1">Prática do Presente</h4>
+            </div>
+          </div>
         </div>
 
         {/* Real Metrics from presentation board */}
@@ -155,4 +216,3 @@ export default function CaseStudy() {
     </section>
   );
 }
-
