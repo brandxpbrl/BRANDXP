@@ -34,22 +34,22 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-8 flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <Image
               src="/images/brandexperience-logo.png"
               alt="Brand Experience Logo Symbol"
-              width={70}
-              height={70}
-              className="object-contain h-auto w-auto max-h-[50px] brightness-110 contrast-125"
+              width={110}
+              height={110}
+              className="object-contain h-auto w-auto max-h-[85px] brightness-110 contrast-125"
               priority
             />
-            <div className="h-8 w-px bg-white/20 hidden sm:block" />
+            <div className="h-12 w-px bg-white/20 hidden sm:block" />
             <Image
               src="/images/fragmabz-studio-logo.png"
               alt="Fragmabz Studio Logo Typo"
-              width={200}
-              height={60}
-              className="brightness-200 contrast-125 object-contain h-auto w-auto max-h-[50px]"
+              width={260}
+              height={80}
+              className="brightness-200 contrast-125 object-contain h-auto w-auto max-h-[80px]"
               priority
             />
           </div>
