@@ -31,7 +31,7 @@ export default function Manifesto() {
         >
           Não criamos apenas imagens.<br />
           <span className="text-[#D6A24A]">Criamos percepção.</span>
-        </h2>
+        </motion.h2>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
