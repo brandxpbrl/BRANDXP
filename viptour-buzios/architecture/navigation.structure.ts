@@ -14,7 +14,7 @@ export const navigationStructure = {
       { label: "Proyectos", href: "/projects" },
       { label: "Contacto", href: "/contact" },
     ],
-    primaryCta: { label: "Ver proyecto VIPTOUR", href: "/projects/viptour" },
+    primaryCta: { label: "Estúdio Fragma", href: "/fragma-brand-experience" },
   },
   footer: {
     links: [
