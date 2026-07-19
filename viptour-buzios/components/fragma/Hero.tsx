@@ -27,21 +27,32 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         
-        {/* Fragma Logo container */}
+        {/* Brand Logos container */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8"
+          className="mb-8 flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <Image
-            src="/images/fragma-logo.png"
-            alt="Fragma Studio Logo"
-            width={260}
-            height={80}
-            className="brightness-200 contrast-125 object-contain h-auto w-auto max-h-[70px]"
-            priority
-          />
+          <div className="flex items-center gap-4">
+            <Image
+              src="/images/brandexperience-logo.png"
+              alt="Brand Experience Logo Symbol"
+              width={70}
+              height={70}
+              className="object-contain h-auto w-auto max-h-[50px] brightness-110 contrast-125"
+              priority
+            />
+            <div className="h-8 w-px bg-white/20 hidden sm:block" />
+            <Image
+              src="/images/fragmabz-studio-logo.png"
+              alt="Fragmabz Studio Logo Typo"
+              width={200}
+              height={60}
+              className="brightness-200 contrast-125 object-contain h-auto w-auto max-h-[50px]"
+              priority
+            />
+          </div>
         </motion.div>
 
         <motion.div
