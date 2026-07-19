@@ -33,9 +33,9 @@ export default function Hero() {
           <Image
             src="/images/fragma-logo.png"
             alt="Fragma Studio Logo"
-            width={120}
-            height={120}
-            className="brightness-200 contrast-125 object-contain"
+            width={280}
+            height={90}
+            className="brightness-200 contrast-125 object-contain h-auto w-auto max-h-[80px]"
             priority
           />
         </motion.div>
