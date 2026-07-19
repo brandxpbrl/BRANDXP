@@ -1,16 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const galleryImages = [
-  { aspect: "aspect-[4/5]", color: "bg-[#0b0e14]/50" },
-  { aspect: "aspect-square", color: "bg-[#0b0e14]/40" },
-  { aspect: "aspect-[3/4]", color: "bg-[#0b0e14]/60" },
-  { aspect: "aspect-[4/3]", color: "bg-[#0b0e14]/30" },
-  { aspect: "aspect-[3/2]", color: "bg-[#0b0e14]/50" },
-  { aspect: "aspect-[4/5]", color: "bg-[#0b0e14]/40" },
-  { aspect: "aspect-square", color: "bg-[#0b0e14]/50" },
-  { aspect: "aspect-[3/4]", color: "bg-[#0b0e14]/60" },
+  { src: "/images/gallery-1.jpg", aspect: "aspect-[3/2]" },
+  { src: "/images/gallery-2.jpg", aspect: "aspect-[3/2]" },
+  { src: "/images/gallery-3.jpg", aspect: "aspect-[3/2]" },
+  { src: "/images/gallery-4.jpg", aspect: "aspect-[3/2]" },
+  { src: "/images/gallery-5.jpg", aspect: "aspect-[3/2]" },
 ];
 
 export default function Gallery() {
@@ -31,7 +29,7 @@ export default function Gallery() {
         </div>
 
         {/* Editorial Masonry Layout */}
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleryImages.map((img, idx) => (
             <motion.div
               key={idx}
@@ -39,12 +37,20 @@ export default function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.08 }}
-              className={`break-inside-avoid relative ${img.aspect} w-full rounded-2xl border border-white/5 ${img.color} overflow-hidden group hover:border-white/20 transition-all duration-500`}
+              className={`relative ${img.aspect} w-full rounded-2xl border border-white/5 bg-[#0b0e14]/50 overflow-hidden group hover:border-white/20 transition-all duration-500`}
             >
-              {/* Future image placement point */}
-              <div className="absolute inset-0 bg-radial from-[#0ea5e9]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Image 
+                src={img.src} 
+                alt={`Produção Fragma Studio - Obra ${idx + 1}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                loading="lazy"
+              />
               
-              <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-60 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-radial from-[#0ea5e9]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
+              <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none">
                 <span className="font-mono text-[9px] text-gray-400 uppercase tracking-widest">
                   FRAGMA FRAME #{idx + 1}
                 </span>
@@ -57,3 +63,4 @@ export default function Gallery() {
     </section>
   );
 }
+
