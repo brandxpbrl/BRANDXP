@@ -24,11 +24,8 @@ import McosWorkspace from "./components/mcos/McosWorkspace"
 
 const getApiUrl = () => {
   if (typeof window !== "undefined") {
-    // Si estamos corriendo en producción en el servidor del dominio,
-    // la API vive bajo el mismo host (mismo dominio o subdominio/backend).
-    // De lo contrario, usamos el puerto por defecto 8000.
     if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-      return window.location.origin; // O tu dominio de API en producción
+      return "https://brand-experience-os-api.onrender.com";
     }
   }
   return "http://127.0.0.1:8000";
