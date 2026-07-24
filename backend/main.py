@@ -17,14 +17,20 @@ from services.access_control import access_control_enabled, access_keys_configur
 from services.cinematic_campaign_builder import generate_cinematic_campaign, get_recommended_cinematic_brief, list_generated_cinematic_campaigns
 from services.client_activation_engine import build_client_activation, create_activation_sprint, generate_client_portal_summary, generate_evolution_timeline, generate_strategic_campaign, mark_deliverables_reviewed
 from services.client_chat_engine import build_client_chat_context, run_client_chat
+from services.client_command_center import build_client_command_center
 from services.entity_conversation_engine import build_entity_conversation_context, run_entity_conversation
 from services.client_portal import build_client_portal
+from services.client_readiness import build_client_readiness
 from services.deliverables_review_engine import review_client_deliverables
 from services.entity_advisor import build_entity_advisor, chat_with_entity, get_creative_library_asset_path
 from services.entity_voice_profile import get_entity_voice_profile
 from services.entity_voice_script_engine import build_entity_voice_script
+from services.mpe.mpe_entity_scan import load_persisted_mpe_entity_scan, run_mpe_entity_scan
+from services.mpe.mpe_brand_geometry import generate_mpe_brand_geometry, get_mpe_brand_geometry_svg_path, load_persisted_mpe_brand_geometry
+from services.mpe.mpe_morphogenesis import generate_mpe_morphogenesis, get_mpe_morphogenesis_svg_path, load_persisted_mpe_morphogenesis
 from services.tts_service import generate_entity_voice
 from services.disk_seed import seed_disk_if_needed
+from services.mcos.api import mcos_router
 
 # Seed persistent disk on startup (no-op locally or if already seeded)
 seed_disk_if_needed()
@@ -34,6 +40,7 @@ LOCAL_FRONTEND_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5174",
     "http://localhost:5174",
+    "https://www.riovibestransfer.com",
 ]
 
 
@@ -55,6 +62,7 @@ app = FastAPI(
     title="Brand Experience OS API",
     version="1.1.0",
 )
+app.include_router(mcos_router, prefix="/api/mcos")
 
 # =====================================================
 # CORS
@@ -693,6 +701,180 @@ async def client_activation(client_name: str):
     return result
 
 
+@app.get("/api/clients/{client_name}/command-center")
+async def client_command_center(client_name: str):
+
+    result = build_client_command_center(client_name)
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.post("/api/clients/{client_name}/mpe/entity-scan")
+async def client_generate_mpe_entity_scan(client_name: str):
+
+    try:
+        result = run_mpe_entity_scan(client_name, persist=True)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/mpe/entity-scan")
+async def client_get_mpe_entity_scan(client_name: str):
+
+    try:
+        result = load_persisted_mpe_entity_scan(client_name)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="MPE Entity Scan not found. Use POST to generate it."
+        )
+
+    return result
+
+
+@app.post("/api/clients/{client_name}/mpe/morphogenesis")
+async def client_generate_mpe_morphogenesis(client_name: str):
+
+    try:
+        result = generate_mpe_morphogenesis(client_name, persist=True)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/mpe/morphogenesis")
+async def client_get_mpe_morphogenesis(client_name: str):
+
+    try:
+        result = load_persisted_mpe_morphogenesis(client_name)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="MPE Morphogenesis not found. Use POST to generate it."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/mpe/morphogenesis/svg")
+async def client_get_mpe_morphogenesis_svg(client_name: str):
+
+    try:
+        path = get_mpe_morphogenesis_svg_path(client_name)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if path is None:
+        raise HTTPException(
+            status_code=404,
+            detail="MPE Morphogenesis SVG not found. Use POST to generate it."
+        )
+
+    return FileResponse(path, media_type="image/svg+xml")
+
+
+@app.post("/api/clients/{client_name}/mpe/brand-geometry")
+async def client_generate_mpe_brand_geometry(client_name: str):
+
+    try:
+        result = generate_mpe_brand_geometry(client_name, persist=True)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/mpe/brand-geometry")
+async def client_get_mpe_brand_geometry(client_name: str):
+
+    try:
+        result = load_persisted_mpe_brand_geometry(client_name)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="MPE Brand Geometry not found. Use POST to generate it."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/mpe/brand-geometry/svg/{geometry_id}")
+async def client_get_mpe_brand_geometry_svg(client_name: str, geometry_id: str):
+
+    try:
+        path = get_mpe_brand_geometry_svg_path(client_name, geometry_id)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        ) from error
+
+    if path is None:
+        raise HTTPException(
+            status_code=404,
+            detail="MPE Brand Geometry SVG not found. Use POST to generate it."
+        )
+
+    return FileResponse(path, media_type="image/svg+xml")
+
+
 @app.get("/api/clients/{client_name}/chat/context")
 async def client_chat_context(client_name: str):
 
@@ -915,6 +1097,20 @@ async def client_deliverable_asset(client_name: str, path: str):
 async def client_analysis_plan(client_name: str):
 
     result = build_client_analysis_plan(client_name)
+
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found."
+        )
+
+    return result
+
+
+@app.get("/api/clients/{client_name}/readiness")
+async def client_readiness(client_name: str):
+
+    result = build_client_readiness(client_name)
 
     if result is None:
         raise HTTPException(
@@ -1470,4 +1666,3 @@ async def onboard_status(request: Request, job_id: str):
         )
         
     return job_report
-
