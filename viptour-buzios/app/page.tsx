@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight, ShieldCheck, Cpu, Sparkles, Compass, Layers } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Cpu, Sparkles, Compass, Layers, Hammer, Zap } from "lucide-react";
 
 const services = [
   {
@@ -46,6 +46,22 @@ const services = [
     description: "Premium buggy rental and tour agency portal operating live, built directly on top of the Master Solutions ecosystem core.",
     link: "/projects/viptour",
     accentColor: "#22c55e",
+  },
+  {
+    icon: Hammer,
+    category: "CUSTOM CRAFTSMANSHIP",
+    title: "Bespoke Woodcraft",
+    description: "Premium tailor-made carpentry, custom furniture engineering, and high-end wooden architectures to transform luxury spaces.",
+    link: "/services",
+    accentColor: "#f97316",
+  },
+  {
+    icon: Zap,
+    category: "INFRASTRUCTURE & POWER",
+    title: "Electrical Solutions",
+    description: "High-safety electrical installations, smart home automations, energy blueprints, and complete technical grid deployments.",
+    link: "/services",
+    accentColor: "#facc15",
   },
 ];
 
