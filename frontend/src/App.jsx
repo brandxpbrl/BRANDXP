@@ -25,7 +25,7 @@ import McosWorkspace from "./components/mcos/McosWorkspace"
 const getApiUrl = () => {
   if (typeof window !== "undefined") {
     if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-      return "https://brand-experience-os-api.onrender.com";
+      return "https://brandxp.onrender.com";
     }
   }
   return "http://127.0.0.1:8000";
