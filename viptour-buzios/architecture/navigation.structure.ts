@@ -6,24 +6,26 @@
 export const navigationStructure = {
   navbar: {
     items: [
-      { label: "Inicio", href: "/" },
+      { label: "Home", href: "/" },
       { label: "Brand Experience", href: "/brandexperience" },
       { label: "MPE", href: "/mpe" },
       { label: "QUBIT", href: "/qubit" },
-      { label: "Servicios", href: "/services" },
-      { label: "Proyectos", href: "/projects" },
-      { label: "Contacto", href: "/contact" },
+      { label: "Visual Universes", href: "/universos-visuales" },
+      { label: "Services", href: "/services" },
+      { label: "Projects", href: "/projects" },
+      { label: "Contact", href: "/contact" },
     ],
-    primaryCta: { label: "Estúdio Fragma", href: "/fragma-brand-experience" },
+    primaryCta: { label: "Fragma Studio", href: "/fragma-brand-experience" },
   },
   footer: {
     links: [
-      { label: "Inicio", href: "/" },
+      { label: "Home", href: "/" },
       { label: "Brand Experience", href: "/brandexperience" },
       { label: "MPE", href: "/mpe" },
       { label: "QUBIT", href: "/qubit" },
-      { label: "Proyectos", href: "/projects" },
-      { label: "Contacto", href: "/contact" },
+      { label: "Visual Universes", href: "/universos-visuales" },
+      { label: "Projects", href: "/projects" },
+      { label: "Contact", href: "/contact" },
     ],
     social: [
       { label: "Instagram", href: "https://www.instagram.com/viptourbuzios" },

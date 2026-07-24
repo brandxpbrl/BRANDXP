@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Hero from "@/components/fragma/Hero";
 import Why from "@/components/fragma/Why";
 import CaseStudy from "@/components/fragma/CaseStudy";
@@ -56,7 +57,7 @@ export default function FragmaBrandExperiencePage() {
           </div>
           <div className="flex items-center gap-2">
             <span>Powered by</span>
-            <a href="/" className="text-white hover:underline font-semibold">RioVibesTransfer</a>
+            <Link href="/" className="text-white hover:underline font-semibold">RioVibesTransfer</Link>
           </div>
         </div>
       </footer>

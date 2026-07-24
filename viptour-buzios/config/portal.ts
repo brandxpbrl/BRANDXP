@@ -1,8 +1,8 @@
 export const portalConfig = {
-  name: "Brand Experience OS",
-  shortName: "BE OS",
+  name: "MASTER SOLUTIONS",
+  shortName: "MASTER SOLUTIONS",
   description:
-    "Portal oficial del ecosistema Brand Experience, MPE y QUBIT con acceso a proyectos, servicios y casos de éxito.",
+    "Futuristic ecosystem hub for business scaling, brand engineering, and luxury experiences.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.riovibestransfer.com",
   links: {
     instagram: "https://www.instagram.com/brandexperience.br",

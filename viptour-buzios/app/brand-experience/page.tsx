@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Terminal interactiva de Brand Experience OS.",
 };
 
-export default function BrandExperiencePage() {
+export default function BrandExperienceHyphenPage() {
   return (
     <main className="w-screen h-screen overflow-hidden bg-[#030306]">
       <iframe 
