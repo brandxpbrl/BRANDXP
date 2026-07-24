@@ -120,6 +120,9 @@ EXCLUDED_DELIVERABLE_NAMES = {
     ".env.local",
     ".env.production",
 }
+HIDDEN_CLIENT_NAMES = {
+    "sampleapitemppartialclient",
+}
 EXCLUDED_DELIVERABLE_EXTENSIONS = {
     ".bat",
     ".bin",
@@ -3909,6 +3912,9 @@ def list_clients():
 
     for client_path in sorted(CLIENTS_ROOT.iterdir(), key=lambda path: path.name.casefold()):
         if not client_path.is_dir():
+            continue
+
+        if client_path.name.casefold() in HIDDEN_CLIENT_NAMES:
             continue
 
         profile_path = client_path / "00_ADMIN" / "Datos_Cliente" / "client_profile.json"

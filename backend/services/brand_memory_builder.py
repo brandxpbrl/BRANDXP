@@ -4,6 +4,8 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
+from client_manager import generate_client_prompt_pack
+
 BASE_DIR = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = BASE_DIR.parent
 CLIENTS_ROOT = PROJECT_ROOT / "BRAND_EXPERIENCE" / "03_CLIENT_SYSTEM" / "CLIENTES_ACTIVOS"
@@ -123,6 +125,39 @@ def find_source_file(client_path: Path, filename: str) -> Path or None:
         if candidate.is_file():
             return candidate
     return None
+
+
+def ensure_identity_source(client_path: Path) -> tuple[str, list[str]]:
+    identity_path = client_path / "01_IDENTITY" / "identity_cliente.md"
+    existing_identity = _read_file(identity_path)
+    if existing_identity:
+        return existing_identity, []
+
+    created = []
+    prompt_pack_identity = client_path / "05_ENTREGAS" / "prompt_pack" / "identity_cliente.md"
+
+    if not _read_file(prompt_pack_identity):
+        try:
+            result = generate_client_prompt_pack(client_path.name)
+            if not result:
+                raise ValueError("Prompt pack generation returned no result.")
+            created.extend(result.get("created", []))
+        except (FileNotFoundError, ValueError) as error:
+            raise ValueError(
+                "Cannot build Brand Memory Core: identity_cliente.md is empty or missing, "
+                "and no prompt pack could be generated from the latest analysis."
+            ) from error
+
+    identity = _read_file(prompt_pack_identity)
+    if not identity:
+        raise ValueError(
+            "Cannot build Brand Memory Core: identity_cliente.md is empty or missing. "
+            "Run a client diagnosis or generate the prompt pack first."
+        )
+
+    _write_file(identity_path, identity)
+    created.append("01_IDENTITY/identity_cliente.md")
+    return identity, created
 
 
 def generate_entity_core(identity: str) -> str:
@@ -531,7 +566,23 @@ def build_brand_memory_core(client_name: str, mode: str = "copy") -> dict:
                 copied_files.append(dst.relative_to(client_path).as_posix())
 
     # Read consolidated identity and visual configurations
-    identity = _read_file(client_path / "01_IDENTITY" / "identity_cliente.md")
+    identity, auto_created_identity_files = ensure_identity_source(client_path)
+
+    # If the prompt pack was generated during this action, sync any newly available
+    # source files into the operational Brand Memory folders.
+    for filename, target_folder in EXPECTED_FILES.items():
+        dst = client_path / target_folder / filename
+        if _read_file(dst):
+            source_status[filename] = True
+            continue
+
+        src = find_source_file(client_path, filename)
+        if src:
+            source_status[filename] = True
+            if src.resolve() != dst.resolve():
+                _copy_or_move(src, dst, mode)
+            copied_files.append(dst.relative_to(client_path).as_posix())
+
     visual_mode = _read_file(client_path / "00_SYSTEM" / "visual_generation_mode.md")
 
     if not identity:
@@ -610,7 +661,7 @@ Estructura creada automáticamente por Brand Experience OS.
 """
     _write_file(client_path / "README.md", readme)
 
-    created_files = [
+    created_files = auto_created_identity_files + [
         "02_MEMORY/BRAND_MEMORY_CORE_MASTER.md",
         "02_MEMORY/brand_memory_core.json",
         "README.md",

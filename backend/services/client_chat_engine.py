@@ -12,24 +12,26 @@ MAX_HISTORY_MESSAGES = 20
 MAX_CONTEXT_CHARS = 12000
 
 
-def _chat_dir(client_path):
+def _chat_dir(client_path, create=True):
     target = client_path / "05_ENTREGAS" / "operator_chat"
-    target.mkdir(parents=True, exist_ok=True)
     resolved_client = client_path.resolve()
-    resolved_target = target.resolve()
+    resolved_target = target.resolve(strict=False)
 
     if resolved_target != resolved_client and resolved_client not in resolved_target.parents:
         raise ValueError("Invalid chat path.")
 
+    if create:
+        target.mkdir(parents=True, exist_ok=True)
+
     return target
 
 
-def _history_path(client_path):
-    return _chat_dir(client_path) / "chat_history.json"
+def _history_path(client_path, create=True):
+    return _chat_dir(client_path, create=create) / "chat_history.json"
 
 
-def _load_history(client_path):
-    path = _history_path(client_path)
+def _load_history(client_path, create=True):
+    path = _history_path(client_path, create=create)
 
     if not path.is_file():
         return []
@@ -121,7 +123,7 @@ def _suggested_prompts(activation):
     return prompts
 
 
-def build_client_chat_context(client_name):
+def build_client_chat_context(client_name, read_only=False):
     resolved_client_name, client_path = _resolve_existing_client_path(client_name)
 
     if not client_path:
@@ -132,7 +134,7 @@ def build_client_chat_context(client_name):
     latest = _latest_analysis_summary(client_path)
     deliverables_data = list_client_deliverables(resolved_client_name) or {"items": []}
     deliverables_review = review_client_deliverables(deliverables_data)
-    history = _load_history(client_path)
+    history = _load_history(client_path, create=not read_only)
 
     return {
         "client": resolved_client_name,

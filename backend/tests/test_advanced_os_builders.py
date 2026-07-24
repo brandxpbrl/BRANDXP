@@ -41,6 +41,36 @@ class AdvancedOsBuildersTests(unittest.TestCase):
         path.write_text(content, encoding="utf-8")
         return path
 
+    def test_brand_memory_core_creates_identity_from_prompt_pack(self):
+        client_name = "autoclient"
+        client_slug = "autoclient"
+        client_path = self.clients_root / client_slug
+        client_path.mkdir(parents=True, exist_ok=True)
+
+        identity_content = """
+- Nombre: Auto Client
+
+## Lectura de entidad
+Lectura generada desde prompt pack
+
+## Nucleo de marca
+Nucleo content
+
+## Publico ideal
+Publico content
+
+## Objetivo creativo
+Objetivo content
+"""
+        self._write(f"{client_slug}/05_ENTREGAS/prompt_pack/identity_cliente.md", identity_content)
+
+        result = brand_memory_builder.build_brand_memory_core(client_name)
+
+        self.assertEqual(result["brand_name"], "Auto Client")
+        self.assertIn("01_IDENTITY/identity_cliente.md", result["copied_files"])
+        self.assertTrue((client_path / "01_IDENTITY" / "identity_cliente.md").is_file())
+        self.assertTrue((client_path / "02_MEMORY" / "BRAND_MEMORY_CORE_MASTER.md").is_file())
+
     def test_full_pipeline_generation(self):
         client_name = "testclient"
         client_slug = "testclient"

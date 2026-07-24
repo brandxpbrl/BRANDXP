@@ -5,29 +5,62 @@ import json
 import os
 import secrets
 import time
+from pathlib import Path
 
 
 TOKEN_TTL_SECONDS = 60 * 60 * 12
+BASE_DIR = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = BASE_DIR.parent
+_ENV_LOADED = False
+
+
+def _load_env_file(path):
+    if not path.exists():
+        return
+
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+def load_environment():
+    global _ENV_LOADED
+    if _ENV_LOADED:
+        return
+    _load_env_file(PROJECT_ROOT / ".env")
+    _load_env_file(BASE_DIR / ".env")
+    _ENV_LOADED = True
 
 
 def access_keys_configured():
+    load_environment()
     return bool(_developer_key() or _client_keys())
 
 
 def access_control_enabled():
+    load_environment()
     is_enabled = os.getenv("BEOS_ACCESS_CONTROL", "false").strip().lower() in {"1", "true", "yes", "on"}
     return is_enabled and access_keys_configured()
 
 
 def _secret():
+    load_environment()
     return os.getenv("BEOS_ACCESS_SECRET") or os.getenv("BEOS_DEVELOPER_KEY") or "local-dev-secret"
 
 
 def _developer_key():
+    load_environment()
     return os.getenv("BEOS_DEVELOPER_KEY", "").strip()
 
 
 def _client_keys():
+    load_environment()
     raw_keys = os.getenv("BEOS_CLIENT_KEYS", "").strip()
 
     if not raw_keys:

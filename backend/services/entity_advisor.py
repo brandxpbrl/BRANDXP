@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from services.entity_reasoning_core import build_entity_reasoning
+from services.mpe.mpe_advisor_lens import build_mpe_advisor_lens, load_mpe_scan_for_advisor
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -193,6 +194,10 @@ def build_entity_advisor(client_name):
 
     state = _client_state(client_path)
     reasoning = build_entity_reasoning(resolved_client_name, client_path, state)
+    try:
+        mpe_lens = build_mpe_advisor_lens(load_mpe_scan_for_advisor(client_path))
+    except Exception:
+        mpe_lens = build_mpe_advisor_lens(None)
 
     return {
         "client": resolved_client_name,
@@ -208,6 +213,7 @@ def build_entity_advisor(client_name):
         "fluid_messages": reasoning["fluid_messages"],
         "recommendation": reasoning["recommendation"],
         "reasoning": reasoning["reasoning"],
+        "mpe_lens": mpe_lens,
         "assets": _entity_assets(),
     }
 

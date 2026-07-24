@@ -64,6 +64,15 @@ class ClientChatEngineTests(unittest.TestCase):
         self.assertGreaterEqual(len(context["suggested_prompts"]), 4)
         self.assertEqual(context["history"], [])
 
+    def test_read_only_context_does_not_create_chat_history_folder(self):
+        self._seed_client()
+
+        context = client_chat_engine.build_client_chat_context("Client A", read_only=True)
+
+        self.assertEqual(context["client"], "Client A")
+        self.assertEqual(context["history"], [])
+        self.assertFalse((self.clients_root / "Client A/05_ENTREGAS/operator_chat").exists())
+
     def test_chat_saves_history_without_calling_real_provider(self):
         self._seed_client()
 
