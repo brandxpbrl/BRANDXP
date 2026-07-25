@@ -52,7 +52,7 @@ const services = [
     category: "CUSTOM CRAFTSMANSHIP",
     title: "Bespoke Woodcraft",
     description: "Premium tailor-made carpentry, custom furniture engineering, and high-end wooden architectures to transform luxury spaces.",
-    link: "/services",
+    link: "/gonzalo",
     accentColor: "#f97316",
   },
   {
