@@ -160,6 +160,25 @@
 :root {
   --background: var(--color-background);
   --foreground: var(--color-text-primary);
+
+  /* Fondos del Sistema (Dark Luxury Gradient) */
+  --bg-base: #05050a;       /* Fondo principal profundo */
+  --bg-surface: #0b0c14;    /* Fondo de tarjetas y paneles */
+  --bg-glass: rgba(11, 12, 20, 0.8); /* Efecto cristal translúcido */
+
+  /* Bordes y Líneas de Neón Sutil */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.2);
+
+  /* Acentos de Color por Módulo / Aplicación */
+  --accent-brand: #00f2fe;   /* Brand Experience (Cian tecnológico) */
+  --accent-mpe: #7f52ff;     /* MPE Lab (Púrpura evolutivo) */
+  --accent-qubit: #10b981;   /* QUBIT Engine (Verde esmeralda / nodos) */
+  --accent-fragma: #ff2a85;  /* Fragma Studio (Rosa / Arte visual) */
+
+  /* Textos */
+  --text-primary: #f8fafc;   /* Blanco puro para títulos */
+  --text-secondary: #94a3b8; /* Gris pizarra para descripciones */
 }
 
 body {
