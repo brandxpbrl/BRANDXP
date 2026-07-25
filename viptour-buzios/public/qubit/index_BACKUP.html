@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QUBIT Earth MVP</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">QUBIT Earth MVP</p>
+          <h1>Big Bang De Mundos-Nodo</h1>
+        </div>
+        <div class="stats">
+          <div><span id="nodeCount">0</span><small>Nodos</small></div>
+          <div><span id="eventCount">0</span><small>Eventos</small></div>
+          <div><span id="deltaTotal">0.000</span><small>DELTA test</small></div>
+        </div>
+      </section>
+
+      <section class="stage">
+        <canvas id="earthCanvas" width="1000" height="620"></canvas>
+        <aside class="panel">
+          <h2>Capas</h2>
+          <div class="legend">
+            <span><b class="dot physical"></b>Fisica</span>
+            <span><b class="dot energy"></b>Energetica</span>
+            <span><b class="dot info"></b>Informacion</span>
+            <span><b class="dot coord"></b>Coordinacion</span>
+          </div>
+          <h2>MPE interpretacion</h2>
+          <div id="mpe" class="mpe-card"></div>
+          <h2>MPE Metrics</h2>
+          <div id="mpeMetrics" class="metrics-grid"></div>
+          <h2>Nodos vivos</h2>
+          <div id="nodes"></div>
+          <h2>Memoria reciente</h2>
+          <div id="events"></div>
+        </aside>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

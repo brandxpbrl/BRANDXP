@@ -1,0 +1,252 @@
+:root {
+  color-scheme: dark;
+  --bg: #05070a;
+  --panel: #10151c;
+  --line: #27313d;
+  --text: #eef4ff;
+  --muted: #91a1b8;
+  --gold: #f5b84b;
+  --cyan: #57d8ff;
+  --pink: #ff4f91;
+  --green: #75e0a3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(245, 184, 75, 0.14) 0, transparent 24%),
+    radial-gradient(circle at 18% 24%, rgba(87, 216, 255, 0.10) 0, transparent 18%),
+    radial-gradient(circle at 82% 22%, rgba(255, 79, 145, 0.10) 0, transparent 18%),
+    radial-gradient(circle at 50% 20%, #111827 0, var(--bg) 58%);
+  color: var(--text);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.shell {
+  width: min(1240px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--cyan);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: 34px;
+}
+
+h2 {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 18px 0 10px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 112px);
+  gap: 10px;
+}
+
+.stats div {
+  border: 1px solid var(--line);
+  background: rgba(16, 21, 28, 0.78);
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.stats span {
+  display: block;
+  font-size: 22px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.stats small {
+  color: var(--muted);
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+canvas,
+.panel {
+  border: 1px solid var(--line);
+  background: rgba(3, 5, 10, 0.82);
+  border-radius: 8px;
+}
+
+canvas {
+  width: 100%;
+  height: min(68vh, 680px);
+  display: block;
+}
+
+.panel {
+  padding: 14px;
+  overflow: auto;
+  max-height: min(68vh, 680px);
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 999px;
+  box-shadow: 0 0 12px currentColor;
+}
+
+.physical {
+  color: var(--gold);
+  background: var(--gold);
+}
+
+.energy {
+  color: var(--pink);
+  background: var(--pink);
+}
+
+.info {
+  color: var(--cyan);
+  background: var(--cyan);
+}
+
+.coord {
+  color: #ffffff;
+  background: #ffffff;
+}
+
+.item {
+  border-bottom: 1px solid rgba(39, 49, 61, 0.75);
+  padding: 9px 0;
+}
+
+.item strong {
+  display: block;
+  font-size: 13px;
+}
+
+.item span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.mpe-card {
+  border: 1px solid rgba(87, 216, 255, 0.28);
+  background: rgba(87, 216, 255, 0.07);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.mpe-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mpe-head strong {
+  color: var(--cyan);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.mpe-head span {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.mpe-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.mpe-pattern {
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(39, 49, 61, 0.82);
+  background: rgba(16, 21, 28, 0.58);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.metric span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.metric strong {
+  color: var(--gold);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 860px) {
+  .topbar,
+  .stage {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
