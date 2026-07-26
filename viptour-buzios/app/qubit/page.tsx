@@ -40,7 +40,7 @@ export default function QubitManifestoPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-transparent text-white pt-24 pb-16 relative overflow-hidden">
+    <main className="min-h-screen bg-transparent bg-earth-fixed text-white pt-24 pb-16 relative overflow-hidden">
       {/* Background Cyber Glows */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-radial from-[#10b981]/8 via-transparent to-transparent blur-[120px] opacity-75" />

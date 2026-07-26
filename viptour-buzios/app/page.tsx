@@ -5,7 +5,7 @@ import MasterSolutionsGrid from "@/components/MasterSolutionsGrid";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#05050a] text-white flex flex-col justify-between relative overflow-hidden">
+    <main className="min-h-screen bg-transparent bg-portal-fixed text-white flex flex-col justify-between relative overflow-hidden">
       <MasterSolutionsGrid />
 
       {/* Cybernetic Footer */}
