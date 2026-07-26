@@ -57,7 +57,7 @@ const services = [
 
 export default function MasterSolutionsGrid() {
   return (
-    <section className="relative w-full min-h-screen bg-[#05050a] text-white py-20 px-6 flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-screen bg-transparent text-white py-20 px-6 flex flex-col items-center justify-center overflow-hidden">
       {/* Fondo con brillo ambiental difuso */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-900/20 blur-[120px] pointer-events-none rounded-full" />
 
