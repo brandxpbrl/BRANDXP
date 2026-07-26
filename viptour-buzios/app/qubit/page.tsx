@@ -22,7 +22,7 @@ import {
   MapPin
 } from "lucide-react";
 
-type SectionType = "manifesto" | "earth" | "network" | "governance" | "delta" | "simulator";
+type SectionType = "manifesto" | "earth" | "network" | "governance" | "delta" | "branding" | "simulator";
 
 export default function QubitManifestoPage() {
   const [activeSection, setActiveSection] = useState<SectionType>("manifesto");
@@ -33,6 +33,7 @@ export default function QubitManifestoPage() {
     { id: "network", label: "Mecánica de Red", icon: Workflow },
     { id: "governance", label: "Gobernanza Cívica", icon: Landmark },
     { id: "delta", label: "Tokenomics DELTA", icon: TrendingUp },
+    { id: "branding", label: "Identidad Visual", icon: Eye },
     { id: "simulator", label: "Simulador de Nodos", icon: RefreshCw },
   ];
 
@@ -288,6 +289,43 @@ export default function QubitManifestoPage() {
                         Estado: Simulación de Laboratorio
                       </span>
                     </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activeSection === "branding" && (
+                <motion.div
+                  key="branding"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-6"
+                >
+                  <div>
+                    <h2 className="text-3xl font-bold text-white mb-2">Identidad Visual QUBIT</h2>
+                    <p className="text-zinc-400 text-sm">Colección de imágenes conceptuales y branding para el metasistema.</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {Array.from({ length: 11 }, (_, i) => i + 1).map((num) => (
+                      <div 
+                        key={num} 
+                        className="group relative rounded-2xl overflow-hidden bg-zinc-900/50 border border-zinc-800/80 hover:border-emerald-500/40 transition-all duration-300 shadow-xl"
+                      >
+                        <div className="relative aspect-square overflow-hidden bg-black/40">
+                          <img
+                            src={`/images/qubit/qubit-${num}.png`}
+                            alt={`QUBIT Visual Concept ${num}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <div className="absolute bottom-3 left-3 bg-black/70 border border-zinc-800 px-2.5 py-1 rounded-md text-[10px] font-mono text-emerald-400">
+                          CONCEPT #{num}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               )}
