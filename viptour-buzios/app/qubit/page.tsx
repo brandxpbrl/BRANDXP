@@ -34,8 +34,6 @@ export default function QubitManifestoPage() {
   ]);
 
   const carouselSlides = [
-    { title: "¿Y si la realidad...", desc: "Fase de visión conceptual: cuestionar los flujos de información centralizados.", img: "/images/qubit/qubit-1.png" },
-    { title: "Qubit no es una app...", desc: "Blueprint técnico de hardware del Qubit Node para percibir el territorio.", img: "/images/qubit/qubit-2.png" },
     { title: "Cada nodo puede registrar...", desc: "Capa sensorial: acústica, lumínica, y fluctuaciones de fase local.", img: "/images/qubit/qubit-3.png" },
     { title: "Earth Memory", desc: "Data Lake distribuido basado en almacenamiento JSON Lines inmutable.", img: "/images/qubit/qubit-4.png" },
     { title: "Después entra MPE", desc: "Cálculo de tensores topológicos y predicción estocástica de futuros viables.", img: "/images/qubit/qubit-5.png" },
@@ -182,13 +180,12 @@ export default function QubitManifestoPage() {
                 className="space-y-8"
               >
                 <div>
-                  {/* Brand Storytelling Narrative Carousel */}
                   <div className="border border-[#00E5FF]/20 bg-black/80 rounded-xl p-6 mb-8 shadow-[0_0_15px_rgba(0,229,255,0.02)]">
                     <div className="flex justify-between items-center mb-4 pb-2 border-b border-zinc-850">
                       <span className="text-[10px] text-[#00E5FF] font-bold tracking-widest uppercase">
                         [ NARRATIVA INTERACTIVA DE MARCA // NÚCLEO SENSORIAL ]
                       </span>
-                      <span className="text-[10px] text-zinc-500 font-mono">
+                      <span className="text-[10px] text-white font-bold font-mono">
                         SLIDE {String(currentSlide + 1).padStart(2, "0")} / {String(carouselSlides.length).padStart(2, "0")}
                       </span>
                     </div>
@@ -206,15 +203,15 @@ export default function QubitManifestoPage() {
                         <div className="flex items-center gap-3 pt-4">
                           <button
                             onClick={prevSlide}
-                            className="p-2 border border-zinc-800 bg-black/40 text-zinc-400 hover:text-[#00E5FF] hover:border-[#00E5FF] transition-colors rounded cursor-pointer"
+                            className="p-2.5 border border-[#00E5FF] bg-[#00E5FF]/10 text-[#00E5FF] hover:bg-[#00E5FF]/20 hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] transition-all rounded cursor-pointer"
                           >
-                            <ChevronLeft className="w-4 h-4" />
+                            <ChevronLeft className="w-5 h-5 font-bold" />
                           </button>
                           <button
                             onClick={nextSlide}
-                            className="p-2 border border-zinc-800 bg-black/40 text-zinc-400 hover:text-[#00E5FF] hover:border-[#00E5FF] transition-colors rounded cursor-pointer"
+                            className="p-2.5 border border-[#00E5FF] bg-[#00E5FF]/10 text-[#00E5FF] hover:bg-[#00E5FF]/20 hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] transition-all rounded cursor-pointer"
                           >
-                            <ChevronRight className="w-4 h-4" />
+                            <ChevronRight className="w-5 h-5 font-bold" />
                           </button>
                         </div>
                       </div>
