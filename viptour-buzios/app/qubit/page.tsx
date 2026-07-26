@@ -17,7 +17,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Info,
-  Maximize2
+  Maximize2,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle2,
+  Radio
 } from "lucide-react";
 
 type TabType = "observatorio" | "whitepaper" | "arquitectura" | "agentes" | "nodos";
@@ -28,6 +32,7 @@ export default function QubitManifestoPage() {
   const [nodeResponse, setNodeResponse] = useState<string[]>([]);
   const [isRegistering, setIsRegistering] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [consoleLogs, setConsoleLogs] = useState<string[]>([
     "> [INIT] Conectando con earth_memory_limpia.jsonl...",
     "> [SUCCESS] Handshake Vesica completado. Coherencia de red al 92.4%.",
@@ -295,72 +300,240 @@ export default function QubitManifestoPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.25 }}
-                className="space-y-6"
+                className="space-y-10"
               >
-                <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6">
-                  WHITEPAPER V0.2: EL METAVERSO VIVO DE LA TIERRA
-                </h2>
+                {/* Telemetry Header Tags */}
+                <div className="flex flex-wrap justify-between items-center text-[10px] text-zinc-500 border-b border-zinc-900 pb-3 font-mono">
+                  <span>DOC_ID: QBT-WP-02 // CLASSIFICATION: UNRESTRICTED</span>
+                  <span>SECURITY_LEVEL: PUBLIC_MANIFESTO // INTEGRITY: VERIFIED</span>
+                </div>
+
+                <div className="space-y-4">
+                  <h2 className="text-xl md:text-2xl font-black text-[#00E5FF] tracking-wider uppercase">
+                    WHITEPAPER V0.2: EL METAVERSO VIVO DE LA TIERRA
+                  </h2>
+                  <p className="text-zinc-400 text-xs font-sans max-w-3xl leading-relaxed">
+                    Tesis central y especificaciones operativas de la red. Haz clic en las secciones marcadas con <span className="text-[#00E5FF] font-bold">[EXPANDIBLE]</span> para desplegar la telemetría técnica avanzada.
+                  </p>
+                </div>
                 
-                <div className="space-y-8 text-zinc-300 font-sans text-sm leading-relaxed max-w-5xl">
-                  <section className="space-y-3">
-                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">1. Resumen & Tesis Central</h3>
-                    <p>
-                      QUBIT es una red descentralizada de nodos que construye un metaverso vivo y paralelo de la Tierra. Cada nodo perimetral percibe, registra y aporta señales del mundo físico (como variables acústicas, lumínicas, de movimiento o telemetría ambiental validada) validadas por identidad criptográfica, reputación y <strong>Proof of Resonance (PoR)</strong>.
-                    </p>
-                    <div className="border-l-2 border-[#00E5FF] pl-4 py-2 my-4 italic text-[#00E5FF] font-mono text-xs bg-[#00E5FF]/5">
-                      "Si los datos humanos y territoriales construyen el mundo digital, las personas deben gobernar ese mundo y participar de su valor de forma proporcional."
+                {/* Grid modular of cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Tarjeta 1 */}
+                  <div 
+                    onClick={() => setExpandedSection(expandedSection === "resumen" ? null : "resumen")}
+                    className="bg-black/40 backdrop-blur-md border border-[#00E5FF]/20 hover:border-[#00E5FF]/50 p-6 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.02)] cursor-pointer group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
+                        <span>// SECTION_01</span>
+                        <span className="text-[#00E5FF] font-bold flex items-center gap-1">
+                          [CORE_THESIS] {expandedSection === "resumen" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                        </span>
+                      </div>
+                      <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider mb-3 group-hover:text-[#00E5FF] transition-colors">
+                        1. Resumen & Tesis Central
+                      </h3>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
+                        QUBIT es una red descentralizada de nodos que construye un metaverso vivo y paralelo de la Tierra. Percibe, registra y aporta señales del mundo físico (como variables acústicas, lumínicas, de movimiento) validadas por identidad criptográfica.
+                      </p>
                     </div>
-                  </section>
 
-                  <section className="space-y-3">
-                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">2. Problema & Visión</h3>
-                    <p>
-                      Las plataformas centralizadas concentran de forma extractiva la identidad, datos y valor de la sociedad, convirtiendo la interacción humana en un producto. QUBIT descentraliza este flujo:
-                    </p>
-                    <div className="bg-black/40 border border-zinc-800 p-4 rounded font-mono text-xs text-center text-[#00E5FF] my-4">
-                      Tierra física ➔ Nodos ➔ Señales ➔ Coherencia ➔ Memoria ➔ Metaverso
+                    <AnimatePresence>
+                      {expandedSection === "resumen" && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-2.5"
+                        >
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// DETALLE TÉCNICO: PROOF OF RESONANCE (PoR)</div>
+                          <div>El algoritmo PoR calcula el coeficiente de fase armónica ($\Phi$) entre nodos adyacentes para validar la veracidad de la lectura sensorial territorial:</div>
+                          <div className="bg-[#00E5FF]/5 border border-[#00E5FF]/10 p-2.5 rounded text-[#00E5FF] text-center font-bold">
+                            PoR = Cos(θ) * Log(1 + (Σ Amplitude_i) / Latency)
+                          </div>
+                          <div>La estabilidad del atractor se garantiza cuando PoR {">"} 0.732.</div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Tarjeta 2 */}
+                  <div 
+                    onClick={() => setExpandedSection(expandedSection === "problema" ? null : "problema")}
+                    className="bg-black/40 backdrop-blur-md border border-[#00E5FF]/20 hover:border-[#00E5FF]/50 p-6 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.02)] cursor-pointer group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
+                        <span>// SECTION_02</span>
+                        <span className="text-[#00E5FF] font-bold flex items-center gap-1">
+                          [EXTRACTIVE_VS_PEER] {expandedSection === "problema" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                        </span>
+                      </div>
+                      <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider mb-3 group-hover:text-[#00E5FF] transition-colors">
+                        2. Problema & Visión
+                      </h3>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
+                        Las plataformas centralizadas concentran de forma extractiva la identidad, datos y valor de la sociedad. QUBIT descentraliza este flujo permitiendo que las personas gobiernen ese mundo digital y participen proporcionalmente de su valor.
+                      </p>
                     </div>
-                  </section>
 
-                  <section className="space-y-3">
-                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">3. Tokenomics & DELTA</h3>
-                    <p>
-                      <strong>DELTA</strong> es el token de recompensa nativo. El suministro máximo propuesto es de 432,000,000 DELTA (con un 12% reservado para desarrollo). DELTA representa contribución validada al sistema y no una simple tenencia extractiva pasiva.
-                    </p>
-                  </section>
+                    <AnimatePresence>
+                      {expandedSection === "problema" && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-2.5"
+                        >
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// ARQUITECTURA DE TRASPASO DE VALOR</div>
+                          <div className="bg-black/85 border border-zinc-900 p-3 rounded space-y-1.5">
+                            <div className="flex justify-between text-[10px]"><span className="text-zinc-600">INPUT:</span> <span>Eventos Físicos Locales</span></div>
+                            <div className="flex justify-between text-[10px]"><span className="text-zinc-600">VALIDACIÓN:</span> <span>Gossip Protocol + PoR</span></div>
+                            <div className="flex justify-between text-[10px]"><span className="text-[#00E5FF]">RECOMPENSA:</span> <span>Distribución de Delta Points</span></div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-                  <section className="space-y-3">
-                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">4. Gobernanza Cívica</h3>
-                    <p>
-                      Escalera de roles basada en reputación territorial y validez operativa: Nodo Visitante, Nodo Activo, Nodo Validador, Coordinador de Zona, Gobernador de Ciudad y Consejo QUBIT.
-                    </p>
-                  </section>
-
-                  <section className="space-y-4">
-                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">5. Roadmap Sistémico Actualizado</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-zinc-400">
-                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
-                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 1 (MVP Local):</span>
-                        Servidor local, nodos firmados, visual web y puntaje DELTA test.
+                  {/* Tarjeta 3 */}
+                  <div 
+                    onClick={() => setExpandedSection(expandedSection === "tokenomics" ? null : "tokenomics")}
+                    className="bg-black/40 backdrop-blur-md border border-[#00E5FF]/20 hover:border-[#00E5FF]/50 p-6 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.02)] cursor-pointer group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
+                        <span>// SECTION_03</span>
+                        <span className="text-[#00E5FF] font-bold flex items-center gap-1">
+                          [TOKENOMICS_SPEC] {expandedSection === "tokenomics" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                        </span>
                       </div>
-                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
-                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 2 (Comunidad Cerrada):</span>
-                        Despliegue de 10 a 50 nodos humanos y validación cruzada.
-                      </div>
-                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
-                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 3 (Comunicación Global):</span>
-                        Integración de APIs robustas, WebSockets, topologías P2P y gossiping seguro.
-                      </div>
-                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
-                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 4 (Economía DELTA):</span>
-                        Definición final de tokenomics, auditoría y tesorería descentralizada.
-                      </div>
-                      <div className="border border-zinc-850 p-4 rounded bg-black/30 md:col-span-2">
-                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 5 (Integración Sistémica y Evolutiva):</span>
-                        Incorporación nativa del motor analítico de simulación, cálculo de tensores topológicos y predicción estocástica. La red se convierte en una inteligencia colectiva capaz de observar, medir y proponer en tiempo real.
-                      </div>
+                      <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider mb-3 group-hover:text-[#00E5FF] transition-colors">
+                        3. Tokenomics & DELTA
+                      </h3>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
+                        DELTA es el token de recompensa nativo. Su distribución prioriza a los operadores activos de nodos y validadores de la red sobre la especulación pasiva, fomentando un ecosistema saludable.
+                      </p>
                     </div>
-                  </section>
+
+                    <AnimatePresence>
+                      {expandedSection === "tokenomics" && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-2"
+                        >
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// ALLOCATION MATRIX</div>
+                          <div className="space-y-1 text-[10px]">
+                            <div className="flex justify-between"><span>Max Supply:</span> <span className="text-white font-bold">432,000,000 DELTA</span></div>
+                            <div className="flex justify-between"><span>Node Rewards:</span> <span>60% (Emission schedule 8y)</span></div>
+                            <div className="flex justify-between"><span>Core Development:</span> <span>12% (Locked 2y vesting)</span></div>
+                            <div className="flex justify-between"><span>Community Pool:</span> <span>28% (DAO Treasury)</span></div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Tarjeta 4 */}
+                  <div 
+                    onClick={() => setExpandedSection(expandedSection === "gobernanza" ? null : "gobernanza")}
+                    className="bg-black/40 backdrop-blur-md border border-[#00E5FF]/20 hover:border-[#00E5FF]/50 p-6 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.02)] cursor-pointer group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
+                        <span>// SECTION_04</span>
+                        <span className="text-[#00E5FF] font-bold flex items-center gap-1">
+                          [CIVIC_GOVERNANCE] {expandedSection === "gobernanza" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                        </span>
+                      </div>
+                      <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider mb-3 group-hover:text-[#00E5FF] transition-colors">
+                        4. Gobernanza Cívica
+                      </h3>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
+                        Escalera de roles y decisiones basadas en reputación territorial y validez operativa. Un sistema adaptativo que premia la estabilidad y la veracidad de la telemetría aportada.
+                      </p>
+                    </div>
+
+                    <AnimatePresence>
+                      {expandedSection === "gobernanza" && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-1.5"
+                        >
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// RANGOS OPERATIVOS DE RED</div>
+                          <div className="text-[10px] space-y-1 text-zinc-400">
+                            <div>• <span className="text-white font-bold">NODO VISITANTE:</span> Lector inicial sin firma</div>
+                            <div>• <span className="text-white font-bold">NODO ACTIVO:</span> Aporte constante verificado</div>
+                            <div>• <span className="text-white font-bold">NODO VALIDADOR:</span> Consenso local PoR</div>
+                            <div>• <span className="text-[#00E5FF] font-bold">CONSEJO QUBIT:</span> Decisiones del Core</div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+
+                {/* Rediseño del Roadmap - Línea de Tiempo Interactiva */}
+                <div className="border-t border-zinc-900 pt-10">
+                  <h3 className="text-xs font-bold text-[#00E5FF] font-mono tracking-widest uppercase mb-8">
+                    // ROADMAP SISTÉMICO INTERACTIVO (LÍNEA DE TIEMPO DE NODOS CONECTADOS)
+                  </h3>
+
+                  <div className="relative pl-6 md:pl-0">
+                    {/* Vertical line for mobile, horizontal visual effect for large screens layout */}
+                    <div className="absolute left-2.5 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#00E5FF] via-[#00E5FF]/40 to-transparent md:hidden" />
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
+                      {/* Grid border line for larger screens */}
+                      <div className="hidden md:block absolute top-[18px] left-8 right-8 h-[2px] bg-gradient-to-r from-[#00E5FF] via-[#00E5FF]/40 to-zinc-900 z-0" />
+                      
+                      {[
+                        { fase: "FASE 1", title: "MVP Local", status: "[COMPLETED]", statusColor: "text-[#00FF66]", desc: "Servidor local, nodos firmados con HMAC, telemetría inicial y visual web simulada.", active: false },
+                        { fase: "FASE 2", title: "Comunidad Cerrada", status: "[ACTIVE_PROTOTYPE]", statusColor: "text-[#00E5FF]", desc: "Despliegue de 10 a 50 nodos físicos en zonas piloto seleccionadas y validación cruzada.", active: true },
+                        { fase: "FASE 3", title: "Red Distribuida", status: "[PLANNING]", statusColor: "text-zinc-500", desc: "Integración de WebSockets estables, gossip protocols y DHT P2P para comunicación segura.", active: false },
+                        { fase: "FASE 4", title: "Economía DELTA", status: "[LOCKED]", statusColor: "text-zinc-600", desc: "Definición final de los tokenomics, auditoría del Smart Contract y tesorería descentralizada.", active: false },
+                        { fase: "FASE 5", title: "Integración MPE", status: "[SYSTEMIC_INTEGRATION]", statusColor: "text-zinc-600", desc: "Cálculo en vivo de tensores topológicos y simulación predictiva con el motor QSIM.", active: false }
+                      ].map((item, index) => (
+                        <div key={index} className="relative z-10 flex flex-col items-start font-mono">
+                          {/* Dot / Pulse Node Indicator */}
+                          <div className="flex items-center gap-4 md:flex-col md:items-start md:gap-2">
+                            <div className="relative">
+                              <div className={`w-5 h-5 rounded-full border-2 ${
+                                item.active 
+                                  ? "bg-black border-[#00E5FF] shadow-[0_0_10px_#00E5FF]" 
+                                  : item.status === "[COMPLETED]" 
+                                  ? "bg-[#00FF66] border-[#00FF66]" 
+                                  : "bg-zinc-900 border-zinc-800"
+                              } flex items-center justify-center`}>
+                                {item.active && (
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF] animate-ping" />
+                                )}
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="text-[10px] text-zinc-500 uppercase">{item.fase}</div>
+                              <h4 className="text-xs font-bold text-white uppercase">{item.title}</h4>
+                            </div>
+                          </div>
+
+                          <div className="mt-2.5 ml-9 md:ml-0">
+                            <span className={`text-[9px] font-bold block mb-2 ${item.statusColor}`}>
+                              {item.status}
+                            </span>
+                            <p className="text-[11px] text-zinc-500 leading-relaxed font-sans max-w-xs">
+                              {item.desc}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             )}
