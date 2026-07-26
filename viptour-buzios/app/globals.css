@@ -406,7 +406,7 @@ html {
 }
 
 .bg-earth-fixed {
-  background-image: linear-gradient(to bottom, rgba(2, 4, 8, 0.85), rgba(2, 4, 8, 0.95)), url('/images/qubit/qubit-poster.jpg');
+  background-image: linear-gradient(to bottom, rgba(2, 4, 8, 0.5), rgba(2, 4, 8, 0.7)), url('/images/qubit/qubit-poster.jpg');
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
@@ -414,7 +414,7 @@ html {
 }
 
 .bg-portal-fixed {
-  background-image: linear-gradient(to bottom, rgba(2, 4, 8, 0.92), rgba(2, 4, 8, 0.96)), url('/images/portal-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(2, 4, 8, 0.4), rgba(2, 4, 8, 0.6)), url('/images/portal-bg.jpg');
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
