@@ -35,15 +35,15 @@ export default function QubitManifestoPage() {
   ]);
 
   const carouselSlides = [
-    { title: "¿Y si la realidad pudiera observarse como un sistema vivo?", desc: "Nuestra misión: entender lo complejo para ampliar lo posible.", img: "/images/qubit/qubit-1.png" },
-    { title: "Qubit no es una app. Es una red de sensores...", desc: "Que mide señales reales del entorno. Decisiones con impacto real.", img: "/images/qubit/qubit-3.png" },
-    { title: "Cada nodo puede registrar...", desc: "Audio, luz, movimiento, frecuencia, fase y coherencia. Revelando la realidad tal como es.", img: "/images/qubit/qubit-4.png" },
-    { title: "Toda esa información entra en Earth Memory...", desc: "Una memoria viva con millones de eventos registrados y datos validados.", img: "/images/qubit/qubit-5.png" },
-    { title: "Después entra MPE...", desc: "El sistema que busca patrones, resonancia y estados emergentes. Revelando lo invisible.", img: "/images/qubit/qubit-6.png" },
-    { title: "Qubit no solo mira el presente...", desc: "Su próximo paso es QSIM: Simular futuros posibles.", img: "/images/qubit/qubit-7.png" },
-    { title: "Simular futuros posibles con QSIM...", desc: "Del dato al futuro. De la red a nuestro destino.", img: "/images/qubit/qubit-8.png" },
-    { title: "Recompensa y Delta Points...", desc: "Los participantes podrán acumular Delta Points por aportar datos útiles y verificados a la red.", img: "/images/qubit/qubit-9.png" },
-    { title: "Qubit Earth: Una red global...", desc: "Sé parte del primer sistema que observa, comprende, anticipa. Conectá tu nodo, sumá tu energía.", img: "/images/qubit/qubit-10.png" }
+    { title: "¿Y si la realidad pudiera observarse como un sistema vivo?", desc: "Nuestra misión: entender lo complejo para ampliar lo posible.", img: "/images/qubit/qubit-3.png" },
+    { title: "Qubit no es una app. Es una red de sensores...", desc: "Que mide señales reales del entorno. Decisiones con impacto real.", img: "/images/qubit/qubit-4.png" },
+    { title: "Cada nodo puede registrar...", desc: "Audio, luz, movimiento, frecuencia, fase y coherencia. Revelando la realidad tal como es.", img: "/images/qubit/qubit-5.png" },
+    { title: "Toda esa información entra en Earth Memory...", desc: "Una memoria viva con millones de eventos registrados y datos validados.", img: "/images/qubit/qubit-6.png" },
+    { title: "Después entra MPE...", desc: "El sistema que busca patrones, resonancia y estados emergentes. Revelando lo invisible.", img: "/images/qubit/qubit-7.png" },
+    { title: "Qubit no solo mira el presente...", desc: "Su próximo paso es QSIM: Simular futuros posibles.", img: "/images/qubit/qubit-8.png" },
+    { title: "Simular futuros posibles con QSIM...", desc: "Del dato al futuro. De la red a nuestro destino.", img: "/images/qubit/qubit-9.png" },
+    { title: "Recompensa y Delta Points...", desc: "Los participantes podrán acumular Delta Points por aportar datos útiles y verificados a la red.", img: "/images/qubit/qubit-10.png" },
+    { title: "Qubit Earth: Una red global...", desc: "Sé parte del primer sistema que observa, comprende, anticipa. Conectá tu nodo, sumá tu energía.", img: "/images/qubit/qubit-11.png" }
   ];
 
   useEffect(() => {
