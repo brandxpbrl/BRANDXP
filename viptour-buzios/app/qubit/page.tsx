@@ -13,7 +13,10 @@ import {
   Terminal,
   Activity,
   Server,
-  Network
+  ChevronLeft,
+  ChevronRight,
+  Info,
+  Maximize2
 } from "lucide-react";
 
 type TabType = "observatorio" | "whitepaper" | "arquitectura" | "agentes" | "nodos";
@@ -23,11 +26,26 @@ export default function QubitManifestoPage() {
   const [nodeName, setNodeName] = useState("");
   const [nodeResponse, setNodeResponse] = useState<string[]>([]);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [consoleLogs, setConsoleLogs] = useState<string[]>([
     "> [INIT] Conectando con earth_memory_limpia.jsonl...",
     "> [SUCCESS] Handshake Vesica completado. Coherencia de red al 92.4%.",
     "> [MPE] Sistema operando en atractor de estabilidad principal."
   ]);
+
+  const carouselSlides = [
+    { title: "¿Y si la realidad...", desc: "Fase de visión conceptual: cuestionar los flujos de información centralizados.", img: "/images/qubit/qubit-1.png" },
+    { title: "Qubit no es una app...", desc: "Blueprint técnico de hardware del Qubit Node para percibir el territorio.", img: "/images/qubit/qubit-2.png" },
+    { title: "Cada nodo puede registrar...", desc: "Capa sensorial: acústica, lumínica, y fluctuaciones de fase local.", img: "/images/qubit/qubit-3.png" },
+    { title: "Earth Memory", desc: "Data Lake distribuido basado en almacenamiento JSON Lines inmutable.", img: "/images/qubit/qubit-4.png" },
+    { title: "Después entra MPE", desc: "Cálculo de tensores topológicos y predicción estocástica de futuros viables.", img: "/images/qubit/qubit-5.png" },
+    { title: "Estabilidad Criptográfica", desc: "Handshake Vesica y firmas de autenticidad en red Zero-Trust.", img: "/images/qubit/qubit-6.png" },
+    { title: "Computador Cosmológico", desc: "Organización geométrica de redes de sensores distribuidos.", img: "/images/qubit/qubit-7.png" },
+    { title: "Topología Territorial", desc: "Resonancia local y Proof of Resonance (PoR) descentralizado.", img: "/images/qubit/qubit-8.png" },
+    { title: "Puntaje DELTA Test", desc: "Tokenomics evolutivos del token DELTA para recompensar el aporte útil.", img: "/images/qubit/qubit-9.png" },
+    { title: "Gobernanza Cívica", desc: "Reglas meritocráticas basadas en reputación y no solo en tokens.", img: "/images/qubit/qubit-10.png" },
+    { title: "Roadmap Sistémico", desc: "Transición desde laboratorio hacia despliegue de ciudades piloto abiertas.", img: "/images/qubit/qubit-11.png" }
+  ];
 
   useEffect(() => {
     const logs = [
@@ -71,6 +89,14 @@ export default function QubitManifestoPage() {
       ]);
       setIsRegistering(false);
     }, 1500);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
   };
 
   return (
@@ -156,6 +182,55 @@ export default function QubitManifestoPage() {
                 className="space-y-8"
               >
                 <div>
+                  {/* Brand Storytelling Narrative Carousel */}
+                  <div className="border border-[#00E5FF]/20 bg-black/80 rounded-xl p-6 mb-8 shadow-[0_0_15px_rgba(0,229,255,0.02)]">
+                    <div className="flex justify-between items-center mb-4 pb-2 border-b border-zinc-850">
+                      <span className="text-[10px] text-[#00E5FF] font-bold tracking-widest uppercase">
+                        [ NARRATIVA INTERACTIVA DE MARCA // NÚCLEO SENSORIAL ]
+                      </span>
+                      <span className="text-[10px] text-zinc-500 font-mono">
+                        SLIDE {String(currentSlide + 1).padStart(2, "0")} / {String(carouselSlides.length).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                      <div className="md:col-span-5 flex flex-col justify-center space-y-4">
+                        <span className="text-[9px] text-zinc-500 font-mono tracking-widest uppercase">FASE EVOLUTIVA</span>
+                        <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-wide">
+                          {carouselSlides[currentSlide].title}
+                        </h3>
+                        <p className="text-zinc-400 text-xs leading-relaxed font-sans">
+                          {carouselSlides[currentSlide].desc}
+                        </p>
+                        
+                        <div className="flex items-center gap-3 pt-4">
+                          <button
+                            onClick={prevSlide}
+                            className="p-2 border border-zinc-800 bg-black/40 text-zinc-400 hover:text-[#00E5FF] hover:border-[#00E5FF] transition-colors rounded cursor-pointer"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={nextSlide}
+                            className="p-2 border border-zinc-800 bg-black/40 text-zinc-400 hover:text-[#00E5FF] hover:border-[#00E5FF] transition-colors rounded cursor-pointer"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="md:col-span-7 flex justify-center">
+                        <div className="relative w-full max-w-lg aspect-square md:aspect-video rounded-lg overflow-hidden border border-zinc-850 bg-black/40">
+                          <img
+                            src={carouselSlides[currentSlide].img}
+                            alt={carouselSlides[currentSlide].title}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6 flex items-center gap-2">
                     <Activity className="w-4 h-4 text-[#00E5FF]" />
                     <span>TELEMETRÍA DE LA TIERRA (EN VIVO)</span>
@@ -226,7 +301,6 @@ export default function QubitManifestoPage() {
                   WHITEPAPER V0.2: EL METAVERSO VIVO DE LA TIERRA
                 </h2>
                 
-                {/* Full Flow Readability (No scroll boundaries) */}
                 <div className="space-y-8 text-zinc-300 font-sans text-sm leading-relaxed max-w-5xl">
                   <section className="space-y-3">
                     <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">1. Resumen & Tesis Central</h3>
@@ -298,19 +372,20 @@ export default function QubitManifestoPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.25 }}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6">
-                  ARQUITECTURA GENERAL (5 CAPAS)
-                </h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { num: "01", title: "Capa de Nodo", desc: "node_id, identidad criptográfica HMAC-SHA256, permisos dinámicos y capacidad sensorial perimetral (acústica, de fase y estado local)." },
-                    { num: "02", title: "Capa de Comunicación", desc: "UDP local para telemetría inicial de telemetría de fase, evolucionando hacia WebSockets, libp2p, protocolos gossip y tablas DHT." },
-                    { num: "03", title: "Capa de Validación", desc: "Perímetro Zero-Trust. Whitelisting de eventos, firmas obligatorias y control anti-replay con sesgo temporal máximo de 120s para prevenir ataques." },
-                    { num: "04", title: "Capa de Memoria", desc: "Data Lake distribuido basado en almacenamiento JSON Lines (earth_memory.jsonl), base inmutable para el cálculo del PoR y la gobernanza." },
-                    { num: "05", title: "Capa Visual", desc: "Observatorio topológico sinestésico que renderiza núcleos, esferas, tetraedros y vectores de coherencia en tiempo real en un canvas 2D." }
+                <div>
+                  <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6">
+                    ARQUITECTURA GENERAL (5 CAPAS)
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    {[
+                      { num: "01", title: "Capa de Nodo", desc: "node_id, identidad criptográfica HMAC-SHA256, permisos dinámicos y capacidad sensorial perimetral (acústica, de fase y estado local)." },
+                      { num: "02", title: "Capa de Comunicación", desc: "UDP local para telemetría inicial de telemetría de fase, evolucionando hacia WebSockets, libp2p, protocolos gossip y tablas DHT." },
+                      { num: "03", title: "Capa de Validación", desc: "Perímetro Zero-Trust. Whitelisting de eventos, firmas obligatorias y control anti-replay con sesgo temporal máximo de 120s para prevenir ataques." },
+                      { num: "04", title: "Capa de Memoria", desc: "Data Lake distribuido basado en almacenamiento JSON Lines (earth_memory.jsonl), base inmutable para el cálculo del PoR y la gobernanza." },
+                      { num: "05", title: "Capa Visual", desc: "Observatorio topológico sinestésico que renderiza núcleos, esferas, tetraedros y vectores de coherencia en tiempo real en un canvas 2D." }
                   ].map((layer, i) => (
                     <div key={i} className="bg-black/30 border border-zinc-800/80 p-6 rounded-lg relative overflow-hidden group hover:border-[#00E5FF]/40 transition-colors">
                       <div className="absolute top-4 right-4 text-3xl font-black text-[#00E5FF]/10 font-mono tracking-tighter select-none group-hover:text-[#00E5FF]/20 transition-colors">
@@ -320,6 +395,62 @@ export default function QubitManifestoPage() {
                       <p className="text-xs text-zinc-400 leading-relaxed font-sans">{layer.desc}</p>
                     </div>
                   ))}
+                  </div>
+
+                  {/* Hardware Specification Qubit Node Blueprint */}
+                  <div className="border border-[#00E5FF]/20 bg-black/80 rounded-xl p-6 shadow-[0_0_15px_rgba(0,229,255,0.02)]">
+                    <div className="flex justify-between items-center mb-6 pb-2 border-b border-zinc-850">
+                      <span className="text-[10px] text-[#00E5FF] font-bold tracking-widest uppercase">
+                        [ ESPECIFICACIÓN TÉCNICA DE HARDWARE // QUBIT NODE BLUEPRINT ]
+                      </span>
+                      <span className="text-[10px] text-zinc-500 font-mono">PROTOTYPE V1.0 // 70X70MM</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                      <div className="lg:col-span-5 space-y-4">
+                        <div className="inline-flex items-center gap-1.5 text-xs text-[#00E5FF] font-bold uppercase">
+                          <Info className="w-4 h-4" />
+                          <span>Especificaciones de la Placa</span>
+                        </div>
+                        <ul className="space-y-3 text-xs text-zinc-300 font-sans">
+                          <li className="flex justify-between border-b border-zinc-900 pb-1.5">
+                            <span className="font-mono font-bold text-zinc-500">MCU:</span>
+                            <span>ESP32-S3 Dual-Core Xtensa 240MHz</span>
+                          </li>
+                          <li className="flex justify-between border-b border-zinc-900 pb-1.5">
+                            <span className="font-mono font-bold text-zinc-500">MICROPHONE:</span>
+                            <span>MEMS omnidirectional digital output I2S</span>
+                          </li>
+                          <li className="flex justify-between border-b border-zinc-900 pb-1.5">
+                            <span className="font-mono font-bold text-zinc-500">INERTIAL (IMU):</span>
+                            <span>6-axis accelerometer & gyroscope</span>
+                          </li>
+                          <li className="flex justify-between border-b border-zinc-900 pb-1.5">
+                            <span className="font-mono font-bold text-zinc-500">LIGHT SENSOR:</span>
+                            <span>Ambient Light Lux Sensor</span>
+                          </li>
+                          <li className="flex justify-between border-b border-zinc-900 pb-1.5">
+                            <span className="font-mono font-bold text-zinc-500">MESH PROTOCOL:</span>
+                            <span>ESP-NOW P2P local sync</span>
+                          </li>
+                          <li className="flex justify-between border-b border-zinc-900 pb-1.5">
+                            <span className="font-mono font-bold text-zinc-500">POWER DEV:</span>
+                            <span>USB-C & LiPo Charge integration</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="lg:col-span-7 flex justify-center">
+                        <div className="relative w-full max-w-lg aspect-square md:aspect-video rounded-lg overflow-hidden border border-zinc-850 bg-black/40 group">
+                          <img
+                            src="/images/qubit/qubit-2.png"
+                            alt="Qubit Node Technical Blueprint"
+                            className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             )}
