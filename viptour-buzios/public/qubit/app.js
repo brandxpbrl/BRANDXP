@@ -1,5 +1,5 @@
 const canvas = document.getElementById("earthCanvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas ? canvas.getContext("2d") : null;
 const nodeCount = document.getElementById("nodeCount");
 const eventCount = document.getElementById("eventCount");
 const deltaTotal = document.getElementById("deltaTotal");
@@ -476,37 +476,42 @@ async function refresh() {
 function renderPanels() {
   const nodes = state.nodes || [];
   const events = state.events || [];
-  nodeCount.textContent = nodes.length;
-  eventCount.textContent = state.total_events || 0;
-  deltaTotal.textContent = Number(state.total_delta_points || 0).toFixed(4);
+  if (nodeCount) nodeCount.textContent = nodes.length;
+  if (eventCount) eventCount.textContent = state.total_events || 0;
+  if (deltaTotal) deltaTotal.textContent = Number(state.total_delta_points || 0).toFixed(4);
   renderMpe(state.mpe);
   renderMpeMetrics((state.mpe && state.mpe.metrics) || calculateMpeMetrics(events));
 
-  nodesEl.innerHTML = nodes
-    .slice()
-    .sort((a, b) => (b.delta_points || 0) - (a.delta_points || 0))
-    .map(
-      (node) => `<div class="item">
-        <strong>${node.node_id}</strong>
-        <span>coherencia ${Number(node.coherence || 0).toFixed(3)} · reputacion ${Number(node.reputation || 0).toFixed(3)}</span>
-        <span>${node.trust_level || "unknown"} · ${node.signed ? "firmado" : "lab sin firma"} · DELTA ${Number(node.delta_points || 0).toFixed(5)}</span>
-      </div>`
-    )
-    .join("");
+  if (nodesEl) {
+    nodesEl.innerHTML = nodes
+      .slice()
+      .sort((a, b) => (b.delta_points || 0) - (a.delta_points || 0))
+      .map(
+        (node) => `<div class="item">
+          <strong>${node.node_id}</strong>
+          <span>coherencia ${Number(node.coherence || 0).toFixed(3)} · reputacion ${Number(node.reputation || 0).toFixed(3)}</span>
+          <span>${node.trust_level || "unknown"} · ${node.signed ? "firmado" : "lab sin firma"} · DELTA ${Number(node.delta_points || 0).toFixed(5)}</span>
+        </div>`
+      )
+      .join("");
+  }
 
-  eventsEl.innerHTML = events
-    .slice(-12)
-    .reverse()
-    .map(
-      (event) => `<div class="item">
-        <strong>${event.node_id}</strong>
-        <span>${event.label || event.type} · +${Number(event.delta_points || 0).toFixed(6)} DELTA test</span>
-      </div>`
-    )
-    .join("");
+  if (eventsEl) {
+    eventsEl.innerHTML = events
+      .slice(-12)
+      .reverse()
+      .map(
+        (event) => `<div class="item">
+          <strong>${event.node_id}</strong>
+          <span>${event.label || event.type} · +${Number(event.delta_points || 0).toFixed(6)} DELTA test</span>
+        </div>`
+      )
+      .join("");
+  }
 }
 
 function renderMpe(mpe) {
+  if (!mpeEl) return;
   if (!mpe) {
     mpeEl.innerHTML = `<div class="mpe-pattern">sin datos</div><p>Esperando memoria reciente de QUBIT.</p>`;
     return;
@@ -521,6 +526,7 @@ function renderMpe(mpe) {
 }
 
 function renderMpeMetrics(metrics) {
+  if (!mpeMetricsEl) return;
   const rows = [
     ["mean_signal", metrics && metrics.mean_signal],
     ["drift", metrics && metrics.drift],
