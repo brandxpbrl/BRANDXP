@@ -12,8 +12,8 @@ import {
   Link2,
   Terminal,
   Activity,
-  ShieldCheck,
-  Server
+  Server,
+  Network
 } from "lucide-react";
 
 type TabType = "observatorio" | "whitepaper" | "arquitectura" | "agentes" | "nodos";
@@ -29,7 +29,6 @@ export default function QubitManifestoPage() {
     "> [MPE] Sistema operando en atractor de estabilidad principal."
   ]);
 
-  // Simular logs de la consola en tiempo real
   useEffect(() => {
     const logs = [
       "> [TELEMETRY] Recibidas señales de nodo_buzios_02: coherencia 0.89",
@@ -66,7 +65,6 @@ export default function QubitManifestoPage() {
         `> [VESICA] Handshake completado. Nodo integrado a QUBIT Earth.`
       ]);
       
-      // Añadir log a la consola general
       setConsoleLogs((prev) => [
         ...prev,
         `> [NEW_NODE] Acoplado exitosamente: ${nodeName} (${peerId})`
@@ -76,42 +74,50 @@ export default function QubitManifestoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-transparent text-white pt-24 pb-16 relative overflow-hidden font-sans">
+    <main className="min-h-screen text-white pt-28 pb-20 relative overflow-hidden font-mono">
+      {/* Immersive background fusion */}
       <div className="fixed inset-0 bg-earth-fixed z-0 pointer-events-none" />
+      <div className="fixed inset-0 bg-gradient-to-b from-black/80 via-[#050505]/90 to-black z-0 pointer-events-none" />
       
-      {/* Background Cyber Glows */}
+      {/* Tactical grid background overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-radial from-[#00E5FF]/8 via-transparent to-transparent blur-[120px] opacity-75" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-radial from-[#ff2a85]/5 to-transparent blur-[100px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.012]" />
+        <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-radial from-[#00E5FF]/6 via-transparent to-transparent blur-[140px] opacity-75" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-radial from-[#ff2a85]/4 to-transparent blur-[120px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(0,229,255,0.015)_1px,transparent_1px)] [background-size:32px_32px] opacity-80" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Back Link */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group mb-8"
+          className="inline-flex items-center gap-2 text-zinc-500 hover:text-[#00E5FF] transition-colors group mb-8"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-mono text-xs uppercase tracking-wider">Volver al inicio</span>
+          <span className="text-[10px] tracking-wider uppercase">[ VOLVER AL INICIO ]</span>
         </Link>
 
-        {/* Hero header */}
-        <header className="mb-10 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00E5FF]/10 border border-[#00E5FF]/20 text-[#00E5FF] mb-4">
-            <Cpu className="w-3.5 h-3.5" />
-            <span className="text-[10px] font-mono tracking-widest uppercase">[ SYSTEM: ACTIVE ]</span>
+        {/* Global Tactical Header */}
+        <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-[#00E5FF]/20 pb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#00E5FF]/30 bg-[#00E5FF]/5 text-[#00E5FF] mb-4 text-[10px] tracking-widest uppercase">
+              <Cpu className="w-3.5 h-3.5 animate-pulse" />
+              <span>CORE SYSTEM STATUS // ACTIVE</span>
+            </div>
+            <h1 className="text-3xl md:text-5xl font-black tracking-wider text-white uppercase">
+              QUBIT SYSTEM PORTAL
+            </h1>
+            <p className="text-zinc-400 text-xs md:text-sm mt-2 max-w-3xl leading-relaxed font-sans">
+              Infraestructura descentralizada de inteligencia colectiva, memoria planetaria y navegación de flujos.
+            </p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3 font-mono text-white">
-            QUBIT SYSTEM PORTAL
-          </h1>
-          <p className="text-zinc-400 text-sm md:text-base max-w-3xl leading-relaxed">
-            Infraestructura descentralizada de inteligencia colectiva, memoria planetaria y navegación de flujos.
-          </p>
+          <div className="text-right font-mono text-[10px] text-zinc-500 flex flex-col gap-1">
+            <div>VERSION: 0.2 // PROTOCOL: VESICA</div>
+            <div>LATENCY: 14ms // SIGNAL: STABLE</div>
+          </div>
         </header>
 
         {/* Navigation Tabs */}
-        <nav className="flex flex-wrap justify-center md:justify-start gap-2.5 mb-8 border-b border-zinc-800/60 pb-5">
+        <nav className="flex flex-wrap gap-2.5 mb-8">
           {[
             { id: "observatorio", label: "[01] OBSERVATORIO", icon: Compass },
             { id: "whitepaper", label: "[02] WHITEPAPER V0.2", icon: FileText },
@@ -124,10 +130,10 @@ export default function QubitManifestoPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as TabType)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border font-mono text-xs transition-all duration-300 ${
+                className={`flex items-center gap-2 px-5 py-3 rounded border text-xs tracking-wider transition-all duration-300 ${
                   activeTab === tab.id
-                    ? "bg-[#00E5FF]/15 border-[#00E5FF] text-[#00E5FF] shadow-[0_0_15px_rgba(0,229,255,0.15)]"
-                    : "border-zinc-800 bg-black/40 text-zinc-400 hover:text-white hover:border-zinc-700"
+                    ? "bg-[#00E5FF]/10 border-[#00E5FF] text-[#00E5FF] shadow-[0_0_15px_rgba(0,229,255,0.15)]"
+                    : "border-zinc-800/80 bg-black/40 text-zinc-400 hover:text-white hover:border-zinc-700"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -137,8 +143,8 @@ export default function QubitManifestoPage() {
           })}
         </nav>
 
-        {/* Main Content Box (Terminal Screen) */}
-        <div className="rounded-2xl bg-black/75 border border-zinc-800/80 p-6 md:p-10 backdrop-blur-xl shadow-2xl min-h-[500px] relative">
+        {/* Tactical Terminal Panel */}
+        <div className="rounded-xl bg-black/60 border border-[#00E5FF]/20 p-6 md:p-10 backdrop-blur-md shadow-[0_0_20px_rgba(0,229,255,0.05)] min-h-[550px] relative">
           <AnimatePresence mode="wait">
             {activeTab === "observatorio" && (
               <motion.div
@@ -150,29 +156,30 @@ export default function QubitManifestoPage() {
                 className="space-y-8"
               >
                 <div>
-                  <h2 className="text-xl font-bold text-[#00E5FF] font-mono uppercase tracking-wider border-b border-dashed border-zinc-800/60 pb-3 mb-6">
-                    TELEMETRÍA DE LA TIERRA (EN VIVO)
+                  <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6 flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-[#00E5FF]" />
+                    <span>TELEMETRÍA DE LA TIERRA (EN VIVO)</span>
                   </h2>
                   
-                  {/* Metrics Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                  {/* Expanded Metrics Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
                     {[
                       { label: "ESTADO MPE", value: "MPE_RESONANCIA", statusColor: "text-[#00E5FF]" },
                       { label: "NODOS ACTIVOS", value: "9 / 9", statusColor: "text-white" },
                       { label: "POSSIBILITY INDEX (PI)", value: "0.8055", statusColor: "text-[#00E5FF]" },
                       { label: "ESTADOS HISTÓRICOS", value: "745,837", statusColor: "text-white" }
                     ].map((metric, i) => (
-                      <div key={i} className="bg-[#00E5FF]/5 border border-zinc-800/80 p-5 rounded-xl text-center">
-                        <span className="block text-[10px] text-zinc-500 font-mono tracking-wider uppercase mb-1.5">{metric.label}</span>
-                        <span className={`text-base font-bold font-mono ${metric.statusColor}`}>{metric.value}</span>
+                      <div key={i} className="bg-black/40 border border-zinc-800/80 p-5 rounded-lg">
+                        <span className="block text-[9px] text-zinc-500 tracking-widest uppercase mb-2">{metric.label}</span>
+                        <span className={`text-xl font-bold ${metric.statusColor}`}>{metric.value}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Simulator Canvas iframe container */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-2">
-                      <div className="w-full h-[450px] rounded-xl overflow-hidden border border-zinc-800 bg-black/60 shadow-inner">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    <div className="lg:col-span-8">
+                      <div className="w-full h-[520px] rounded-lg overflow-hidden border border-zinc-800/80 bg-black/80">
                         <iframe
                           src="/qubit/index.html"
                           className="w-full h-full border-none"
@@ -181,23 +188,23 @@ export default function QubitManifestoPage() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-between">
+                    <div className="lg:col-span-4 flex flex-col">
                       {/* Active Console logs */}
-                      <div className="flex-grow flex flex-col justify-between bg-black border border-zinc-800 p-5 rounded-xl">
+                      <div className="flex-grow flex flex-col justify-between bg-black/60 border border-zinc-850 p-6 rounded-lg h-full">
                         <div>
-                          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-4 border-b border-zinc-900 pb-2">
-                            <Terminal className="w-3.5 h-3.5 text-[#00E5FF]" />
-                            <span>CONSOLA DEL SISTEMA</span>
+                          <div className="flex items-center gap-2 text-xs text-zinc-400 mb-4 border-b border-zinc-900 pb-2">
+                            <Terminal className="w-4 h-4 text-[#00E5FF]" />
+                            <span>REGISTRO DE OPERACIONES</span>
                           </div>
-                          <div className="space-y-2 font-mono text-[11px] leading-relaxed text-[#00FF66] overflow-y-auto max-h-[300px]">
+                          <div className="space-y-2.5 text-[11px] leading-relaxed text-[#00FF66] overflow-y-auto max-h-[380px]">
                             {consoleLogs.map((log, idx) => (
                               <div key={idx} className="whitespace-pre-wrap">{log}</div>
                             ))}
                           </div>
                         </div>
-                        <div className="mt-4 pt-4 border-t border-zinc-900 flex justify-between items-center text-[10px] font-mono text-zinc-500">
-                          <span>FEED STATUS: ACTIVE</span>
-                          <span className="w-2 h-2 rounded-full bg-[#00FF66] animate-pulse" />
+                        <div className="mt-6 pt-4 border-t border-zinc-900 flex justify-between items-center text-[9px] text-zinc-500">
+                          <span>FEED STATUS: STREAMING</span>
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#00FF66] animate-pulse shadow-[0_0_8px_#00FF66]" />
                         </div>
                       </div>
                     </div>
@@ -215,56 +222,71 @@ export default function QubitManifestoPage() {
                 transition={{ duration: 0.25 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-bold text-[#00E5FF] font-mono uppercase tracking-wider border-b border-dashed border-zinc-800/60 pb-3 mb-6">
+                <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6">
                   WHITEPAPER V0.2: EL METAVERSO VIVO DE LA TIERRA
                 </h2>
                 
-                <div className="max-h-[500px] overflow-y-auto pr-4 space-y-6 text-sm leading-relaxed text-zinc-300 font-sans scrollbar-thin">
-                  <div>
-                    <h3 className="text-base font-bold text-[#00E5FF] font-mono uppercase mb-2">1. Resumen & Tesis Central</h3>
-                    <p className="mb-3">
+                {/* Full Flow Readability (No scroll boundaries) */}
+                <div className="space-y-8 text-zinc-300 font-sans text-sm leading-relaxed max-w-5xl">
+                  <section className="space-y-3">
+                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">1. Resumen & Tesis Central</h3>
+                    <p>
                       QUBIT es una red descentralizada de nodos que construye un metaverso vivo y paralelo de la Tierra. Cada nodo perimetral percibe, registra y aporta señales del mundo físico (como variables acústicas, lumínicas, de movimiento o telemetría ambiental validada) validadas por identidad criptográfica, reputación y <strong>Proof of Resonance (PoR)</strong>.
                     </p>
-                    <div className="border-l-2 border-[#00E5FF] pl-4 py-1.5 my-4 italic text-[#00E5FF]/90 font-mono text-xs">
-                      "Si los datos humanos y territoriales construyen el mundo digital, las personas deben gobernar ese mundo y participar de su valor."
+                    <div className="border-l-2 border-[#00E5FF] pl-4 py-2 my-4 italic text-[#00E5FF] font-mono text-xs bg-[#00E5FF]/5">
+                      "Si los datos humanos y territoriales construyen el mundo digital, las personas deben gobernar ese mundo y participar de su valor de forma proporcional."
                     </div>
-                  </div>
+                  </section>
 
-                  <div>
-                    <h3 className="text-base font-bold text-[#00E5FF] font-mono uppercase mb-2">2. Problema & Visión</h3>
-                    <p className="mb-3">
+                  <section className="space-y-3">
+                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">2. Problema & Visión</h3>
+                    <p>
                       Las plataformas centralizadas concentran de forma extractiva la identidad, datos y valor de la sociedad, convirtiendo la interacción humana en un producto. QUBIT descentraliza este flujo:
                     </p>
-                    <div className="bg-black/40 border border-zinc-900 p-4 rounded-lg font-mono text-xs text-center text-zinc-400 my-4">
+                    <div className="bg-black/40 border border-zinc-800 p-4 rounded font-mono text-xs text-center text-[#00E5FF] my-4">
                       Tierra física ➔ Nodos ➔ Señales ➔ Coherencia ➔ Memoria ➔ Metaverso
                     </div>
-                  </div>
+                  </section>
 
-                  <div>
-                    <h3 className="text-base font-bold text-[#00E5FF] font-mono uppercase mb-2">3. Tokenomics & DELTA</h3>
-                    <p className="mb-3">
+                  <section className="space-y-3">
+                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">3. Tokenomics & DELTA</h3>
+                    <p>
                       <strong>DELTA</strong> es el token de recompensa nativo. El suministro máximo propuesto es de 432,000,000 DELTA (con un 12% reservado para desarrollo). DELTA representa contribución validada al sistema y no una simple tenencia extractiva pasiva.
                     </p>
-                  </div>
+                  </section>
 
-                  <div>
-                    <h3 className="text-base font-bold text-[#00E5FF] font-mono uppercase mb-2">4. Gobernanza Cívica</h3>
-                    <p className="mb-3">
+                  <section className="space-y-3">
+                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">4. Gobernanza Cívica</h3>
+                    <p>
                       Escalera de roles basada en reputación territorial y validez operativa: Nodo Visitante, Nodo Activo, Nodo Validador, Coordinador de Zona, Gobernador de Ciudad y Consejo QUBIT.
                     </p>
-                  </div>
+                  </section>
 
-                  <div>
-                    <h3 className="text-base font-bold text-[#00E5FF] font-mono uppercase mb-2">5. Roadmap Sistémico Actualizado</h3>
-                    <ul className="list-disc pl-5 space-y-2 text-zinc-400 font-mono text-xs">
-                      <li><strong>Fase 1 (MVP Local):</strong> Servidor local, nodos firmados, visual web y puntaje DELTA test.</li>
-                      <li><strong>Fase 2 (Comunidad Cerrada):</strong> Despliegue de 10 a 50 nodos humanos y validación cruzada.</li>
-                      <li><strong>Fase 3 (Comunicación Global):</strong> Integración de APIs robustas, WebSockets, topologías P2P y gossiping seguro.</li>
-                      <li><strong>Fase 4 (Economía DELTA):</strong> Definición final de tokenomics, auditoría y despliegue de tesorería descentralizada.</li>
-                      <li><strong>Fase 5 (Integración Sistémica y Evolutiva):</strong> Incorporación nativa del motor analítico de simulación, cálculo de tensores topológicos y predicción estocástica. La red se convierte en una inteligencia colectiva capaz de observar, medir y proponer en tiempo real.</li>
-                      <li><strong>Fase 6 (QUBIT Earth Public):</strong> Lanzamiento de ciudades piloto, nodos ciudadanos activos, mapas vivos y apertura total del metaverso territorial.</li>
-                    </ul>
-                  </div>
+                  <section className="space-y-4">
+                    <h3 className="text-sm font-bold text-[#00E5FF] font-mono tracking-wider uppercase">5. Roadmap Sistémico Actualizado</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-zinc-400">
+                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
+                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 1 (MVP Local):</span>
+                        Servidor local, nodos firmados, visual web y puntaje DELTA test.
+                      </div>
+                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
+                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 2 (Comunidad Cerrada):</span>
+                        Despliegue de 10 a 50 nodos humanos y validación cruzada.
+                      </div>
+                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
+                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 3 (Comunicación Global):</span>
+                        Integración de APIs robustas, WebSockets, topologías P2P y gossiping seguro.
+                      </div>
+                      <div className="border border-zinc-800/80 p-4 rounded bg-black/20">
+                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 4 (Economía DELTA):</span>
+                        Definición final de tokenomics, auditoría y tesorería descentralizada.
+                      </div>
+                      <div className="border border-zinc-850 p-4 rounded bg-black/30 md:col-span-2">
+                        <span className="text-[#00E5FF] font-bold block mb-1">Fase 5 (Integración Sistémica y Evolutiva):</span>
+                        Incorporación nativa del motor analítico de simulación, cálculo de tensores topológicos y predicción estocástica. La red se convierte en una inteligencia colectiva capaz de observar, medir y proponer en tiempo real.
+                      </div>
+                    </div>
+                  </section>
                 </div>
               </motion.div>
             )}
@@ -278,20 +300,23 @@ export default function QubitManifestoPage() {
                 transition={{ duration: 0.25 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-bold text-[#00E5FF] font-mono uppercase tracking-wider border-b border-dashed border-zinc-800/60 pb-3 mb-6">
+                <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6">
                   ARQUITECTURA GENERAL (5 CAPAS)
                 </h2>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
-                    { title: "01. Capa de Nodo", desc: "node_id, identidad criptográfica HMAC-SHA256, permisos dinámicos y capacidad sensorial perimetral (acústica, de fase y estado local)." },
-                    { title: "02. Capa de Comunicación", desc: "UDP local para telemetría inicial de telemetría de fase, evolucionando hacia WebSockets, libp2p, protocolos gossip y tablas DHT." },
-                    { title: "03. Capa de Validación", desc: "Perímetro Zero-Trust. Whitelisting de eventos, firmas obligatorias y control anti-replay con sesgo temporal máximo de 120s para prevenir ataques." },
-                    { title: "04. Capa de Memoria", desc: "Data Lake distribuido basado en almacenamiento JSON Lines (earth_memory.jsonl), base inmutable para el cálculo del PoR y la gobernanza." },
-                    { title: "05. Capa Visual", desc: "Observatorio topológico sinestésico que renderiza núcleos, esferas, tetraedros y vectores de coherencia en tiempo real en un canvas 2D." }
+                    { num: "01", title: "Capa de Nodo", desc: "node_id, identidad criptográfica HMAC-SHA256, permisos dinámicos y capacidad sensorial perimetral (acústica, de fase y estado local)." },
+                    { num: "02", title: "Capa de Comunicación", desc: "UDP local para telemetría inicial de telemetría de fase, evolucionando hacia WebSockets, libp2p, protocolos gossip y tablas DHT." },
+                    { num: "03", title: "Capa de Validación", desc: "Perímetro Zero-Trust. Whitelisting de eventos, firmas obligatorias y control anti-replay con sesgo temporal máximo de 120s para prevenir ataques." },
+                    { num: "04", title: "Capa de Memoria", desc: "Data Lake distribuido basado en almacenamiento JSON Lines (earth_memory.jsonl), base inmutable para el cálculo del PoR y la gobernanza." },
+                    { num: "05", title: "Capa Visual", desc: "Observatorio topológico sinestésico que renderiza núcleos, esferas, tetraedros y vectores de coherencia en tiempo real en un canvas 2D." }
                   ].map((layer, i) => (
-                    <div key={i} className="bg-white/[0.01] border border-zinc-800/80 p-6 rounded-xl hover:border-[#00E5FF]/40 transition-colors">
-                      <h3 className="font-mono text-sm font-bold text-[#00E5FF] mb-3">{layer.title}</h3>
+                    <div key={i} className="bg-black/30 border border-zinc-800/80 p-6 rounded-lg relative overflow-hidden group hover:border-[#00E5FF]/40 transition-colors">
+                      <div className="absolute top-4 right-4 text-3xl font-black text-[#00E5FF]/10 font-mono tracking-tighter select-none group-hover:text-[#00E5FF]/20 transition-colors">
+                        {layer.num}
+                      </div>
+                      <h3 className="font-mono text-xs font-bold text-[#00E5FF] mb-3 uppercase tracking-wider">{layer.title}</h3>
                       <p className="text-xs text-zinc-400 leading-relaxed font-sans">{layer.desc}</p>
                     </div>
                   ))}
@@ -308,26 +333,26 @@ export default function QubitManifestoPage() {
                 transition={{ duration: 0.25 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-bold text-[#00E5FF] font-mono uppercase tracking-wider border-b border-dashed border-zinc-800/60 pb-3 mb-6">
+                <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6">
                   SALA DE AGENTES Y MOTORES MPE
                 </h2>
-                <p className="text-sm text-zinc-400">
-                  Subsistemas autónomos que operan en segundo plano en el ecosistema para garantizar la consistencia, cálculo y visualización:
+                <p className="text-xs text-zinc-400">
+                  Sistemas independientes y modelado matemático que actúan en la red:
                 </p>
 
-                <div className="space-y-4 pt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                   {[
                     { name: "MPE Research", desc: "Valida los límites epistémicos y la consistencia matemática de los estados globales analizados en red." },
                     { name: "MPE Engine & Tensores", desc: "Calcula los campos escalares topológicos mediante matrices Hessianas y puntos de silla para acoplar los nodos en red." },
                     { name: "QSIM Predictor", desc: "Motor estocástico basado en Cadenas de Markov V0 e Índice de Posibilidad (PI) para anticipar transiciones inestables." },
                     { name: "Brand Guardian (El Auditor)", desc: "Filtra la interfaz y los reportes para garantizar rigor técnico y estética minimalista de lujo futurista." }
                   ].map((agent, i) => (
-                    <div key={i} className="flex gap-4 p-4 rounded-xl border border-zinc-900 bg-black/40">
-                      <div className="w-8 h-8 rounded-lg bg-[#00E5FF]/10 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] font-bold text-xs font-mono shrink-0">
+                    <div key={i} className="flex gap-4 p-5 rounded-lg border border-zinc-850 bg-black/40">
+                      <div className="w-9 h-9 rounded bg-[#00E5FF]/10 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] font-bold text-xs shrink-0">
                         {i + 1}
                       </div>
                       <div>
-                        <strong className="block text-sm font-mono text-[#00E5FF] mb-1">{agent.name}</strong>
+                        <strong className="block text-xs font-bold text-[#00E5FF] mb-1.5 uppercase tracking-wide">{agent.name}</strong>
                         <p className="text-xs text-zinc-400 leading-relaxed font-sans">{agent.desc}</p>
                       </div>
                     </div>
@@ -345,37 +370,37 @@ export default function QubitManifestoPage() {
                 transition={{ duration: 0.25 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-bold text-[#00E5FF] font-mono uppercase tracking-wider border-b border-dashed border-zinc-800/60 pb-3 mb-6">
+                <h2 className="text-lg font-bold text-[#00E5FF] tracking-wider border-b border-dashed border-[#00E5FF]/20 pb-3 mb-6">
                   REGISTRO Y HANDSHAKE DE NODO
                 </h2>
-                <p className="text-sm text-zinc-400 max-w-xl">
-                  Iniciá el protocolo de acoplamiento criptográfico para registrar y firmar tu nodo en la red QUBIT Earth:
+                <p className="text-xs text-zinc-400 max-w-xl">
+                  Inicia el protocolo de acoplamiento criptográfico para registrar y firmar tu nodo en la red QUBIT Earth:
                 </p>
 
-                <div className="max-w-md space-y-4 pt-4">
+                <div className="max-w-xl space-y-5 pt-4">
                   <div className="space-y-2">
-                    <label className="block font-mono text-[10px] text-zinc-500 uppercase">Identificador de Nodo</label>
+                    <label className="block text-[9px] tracking-wider text-zinc-500 uppercase">Identificador de Nodo</label>
                     <input
                       type="text"
                       value={nodeName}
                       onChange={(e) => setNodeName(e.target.value)}
                       placeholder="Ej: nodo_buzios_01"
-                      className="w-full bg-black border border-zinc-850 px-4 py-3 rounded-lg text-white font-mono text-sm placeholder-zinc-700 focus:outline-none focus:border-[#00E5FF] transition-colors"
+                      className="w-full bg-black/75 border border-[#00E5FF]/30 focus:border-[#00E5FF] px-4 py-3 rounded text-white text-xs placeholder-zinc-700 focus:outline-none transition-colors shadow-[0_0_10px_rgba(0,229,255,0.05)]"
                     />
                   </div>
 
                   <button
                     onClick={handleRegisterNode}
                     disabled={isRegistering}
-                    className="w-full bg-[#00E5FF]/15 border border-[#00E5FF] hover:bg-[#00E5FF] hover:text-black text-[#00E5FF] font-mono text-xs py-3 rounded-lg font-bold tracking-wider transition-all duration-300 disabled:opacity-50"
+                    className="w-full bg-[#00E5FF]/10 border border-[#00E5FF] hover:bg-[#00E5FF] hover:text-black text-[#00E5FF] font-bold text-xs py-3.5 rounded tracking-widest transition-all duration-300 disabled:opacity-50 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] cursor-pointer"
                   >
                     {isRegistering ? "[ PROCESANDO HANDSHAKE VESICA... ]" : "[ INICIAR HANDSHAKE VESICA ]"}
                   </button>
 
                   {nodeResponse.length > 0 && (
-                    <div className="bg-black border border-zinc-900 p-4 rounded-lg font-mono text-xs text-[#00E5FF] space-y-1.5">
+                    <div className="bg-black/80 border border-[#00E5FF]/20 p-5 rounded text-xs text-[#00E5FF] space-y-1.5 shadow-[0_0_15px_rgba(0,229,255,0.02)]">
                       {nodeResponse.map((res, i) => (
-                        <div key={i}>{res}</div>
+                        <div key={i} className="whitespace-pre-wrap">{res}</div>
                       ))}
                     </div>
                   )}
