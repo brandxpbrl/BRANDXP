@@ -40,7 +40,7 @@ export default function QubitManifestoPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#030306] text-white pt-24 pb-16 relative overflow-hidden">
+    <main className="min-h-screen bg-transparent text-white pt-24 pb-16 relative overflow-hidden">
       {/* Background Cyber Glows */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-radial from-[#10b981]/8 via-transparent to-transparent blur-[120px] opacity-75" />
@@ -111,7 +111,7 @@ export default function QubitManifestoPage() {
                   className="space-y-12"
                 >
                   {/* Poster Grid */}
-                  <div className="relative w-full min-h-[65vh] earth-bg-container flex items-center px-6 md:px-12 py-12 overflow-hidden border border-cyan-500/25 rounded-3xl">
+                  <div className="relative w-full min-h-[65vh] flex items-center px-6 md:px-12 py-12 overflow-hidden border border-cyan-500/25 rounded-3xl bg-black/10 backdrop-blur-sm">
                     {/* Destello de luz ambiental superior */}
                     <div className="absolute top-0 left-1/4 w-[500px] h-[250px] bg-cyan-500/10 blur-[140px] pointer-events-none rounded-full" />
 
