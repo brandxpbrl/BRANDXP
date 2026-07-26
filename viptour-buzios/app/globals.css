@@ -376,3 +376,25 @@ html {
   outline: 2px solid transparent;
   outline-offset: 3px;
 }
+
+/* Patrón de fondo con la estética de la Tierra y malla de nodos global */
+.earth-bg-container {
+  position: relative;
+  background-image: linear-gradient(to right, rgba(2,4,8,0.95) 30%, rgba(2,4,8,0.6) 70%), url('/images/qubit/qubit-poster.jpg');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+/* Estilo para los títulos futuristas (como QUBIT EARTH / MPE) */
+.futuristic-title {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.glow-cyan-box {
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
+  backdrop-filter: blur(12px);
+  background: rgba(5, 10, 20, 0.75);
+}

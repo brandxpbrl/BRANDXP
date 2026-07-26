@@ -111,94 +111,73 @@ export default function QubitManifestoPage() {
                   className="space-y-12"
                 >
                   {/* Poster Grid */}
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                    {/* Left Column - Poster Content */}
-                    <div className="lg:col-span-7 flex flex-col justify-between space-y-8 bg-[#0b0c14]/40 border border-zinc-800/80 p-8 md:p-10 rounded-3xl backdrop-blur-xl relative overflow-hidden">
-                      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-                      
-                      {/* Header */}
-                      <div className="space-y-4">
-                        <div className="space-y-1">
-                          <span className="text-sm font-bold tracking-[0.25em] text-zinc-400 font-mono block">MPE</span>
-                          <span className="text-[9px] font-semibold tracking-[0.18em] text-zinc-500 uppercase font-mono block">MAXIMIZING VIABLE POSSIBILITIES</span>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <h2 className="text-4xl md:text-5.5xl font-black tracking-wider text-white font-mono uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                            QUBIT <span className="text-[#00f2fe] drop-shadow-[0_0_20px_rgba(0,242,254,0.4)]">EARTH</span>
-                          </h2>
-                          <p className="text-sm md:text-base font-semibold tracking-wider text-zinc-300 uppercase leading-relaxed font-mono">
-                            Una red global para <span className="text-[#00f2fe]">observar patrones</span> ocultos en la realidad.
-                          </p>
-                        </div>
-                      </div>
+                  <div className="relative w-full min-h-[65vh] earth-bg-container flex items-center px-6 md:px-12 py-12 overflow-hidden border border-cyan-500/25 rounded-3xl">
+                    {/* Destello de luz ambiental superior */}
+                    <div className="absolute top-0 left-1/4 w-[500px] h-[250px] bg-cyan-500/10 blur-[140px] pointer-events-none rounded-full" />
 
-                      {/* Three Columns of Features */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-4 border-y border-zinc-800/50">
-                        {/* Feature 1 */}
-                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3">
-                          <div className="w-12 h-12 rounded-full bg-cyan-950/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                            <Radio className="w-6 h-6 animate-pulse" />
-                          </div>
-                          <div className="space-y-1">
-                            <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
-                            <span className="text-xs font-black text-cyan-400 font-mono tracking-wider uppercase block">NODOS.</span>
-                          </div>
-                        </div>
-
-                        {/* Feature 2 */}
-                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 sm:border-l sm:border-zinc-800/50 sm:pl-6">
-                          <div className="w-12 h-12 rounded-full bg-teal-950/20 border border-teal-500/30 flex items-center justify-center text-teal-400 shadow-[0_0_15px_rgba(20,184,166,0.15)]">
-                            <Database className="w-6 h-6" />
-                          </div>
-                          <div className="space-y-1">
-                            <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
-                            <span className="text-xs font-black text-teal-400 font-mono tracking-wider uppercase block">DATOS.</span>
-                          </div>
-                        </div>
-
-                        {/* Feature 3 */}
-                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 sm:border-l sm:border-zinc-800/50 sm:pl-6">
-                          <div className="w-12 h-12 rounded-full bg-purple-950/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
-                            <Activity className="w-6 h-6" />
-                          </div>
-                          <div className="space-y-1">
-                            <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
-                            <span className="text-xs font-black text-purple-400 font-mono tracking-wider uppercase block">FUTUROS POSIBLES.</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Bottom Taglines */}
-                      <div className="space-y-4 pt-2">
-                        <p className="text-[11px] md:text-xs font-semibold tracking-[0.2em] text-zinc-300 font-mono uppercase text-center leading-relaxed">
-                          Sé parte del primer sistema que <br className="sm:hidden" />
-                          <span className="text-[#00f2fe]">observa</span>. <span className="text-[#00f2fe]">comprende</span>. <span className="text-[#00f2fe]">anticipa</span>.
-                        </p>
-
-                        {/* Glowing border box */}
-                        <div className="p-3 md:p-4 rounded-xl border border-cyan-500/30 bg-cyan-950/5 flex flex-col md:flex-row justify-between items-center gap-3 text-center md:text-left shadow-[0_0_20px_rgba(6,182,212,0.05)]">
-                          <div className="flex items-center gap-3">
-                            <Globe className="w-5 h-5 text-cyan-400" />
-                            <span className="text-[10px] font-bold tracking-wider text-zinc-300 font-mono uppercase">
-                              Conectá tu nodo. Sumá tu mirada.
-                            </span>
-                          </div>
-                          <span className="text-[10px] font-bold tracking-wider text-cyan-400 font-mono uppercase border-t md:border-t-0 md:border-l border-zinc-800/85 pt-2 md:pt-0 md:pl-4">
-                            Construimos el futuro juntos.
+                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10">
+                      {/* Columna de Texto y Llamado a la Acción */}
+                      <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
+                        <div className="flex items-center space-x-3">
+                          <span className="text-[11px] font-mono tracking-[0.3em] text-cyan-400 uppercase bg-cyan-950/60 border border-cyan-500/30 px-3 py-1 rounded">
+                            MPE / MAXIMIZING VIABLE POSSIBILITIES
                           </span>
                         </div>
-                      </div>
-                    </div>
 
-                    {/* Right Column - Earth Visual Image */}
-                    <div className="lg:col-span-5 relative rounded-3xl overflow-hidden border border-zinc-800/80 shadow-2xl min-h-[350px] lg:min-h-auto">
-                      <img
-                        src="/images/qubit/qubit-poster.jpg"
-                        alt="QUBIT Earth Visual Metasystem"
-                        className="absolute inset-0 w-full h-full object-cover object-right"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-none text-white futuristic-title font-mono">
+                          QUBIT <span className="text-cyan-400 block md:inline drop-shadow-[0_0_15px_rgba(0,242,254,0.4)]">EARTH</span>
+                        </h2>
+
+                        <p className="text-slate-350 text-sm md:text-base max-w-xl font-light leading-relaxed font-mono">
+                          Una red global para <span className="text-cyan-300 font-medium">observar patrones ocultos</span> en la realidad. Entender lo complejo para ampliar lo posible.
+                        </p>
+
+                        {/* Métricas de Nodos / Datos / Futuros */}
+                        <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800/80 max-w-lg">
+                          <div className="border-l-2 border-cyan-500/50 pl-3">
+                            <span className="block text-[9px] font-mono text-slate-400 uppercase tracking-wider">Primeros</span>
+                            <span className="text-sm font-bold text-cyan-300 font-mono">Nodos.</span>
+                          </div>
+                          <div className="border-l-2 border-cyan-500/50 pl-3">
+                            <span className="block text-[9px] font-mono text-slate-400 uppercase tracking-wider">Primeros</span>
+                            <span className="text-sm font-bold text-cyan-300 font-mono">Datos.</span>
+                          </div>
+                          <div className="border-l-2 border-purple-500/50 pl-3">
+                            <span className="block text-[9px] font-mono text-slate-400 uppercase tracking-wider">Primeros</span>
+                            <span className="text-sm font-bold text-purple-300 font-mono">Futuros.</span>
+                          </div>
+                        </div>
+
+                        {/* Frase de cierre y Botón de Conexión */}
+                        <div className="pt-4 space-y-4">
+                          <p className="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+                            Sé parte del primer sistema que <span className="text-white font-semibold">observa. comprende. anticipa.</span>
+                          </p>
+
+                          <motion.a 
+                            href="#conectar"
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.99 }}
+                            className="inline-flex items-center justify-between w-full max-w-lg px-6 py-4 rounded-xl glow-cyan-box text-cyan-300 hover:text-white transition-all group border border-cyan-500/40"
+                          >
+                            <div className="flex items-center space-x-3">
+                              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f2fe]" />
+                              <span className="text-xs font-mono tracking-wider uppercase">Conectá tu nodo. Sumá tu mirada.</span>
+                            </div>
+                            <span className="text-cyan-400 group-hover:translate-x-1 transition-transform font-bold font-mono">| CONSTRUIMOS EL FUTURO JUNTOS.</span>
+                          </motion.a>
+                        </div>
+                      </div>
+
+                      {/* Columna Derecha: Glass Box */}
+                      <div className="lg:col-span-5 hidden lg:flex justify-center items-center">
+                        <div className="relative w-full h-[320px] rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-cyan-950/20 to-black/60 backdrop-blur-md overflow-hidden flex items-center justify-center p-6 shadow-2xl">
+                           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,242,254,0.08)_0%,transparent_70%)]" />
+                           <span className="text-[10px] font-mono text-cyan-400/60 tracking-[0.2em] uppercase animate-pulse">
+                             [LIVE MPE SATELLITE FEED ACTIVE]
+                           </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
