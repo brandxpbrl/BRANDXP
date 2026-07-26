@@ -5,8 +5,10 @@ import MasterSolutionsGrid from "@/components/MasterSolutionsGrid";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-transparent bg-portal-fixed text-white flex flex-col justify-between relative overflow-hidden">
-      <MasterSolutionsGrid />
+    <main className="min-h-screen bg-transparent text-white flex flex-col justify-between relative overflow-hidden">
+      <div className="fixed inset-0 bg-portal-fixed z-0 pointer-events-none" />
+      <div className="relative z-10 w-full flex-grow flex flex-col justify-between">
+        <MasterSolutionsGrid />
 
       {/* Cybernetic Footer */}
       <footer className="border-t border-white/5 bg-black/40 px-6 py-8 text-center text-xs text-gray-500 z-10 backdrop-blur-sm">
@@ -19,6 +21,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      </div>
     </main>
   );
 }
