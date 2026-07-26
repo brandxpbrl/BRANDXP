@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   Cpu,
@@ -34,15 +35,15 @@ export default function QubitManifestoPage() {
   ]);
 
   const carouselSlides = [
-    { title: "Cada nodo puede registrar...", desc: "Capa sensorial: acústica, lumínica, y fluctuaciones de fase local.", img: "/images/qubit/qubit-3.png" },
-    { title: "Earth Memory", desc: "Data Lake distribuido basado en almacenamiento JSON Lines inmutable.", img: "/images/qubit/qubit-4.png" },
-    { title: "Después entra MPE", desc: "Cálculo de tensores topológicos y predicción estocástica de futuros viables.", img: "/images/qubit/qubit-5.png" },
-    { title: "Estabilidad Criptográfica", desc: "Handshake Vesica y firmas de autenticidad en red Zero-Trust.", img: "/images/qubit/qubit-6.png" },
-    { title: "Computador Cosmológico", desc: "Organización geométrica de redes de sensores distribuidos.", img: "/images/qubit/qubit-7.png" },
-    { title: "Topología Territorial", desc: "Resonancia local y Proof of Resonance (PoR) descentralizado.", img: "/images/qubit/qubit-8.png" },
-    { title: "Puntaje DELTA Test", desc: "Tokenomics evolutivos del token DELTA para recompensar el aporte útil.", img: "/images/qubit/qubit-9.png" },
-    { title: "Gobernanza Cívica", desc: "Reglas meritocráticas basadas en reputación y no solo en tokens.", img: "/images/qubit/qubit-10.png" },
-    { title: "Roadmap Sistémico", desc: "Transición desde laboratorio hacia despliegue de ciudades piloto abiertas.", img: "/images/qubit/qubit-11.png" }
+    { title: "¿Y si la realidad pudiera observarse como un sistema vivo?", desc: "Nuestra misión: entender lo complejo para ampliar lo posible.", img: "/images/qubit/qubit-1.png" },
+    { title: "Qubit no es una app. Es una red de sensores...", desc: "Que mide señales reales del entorno. Decisiones con impacto real.", img: "/images/qubit/qubit-3.png" },
+    { title: "Cada nodo puede registrar...", desc: "Audio, luz, movimiento, frecuencia, fase y coherencia. Revelando la realidad tal como es.", img: "/images/qubit/qubit-4.png" },
+    { title: "Toda esa información entra en Earth Memory...", desc: "Una memoria viva con millones de eventos registrados y datos validados.", img: "/images/qubit/qubit-5.png" },
+    { title: "Después entra MPE...", desc: "El sistema que busca patrones, resonancia y estados emergentes. Revelando lo invisible.", img: "/images/qubit/qubit-6.png" },
+    { title: "Qubit no solo mira el presente...", desc: "Su próximo paso es QSIM: Simular futuros posibles.", img: "/images/qubit/qubit-7.png" },
+    { title: "Simular futuros posibles con QSIM...", desc: "Del dato al futuro. De la red a nuestro destino.", img: "/images/qubit/qubit-8.png" },
+    { title: "Recompensa y Delta Points...", desc: "Los participantes podrán acumular Delta Points por aportar datos útiles y verificados a la red.", img: "/images/qubit/qubit-9.png" },
+    { title: "Qubit Earth: Una red global...", desc: "Sé parte del primer sistema que observa, comprende, anticipa. Conectá tu nodo, sumá tu energía.", img: "/images/qubit/qubit-10.png" }
   ];
 
   useEffect(() => {
@@ -218,10 +219,12 @@ export default function QubitManifestoPage() {
 
                       <div className="md:col-span-7 flex justify-center">
                         <div className="relative w-full max-w-lg aspect-square md:aspect-video rounded-lg overflow-hidden border border-zinc-850 bg-black/40">
-                          <img
+                          <Image
                             src={carouselSlides[currentSlide].img}
                             alt={carouselSlides[currentSlide].title}
-                            className="w-full h-full object-contain"
+                            fill
+                            priority
+                            className="object-contain"
                           />
                         </div>
                       </div>
@@ -439,10 +442,11 @@ export default function QubitManifestoPage() {
 
                       <div className="lg:col-span-7 flex justify-center">
                         <div className="relative w-full max-w-lg aspect-square md:aspect-video rounded-lg overflow-hidden border border-zinc-850 bg-black/40 group">
-                          <img
+                          <Image
                             src="/images/qubit/qubit-2.png"
                             alt="Qubit Node Technical Blueprint"
-                            className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
+                            fill
+                            className="object-contain group-hover:scale-[1.02] transition-transform duration-500"
                           />
                         </div>
                       </div>
