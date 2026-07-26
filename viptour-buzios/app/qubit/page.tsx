@@ -108,95 +108,125 @@ export default function QubitManifestoPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.3 }}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+                  className="space-y-12"
                 >
-                  {/* Left Column - Poster Content */}
-                  <div className="lg:col-span-7 flex flex-col justify-between space-y-8 bg-[#0b0c14]/40 border border-zinc-800/80 p-8 md:p-10 rounded-3xl backdrop-blur-xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-                    
-                    {/* Header */}
-                    <div className="space-y-4">
-                      <div className="space-y-1">
-                        <span className="text-sm font-bold tracking-[0.25em] text-zinc-400 font-mono block">MPE</span>
-                        <span className="text-[9px] font-semibold tracking-[0.18em] text-zinc-500 uppercase font-mono block">MAXIMIZING VIABLE POSSIBILITIES</span>
-                      </div>
+                  {/* Poster Grid */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    {/* Left Column - Poster Content */}
+                    <div className="lg:col-span-7 flex flex-col justify-between space-y-8 bg-[#0b0c14]/40 border border-zinc-800/80 p-8 md:p-10 rounded-3xl backdrop-blur-xl relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
                       
-                      <div className="space-y-2">
-                        <h2 className="text-4xl md:text-5.5xl font-black tracking-wider text-white font-mono uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                          QUBIT <span className="text-[#00f2fe] drop-shadow-[0_0_20px_rgba(0,242,254,0.4)]">EARTH</span>
-                        </h2>
-                        <p className="text-sm md:text-base font-semibold tracking-wider text-zinc-300 uppercase leading-relaxed font-mono">
-                          Una red global para <span className="text-[#00f2fe]">observar patrones</span> ocultos en la realidad.
+                      {/* Header */}
+                      <div className="space-y-4">
+                        <div className="space-y-1">
+                          <span className="text-sm font-bold tracking-[0.25em] text-zinc-400 font-mono block">MPE</span>
+                          <span className="text-[9px] font-semibold tracking-[0.18em] text-zinc-500 uppercase font-mono block">MAXIMIZING VIABLE POSSIBILITIES</span>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <h2 className="text-4xl md:text-5.5xl font-black tracking-wider text-white font-mono uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                            QUBIT <span className="text-[#00f2fe] drop-shadow-[0_0_20px_rgba(0,242,254,0.4)]">EARTH</span>
+                          </h2>
+                          <p className="text-sm md:text-base font-semibold tracking-wider text-zinc-300 uppercase leading-relaxed font-mono">
+                            Una red global para <span className="text-[#00f2fe]">observar patrones</span> ocultos en la realidad.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Three Columns of Features */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-4 border-y border-zinc-800/50">
+                        {/* Feature 1 */}
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3">
+                          <div className="w-12 h-12 rounded-full bg-cyan-950/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+                            <Radio className="w-6 h-6 animate-pulse" />
+                          </div>
+                          <div className="space-y-1">
+                            <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
+                            <span className="text-xs font-black text-cyan-400 font-mono tracking-wider uppercase block">NODOS.</span>
+                          </div>
+                        </div>
+
+                        {/* Feature 2 */}
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 sm:border-l sm:border-zinc-800/50 sm:pl-6">
+                          <div className="w-12 h-12 rounded-full bg-teal-950/20 border border-teal-500/30 flex items-center justify-center text-teal-400 shadow-[0_0_15px_rgba(20,184,166,0.15)]">
+                            <Database className="w-6 h-6" />
+                          </div>
+                          <div className="space-y-1">
+                            <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
+                            <span className="text-xs font-black text-teal-400 font-mono tracking-wider uppercase block">DATOS.</span>
+                          </div>
+                        </div>
+
+                        {/* Feature 3 */}
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 sm:border-l sm:border-zinc-800/50 sm:pl-6">
+                          <div className="w-12 h-12 rounded-full bg-purple-950/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                            <Activity className="w-6 h-6" />
+                          </div>
+                          <div className="space-y-1">
+                            <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
+                            <span className="text-xs font-black text-purple-400 font-mono tracking-wider uppercase block">FUTUROS POSIBLES.</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Bottom Taglines */}
+                      <div className="space-y-4 pt-2">
+                        <p className="text-[11px] md:text-xs font-semibold tracking-[0.2em] text-zinc-300 font-mono uppercase text-center leading-relaxed">
+                          Sé parte del primer sistema que <br className="sm:hidden" />
+                          <span className="text-[#00f2fe]">observa</span>. <span className="text-[#00f2fe]">comprende</span>. <span className="text-[#00f2fe]">anticipa</span>.
                         </p>
-                      </div>
-                    </div>
 
-                    {/* Three Columns of Features */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-4 border-y border-zinc-800/50">
-                      {/* Feature 1 */}
-                      <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3">
-                        <div className="w-12 h-12 rounded-full bg-cyan-950/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                          <Radio className="w-6 h-6 animate-pulse" />
-                        </div>
-                        <div className="space-y-1">
-                          <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
-                          <span className="text-xs font-black text-cyan-400 font-mono tracking-wider uppercase block">NODOS.</span>
-                        </div>
-                      </div>
-
-                      {/* Feature 2 */}
-                      <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 sm:border-l sm:border-zinc-800/50 sm:pl-6">
-                        <div className="w-12 h-12 rounded-full bg-teal-950/20 border border-teal-500/30 flex items-center justify-center text-teal-400 shadow-[0_0_15px_rgba(20,184,166,0.15)]">
-                          <Database className="w-6 h-6" />
-                        </div>
-                        <div className="space-y-1">
-                          <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
-                          <span className="text-xs font-black text-teal-400 font-mono tracking-wider uppercase block">DATOS.</span>
-                        </div>
-                      </div>
-
-                      {/* Feature 3 */}
-                      <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-3 sm:border-l sm:border-zinc-800/50 sm:pl-6">
-                        <div className="w-12 h-12 rounded-full bg-purple-950/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
-                          <Activity className="w-6 h-6" />
-                        </div>
-                        <div className="space-y-1">
-                          <span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest uppercase block">PRIMEROS</span>
-                          <span className="text-xs font-black text-purple-400 font-mono tracking-wider uppercase block">FUTUROS POSIBLES.</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom Taglines */}
-                    <div className="space-y-4 pt-2">
-                      <p className="text-[11px] md:text-xs font-semibold tracking-[0.2em] text-zinc-300 font-mono uppercase text-center leading-relaxed">
-                        Sé parte del primer sistema que <br className="sm:hidden" />
-                        <span className="text-[#00f2fe]">observa</span>. <span className="text-[#00f2fe]">comprende</span>. <span className="text-[#00f2fe]">anticipa</span>.
-                      </p>
-
-                      {/* Glowing border box */}
-                      <div className="p-3 md:p-4 rounded-xl border border-cyan-500/30 bg-cyan-950/5 flex flex-col md:flex-row justify-between items-center gap-3 text-center md:text-left shadow-[0_0_20px_rgba(6,182,212,0.05)]">
-                        <div className="flex items-center gap-3">
-                          <Globe className="w-5 h-5 text-cyan-400" />
-                          <span className="text-[10px] font-bold tracking-wider text-zinc-300 font-mono uppercase">
-                            Conectá tu nodo. Sumá tu mirada.
+                        {/* Glowing border box */}
+                        <div className="p-3 md:p-4 rounded-xl border border-cyan-500/30 bg-cyan-950/5 flex flex-col md:flex-row justify-between items-center gap-3 text-center md:text-left shadow-[0_0_20px_rgba(6,182,212,0.05)]">
+                          <div className="flex items-center gap-3">
+                            <Globe className="w-5 h-5 text-cyan-400" />
+                            <span className="text-[10px] font-bold tracking-wider text-zinc-300 font-mono uppercase">
+                              Conectá tu nodo. Sumá tu mirada.
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-bold tracking-wider text-cyan-400 font-mono uppercase border-t md:border-t-0 md:border-l border-zinc-800/85 pt-2 md:pt-0 md:pl-4">
+                            Construimos el futuro juntos.
                           </span>
                         </div>
-                        <span className="text-[10px] font-bold tracking-wider text-cyan-400 font-mono uppercase border-t md:border-t-0 md:border-l border-zinc-800/85 pt-2 md:pt-0 md:pl-4">
-                          Construimos el futuro juntos.
-                        </span>
                       </div>
+                    </div>
+
+                    {/* Right Column - Earth Visual Image */}
+                    <div className="lg:col-span-5 relative rounded-3xl overflow-hidden border border-zinc-800/80 shadow-2xl min-h-[350px] lg:min-h-auto">
+                      <img
+                        src="/images/qubit/qubit-poster.jpg"
+                        alt="QUBIT Earth Visual Metasystem"
+                        className="absolute inset-0 w-full h-full object-cover object-right"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
                     </div>
                   </div>
 
-                  {/* Right Column - Earth Visual Image */}
-                  <div className="lg:col-span-5 relative rounded-3xl overflow-hidden border border-zinc-800/80 shadow-2xl min-h-[350px] lg:min-h-auto">
-                    <img
-                      src="/images/qubit/qubit-poster.jpg"
-                      alt="QUBIT Earth Visual Metasystem"
-                      className="absolute inset-0 w-full h-full object-cover object-right"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+                  {/* Theoretical Manifesto Section */}
+                  <div className="border-t border-zinc-850 pt-10 space-y-8">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-2 font-mono uppercase tracking-wider text-emerald-400">
+                        Filosofía & Visión Fundacional
+                      </h3>
+                      <p className="text-zinc-400 text-sm">El origen conceptual del prototipo y la hipótesis central del metaverso distribuido.</p>
+                    </div>
+
+                    <div className="p-8 rounded-2xl bg-gradient-to-br from-[#0c1815] to-[#040807] border border-emerald-500/20">
+                      <blockquote className="text-lg md:text-xl font-light italic text-emerald-100">
+                        “Si los datos humanos construyen el mundo digital, las personas deben gobernar ese mundo y participar de su valor de forma proporcional.”
+                      </blockquote>
+                      <p className="mt-4 text-xs font-mono text-zinc-500 uppercase tracking-widest">— Tesis Central, Whitepaper V0.1</p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-bold text-emerald-300 font-mono uppercase">Computador Cosmológico</h4>
+                      <p className="text-zinc-300 text-sm leading-relaxed">
+                        FaseOS organiza su arquitectura utilizando geometrías complejas como la <strong>Vesica Piscis</strong>, la <strong>Flor de la Vida</strong> y el <strong>Cubo Maestro</strong> no solo como lenguaje visual, sino como mapas topológicos para organizar y balancear redes de sensores distribuidos.
+                      </p>
+                      <p className="text-zinc-400 text-xs leading-relaxed italic border-l-2 border-zinc-700 pl-4">
+                        *Nota científica del laboratorio: FaseOS no busca ocultar el cálculo; lo convierte en experiencia perceptible a través de la vista (geometrías y mandalas), el sonido (tonos de coherencia) y registros inmutables.
+                      </p>
+                    </div>
                   </div>
                 </motion.div>
               )}
