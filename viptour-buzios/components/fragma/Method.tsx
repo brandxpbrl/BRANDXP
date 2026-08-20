@@ -11,7 +11,7 @@ const steps = [
   { num: "06", title: "Vídeo", desc: "Filmagens cinemáticas em alta definição focadas em despertar desejo de consumo e experiência." },
   { num: "07", title: "Website", desc: "Design & UX integrado de altíssimo valor e conversão direta." },
   { num: "08", title: "IA & Automação", desc: "Sistemas inteligentes de atendimento concierge e automações de fluxo de trabalho." },
-  { num: "09", title: "Resultado", desc: "Aumento real do valor percebido, gerando reservas e vendas orgânicas qualificadas." },
+  { num: "09", title: "Acompanhamento", desc: "Organização da entrega, documentação do sistema e orientação para a evolução contínua da experiência." },
 ];
 
 export default function Method() {
@@ -71,4 +71,3 @@ export default function Method() {
     </section>
   );
 }
-

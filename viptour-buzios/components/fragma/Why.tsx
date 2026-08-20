@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Eye, Compass, LayoutGrid, Hotel, Waves, Flame, Landmark, User, Coffee, Target } from "lucide-react";
+import { Sparkles, Eye, Compass, LayoutGrid, Hotel, Waves, Flame, Landmark, User, Coffee } from "lucide-react";
 
 const whyCards = [
   {

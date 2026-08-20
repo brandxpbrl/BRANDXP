@@ -420,3 +420,117 @@ html {
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
+
+/* FRAGMA Brand Experience: scoped foundations kept isolated from the portal theme. */
+.fragma-scope {
+  --fragma-warm-ivory: #faf7f2;
+  --fragma-neutral-sand: #eee9e1;
+  --fragma-limestone: #d9d1c6;
+  --fragma-taupe: #c8b6a7;
+  --fragma-light-wood: #b69a80;
+  --fragma-earth: #8e7867;
+  --fragma-ink: #1f1f1f;
+  --fragma-horizon-light: linear-gradient(115deg, #dce4e5 0%, #eee9e1 42%, #f2d8c3 72%, #dca58b 100%);
+  --fragma-section-mobile: 5.5rem;
+  --fragma-section-desktop: 10rem;
+  --fragma-content-max: 1360px;
+  --fragma-radius-xs: 2px;
+  --fragma-radius-sm: 4px;
+  --fragma-radius-md: 8px;
+}
+.fragma-scope .fragma-section { padding-block: var(--fragma-section-mobile); }
+.fragma-scope .fragma-display { font-family: var(--fragma-font-display); }
+.fragma-scope .fragma-body { font-family: var(--fragma-font-body); }
+.fragma-scope .fragma-eyebrow { color: var(--fragma-earth); font-family: var(--fragma-font-body); font-size: .6875rem; font-weight: 700; letter-spacing: .2em; line-height: 1.4; text-transform: uppercase; }
+.fragma-scope .fragma-button { align-items: center; border: 1px solid var(--fragma-earth); border-radius: var(--fragma-radius-sm); display: inline-flex; font-family: var(--fragma-font-body); font-size: .6875rem; font-weight: 700; justify-content: center; letter-spacing: .14em; min-height: 2.75rem; padding: .75rem 1.25rem; text-transform: uppercase; transition: background-color 300ms ease, color 300ms ease, transform 300ms ease; }
+.fragma-scope .fragma-button:hover { transform: translateY(-2px); }
+.fragma-scope .fragma-button-earth { background: var(--fragma-earth); color: var(--fragma-warm-ivory); }
+.fragma-scope .fragma-button-light { background: transparent; color: var(--fragma-ink); }
+.fragma-scope .fragma-button:focus-visible { outline: 2px solid var(--fragma-light-wood); outline-offset: 4px; }
+.fragma-scope .fragma-horizon-light { background: var(--fragma-horizon-light); opacity: .08; pointer-events: none; }
+.fragma-scope .fragma-logo-pair { align-items: center; display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
+.fragma-scope .fragma-logo { height: auto; max-width: min(10rem, 35vw); object-fit: contain; }
+.fragma-scope .fragma-logo-divider { background: color-mix(in srgb, var(--fragma-ink) 20%, transparent); height: 2.75rem; width: 1px; }
+@media (min-width: 768px) { .fragma-scope .fragma-section { padding-block: var(--fragma-section-desktop); } }
+@media (prefers-reduced-motion: reduce) { .fragma-scope .fragma-button { transition: none; } }
+
+/* Phase 2 visual pass: the route keeps its existing component structure but
+   presents one restrained FRAGMA editorial surface instead of mixed themes. */
+.fragma-phase-two {
+  background: var(--fragma-warm-ivory);
+  color: var(--fragma-ink);
+  font-family: var(--fragma-font-body);
+}
+
+.fragma-phase-two > section {
+  background-color: var(--fragma-warm-ivory) !important;
+  border-color: rgba(31, 31, 31, 0.12) !important;
+  color: var(--fragma-ink);
+  padding-block: var(--fragma-section-mobile) !important;
+}
+
+.fragma-phase-two > section:nth-of-type(even) {
+  background-color: var(--fragma-neutral-sand) !important;
+}
+
+.fragma-phase-two section [class*="text-white"],
+.fragma-phase-two section [class*="text-[#F7F7F7"] {
+  color: var(--fragma-ink) !important;
+}
+
+.fragma-phase-two section [class*="text-gray-400"],
+.fragma-phase-two section [class*="text-gray-500"],
+.fragma-phase-two section [class*="text-gray-600"] {
+  color: var(--fragma-earth) !important;
+}
+
+.fragma-phase-two section [class*="text-[#D6A24A"],
+.fragma-phase-two section [class*="text-[#FF3D8E"],
+.fragma-phase-two section [class*="text-[#29B8FF"],
+.fragma-phase-two section [class*="text-[#0ea5e9"] {
+  color: var(--fragma-earth) !important;
+}
+
+.fragma-phase-two section [class*="bg-[#050505"],
+.fragma-phase-two section [class*="bg-[#07090e"],
+.fragma-phase-two section [class*="bg-[#0d0d0d"],
+.fragma-phase-two section [class*="bg-[#0D0D0D"],
+.fragma-phase-two section [class*="bg-[#0b0e14"] {
+  background-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+.fragma-phase-two section [class*="bg-white/5"] {
+  background-color: rgba(31, 31, 31, 0.04) !important;
+}
+
+.fragma-phase-two section [class*="border-white"] {
+  border-color: rgba(31, 31, 31, 0.12) !important;
+}
+
+.fragma-phase-two section [style*="background-image"] {
+  background-image: none !important;
+}
+
+.fragma-phase-two h1,
+.fragma-phase-two h2,
+.fragma-phase-two h3,
+.fragma-phase-two h4 {
+  font-family: var(--fragma-font-display);
+}
+
+.fragma-phase-two p,
+.fragma-phase-two li,
+.fragma-phase-two a,
+.fragma-phase-two button,
+.fragma-phase-two span {
+  font-family: var(--fragma-font-body);
+}
+
+.fragma-phase-two h1 span,
+.fragma-phase-two h2 span {
+  color: var(--fragma-light-wood) !important;
+}
+
+@media (min-width: 768px) {
+  .fragma-phase-two > section { padding-block: var(--fragma-section-desktop) !important; }
+}

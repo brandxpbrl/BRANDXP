@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function CaseStudy() {
@@ -193,24 +192,10 @@ export default function CaseStudy() {
           </div>
         </div>
 
-        {/* Real Metrics from presentation board */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/5 pt-10">
-          <div className="text-center md:text-left">
-            <span className="block text-3xl sm:text-5xl font-black text-[#D6A24A] font-mono">+273%</span>
-            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mt-1">AUMENTO DE RESERVAS</span>
-          </div>
-          <div className="text-center md:text-left">
-            <span className="block text-3xl sm:text-5xl font-black text-[#FF3D8E] font-mono">+185%</span>
-            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mt-1">VISIBILIDADE NO GOOGLE</span>
-          </div>
-          <div className="text-center md:text-left">
-            <span className="block text-3xl sm:text-5xl font-black text-[#29B8FF] font-mono">+300%</span>
-            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mt-1">ENGAJAMENTO NAS REDES</span>
-          </div>
-          <div className="text-center md:text-left">
-            <span className="block text-3xl sm:text-5xl font-black text-white font-mono">+100%</span>
-            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mt-1">PERCEPÇÃO DE VALOR</span>
-          </div>
+        <div className="border-t border-white/5 pt-10">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500">
+            Resultados quantitativos: pendientes de documentación y validación.
+          </p>
         </div>
       </div>
     </section>

@@ -24,8 +24,8 @@ const reasons = [
   },
   {
     icon: Award,
-    title: "Resultado",
-    desc: "Nosso objetivo não é criar imagens bonitas. É aumentar o valor percebido e a conversão direta de reservas do seu negócio.",
+    title: "Aplicação",
+    desc: "Nosso objetivo não é criar imagens bonitas isoladas. É organizar uma experiência coerente para que a marca comunique valor em cada ponto de contato.",
     color: "#D6A24A"
   }
 ];
