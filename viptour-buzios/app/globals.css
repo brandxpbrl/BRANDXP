@@ -448,7 +448,10 @@ html {
 .fragma-scope .fragma-button-light { background: transparent; color: var(--fragma-ink); }
 .fragma-scope .fragma-button:focus-visible { outline: 2px solid var(--fragma-light-wood); outline-offset: 4px; }
 .fragma-scope .fragma-horizon-light { background: var(--fragma-horizon-light); opacity: .08; pointer-events: none; }
-.fragma-scope .fragma-logo-pair { align-items: center; display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
+.fragma-scope .fragma-logo-pair { align-items: center; display: flex; flex-wrap: wrap; gap: clamp(1rem, 3vw, 2.5rem); }
+.fragma-scope .fragma-logo-wordmark { color: var(--fragma-ink); display: inline-flex; flex-direction: column; line-height: .95; text-transform: uppercase; white-space: nowrap; }
+.fragma-scope .fragma-logo-wordmark-main { font-family: var(--fragma-font-display); font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 500; letter-spacing: .28em; }
+.fragma-scope .fragma-logo-wordmark-sub { font-family: var(--fragma-font-body); font-size: clamp(.42rem, .8vw, .56rem); font-weight: 700; letter-spacing: .34em; margin-top: .35rem; }
 .fragma-scope .fragma-logo { height: auto; max-width: min(10rem, 35vw); object-fit: contain; }
 .fragma-scope .fragma-logo-divider { background: color-mix(in srgb, var(--fragma-ink) 20%, transparent); height: 2.75rem; width: 1px; }
 @media (min-width: 768px) { .fragma-scope .fragma-section { padding-block: var(--fragma-section-desktop); } }
