@@ -14,14 +14,14 @@ export default function Method() {
   return (
     <section id="method" className="fragma-method-section px-6">
       <div className="mx-auto max-w-[var(--fragma-content-max)]">
-        <div className="mb-16 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] lg:items-end">
+        <div className="fragma-section-heading mb-14">
           <div className="space-y-5">
             <span className="fragma-eyebrow">FRAGMA method</span>
-            <h2 className="fragma-display max-w-3xl text-4xl leading-[1.04] tracking-[-0.035em] text-[#1F1F1F] sm:text-6xl">
+            <h2 className="fragma-display fragma-fluid-heading max-w-3xl text-[#1F1F1F]">
               Antes de produzir, entendemos.
             </h2>
           </div>
-          <p className="fragma-body max-w-md text-base leading-8 text-[#8E7867]">
+          <p className="fragma-body fragma-section-copy text-base leading-8 text-[#8E7867]">
             Um percurso editorial para transformar intenção em uma experiência clara, reconhecível e consistente.
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function Method() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="fragma-method-step min-h-[15rem] p-6 sm:p-7"
+              className="fragma-method-step h-full min-h-[15rem] p-6 sm:p-7"
             >
               <span className="fragma-index">{step.num}</span>
               <h3 className="fragma-display mt-10 text-2xl leading-tight text-[#1F1F1F]">{step.title}</h3>

@@ -15,6 +15,7 @@ export type FragmaVisualFrame = {
   alt: string;
   label: string;
   aspect: string;
+  fit?: "cover" | "contain";
 };
 
 export type FragmaCaseAsset = {
@@ -22,6 +23,7 @@ export type FragmaCaseAsset = {
   alt: string;
   label: string;
   role: "identity" | "storytelling" | "digital";
+  fit?: "cover" | "contain";
 };
 
 export const fragmaCases: FragmaCase[] = [
@@ -63,12 +65,14 @@ export const fragmaVisualFrames: FragmaVisualFrame[] = [
     alt: "Material visual de BUZIOSAMA sobre retiros",
     label: "BUZIOSAMA / RETIROS",
     aspect: "aspect-[3/2]",
+    fit: "contain",
   },
   {
     src: "/images/buziosama-board.jpg",
     alt: "Material visual de BUZIOSAMA sobre identidade",
     label: "BUZIOSAMA / IDENTIDADE",
     aspect: "aspect-[3/2]",
+    fit: "contain",
   },
   {
     src: "/images/buziosama-decor.jpg",
@@ -84,29 +88,34 @@ export const fragmaCasaDaVoAssets: FragmaCaseAsset[] = [
     alt: "Brand core de Casa da Vo Buzios con identidad, valores y sistema visual",
     label: "IDENTITY / BRAND CORE",
     role: "identity",
+    fit: "contain",
   },
   {
     src: "/images/fragma/cases/casa-da-vo/storytelling/property-welcome.png",
     alt: "Pieza de bienvenida de Casa da Vo con la fachada de la casa",
     label: "STORYTELLING / WELCOME",
     role: "storytelling",
+    fit: "contain",
   },
   {
     src: "/images/fragma/cases/casa-da-vo/storytelling/slow-days.png",
     alt: "Pieza editorial Dias sem pressa para Casa da Vo",
     label: "STORYTELLING / ATMOSPHERE",
     role: "storytelling",
+    fit: "contain",
   },
   {
     src: "/images/fragma/cases/casa-da-vo/storytelling/family-memories.png",
     alt: "Pieza editorial Momentos que viram memorias para Casa da Vo",
     label: "STORYTELLING / MEMORY",
     role: "storytelling",
+    fit: "contain",
   },
   {
     src: "/images/fragma/cases/casa-da-vo/digital/five-reasons.png",
     alt: "Pieza digital Cinco pequenos motivos para elegir Casa da Vo",
     label: "DIGITAL / CONTENT PIECE",
     role: "digital",
+    fit: "contain",
   },
 ];

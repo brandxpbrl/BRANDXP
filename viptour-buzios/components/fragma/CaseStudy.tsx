@@ -28,42 +28,42 @@ export default function CaseStudy() {
   return (
     <section id="case-study" className="fragma-case-section px-6 md:px-10 lg:px-16">
       <div className="mx-auto max-w-[1360px]">
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="fragma-section-heading">
           <div className="max-w-3xl">
             <span className="fragma-eyebrow">Trabalhos em destaque / Case real</span>
-            <h2 className="fragma-display mt-6 text-5xl tracking-[-0.04em] sm:text-7xl">BUZIOSAMA</h2>
-            <p className="fragma-display mt-6 max-w-2xl text-2xl leading-tight text-[#514940] sm:text-3xl">
+            <h2 className="fragma-display fragma-fluid-heading mt-6">BUZIOSAMA</h2>
+            <p className="fragma-display fragma-fluid-subtitle mt-6 max-w-2xl text-[#514940]">
               Um refúgio de hospitalidade consciente, organizado para ser percebido com presença.
             </p>
           </div>
-          <div className="flex max-w-sm flex-wrap gap-2 lg:justify-end">
+          <div className="flex max-w-full flex-wrap gap-2 xl:justify-end">
             {['Identidade', 'Direção visual', 'Aplicações digitais'].map((tag) => (
               <span key={tag} className="fragma-tag">{tag}</span>
             ))}
           </div>
         </div>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-stretch">
+        <div className="mt-16 grid gap-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-stretch">
           <motion.figure
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8 }}
-            className="fragma-feature-image relative aspect-[4/3] overflow-hidden rounded-[4px]"
+            className="fragma-feature-image relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#EEE9E1]"
           >
             <Image
               src="/images/buziosama-retiros.jpg"
               alt="Atmosfera natural do case BUZIOSAMA"
               fill
-              sizes="(max-width: 1024px) 100vw, 68vw"
-              className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+              sizes="(max-width: 1280px) 100vw, 68vw"
+              className="object-contain p-2 transition-transform duration-700 hover:scale-[1.015]"
             />
             <figcaption className="absolute bottom-5 left-5 text-[10px] font-bold uppercase tracking-[0.22em] text-white">
               BUZIOSAMA / seleção visual documentada
             </figcaption>
           </motion.figure>
 
-          <div className="fragma-case-copy flex flex-col justify-between gap-10 border-l border-black/10 pl-0 lg:pl-10">
+          <div className="fragma-case-copy flex flex-col justify-between gap-10 border-t border-black/10 pt-8 xl:border-l xl:border-t-0 xl:pl-10 xl:pt-0">
             <div>
               <span className="fragma-eyebrow">A essência</span>
               <p className="fragma-body mt-5 text-base leading-7 text-[#514940]">
@@ -82,7 +82,7 @@ export default function CaseStudy() {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-5 border-t border-black/10 pt-16 md:grid-cols-3">
+        <div className="mt-16 grid gap-5 border-t border-black/10 pt-16 sm:grid-cols-2 lg:grid-cols-3">
           {visualCards.map((card, index) => (
             <motion.figure
               key={card.src}

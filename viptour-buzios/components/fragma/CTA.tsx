@@ -5,14 +5,14 @@ import { FragmaHorizonLight } from "@/components/fragma/foundations";
 
 export default function CTA() {
   return (
-    <section id="solicitar" className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#FAF7F2] py-24 px-6 border-t border-black/10">
+    <section id="solicitar" className="relative flex min-h-[80svh] w-full items-center justify-center overflow-hidden border-t border-black/10 bg-[#FAF7F2] px-6 py-24">
       
       {/* Dark Cinematic Background & Soft Blurred Lights */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <FragmaHorizonLight className="absolute inset-x-0 bottom-0 h-2/3 opacity-100" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8 flex flex-col items-center">
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center space-y-8 text-center">
         
         <motion.span 
           initial={{ opacity: 0, y: 15 }}
@@ -29,7 +29,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="fragma-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-[#1F1F1F] leading-tight max-w-3xl"
+          className="fragma-display fragma-fluid-heading max-w-3xl text-[#1F1F1F]"
         >
           Sua marca merece ser lembrada.
         </motion.h2>
@@ -39,7 +39,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="fragma-body text-[#8E7867] text-lg sm:text-xl max-w-2xl leading-relaxed"
+          className="fragma-body max-w-2xl text-base leading-8 text-[#8E7867] sm:text-lg"
         >
           Transformamos estratégia, imagem e tecnologia em percepção de valor.
         </motion.p>
@@ -49,7 +49,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.45 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
+          className="flex w-full flex-col items-center justify-center gap-4 pt-4 sm:w-auto sm:flex-row"
         >
           <a
             href="https://wa.me/5545999686381?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20diagn%C3%B3stico%20de%20Brand%20Experience%20para%20minha%20marca."
@@ -74,7 +74,7 @@ export default function CTA() {
           whileInView={{ opacity: 0.5 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="fragma-body text-[10px] tracking-[0.4em] font-mono text-[#8E7867] uppercase pt-8 border-t border-black/10 w-full justify-center flex gap-3"
+          className="fragma-body flex w-full flex-wrap justify-center gap-3 border-t border-black/10 pt-8 text-[10px] font-mono uppercase tracking-[0.4em] text-[#8E7867]"
         >
           <span>Búzios</span>
           <span>•</span>
@@ -85,4 +85,3 @@ export default function CTA() {
     </section>
   );
 }
-

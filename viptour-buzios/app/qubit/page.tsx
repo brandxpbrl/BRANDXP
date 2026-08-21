@@ -17,11 +17,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Info,
-  Maximize2,
   ChevronDown,
-  ChevronUp,
-  CheckCircle2,
-  Radio
+  ChevronUp
 } from "lucide-react";
 
 type TabType = "observatorio" | "whitepaper" | "arquitectura" | "agentes" | "nodos";
@@ -326,7 +323,7 @@ export default function QubitManifestoPage() {
                   >
                     <div>
                       <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
-                        <span>// SECTION_01</span>
+                        <span>{"// SECTION_01"}</span>
                         <span className="text-[#00E5FF] font-bold flex items-center gap-1">
                           [CORE_THESIS] {expandedSection === "resumen" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                         </span>
@@ -347,7 +344,7 @@ export default function QubitManifestoPage() {
                           exit={{ opacity: 0, height: 0 }}
                           className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-2.5"
                         >
-                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// DETALLE TÉCNICO: PROOF OF RESONANCE (PoR)</div>
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">{"// DETALLE TÉCNICO: PROOF OF RESONANCE (PoR)"}</div>
                           <div>El algoritmo PoR calcula el coeficiente de fase armónica ($\Phi$) entre nodos adyacentes para validar la veracidad de la lectura sensorial territorial:</div>
                           <div className="bg-[#00E5FF]/5 border border-[#00E5FF]/10 p-2.5 rounded text-[#00E5FF] text-center font-bold">
                             PoR = Cos(θ) * Log(1 + (Σ Amplitude_i) / Latency)
@@ -365,7 +362,7 @@ export default function QubitManifestoPage() {
                   >
                     <div>
                       <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
-                        <span>// SECTION_02</span>
+                        <span>{"// SECTION_02"}</span>
                         <span className="text-[#00E5FF] font-bold flex items-center gap-1">
                           [EXTRACTIVE_VS_PEER] {expandedSection === "problema" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                         </span>
@@ -386,7 +383,7 @@ export default function QubitManifestoPage() {
                           exit={{ opacity: 0, height: 0 }}
                           className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-2.5"
                         >
-                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// ARQUITECTURA DE TRASPASO DE VALOR</div>
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">{"// ARQUITECTURA DE TRASPASO DE VALOR"}</div>
                           <div className="bg-black/85 border border-zinc-900 p-3 rounded space-y-1.5">
                             <div className="flex justify-between text-[10px]"><span className="text-zinc-600">INPUT:</span> <span>Eventos Físicos Locales</span></div>
                             <div className="flex justify-between text-[10px]"><span className="text-zinc-600">VALIDACIÓN:</span> <span>Gossip Protocol + PoR</span></div>
@@ -404,7 +401,7 @@ export default function QubitManifestoPage() {
                   >
                     <div>
                       <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
-                        <span>// SECTION_03</span>
+                        <span>{"// SECTION_03"}</span>
                         <span className="text-[#00E5FF] font-bold flex items-center gap-1">
                           [TOKENOMICS_SPEC] {expandedSection === "tokenomics" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                         </span>
@@ -425,7 +422,7 @@ export default function QubitManifestoPage() {
                           exit={{ opacity: 0, height: 0 }}
                           className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-2"
                         >
-                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// ALLOCATION MATRIX</div>
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">{"// ALLOCATION MATRIX"}</div>
                           <div className="space-y-1 text-[10px]">
                             <div className="flex justify-between"><span>Max Supply:</span> <span className="text-white font-bold">432,000,000 DELTA</span></div>
                             <div className="flex justify-between"><span>Node Rewards:</span> <span>60% (Emission schedule 8y)</span></div>
@@ -444,7 +441,7 @@ export default function QubitManifestoPage() {
                   >
                     <div>
                       <div className="flex justify-between items-center text-[9px] text-[#00E5FF]/50 font-mono mb-3">
-                        <span>// SECTION_04</span>
+                        <span>{"// SECTION_04"}</span>
                         <span className="text-[#00E5FF] font-bold flex items-center gap-1">
                           [CIVIC_GOVERNANCE] {expandedSection === "gobernanza" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                         </span>
@@ -465,7 +462,7 @@ export default function QubitManifestoPage() {
                           exit={{ opacity: 0, height: 0 }}
                           className="border-t border-zinc-900 pt-3 mt-2 text-[11px] text-zinc-400 font-mono space-y-1.5"
                         >
-                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">// RANGOS OPERATIVOS DE RED</div>
+                          <div className="text-[#00E5FF] font-bold uppercase tracking-wider">{"// RANGOS OPERATIVOS DE RED"}</div>
                           <div className="text-[10px] space-y-1 text-zinc-400">
                             <div>• <span className="text-white font-bold">NODO VISITANTE:</span> Lector inicial sin firma</div>
                             <div>• <span className="text-white font-bold">NODO ACTIVO:</span> Aporte constante verificado</div>
@@ -481,7 +478,7 @@ export default function QubitManifestoPage() {
                 {/* Rediseño del Roadmap - Línea de Tiempo Interactiva */}
                 <div className="border-t border-zinc-900 pt-10">
                   <h3 className="text-xs font-bold text-[#00E5FF] font-mono tracking-widest uppercase mb-8">
-                    // ROADMAP SISTÉMICO INTERACTIVO (LÍNEA DE TIEMPO DE NODOS CONECTADOS)
+                    {"// ROADMAP SISTÉMICO INTERACTIVO (LÍNEA DE TIEMPO DE NODOS CONECTADOS)"}
                   </h3>
 
                   <div className="relative pl-6 md:pl-0">
@@ -718,4 +715,3 @@ export default function QubitManifestoPage() {
     </main>
   );
 }
-

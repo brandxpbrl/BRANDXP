@@ -39,21 +39,21 @@ export function Navbar() {
         }}
       >
         <div
-          className="container-padding flex h-14 items-center justify-between lg:h-[4.5rem]"
+          className="container-padding flex h-14 min-w-0 items-center justify-between gap-3 lg:h-[4.5rem]"
           style={{ maxWidth: "var(--container-default)" }}
         >
           <NavbarLogo variant={logoVariant} />
 
           <nav
-            className="hidden flex-1 items-center justify-center lg:flex"
+            className="hidden min-w-0 flex-1 items-center justify-center 2xl:flex"
             aria-label="Navegação principal"
           >
-            <ul className="flex items-center gap-8">
+            <ul className="flex min-w-0 items-center gap-5">
               {items.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`interactive font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-interactive-focus ${linkClass}`}
+                    className={`interactive whitespace-nowrap font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-interactive-focus ${linkClass}`}
                     style={{ fontSize: typography.semantics.navigation }}
                   >
                     {item.label}
@@ -64,14 +64,14 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href={primaryCta.href} className="cta interactive hidden gap-1.5 lg:inline-flex">
+            <Link href={primaryCta.href} className="cta interactive hidden gap-1.5 whitespace-nowrap 2xl:inline-flex">
               {primaryCta.label}
               <ChevronRight size={18} aria-hidden className="opacity-80" />
             </Link>
 
             <button
               type="button"
-              className={`interactive flex h-10 w-10 items-center justify-center rounded-lg lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-interactive-focus ${
+              className={`interactive flex h-10 w-10 items-center justify-center rounded-lg 2xl:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-interactive-focus ${
                 isAtTop ? "text-text-inverse" : "text-text-primary"
               }`}
               aria-label="Abrir menu de navegação"

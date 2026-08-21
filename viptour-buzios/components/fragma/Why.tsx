@@ -34,21 +34,21 @@ export default function Why() {
   return (
     <section id="about" className="fragma-editorial-section px-6 md:px-10 lg:px-16">
       <div className="mx-auto max-w-[1180px]">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+        <div className="fragma-section-heading">
           <div>
             <span className="fragma-eyebrow">Fragma Brand Experience / Búzios</span>
-            <h2 className="fragma-display mt-7 max-w-xl text-4xl leading-[1.04] tracking-[-0.035em] sm:text-6xl">
+            <h2 className="fragma-display fragma-fluid-heading mt-7 max-w-3xl">
               Um lugar pode ser extraordinário. Mas se sua imagem não transmite isso, seu <span>valor não é percebido.</span>
             </h2>
           </div>
           <div className="flex items-end">
-            <p className="fragma-body max-w-xl text-lg leading-8 text-[#514940]">
+            <p className="fragma-body fragma-section-copy text-base leading-8 text-[#514940] sm:text-lg">
               É aí que entramos. Organizamos estratégia, identidade, imagem e tecnologia para que a essência de uma marca encontre uma forma clara de ser percebida.
             </p>
           </div>
         </div>
 
-        <div className="mt-20 grid border-y border-black/10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid border-y border-black/10 sm:grid-cols-2 xl:grid-cols-4">
           {pillars.map((pillar, index) => {
             const Icon = pillar.icon;
             return (
@@ -58,7 +58,7 @@ export default function Why() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="fragma-pillar-card group border-black/10 p-7 first:border-l-0 md:border-l lg:min-h-[250px]"
+                className="fragma-pillar-card group border-black/10 p-7 first:border-l-0 sm:border-l xl:min-h-[250px]"
               >
                 <div className="flex items-center justify-between">
                   <span className="fragma-index">{pillar.index}</span>

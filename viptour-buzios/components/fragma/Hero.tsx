@@ -6,12 +6,12 @@ import { FragmaHorizonLight, FragmaLogoPair } from "@/components/fragma/foundati
 
 export default function Hero() {
   return (
-    <section className="fragma-hero relative min-h-[760px] overflow-hidden bg-[#FAF7F2] px-6 pb-20 pt-7 text-[#1F1F1F] md:min-h-[820px] md:px-10 lg:px-16">
+    <section className="fragma-hero relative overflow-hidden bg-[#FAF7F2] px-6 pb-20 pt-24 text-[#1F1F1F] sm:pt-28 md:px-10 lg:px-16">
       <FragmaHorizonLight className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-60" />
 
       <header className="relative z-20 mx-auto flex max-w-[1360px] items-center justify-between gap-6">
         <FragmaLogoPair priority className="fragma-logo-pair-hero" />
-        <nav aria-label="Navegação principal" className="hidden items-center gap-8 lg:flex">
+        <nav aria-label="Navegação principal" className="hidden items-center gap-8 xl:flex">
           <a href="#case-study" className="fragma-nav-link">Cases</a>
           <a href="#services" className="fragma-nav-link">Serviços</a>
           <a href="#method" className="fragma-nav-link">Método</a>
@@ -19,7 +19,7 @@ export default function Hero() {
         </nav>
       </header>
 
-      <div className="relative z-10 mx-auto grid max-w-[1360px] items-center gap-12 pt-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:pt-24">
+      <div className="relative z-10 mx-auto grid max-w-[1360px] items-center gap-12 pt-14 sm:pt-16 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] xl:gap-20 xl:pt-20">
         <div className="max-w-2xl">
           <motion.span
             initial={{ opacity: 0, y: 14 }}
@@ -33,7 +33,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="fragma-display mt-7 max-w-[680px] text-5xl leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-7xl"
+            className="fragma-display fragma-fluid-display mt-7 max-w-[680px]"
           >
             Transformamos percepção em <span>valor.</span>
           </motion.h1>
@@ -60,15 +60,15 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 1.03 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: "easeOut" }}
-          className="fragma-hero-visual relative aspect-[4/3] min-h-[360px] overflow-hidden rounded-[4px] lg:aspect-[1.15/1]"
+          className="fragma-hero-visual relative aspect-[4/3] min-h-[300px] overflow-hidden rounded-[4px] bg-[#EEE9E1] sm:min-h-[360px] xl:aspect-[1.15/1]"
         >
           <Image
             src="/images/buziosama-retiros.jpg"
             alt="Seleção visual do case BUZIOSAMA"
             fill
             priority
-            sizes="(max-width: 1024px) 100vw, 58vw"
-            className="object-cover"
+            sizes="(max-width: 1280px) 100vw, 58vw"
+            className="object-contain p-2"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#faf7f2]/10 via-transparent to-[#1f1f1f]/20" />
           <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-white">

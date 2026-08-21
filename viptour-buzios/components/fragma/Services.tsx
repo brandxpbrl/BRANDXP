@@ -42,19 +42,19 @@ export default function Services() {
   return (
     <section id="services" className="fragma-services-section px-6">
       <div className="mx-auto max-w-[var(--fragma-content-max)]">
-        <div className="mb-16 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] lg:items-end">
+        <div className="fragma-section-heading mb-14">
           <div className="space-y-5">
             <span className="fragma-eyebrow">O que fazemos</span>
-            <h2 className="fragma-display max-w-3xl text-4xl leading-[1.04] tracking-[-0.035em] text-[#1F1F1F] sm:text-6xl">
+            <h2 className="fragma-display fragma-fluid-heading max-w-3xl text-[#1F1F1F]">
               Construímos <span>percepção.</span>
             </h2>
           </div>
-          <p className="fragma-body max-w-md text-base leading-8 text-[#8E7867]">
+          <p className="fragma-body fragma-section-copy text-base leading-8 text-[#8E7867]">
             Estratégia, identidade, imagem e tecnologia trabalhando juntas para transformar marcas, espaços e experiências em algo desejado.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {serviceCards.map((service, idx) => {
             const Icon = service.icon;
 
@@ -65,7 +65,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.55, delay: idx * 0.08 }}
-                className="fragma-service-card flex min-h-[22rem] flex-col justify-between p-6 sm:p-7"
+                className="fragma-service-card flex h-full min-h-[20rem] flex-col justify-between p-6 sm:p-7"
               >
                 <div>
                   <div className="mb-10 flex items-center justify-between">

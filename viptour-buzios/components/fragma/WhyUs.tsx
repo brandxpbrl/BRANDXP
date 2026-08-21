@@ -18,14 +18,14 @@ export default function WhyUs() {
   return (
     <section id="sectors" className="fragma-sector-section px-6">
       <div className="mx-auto max-w-[var(--fragma-content-max)]">
-        <div className="mb-16 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] lg:items-end">
+        <div className="fragma-section-heading mb-16">
           <div className="space-y-5">
             <span className="fragma-eyebrow">Onde atuamos</span>
-            <h2 className="fragma-display max-w-3xl text-4xl leading-[1.04] tracking-[-0.035em] text-[#1F1F1F] sm:text-6xl">
+            <h2 className="fragma-display fragma-fluid-heading max-w-3xl text-[#1F1F1F]">
               Para espaços, marcas e experiências.
             </h2>
           </div>
-          <p className="fragma-body max-w-md text-base leading-8 text-[#8E7867]">
+          <p className="fragma-body fragma-section-copy text-base leading-8 text-[#8E7867]">
             A linguagem muda de acordo com o contexto. O compromisso com a percepção de valor permanece.
           </p>
         </div>
