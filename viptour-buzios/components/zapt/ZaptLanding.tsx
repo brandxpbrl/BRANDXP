@@ -1,7 +1,8 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { ArrowDown, ArrowUpRight, Clock3, Crown, MapPin, MessageCircle, Zap } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowDown, ArrowUpRight, Clock3, Crown, MapPin, MessageCircle, Volume2, VolumeX, Zap } from "lucide-react";
 import hero from "@/images/ChatGPT Image 15 may 2026, 23_03_53.png";
 import delivery from "@/images/ChatGPT Image 15 may 2026, 05_44_13.png";
 import menu from "@/images/ChatGPT Image 15 may 2026, 05_05_50.png";
@@ -11,16 +12,17 @@ import cigarettes from "@/images/ChatGPT Image 15 may 2026, 05_12_06.png";
 import drinks from "@/images/ChatGPT Image 15 may 2026, 21_14_19.png";
 import combos from "@/images/ChatGPT Image 15 may 2026, 21_41_34.png";
 import dog from "@/images/ChatGPT Image 15 may 2026, 21_15_36.png";
+import zaptLogo from "@/images/zapt-logo-original.png";
 
 const whatsapp = "https://wa.me/5522992430867?text=Ol%C3%A1%20ZAPT!%20Vim%20pelo%20site%20e%20quero%20fazer%20um%20pedido%20%E2%9A%A1";
 const comboWhatsapp = (name: string) => `https://wa.me/5522992430867?text=${encodeURIComponent(`Olá ZAPT! Quero pedir o ${name}.`)}`;
 
-const categories: { label: string; image: StaticImageData; className: string }[] = [
-  { label: "Bebidas", image: drinks, className: "zapt-category--wide" },
-  { label: "Cervejas", image: beers, className: "" },
-  { label: "Fast food", image: fastFood, className: "" },
-  { label: "Vinhos & destilados", image: menu, className: "zapt-category--wide" },
-  { label: "Cigarros", image: cigarettes, className: "" },
+const menuSections: { label: string; eyebrow: string; image: StaticImageData }[] = [
+  { label: "Bebidas", eyebrow: "Geladas e prontas", image: drinks },
+  { label: "Cervejas", eyebrow: "Da geladeira pra tua noite", image: beers },
+  { label: "Vinhos & destilados", eyebrow: "Pra subir o nível", image: menu },
+  { label: "Fast food", eyebrow: "Fome de madrugada", image: fastFood },
+  { label: "Cigarros", eyebrow: "Entrega rápida", image: cigarettes },
 ];
 
 const combosList = ["Combo Brahma", "Combo Heineken", "Combo ZAPT Night", "Combo Corona"];
@@ -30,11 +32,22 @@ function TrackLink({ href, children, event }: { href: string; children: React.Re
 }
 
 export default function ZaptLanding() {
+  const [activeMenu, setActiveMenu] = useState(0);
+  const [videoMuted, setVideoMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const selectedMenu = menuSections[activeMenu];
+
+  const toggleVideoSound = () => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setVideoMuted(videoRef.current.muted);
+  };
+
   return (
     <main className="zapt-page" lang="pt-BR">
       <header className="zapt-nav">
         <a className="zapt-logo" href="#top" aria-label="ZAPT Delivery Búzios">
-          Z<span>⚡</span>PT <small>DELIVERY BÚZIOS</small>
+          <Image src={zaptLogo} alt="ZAPT Delivery Búzios" priority />
         </a>
         <nav aria-label="Navegação da ZAPT">
           <a href="#cardapio">Cardápio</a><a href="#combos">Combos</a><a href="#como-funciona">Como funciona</a>
@@ -43,6 +56,9 @@ export default function ZaptLanding() {
       </header>
 
       <section className="zapt-hero" id="top">
+        <div className="zapt-hero-ambient" aria-hidden="true">
+          <Image src={hero} alt="" priority sizes="100vw" />
+        </div>
         <div className="zapt-hero-copy">
           <p className="zapt-kicker"><Zap size={15} /> Búzios after dark · delivery imediato</p>
           <h1>Delivery de<br /><em>madrugada</em><br />em Búzios.</h1>
@@ -57,6 +73,27 @@ export default function ZaptLanding() {
         <div className="zapt-scribble">a noite<br /><b>começa aqui.</b></div>
       </section>
 
+      <section className="zapt-cinema zapt-wrap" aria-labelledby="zapt-cinema-title">
+        <div className="zapt-cinema-copy">
+          <p className="zapt-eyebrow"><Zap size={15} /> A energia da madrugada</p>
+          <h2 id="zapt-cinema-title">Não é só<br />delivery.<br /><em>É ZAPT.</em></h2>
+          <p>A cidade desacelera. A fome aparece. A bebida acaba. É nesse momento que a ZAPT entra em cena.</p>
+          <div className="zapt-cinema-signature"><span>8 segundos</span><span>Búzios after dark</span><span>Delivery imediato</span></div>
+        </div>
+        <div className="zapt-cinema-frame">
+          <div className="zapt-cinema-glow" aria-hidden="true">
+            <video autoPlay loop muted playsInline preload="metadata"><source src="/zapt/zapt-cinematic.mp4" type="video/mp4" /></video>
+          </div>
+          <video ref={videoRef} autoPlay loop muted playsInline preload="metadata" poster={hero.src}>
+            <source src="/zapt/zapt-cinematic.mp4" type="video/mp4" />
+          </video>
+          <button aria-label={videoMuted ? "Ativar som do vídeo" : "Desativar som do vídeo"} onClick={toggleVideoSound} type="button">
+            {videoMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}{videoMuted ? "Ativar som" : "Desativar som"}
+          </button>
+          <span className="zapt-cinema-label">ZAPT / FILM 01</span>
+        </div>
+      </section>
+
       <section className="zapt-proof zapt-wrap">
         <p className="zapt-eyebrow">A cidade dorme. A gente entrega.</p>
         <h2>Tua noite não precisa acabar.</h2>
@@ -66,7 +103,36 @@ export default function ZaptLanding() {
 
       <section className="zapt-menu zapt-wrap" id="cardapio">
         <div className="zapt-section-head"><div><p className="zapt-eyebrow">Escolhe teu mood</p><h2>O que vai salvar<br /><em>tua madrugada?</em></h2></div><TrackLink href={whatsapp} event="menu_click"><span className="zapt-text-link">Ver cardápio completo <ArrowUpRight size={17} /></span></TrackLink></div>
-        <div className="zapt-category-grid">{categories.map((category) => <a className={`zapt-category ${category.className}`} href={whatsapp} key={category.label} onClick={() => window.dispatchEvent(new CustomEvent("zapt:menu_click"))}><Image src={category.image} alt={`${category.label} ZAPT Delivery`} sizes="(max-width: 760px) 50vw, 25vw" /><span>{category.label}</span><ArrowUpRight size={19} /></a>)}</div>
+        <div className="zapt-menu-experience">
+          <div className="zapt-menu-tabs" role="tablist" aria-label="Categorias do cardápio">
+            {menuSections.map((section, index) => (
+              <button
+                aria-selected={activeMenu === index}
+                className={activeMenu === index ? "is-active" : ""}
+                key={section.label}
+                onClick={() => setActiveMenu(index)}
+                role="tab"
+                type="button"
+              >
+                <span>0{index + 1}</span>{section.label}
+              </button>
+            ))}
+          </div>
+          <div className="zapt-menu-stage" role="tabpanel">
+            <div className="zapt-menu-poster">
+              <Image src={selectedMenu.image} alt={`Cardápio de ${selectedMenu.label} da ZAPT Delivery`} sizes="(max-width: 760px) 100vw, 62vw" priority={activeMenu === 0} />
+            </div>
+            <aside>
+              <span className="zapt-menu-number">0{activeMenu + 1}</span>
+              <p>{selectedMenu.eyebrow}</p>
+              <h3>{selectedMenu.label}</h3>
+              <p className="zapt-menu-help">Escolheu? Envie a categoria pelo WhatsApp e confirme disponibilidade, valor e entrega.</p>
+              <TrackLink href={comboWhatsapp(selectedMenu.label)} event="menu_click">
+                <span className="zapt-button zapt-button--acid"><MessageCircle size={18} /> Pedir {selectedMenu.label}</span>
+              </TrackLink>
+            </aside>
+          </div>
+        </div>
         <div className="zapt-menu-note"><span><Zap size={18} /> Produtos e valores confirmados no cardápio oficial.</span><span>Peça pelo WhatsApp e consulte disponibilidade.</span></div>
       </section>
 
@@ -81,7 +147,7 @@ export default function ZaptLanding() {
 
       <section className="zapt-final zapt-wrap"><div><p className="zapt-eyebrow"><Zap size={15} /> Tá esperando o quê?</p><h2>Bateu fome?<br />Ficou sem bebida?<br /><em>A ZAPT resolve.</em></h2></div><div className="zapt-final-card"><Image src={dog} alt="Hot dog Oh My Dog da ZAPT" sizes="(max-width: 760px) 100vw, 45vw" /><TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-button zapt-button--acid"><MessageCircle size={19} /> Pedir agora no WhatsApp</span></TrackLink><small>+55 22 99243-0867 · Búzios — RJ</small></div></section>
 
-      <footer className="zapt-footer"><div className="zapt-logo">Z<span>⚡</span>PT <small>DELIVERY BÚZIOS</small></div><div><b>Delivery de madrugada</b><span>23:00 — 04:00 · Búzios — Rio de Janeiro</span></div><TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-footer-link">WhatsApp <ArrowUpRight size={16} /></span></TrackLink><small>© ZAPT Delivery Búzios</small></footer>
+      <footer className="zapt-footer"><div className="zapt-logo"><Image src={zaptLogo} alt="ZAPT Delivery Búzios" /></div><div><b>Delivery de madrugada</b><span>23:00 — 04:00 · Búzios — Rio de Janeiro</span></div><TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-footer-link">WhatsApp <ArrowUpRight size={16} /></span></TrackLink><small>© ZAPT Delivery Búzios</small></footer>
       <a className="zapt-floating" href={whatsapp} onClick={() => window.dispatchEvent(new CustomEvent("zapt:whatsapp_click"))}><MessageCircle size={20} /> Pedir agora <Zap size={15} /></a>
     </main>
   );
