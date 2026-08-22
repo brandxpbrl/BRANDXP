@@ -1,8 +1,8 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useState } from "react";
-import { ArrowDown, ArrowUpRight, Clock3, Crown, MapPin, MessageCircle, Zap } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowDown, ArrowUpRight, Clock3, Crown, MapPin, MessageCircle, Volume2, VolumeX, Zap } from "lucide-react";
 import hero from "@/images/ChatGPT Image 15 may 2026, 23_03_53.png";
 import delivery from "@/images/ChatGPT Image 15 may 2026, 05_44_13.png";
 import menu from "@/images/ChatGPT Image 15 may 2026, 05_05_50.png";
@@ -33,7 +33,15 @@ function TrackLink({ href, children, event }: { href: string; children: React.Re
 
 export default function ZaptLanding() {
   const [activeMenu, setActiveMenu] = useState(0);
+  const [videoMuted, setVideoMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const selectedMenu = menuSections[activeMenu];
+
+  const toggleVideoSound = () => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setVideoMuted(videoRef.current.muted);
+  };
 
   return (
     <main className="zapt-page" lang="pt-BR">
@@ -63,6 +71,27 @@ export default function ZaptLanding() {
         </div>
         <div className="zapt-hero-art"><Image src={hero} alt="ZAPT Delivery Búzios durante a madrugada" priority sizes="(max-width: 760px) 100vw, 52vw" /></div>
         <div className="zapt-scribble">a noite<br /><b>começa aqui.</b></div>
+      </section>
+
+      <section className="zapt-cinema zapt-wrap" aria-labelledby="zapt-cinema-title">
+        <div className="zapt-cinema-copy">
+          <p className="zapt-eyebrow"><Zap size={15} /> A energia da madrugada</p>
+          <h2 id="zapt-cinema-title">Não é só<br />delivery.<br /><em>É ZAPT.</em></h2>
+          <p>A cidade desacelera. A fome aparece. A bebida acaba. É nesse momento que a ZAPT entra em cena.</p>
+          <div className="zapt-cinema-signature"><span>8 segundos</span><span>Búzios after dark</span><span>Delivery imediato</span></div>
+        </div>
+        <div className="zapt-cinema-frame">
+          <div className="zapt-cinema-glow" aria-hidden="true">
+            <video autoPlay loop muted playsInline preload="metadata"><source src="/zapt/zapt-cinematic.mp4" type="video/mp4" /></video>
+          </div>
+          <video ref={videoRef} autoPlay loop muted playsInline preload="metadata" poster={hero.src}>
+            <source src="/zapt/zapt-cinematic.mp4" type="video/mp4" />
+          </video>
+          <button aria-label={videoMuted ? "Ativar som do vídeo" : "Desativar som do vídeo"} onClick={toggleVideoSound} type="button">
+            {videoMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}{videoMuted ? "Ativar som" : "Desativar som"}
+          </button>
+          <span className="zapt-cinema-label">ZAPT / FILM 01</span>
+        </div>
       </section>
 
       <section className="zapt-proof zapt-wrap">

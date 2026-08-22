@@ -47,8 +47,24 @@
 .zapt-hero-ambient:after { background: linear-gradient(90deg, rgba(5,5,5,.98) 0%, rgba(5,5,5,.9) 36%, rgba(5,5,5,.56) 68%, rgba(5,5,5,.82) 100%), linear-gradient(0deg, #050505 0%, transparent 35%, rgba(5,5,5,.36) 100%); content: ''; inset: 0; position: absolute; }
 .zapt-hero-ambient img { filter: blur(18px) saturate(1.22); height: 115%; object-fit: cover; object-position: center; opacity: .38; transform: scale(1.08); width: 115%; }
 .zapt-hero:before { z-index: 1; }
-.zapt-logo { display: block; font-size: 0; line-height: 0; width: 154px; }
-.zapt-logo img { height: auto; width: 100%; }
+.zapt-logo { display: block; font-size: 0; line-height: 0; width: 112px; }
+.zapt-logo img { height: auto; mix-blend-mode: screen; width: 100%; }
+.zapt-footer .zapt-logo { width: 148px; }
+.zapt-cinema { align-items: center; border-bottom: 1px solid rgba(239,255,0,.16); border-top: 1px solid rgba(239,255,0,.16); display: grid; gap: clamp(38px, 8vw, 120px); grid-template-columns: minmax(0, .78fr) minmax(360px, .62fr); max-width: none; min-height: 920px; padding-bottom: 110px; padding-left: max(22px, calc((100vw - 1240px)/2)); padding-right: max(22px, calc((100vw - 1240px)/2)); padding-top: 110px; position: relative; }
+.zapt-cinema:before { background: radial-gradient(circle, rgba(161,0,255,.2), transparent 66%); content: ''; height: 680px; pointer-events: none; position: absolute; right: 2%; top: 12%; width: 680px; }
+.zapt-cinema-copy { position: relative; z-index: 2; }
+.zapt-cinema-copy h2 { font-size: clamp(52px, 7.5vw, 110px); font-weight: 900; letter-spacing: -.065em; line-height: .84; margin: 22px 0 0; text-transform: uppercase; }
+.zapt-cinema-copy > p:not(.zapt-eyebrow) { color: rgba(255,255,255,.58); font-size: 15px; line-height: 1.7; margin-top: 30px!important; max-width: 510px; }
+.zapt-cinema-signature { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 34px; }
+.zapt-cinema-signature span { border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.62); font-size: 9px; font-weight: 800; letter-spacing: .09em; padding: 9px 11px; text-transform: uppercase; }
+.zapt-cinema-frame { aspect-ratio: 9 / 16; border: 1px solid rgba(239,255,0,.52); box-shadow: 0 0 70px rgba(161,0,255,.2); justify-self: center; max-height: 780px; overflow: hidden; position: relative; width: min(100%, 440px); z-index: 1; }
+.zapt-cinema-frame > video { display: block; height: 100%; object-fit: cover; position: relative; width: 100%; z-index: 2; }
+.zapt-cinema-glow { filter: blur(50px); inset: -9%; opacity: .42; pointer-events: none; position: absolute; transform: scale(1.13); z-index: 0; }
+.zapt-cinema-glow video { height: 100%; object-fit: cover; width: 100%; }
+.zapt-cinema-frame:after { border: 1px solid rgba(255,255,255,.16); content: ''; inset: 10px; pointer-events: none; position: absolute; z-index: 3; }
+.zapt-cinema-frame button { align-items: center; backdrop-filter: blur(12px); background: rgba(5,5,5,.76); border: 1px solid rgba(239,255,0,.48); bottom: 22px; color: #fff; cursor: pointer; display: flex; font: 800 10px var(--font-montserrat), Arial, sans-serif; gap: 8px; padding: 11px 13px; position: absolute; right: 22px; text-transform: uppercase; z-index: 4; }
+.zapt-cinema-frame button svg { color: var(--acid); }
+.zapt-cinema-label { color: var(--acid); font-size: 9px; font-weight: 900; left: -1px; letter-spacing: .14em; position: absolute; text-orientation: mixed; top: 28px; transform: translateX(-100%); writing-mode: vertical-rl; }
 .zapt-menu-experience { margin-top: 54px; }
 .zapt-menu-tabs { border-bottom: 1px solid rgba(255,255,255,.14); display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
 .zapt-menu-tabs::-webkit-scrollbar { display: none; }
@@ -72,7 +88,15 @@
   .zapt-hero-ambient:after { background: linear-gradient(180deg, rgba(5,5,5,.92) 0%, rgba(5,5,5,.7) 42%, #050505 96%); }
   .zapt-hero-ambient img { filter: blur(13px) saturate(1.18); height: 105%; opacity: .32; width: 105%; }
   .zapt-nav { padding: 12px 18px; }
-  .zapt-logo { width: 132px; }
+  .zapt-logo { width: 100px; }
+  .zapt-footer .zapt-logo { width: 140px; }
+  .zapt-cinema { display: flex; flex-direction: column; gap: 42px; min-height: 0; padding-bottom: 74px; padding-top: 74px; }
+  .zapt-cinema-copy { width: 100%; }
+  .zapt-cinema-copy h2 { font-size: clamp(52px, 16vw, 76px); }
+  .zapt-cinema-copy > p:not(.zapt-eyebrow) { font-size: 14px; margin-top: 24px!important; }
+  .zapt-cinema-frame { max-height: none; width: min(92vw, 430px); }
+  .zapt-cinema-frame button { bottom: 20px; right: 20px; }
+  .zapt-cinema-label { display: none; }
   .zapt-menu-experience { margin-top: 34px; }
   .zapt-menu-tabs { margin-left: -22px; margin-right: -22px; padding-left: 22px; padding-right: 22px; }
   .zapt-menu-tabs button { min-height: 44px; }
