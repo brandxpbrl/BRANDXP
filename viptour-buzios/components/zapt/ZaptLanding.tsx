@@ -1,0 +1,89 @@
+"use client";
+
+import Image, { type StaticImageData } from "next/image";
+import { ArrowDown, ArrowUpRight, Clock3, Crown, MapPin, MessageCircle, Zap } from "lucide-react";
+import hero from "@/images/ChatGPT Image 15 may 2026, 23_03_53.png";
+import delivery from "@/images/ChatGPT Image 15 may 2026, 05_44_13.png";
+import menu from "@/images/ChatGPT Image 15 may 2026, 05_05_50.png";
+import beers from "@/images/ChatGPT Image 15 may 2026, 05_05_44.png";
+import fastFood from "@/images/ChatGPT Image 15 may 2026, 05_17_50.png";
+import cigarettes from "@/images/ChatGPT Image 15 may 2026, 05_12_06.png";
+import drinks from "@/images/ChatGPT Image 15 may 2026, 21_14_19.png";
+import combos from "@/images/ChatGPT Image 15 may 2026, 21_41_34.png";
+import dog from "@/images/ChatGPT Image 15 may 2026, 21_15_36.png";
+
+const whatsapp = "https://wa.me/5522992430867?text=Ol%C3%A1%20ZAPT!%20Vim%20pelo%20site%20e%20quero%20fazer%20um%20pedido%20%E2%9A%A1";
+const comboWhatsapp = (name: string) => `https://wa.me/5522992430867?text=${encodeURIComponent(`Olá ZAPT! Quero pedir o ${name}.`)}`;
+
+const categories: { label: string; image: StaticImageData; className: string }[] = [
+  { label: "Bebidas", image: drinks, className: "zapt-category--wide" },
+  { label: "Cervejas", image: beers, className: "" },
+  { label: "Fast food", image: fastFood, className: "" },
+  { label: "Vinhos & destilados", image: menu, className: "zapt-category--wide" },
+  { label: "Cigarros", image: cigarettes, className: "" },
+];
+
+const combosList = ["Combo Brahma", "Combo Heineken", "Combo ZAPT Night", "Combo Corona"];
+
+function TrackLink({ href, children, event }: { href: string; children: React.ReactNode; event: string }) {
+  return <a href={href} onClick={() => window.dispatchEvent(new CustomEvent(`zapt:${event}`))}>{children}</a>;
+}
+
+export default function ZaptLanding() {
+  return (
+    <main className="zapt-page" lang="pt-BR">
+      <header className="zapt-nav">
+        <a className="zapt-logo" href="#top" aria-label="ZAPT Delivery Búzios">
+          Z<span>⚡</span>PT <small>DELIVERY BÚZIOS</small>
+        </a>
+        <nav aria-label="Navegação da ZAPT">
+          <a href="#cardapio">Cardápio</a><a href="#combos">Combos</a><a href="#como-funciona">Como funciona</a>
+        </nav>
+        <TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-nav-cta">Pedir agora <ArrowUpRight size={16} /></span></TrackLink>
+      </header>
+
+      <section className="zapt-hero" id="top">
+        <div className="zapt-hero-copy">
+          <p className="zapt-kicker"><Zap size={15} /> Búzios after dark · delivery imediato</p>
+          <h1>Delivery de<br /><em>madrugada</em><br />em Búzios.</h1>
+          <p className="zapt-hero-lede">Quando a maioria fecha, a <strong>ZAPT</strong> começa. Bebidas geladas, lanches e combos para a tua noite continuar.</p>
+          <div className="zapt-hero-actions">
+            <TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-button zapt-button--acid"><MessageCircle size={19} /> Pedir pelo WhatsApp <Zap size={16} /></span></TrackLink>
+            <a className="zapt-button zapt-button--ghost" href="#cardapio">Ver cardápio <ArrowDown size={16} /></a>
+          </div>
+          <div className="zapt-hero-meta"><span><Clock3 size={16} /> 23:00 — 04:00</span><span><MapPin size={16} /> Búzios — RJ</span></div>
+        </div>
+        <div className="zapt-hero-art"><Image src={hero} alt="ZAPT Delivery Búzios durante a madrugada" priority sizes="(max-width: 760px) 100vw, 52vw" /></div>
+        <div className="zapt-scribble">a noite<br /><b>começa aqui.</b></div>
+      </section>
+
+      <section className="zapt-proof zapt-wrap">
+        <p className="zapt-eyebrow">A cidade dorme. A gente entrega.</p>
+        <h2>Tua noite não precisa acabar.</h2>
+        <p className="zapt-section-lede">Bateu fome? Acabou a bebida? Precisa de gelo? A ZAPT leva a madrugada até você, com rapidez e atitude.</p>
+        <div className="zapt-proof-grid"><div><Zap /><b>Delivery de madrugada</b><span>Rápido como raio.</span></div><div><Clock3 /><b>Das 23h às 04h</b><span>Quando você mais precisa.</span></div><div><MapPin /><b>Búzios — RJ</b><span>A noite começa aqui.</span></div></div>
+      </section>
+
+      <section className="zapt-menu zapt-wrap" id="cardapio">
+        <div className="zapt-section-head"><div><p className="zapt-eyebrow">Escolhe teu mood</p><h2>O que vai salvar<br /><em>tua madrugada?</em></h2></div><TrackLink href={whatsapp} event="menu_click"><span className="zapt-text-link">Ver cardápio completo <ArrowUpRight size={17} /></span></TrackLink></div>
+        <div className="zapt-category-grid">{categories.map((category) => <a className={`zapt-category ${category.className}`} href={whatsapp} key={category.label} onClick={() => window.dispatchEvent(new CustomEvent("zapt:menu_click"))}><Image src={category.image} alt={`${category.label} ZAPT Delivery`} sizes="(max-width: 760px) 50vw, 25vw" /><span>{category.label}</span><ArrowUpRight size={19} /></a>)}</div>
+        <div className="zapt-menu-note"><span><Zap size={18} /> Produtos e valores confirmados no cardápio oficial.</span><span>Peça pelo WhatsApp e consulte disponibilidade.</span></div>
+      </section>
+
+      <section className="zapt-combos zapt-wrap" id="combos">
+        <div className="zapt-section-head"><div><p className="zapt-eyebrow">Para dividir. Ou não.</p><h2>Combos pra<br /><em>madrugada.</em></h2></div><Crown className="zapt-crown" /></div>
+        <div className="zapt-combo-layout"><div className="zapt-combo-art"><Image src={combos} alt="Combos de cervejas ZAPT" sizes="(max-width: 760px) 100vw, 55vw" /></div><div className="zapt-combo-list">{combosList.map((combo, index) => <a href={comboWhatsapp(combo)} key={combo} onClick={() => window.dispatchEvent(new CustomEvent("zapt:combo_click"))}><span>0{index + 1}</span><strong>{combo}</strong><ArrowUpRight size={18} /></a>)}<p>Escolhe teu combo e manda uma mensagem. A ZAPT resolve o resto.</p></div></div>
+      </section>
+
+      <section className="zapt-process zapt-wrap" id="como-funciona"><p className="zapt-eyebrow">Sem complicação</p><h2>3 toques. <em>ZAPT.</em></h2><div className="zapt-process-grid"><div><span>01</span><b>Escolhe</b><p>O que a tua noite está pedindo.</p></div><div><span>02</span><b>Chama</b><p>Fala com a gente no WhatsApp.</p></div><div><span>03</span><b>Chegou</b><p>A ZAPT leva até você em Búzios.</p></div></div></section>
+
+      <section className="zapt-night"><Image src={delivery} alt="Entregador ZAPT pelas ruas de Búzios à noite" sizes="100vw" /><div className="zapt-night-overlay"><p className="zapt-eyebrow">A madrugada agora tem outro nome</p><h2>Quando Búzios dorme,<br /><em>a ZAPT acelera.</em></h2></div></section>
+
+      <section className="zapt-final zapt-wrap"><div><p className="zapt-eyebrow"><Zap size={15} /> Tá esperando o quê?</p><h2>Bateu fome?<br />Ficou sem bebida?<br /><em>A ZAPT resolve.</em></h2></div><div className="zapt-final-card"><Image src={dog} alt="Hot dog Oh My Dog da ZAPT" sizes="(max-width: 760px) 100vw, 45vw" /><TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-button zapt-button--acid"><MessageCircle size={19} /> Pedir agora no WhatsApp</span></TrackLink><small>+55 22 99243-0867 · Búzios — RJ</small></div></section>
+
+      <footer className="zapt-footer"><div className="zapt-logo">Z<span>⚡</span>PT <small>DELIVERY BÚZIOS</small></div><div><b>Delivery de madrugada</b><span>23:00 — 04:00 · Búzios — Rio de Janeiro</span></div><TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-footer-link">WhatsApp <ArrowUpRight size={16} /></span></TrackLink><small>© ZAPT Delivery Búzios</small></footer>
+      <a className="zapt-floating" href={whatsapp} onClick={() => window.dispatchEvent(new CustomEvent("zapt:whatsapp_click"))}><MessageCircle size={20} /> Pedir agora <Zap size={15} /></a>
+    </main>
+  );
+}
+

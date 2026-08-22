@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import "./zapt.css";
 import { portalConfig } from "@/config/portal";
-import { Navbar } from "@/components/layout";
+import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"], // Regular, SemiBold, Bold, ExtraBold
+  weight: ["400", "600", "700", "800"],
   variable: "--font-montserrat",
   display: "swap",
 });
@@ -18,19 +19,8 @@ export const metadata: Metadata = {
     template: `%s | ${portalConfig.shortName}`,
   },
   description: portalConfig.description,
-  keywords: [
-    "Brand Experience",
-    "MPE",
-    "QUBIT",
-    "ecosistema digital",
-    "portal oficial",
-  ],
-  authors: [
-    {
-      name: portalConfig.name,
-      url: portalConfig.url,
-    },
-  ],
+  keywords: ["Brand Experience", "MPE", "QUBIT", "ecosistema digital", "portal oficial"],
+  authors: [{ name: portalConfig.name, url: portalConfig.url }],
   creator: portalConfig.name,
   openGraph: {
     type: "website",
@@ -51,9 +41,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({
@@ -64,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${montserrat.variable} scroll-smooth`}>
       <body className="antialiased min-h-screen flex flex-col">
-        <Navbar />
+        <ConditionalNavbar />
         {children}
       </body>
     </html>
