@@ -43,6 +43,10 @@
 }
 
 /* Official wordmark + interactive menu */
+.zapt-hero-ambient { inset: 0; overflow: hidden; pointer-events: none; position: absolute; z-index: 0; }
+.zapt-hero-ambient:after { background: linear-gradient(90deg, rgba(5,5,5,.98) 0%, rgba(5,5,5,.9) 36%, rgba(5,5,5,.56) 68%, rgba(5,5,5,.82) 100%), linear-gradient(0deg, #050505 0%, transparent 35%, rgba(5,5,5,.36) 100%); content: ''; inset: 0; position: absolute; }
+.zapt-hero-ambient img { filter: blur(18px) saturate(1.22); height: 115%; object-fit: cover; object-position: center; opacity: .38; transform: scale(1.08); width: 115%; }
+.zapt-hero:before { z-index: 1; }
 .zapt-logo { display: block; font-size: 0; line-height: 0; width: 154px; }
 .zapt-logo img { height: auto; width: 100%; }
 .zapt-menu-experience { margin-top: 54px; }
@@ -65,6 +69,8 @@
 .zapt-menu-note { margin-top: 24px; }
 
 @media (max-width: 760px) {
+  .zapt-hero-ambient:after { background: linear-gradient(180deg, rgba(5,5,5,.92) 0%, rgba(5,5,5,.7) 42%, #050505 96%); }
+  .zapt-hero-ambient img { filter: blur(13px) saturate(1.18); height: 105%; opacity: .32; width: 105%; }
   .zapt-nav { padding: 12px 18px; }
   .zapt-logo { width: 132px; }
   .zapt-menu-experience { margin-top: 34px; }

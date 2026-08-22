@@ -48,6 +48,9 @@ export default function ZaptLanding() {
       </header>
 
       <section className="zapt-hero" id="top">
+        <div className="zapt-hero-ambient" aria-hidden="true">
+          <Image src={hero} alt="" priority sizes="100vw" />
+        </div>
         <div className="zapt-hero-copy">
           <p className="zapt-kicker"><Zap size={15} /> Búzios after dark · delivery imediato</p>
           <h1>Delivery de<br /><em>madrugada</em><br />em Búzios.</h1>
