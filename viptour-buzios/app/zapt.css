@@ -20,24 +20,3 @@
 
 
 
-/* Contrast fix for the cinematic night section */
-.zapt-night-overlay {
-  background: linear-gradient(90deg, rgba(0, 0, 0, .86), rgba(0, 0, 0, .56) 72%, transparent);
-  border-left: 3px solid var(--acid);
-  box-shadow: 0 0 34px rgba(0, 0, 0, .35);
-  max-width: min(920px, 78vw);
-  padding: 24px 38px 28px 24px;
-  text-shadow: 0 2px 16px #000, 0 0 28px rgba(0, 0, 0, .9);
-}
-.zapt-night-overlay h2 {
-  font-weight: 900;
-  letter-spacing: -.045em;
-}
-@media (max-width: 760px) {
-  .zapt-night-overlay {
-    background: rgba(0, 0, 0, .72);
-    max-width: none;
-    padding: 18px 18px 20px;
-  }
-  .zapt-night-overlay h2 { font-size: clamp(36px, 11vw, 52px); }
-}
