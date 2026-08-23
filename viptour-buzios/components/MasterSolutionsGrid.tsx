@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { ArrowUpRight, LayoutGrid, X } from 'lucide-react';
+import { useState } from 'react';
 
 const services = [
   {
@@ -52,10 +54,23 @@ const services = [
     description: 'Premium buggy rental and tour agency portal operating live, built directly on top of the Master Solutions ecosystem core.',
     slug: '/projects/viptour',
     tagColor: 'from-green-400 to-emerald-600',
+  },
+  {
+    title: 'ZAPT Delivery Búzios',
+    category: 'NIGHT DELIVERY · LIVE SITE',
+    description: 'Experiência digital oficial para delivery de madrugada em Búzios, com cardápio, combos e pedidos pelo WhatsApp.',
+    slug: '/zaptdeliverybz',
+    tagColor: 'from-lime-300 to-fuchsia-500',
   }
 ];
 
+const siteServices = services.filter((service) =>
+  ['/brand-experience', '/mpe', '/qubit', '/fragma-brand-experience', '/projects/viptour', '/zaptdeliverybz'].includes(service.slug),
+);
+
 export default function MasterSolutionsGrid() {
+  const [isSitesOpen, setIsSitesOpen] = useState(false);
+
   return (
     <section className="relative w-full min-h-screen bg-transparent text-white py-20 px-6 flex flex-col items-center justify-center overflow-hidden">
       {/* Fondo con brillo ambiental difuso */}
@@ -72,6 +87,14 @@ export default function MasterSolutionsGrid() {
           <p className="text-slate-400 mt-4 max-w-xl mx-auto text-sm md:text-base">
             Servicios especializados independientes evolucionando hacia un ecosistema integrado de alta tecnología.
           </p>
+          <button
+            type="button"
+            onClick={() => setIsSitesOpen(true)}
+            className="mt-7 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.16em] text-cyan-300 transition hover:border-cyan-300/70 hover:bg-cyan-400/20"
+          >
+            <LayoutGrid size={15} />
+            Ver todos nuestros Sites
+          </button>
         </div>
 
         {/* Grid de Servicios */}
@@ -111,6 +134,57 @@ export default function MasterSolutionsGrid() {
           ))}
         </div>
       </div>
+
+      {isSitesOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
+          role="presentation"
+          onClick={() => setIsSitesOpen(false)}
+        >
+          <div
+            className="relative max-h-[85vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-cyan-400/25 bg-[#080a12]/95 p-6 shadow-[0_0_80px_rgba(14,165,233,0.15)] md:p-10"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="sites-dialog-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setIsSitesOpen(false)}
+              aria-label="Cerrar ventana de Sites"
+              className="absolute right-5 top-5 rounded-full border border-white/10 p-2 text-slate-400 transition hover:border-white/30 hover:text-white"
+            >
+              <X size={18} />
+            </button>
+            <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-300">Built by us · live experiences</span>
+            <h2 id="sites-dialog-title" className="mt-4 max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-5xl">
+              Todos nuestros <span className="text-cyan-300">Sites.</span>
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-400">
+              Cada proyecto debajo fue diseñado, construido y publicado por nuestro propio ecosistema digital.
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {siteServices.map((service) => (
+                <Link
+                  key={service.slug}
+                  href={service.slug}
+                  onClick={() => setIsSitesOpen(false)}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition hover:-translate-y-0.5 hover:border-cyan-300/50 hover:bg-cyan-300/[0.06]"
+                >
+                  <span className={`bg-gradient-to-r ${service.tagColor} bg-clip-text text-[10px] font-bold uppercase tracking-[0.18em] text-transparent`}>
+                    {service.category}
+                  </span>
+                  <span className="mt-3 flex items-center justify-between text-lg font-semibold text-slate-100">
+                    {service.title}
+                    <ArrowUpRight size={17} className="text-cyan-300 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
+                  <span className="mt-2 block text-xs leading-relaxed text-slate-400">{service.description}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
