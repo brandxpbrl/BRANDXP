@@ -1,35 +1,27 @@
 /**
- * Navigation Structure
- * Portal global navigation for the ecosystem.
+ * ORBIS global navigation.
+ * The portal shell represents the ecosystem, never one individual world.
  */
 
 export const navigationStructure = {
   navbar: {
     items: [
-      { label: "Home", href: "/" },
-      { label: "Brand Experience", href: "/brandexperience" },
-      { label: "MPE", href: "/mpe" },
-      { label: "QUBIT", href: "/qubit" },
-      { label: "Visual Universes", href: "/universos-visuales" },
-      { label: "Services", href: "/services" },
+      { label: "Explore", href: "/#ecosystem" },
+      { label: "Worlds", href: "/#everything" },
       { label: "Projects", href: "/projects" },
-      { label: "Contact", href: "/contact" },
+      { label: "About", href: "/about" },
     ],
-    primaryCta: { label: "Fragma Studio", href: "/fragma-brand-experience" },
+    primaryCta: { label: "Discover", href: "/#ecosystem" },
   },
   footer: {
     links: [
-      { label: "Home", href: "/" },
-      { label: "Brand Experience", href: "/brandexperience" },
-      { label: "MPE", href: "/mpe" },
-      { label: "QUBIT", href: "/qubit" },
-      { label: "Visual Universes", href: "/universos-visuales" },
+      { label: "Explore", href: "/#ecosystem" },
+      { label: "Worlds", href: "/#everything" },
       { label: "Projects", href: "/projects" },
       { label: "Contact", href: "/contact" },
     ],
     social: [
-      { label: "Instagram", href: "https://www.instagram.com/viptourbuzios" },
-      { label: "WhatsApp", href: "https://wa.me/552223503366" },
+      { label: "WhatsApp", href: "https://wa.me/5545999686381" },
     ],
   },
 } as const;
