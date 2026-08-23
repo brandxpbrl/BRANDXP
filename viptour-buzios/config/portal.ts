@@ -1,8 +1,9 @@
 export const portalConfig = {
-  name: "MASTER SOLUTIONS",
-  shortName: "MASTER SOLUTIONS",
+  name: "ORBIS",
+  shortName: "ORBIS",
+  tagline: "EVERYTHING, CONNECTED.",
   description:
-    "Futuristic ecosystem hub for business scaling, brand engineering, and luxury experiences.",
+    "ORBIS is a connected ecosystem of independent brands, services, projects, and digital experiences.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.riovibestransfer.com",
   links: {
     instagram: "https://www.instagram.com/brandexperience.br",
@@ -16,4 +17,3 @@ export const portalConfig = {
     location: "Rio de Janeiro, Brazil",
   }
 } as const;
-
