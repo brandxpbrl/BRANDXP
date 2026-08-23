@@ -6,22 +6,29 @@ type NavbarLogoProps = {
 };
 
 export function NavbarLogo({ variant }: NavbarLogoProps) {
-  const shellClass =
-    variant === "light"
-      ? "bg-sky-500 text-white ring-white/30"
-      : "bg-sky-600 text-white ring-black/5";
+  const textClass = variant === "light" ? "text-white" : "text-text-primary";
+  const mutedClass = variant === "light" ? "text-white/55" : "text-text-secondary";
 
   return (
     <Link
       href="/"
-      className="interactive flex shrink-0 items-center gap-3 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-interactive-focus"
+      className="interactive flex shrink-0 items-center gap-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-interactive-focus"
       aria-label={`${portalConfig.name} — Portal`}
     >
-      <span className={`flex h-12 w-12 items-center justify-center rounded-full shadow-md font-black tracking-tighter text-lg ring-1 ${shellClass}`}>
-        BE
+      <span
+        aria-hidden="true"
+        className={`relative flex h-9 w-9 items-center justify-center rounded-full border ${
+          variant === "light" ? "border-cyan-300/55" : "border-cyan-500/45"
+        }`}
+      >
+        <span className="absolute h-5 w-5 rounded-full border border-cyan-300/70" />
+        <span className="h-1.5 w-1.5 rounded-full bg-amber-200 shadow-[0_0_10px_rgba(253,230,138,0.9)]" />
       </span>
-      <span className="font-extrabold tracking-tight text-text-primary text-base hidden sm:inline">
-        Brand Experience OS
+      <span className="hidden sm:flex flex-col leading-none">
+        <span className={`text-lg font-semibold tracking-[0.16em] ${textClass}`}>ORBIS</span>
+        <span className={`mt-1 text-[7px] font-semibold tracking-[0.24em] ${mutedClass}`}>
+          EVERYTHING, CONNECTED.
+        </span>
       </span>
     </Link>
   );
