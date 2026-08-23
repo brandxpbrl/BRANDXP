@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Michroma, Montserrat } from "next/font/google";
 import "./globals.css";
 import "./zapt.css";
 import { portalConfig } from "@/config/portal";
@@ -9,6 +9,13 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "600", "700", "800"],
   variable: "--font-montserrat",
+  display: "swap",
+});
+
+const orbisDisplay = Michroma({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-orbis",
   display: "swap",
 });
 
@@ -50,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${montserrat.variable} scroll-smooth`}>
+    <html lang="es" className={`${montserrat.variable} ${orbisDisplay.variable} scroll-smooth`}>
       <body className="antialiased min-h-screen flex flex-col">
         <ConditionalNavbar />
         {children}
