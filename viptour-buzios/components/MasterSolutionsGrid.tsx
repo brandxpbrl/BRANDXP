@@ -13,9 +13,9 @@ const worlds = [
 ];
 
 const featured = [
-  { title: 'FRAGMA', kicker: 'FILMMAKING & VISUAL STORYTELLING', href: '/fragma-brand-experience', glow: 'from-fuchsia-500/42 via-purple-500/12 to-transparent', logo: '/images/fragma-logo.png' },
-  { title: 'VIPTOUR', kicker: 'BÚZIOS EXPERIENCES', href: '/projects/viptour', glow: 'from-cyan-400/42 via-sky-500/12 to-transparent' },
-  { title: 'QUBIT', kicker: 'TECHNOLOGY & AI SOLUTIONS', href: '/qubit', glow: 'from-violet-500/42 via-indigo-500/12 to-transparent' },
+  { title: 'FRAGMA', kicker: 'FILMMAKING & VISUAL STORYTELLING', href: '/fragma-brand-experience', image: '/images/buziosama-retiros.jpg', logo: '/images/fragma-logo.png', position: 'object-center' },
+  { title: 'VIPTOUR', kicker: 'BÚZIOS EXPERIENCES', href: '/projects/viptour', image: '/images/hero-buggy.png', position: 'object-center' },
+  { title: 'QUBIT', kicker: 'TECHNOLOGY & AI SOLUTIONS', href: '/qubit', image: '/assets/cognitive-core-Cc-9lS73.png', position: 'object-center' },
 ];
 
 const services = [
@@ -87,13 +87,12 @@ export default function MasterSolutionsGrid() {
             <div className="grid gap-5 lg:grid-cols-3">
               {featured.map((item,i) => (
                 <motion.div key={item.title} initial={{opacity:0,y:22}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*.07}}>
-                  <Link href={item.href} className="group relative flex min-h-[310px] flex-col justify-end overflow-hidden rounded-2xl border border-white/[0.14] bg-[#060914]/62 p-7 backdrop-blur-[2px] transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.glow}`} />
-                    <div className="absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_75%_25%,rgba(34,211,238,0.20),transparent_30%),linear-gradient(135deg,transparent_25%,rgba(255,255,255,0.025)_50%,transparent_75%)]" />
-                    <div className="absolute right-[-10%] top-[-15%] h-64 w-64 rounded-full border border-white/[0.09]"/>
-                    <div className="absolute right-[9%] top-[10%] h-36 w-36 rounded-full border border-cyan-300/[0.12]"/>
-                    {item.logo && <img src={item.logo} alt="" className="absolute left-7 top-7 h-9 max-w-[150px] object-contain object-left opacity-90" />}
-                    <div className="relative"><p className="mb-3 text-[9px] uppercase tracking-[0.28em] text-cyan-200/75">Featured world</p><h3 className="text-3xl font-semibold tracking-[0.08em]">{item.title}</h3><p className="mt-2 text-[9px] uppercase tracking-[0.2em] text-slate-200/80">{item.kicker}</p><span className="mt-7 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300">Explore world <ArrowUpRight size={14}/></span></div>
+                  <Link href={item.href} className="group relative flex min-h-[310px] flex-col justify-end overflow-hidden rounded-2xl border border-white/[0.14] bg-[#060914] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45">
+                    <img src={item.image} alt="" className={`absolute inset-0 h-full w-full object-cover ${item.position} transition duration-700 group-hover:scale-[1.04]`} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#02040a] via-[#02040a]/52 to-[#02040a]/10" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#02040a]/55 via-transparent to-transparent" />
+                    {item.logo && <img src={item.logo} alt="" className="absolute left-7 top-7 h-9 max-w-[150px] object-contain object-left brightness-0 invert opacity-95" />}
+                    <div className="relative"><p className="mb-3 text-[9px] uppercase tracking-[0.28em] text-cyan-200/80">Featured world</p><h3 className="text-3xl font-semibold tracking-[0.08em]">{item.title}</h3><p className="mt-2 text-[9px] uppercase tracking-[0.2em] text-slate-200/90">{item.kicker}</p><span className="mt-7 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300">Explore world <ArrowUpRight size={14}/></span></div>
                   </Link>
                 </motion.div>
               ))}
