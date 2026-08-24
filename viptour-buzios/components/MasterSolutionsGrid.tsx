@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Aperture, Box, Leaf, Plane, Sparkles } from 'lucide-react';
 
 const worlds = [
-  { title: 'CREATE', subtitle: 'Brand Experience · Fragma · Content', accent: 'from-fuchsia-500/42', border: 'border-fuchsia-400/30', icon: Sparkles, href: '/brand-experience' },
-  { title: 'TECHNOLOGY', subtitle: 'QUBIT · MPE · AI Solutions', accent: 'from-cyan-500/38', border: 'border-cyan-400/30', icon: Box, href: '/qubit' },
-  { title: 'TRAVEL', subtitle: 'VIPTOUR · Transfers · Hospedajes', accent: 'from-teal-400/38', border: 'border-teal-300/30', icon: Plane, href: '/projects/viptour' },
-  { title: 'BUILD', subtitle: 'Woodcraft · Electrical · Construction', accent: 'from-amber-500/38', border: 'border-amber-400/30', icon: Aperture, href: '/gonzalo' },
-  { title: 'LIFESTYLE', subtitle: 'ZAPT · Gastronomy · Experiences', accent: 'from-lime-400/36', border: 'border-lime-400/30', icon: Leaf, href: '/zaptdeliverybz' },
+  { title: 'CREATE', subtitle: 'Brand Experience · Fragma · Content', image: '/images/orbis/ecosystem/create.png', accent: 'from-fuchsia-500/32', border: 'border-fuchsia-400/35', icon: Sparkles, href: '/brand-experience' },
+  { title: 'TECHNOLOGY', subtitle: 'QUBIT · MPE · AI Solutions', image: '/images/orbis/ecosystem/technology.png', accent: 'from-cyan-500/28', border: 'border-cyan-400/35', icon: Box, href: '/qubit' },
+  { title: 'TRAVEL', subtitle: 'VIPTOUR · Transfers · Hospedajes', image: '/images/orbis/ecosystem/travel.png', accent: 'from-teal-400/26', border: 'border-teal-300/35', icon: Plane, href: '/projects/viptour' },
+  { title: 'BUILD', subtitle: 'Woodcraft · Electrical · Construction', image: '/images/orbis/ecosystem/build.png', accent: 'from-amber-500/26', border: 'border-amber-400/35', icon: Aperture, href: '/gonzalo' },
+  { title: 'LIFESTYLE', subtitle: 'ZAPT · Gastronomy · Experiences', image: '/images/orbis/ecosystem/lifestyle.png', accent: 'from-lime-400/24', border: 'border-lime-400/35', icon: Leaf, href: '/zaptdeliverybz' },
 ];
 
 const featured = [
@@ -70,11 +70,13 @@ export default function MasterSolutionsGrid() {
                 const Icon = world.icon;
                 return (
                   <motion.div key={world.title} initial={{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*.05}}>
-                    <Link href={world.href} className={`group relative flex min-h-60 flex-col justify-between overflow-hidden rounded-2xl border ${world.border} bg-[#07101b]/58 p-6 backdrop-blur-[2px] transition duration-300 hover:-translate-y-1 hover:bg-[#07101b]/68`}>
-                      <div className={`absolute inset-0 bg-gradient-to-b ${world.accent} via-transparent to-transparent opacity-95`} />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_12%,rgba(255,255,255,0.07),transparent_42%)]" />
-                      <Icon className="relative h-8 w-8 stroke-[1.15] text-cyan-200/85 transition group-hover:scale-110" />
-                      <div className="relative"><h3 className="text-base tracking-[0.18em]">{world.title}</h3><p className="mt-3 text-[10px] leading-5 text-slate-200/80">{world.subtitle}</p><ArrowRight size={15} className="mt-5 text-cyan-300 transition group-hover:translate-x-1" /></div>
+                    <Link href={world.href} className={`group relative flex min-h-64 flex-col justify-between overflow-hidden rounded-2xl border ${world.border} bg-[#07101b]/40 p-6 transition duration-300 hover:-translate-y-1`}>
+                      <img src={world.image} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.05]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#02040a]/94 via-[#02040a]/54 to-[#02040a]/08" />
+                      <div className={`absolute inset-0 bg-gradient-to-b ${world.accent} via-transparent to-transparent opacity-75`} />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,255,255,0.08),transparent_38%)]" />
+                      <Icon className="relative z-10 h-8 w-8 stroke-[1.15] text-white/90 drop-shadow-[0_0_12px_rgba(255,255,255,0.18)] transition group-hover:scale-110" />
+                      <div className="relative z-10"><h3 className="text-base tracking-[0.18em]">{world.title}</h3><p className="mt-3 text-[10px] leading-5 text-slate-100/85">{world.subtitle}</p><ArrowRight size={15} className="mt-5 text-cyan-300 transition group-hover:translate-x-1" /></div>
                     </Link>
                   </motion.div>
                 );
