@@ -13,6 +13,7 @@ import drinks from "@/images/ChatGPT Image 15 may 2026, 21_14_19.png";
 import combos from "@/images/ChatGPT Image 15 may 2026, 21_41_34.png";
 import dog from "@/images/ChatGPT Image 15 may 2026, 21_15_36.png";
 import zaptLogo from "@/images/zapt-logo-original.png";
+import { zaptFaqItems } from "@/config/zapt-seo";
 
 const whatsapp = "https://wa.me/5522992430867?text=Ol%C3%A1%20ZAPT!%20Vim%20pelo%20site%20e%20quero%20fazer%20um%20pedido%20%E2%9A%A1";
 const comboWhatsapp = (name: string) => `https://wa.me/5522992430867?text=${encodeURIComponent(`Olá ZAPT! Quero pedir o ${name}.`)}`;
@@ -61,7 +62,8 @@ export default function ZaptLanding() {
         </div>
         <div className="zapt-hero-copy">
           <p className="zapt-kicker"><Zap size={15} /> Búzios after dark · delivery imediato</p>
-          <h1>Delivery de<br /><em>madrugada</em><br />em Búzios.</h1>
+          <h1>Delivery em<br /><em>Búzios de<br />madrugada.</em></h1>
+          <p className="zapt-hero-brand-line">A madrugada agora tem outro nome. <strong>ZAPT.</strong></p>
           <p className="zapt-hero-lede">Quando a maioria fecha, a <strong>ZAPT</strong> começa. Bebidas geladas, lanches e combos para a tua noite continuar.</p>
           <div className="zapt-hero-actions">
             <TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-button zapt-button--acid"><MessageCircle size={19} /> Pedir pelo WhatsApp <Zap size={16} /></span></TrackLink>
@@ -144,6 +146,32 @@ export default function ZaptLanding() {
       <section className="zapt-process zapt-wrap" id="como-funciona"><p className="zapt-eyebrow">Sem complicação</p><h2>3 toques. <em>ZAPT.</em></h2><div className="zapt-process-grid"><div><span>01</span><b>Escolhe</b><p>O que a tua noite está pedindo.</p></div><div><span>02</span><b>Chama</b><p>Fala com a gente no WhatsApp.</p></div><div><span>03</span><b>Chegou</b><p>A ZAPT leva até você em Búzios.</p></div></div></section>
 
       <section className="zapt-night"><Image src={delivery} alt="Entregador ZAPT pelas ruas de Búzios à noite" sizes="100vw" /><div className="zapt-night-overlay"><p className="zapt-eyebrow">A madrugada agora tem outro nome</p><h2>Quando Búzios dorme,<br /><em>a ZAPT acelera.</em></h2></div></section>
+
+      <section className="zapt-local-seo zapt-wrap" aria-labelledby="zapt-local-title">
+        <div className="zapt-local-seo-copy">
+          <p className="zapt-eyebrow"><MapPin size={15} /> Búzios — RJ</p>
+          <h2 id="zapt-local-title">Delivery em Búzios<br /><em>das 23h às 04h.</em></h2>
+          <p>Procurando delivery em Búzios durante a madrugada? A ZAPT entrega lanches, bebidas, cervejas, gelo e combos para sua noite. Peça pelo WhatsApp e receba seu pedido em Búzios.</p>
+        </div>
+        <div className="zapt-local-seo-facts">
+          <span><Clock3 size={17} /> 23:00 — 04:00</span>
+          <span><MapPin size={17} /> Armação dos Búzios · RJ · Brasil</span>
+          <span><MessageCircle size={17} /> Pedidos pelo WhatsApp</span>
+        </div>
+      </section>
+
+      <section className="zapt-faq zapt-wrap" aria-labelledby="zapt-faq-title">
+        <p className="zapt-eyebrow"><Zap size={15} /> Perguntas frequentes</p>
+        <h2 id="zapt-faq-title">ZAPT RESPONDE <em>⚡</em></h2>
+        <div className="zapt-faq-list">
+          {zaptFaqItems.map((item) => (
+            <details key={item.question}>
+              <summary>{item.question}<span>+</span></summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
       <section className="zapt-final zapt-wrap"><div><p className="zapt-eyebrow"><Zap size={15} /> Tá esperando o quê?</p><h2>Bateu fome?<br />Ficou sem bebida?<br /><em>A ZAPT resolve.</em></h2></div><div className="zapt-final-card"><Image src={dog} alt="Hot dog Oh My Dog da ZAPT" sizes="(max-width: 760px) 100vw, 45vw" /><TrackLink href={whatsapp} event="whatsapp_click"><span className="zapt-button zapt-button--acid"><MessageCircle size={19} /> Pedir agora no WhatsApp</span></TrackLink><small>+55 22 99243-0867 · Búzios — RJ</small></div></section>
 

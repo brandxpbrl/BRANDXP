@@ -86,3 +86,99 @@
   .zapt-menu-stage h3 { font-size: 34px; }
   .zapt-menu-help { margin-bottom: 20px!important; }
 }
+/* Local search context and compact FAQ — content-only extension of the approved layout. */
+.zapt-hero-brand-line {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-top: 16px !important;
+  text-transform: uppercase;
+}
+
+.zapt-hero-brand-line strong { color: var(--acid); }
+
+.zapt-local-seo {
+  border-bottom: 1px solid rgba(239, 255, 0, 0.14);
+  border-top: 1px solid rgba(239, 255, 0, 0.14);
+  display: grid;
+  gap: 48px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+  padding-bottom: 100px;
+  padding-top: 100px;
+}
+
+.zapt-local-seo h2, .zapt-faq h2 {
+  font-size: clamp(40px, 5.8vw, 72px);
+  font-weight: 900;
+  line-height: 0.92;
+  margin-top: 16px;
+  text-transform: uppercase;
+}
+
+.zapt-local-seo-copy > p:not(.zapt-eyebrow) {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-top: 24px !important;
+  max-width: 620px;
+}
+
+.zapt-local-seo-facts {
+  align-self: end;
+  border-left: 1px solid rgba(239, 255, 0, 0.28);
+  display: grid;
+  gap: 14px;
+  padding-left: 24px;
+}
+
+.zapt-local-seo-facts span {
+  align-items: center;
+  color: rgba(255, 255, 255, 0.72);
+  display: flex;
+  font-size: 12px;
+  font-weight: 800;
+  gap: 10px;
+}
+
+.zapt-local-seo-facts svg { color: var(--acid); }
+
+.zapt-faq { padding-bottom: 110px; padding-top: 90px; }
+
+.zapt-faq-list {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  margin-top: 38px;
+}
+
+.zapt-faq-list details { border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+
+.zapt-faq-list summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 15px;
+  font-weight: 900;
+  justify-content: space-between;
+  list-style: none;
+  padding: 20px 0;
+  text-transform: uppercase;
+}
+
+.zapt-faq-list summary::-webkit-details-marker { display: none; }
+.zapt-faq-list summary span { color: var(--acid); font-size: 24px; font-weight: 400; }
+.zapt-faq-list details[open] summary span { transform: rotate(45deg); }
+
+.zapt-faq-list details p {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 800px;
+  padding: 0 48px 22px 0;
+}
+
+@media (max-width: 760px) {
+  .zapt-local-seo { display: block; padding-bottom: 74px; padding-top: 74px; }
+  .zapt-local-seo-facts { border-left: 0; border-top: 1px solid rgba(239, 255, 0, 0.28); margin-top: 32px; padding-left: 0; padding-top: 20px; }
+  .zapt-faq { padding-bottom: 78px; padding-top: 64px; }
+  .zapt-faq-list summary { font-size: 13px; line-height: 1.35; padding-right: 8px; }
+}
