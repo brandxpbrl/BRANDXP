@@ -69,11 +69,7 @@ export default function FelaLanding() {
         <div className={styles.orbTwo} />
         <div className={styles.heroContent}>
           <div className={styles.brandLockup}>
-            <span className={styles.waveMark}>≈</span>
-            <div>
-              <strong>FELA TOURS</strong>
-              <small>RÍO DE JANEIRO · BRASIL</small>
-            </div>
+            <img src="/fela/logo.webp" alt="FELA TOURS — Río de Janeiro, Brasil" />
           </div>
           <p className={styles.eyebrow}>
             <Sparkles size={15} /> Tu experiencia empieza antes de viajar
@@ -252,11 +248,7 @@ export default function FelaLanding() {
 
       <footer className={styles.footer}>
         <div className={styles.brandLockup}>
-          <span className={styles.waveMark}>≈</span>
-          <div>
-            <strong>FELA TOURS</strong>
-            <small>TRASLADOS Y EXPERIENCIAS</small>
-          </div>
+          <img src="/fela/logo.webp" alt="FELA TOURS" />
         </div>
         <p>Río de Janeiro · Búzios · Brasil</p>
         <Link href="/">Volver a ORBIS</Link>
