@@ -34,7 +34,7 @@ export const metadata: Metadata = {
       {
         url: "/images/orbis/ecosystem/travel.png",
         width: 1200,
-        height: 630,
+        height: 900,
         alt: "FELA TOURS — Río de Janeiro y Búzios",
       },
     ],
