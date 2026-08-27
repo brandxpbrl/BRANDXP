@@ -67,6 +67,7 @@ const catalogGroups = [
       "AquaRio + Museo del Mañana",
       "AquaRio + Museo + BioParque",
       "Zona Portuaria",
+      "Vuelo panorámico en helicóptero",
     ],
   },
   {
@@ -261,6 +262,49 @@ export default function FelaLanding() {
               <MessageCircle size={19} /> Consultar catálogo
             </a>
           </aside>
+        </div>
+      </section>
+
+      <section className={styles.helicopter}>
+        <div className={styles.helicopterGallery}>
+          <img
+            className={styles.helicopterMain}
+            src="/fela/catalog/helicoptero-rio.webp"
+            alt="Vuelo panorámico en helicóptero sobre el Cristo Redentor"
+          />
+          <img
+            className={styles.helicopterDetail}
+            src="/fela/catalog/helicoptero-cristo.webp"
+            alt="Helicóptero frente al Cristo Redentor de Río de Janeiro"
+          />
+          <span className={styles.helicopterLabel}>Experiencia aérea · Río de Janeiro</span>
+        </div>
+        <div className={styles.helicopterCopy}>
+          <p className={styles.eyebrow}>Río desde otra perspectiva</p>
+          <h2>
+            Vuelo panorámico
+            <br />
+            <em>en helicóptero.</em>
+          </h2>
+          <p>
+            Sobrevolá los paisajes más emblemáticos de Río de Janeiro y viví una
+            perspectiva única del Cristo Redentor, las montañas y la costa
+            carioca. La ruta y la duración se confirman según disponibilidad y
+            condiciones operativas.
+          </p>
+          <div className={styles.helicopterFacts}>
+            <span><Plane size={18} /> Experiencia panorámica</span>
+            <span><MapPin size={18} /> Río de Janeiro</span>
+            <span><ShieldCheck size={18} /> Operación sujeta a condiciones de vuelo</span>
+          </div>
+          <a
+            className={styles.primaryButton}
+            href={ask("el vuelo panorámico en helicóptero por Río de Janeiro")}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MessageCircle size={19} /> Consultar disponibilidad
+          </a>
         </div>
       </section>
 
