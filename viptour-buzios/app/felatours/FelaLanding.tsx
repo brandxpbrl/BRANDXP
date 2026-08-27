@@ -55,6 +55,76 @@ const benefits = [
   "Asistencia antes, durante y después de la experiencia",
 ];
 
+const catalogGroups = [
+  {
+    title: "Río de Janeiro",
+    services: [
+      "Un Día en Río",
+      "Corcovado + City Tour",
+      "Rio Express",
+      "Pan de Azúcar + Playas",
+      "Tour Maracanã",
+      "AquaRio + Museo del Mañana",
+      "AquaRio + Museo + BioParque",
+      "Zona Portuaria",
+    ],
+  },
+  {
+    title: "Playas e islas",
+    services: [
+      "Arraial do Cabo",
+      "Angra dos Reis + Ilha Grande",
+      "Búzios desde Río",
+      "Paseo de barco en Búzios",
+      "Arraial desde Búzios",
+    ],
+  },
+  {
+    title: "Aventura y naturaleza",
+    services: [
+      "Stand Up Paddle al amanecer",
+      "Buceo bautismo en Búzios",
+      "Buggy en Búzios",
+      "Jet Ski",
+      "Jeep Tour Floresta da Tijuca",
+      "Pedra do Telégrafo",
+      "Pedra da Gávea",
+      "Floresta da Tijuca + Jardim Botânico",
+    ],
+  },
+  {
+    title: "Cultura y experiencias",
+    services: [
+      "Favela Tour Rocinha",
+      "Amanecer en Vidigal",
+      "Fiesta de barco",
+      "Fiestas latinas",
+      "Dembow Búzios",
+      "Ensayo Escola de Samba Salgueiro",
+      "Experiencias gastronómicas",
+      "Paquetes personalizados",
+    ],
+  },
+  {
+    title: "Traslados",
+    services: [
+      "Traslados privados",
+      "Traslados compartidos",
+      "Aeropuertos ↔ Río de Janeiro",
+      "Aeropuertos ↔ Búzios",
+      "Aeropuertos ↔ Arraial do Cabo",
+      "Aeropuertos ↔ Angra / Ilha Grande",
+    ],
+  },
+];
+
+const catalogVisuals = [
+  { src: "/fela/catalog/pack-3-dias.webp", alt: "Paquete de experiencias FELA TOURS" },
+  { src: "/fela/catalog/favela.webp", alt: "Favela Tour Rocinha con FELA TOURS" },
+  { src: "/fela/catalog/buceo-1.webp", alt: "Buceo bautismo en Búzios con FELA TOURS" },
+  { src: "/fela/catalog/gastronomia.webp", alt: "Experiencia gastronómica en Búzios con FELA TOURS" },
+];
+
 export default function FelaLanding() {
   return (
     <main className={styles.page}>
@@ -125,6 +195,73 @@ export default function FelaLanding() {
           recordar por años, coordinamos cada detalle para que viajes tranquilo
           y aproveches cada día.
         </p>
+      </section>
+
+      <section id="catalogo" className={styles.catalog}>
+        <div className={styles.catalogLead}>
+          <div>
+            <p className={styles.eyebrow}>Catálogo principal FELA TOURS</p>
+            <h2>
+              Todas las experiencias.
+              <br />
+              <em>Una sola atención.</em>
+            </h2>
+          </div>
+          <p>
+            Este es nuestro catálogo general de servicios. Consultanos por fecha,
+            cantidad de viajeros y lugar de hospedaje para confirmar la mejor
+            opción disponible.
+          </p>
+        </div>
+
+        <div className={styles.catalogLayout}>
+          <div className={styles.catalogGroups}>
+            {catalogGroups.map((group) => (
+              <article className={styles.catalogGroup} key={group.title}>
+                <div className={styles.catalogGroupHead}>
+                  <span>{String(catalogGroups.indexOf(group) + 1).padStart(2, "0")}</span>
+                  <h3>{group.title}</h3>
+                </div>
+                <div className={styles.catalogItems}>
+                  {group.services.map((service) => (
+                    <a
+                      href={ask(service)}
+                      target="_blank"
+                      rel="noreferrer"
+                      key={service}
+                    >
+                      <span>{service}</span>
+                      <small>Consultar disponibilidad</small>
+                      <ArrowRight size={15} />
+                    </a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <aside className={styles.catalogVisuals}>
+            <p className={styles.eyebrow}>Experiencias destacadas</p>
+            <div className={styles.flyerStack}>
+              {catalogVisuals.map((visual, index) => (
+                <img
+                  src={visual.src}
+                  alt={visual.alt}
+                  key={visual.src}
+                  className={index === 0 ? styles.flyerPrimary : undefined}
+                />
+              ))}
+            </div>
+            <a
+              className={styles.primaryButton}
+              href={ask("el catálogo completo")}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <MessageCircle size={19} /> Consultar catálogo
+            </a>
+          </aside>
+        </div>
       </section>
 
       <section id="experiencias" className={styles.services}>
