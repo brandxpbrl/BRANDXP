@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/fela/icon.webp",
+    shortcut: "/fela/icon.webp",
+    apple: "/fela/icon.webp",
+  },
   openGraph: {
     type: "website",
     locale: "es_ES",
