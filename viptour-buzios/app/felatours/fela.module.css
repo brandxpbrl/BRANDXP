@@ -189,6 +189,76 @@
   font-size: 17px;
   line-height: 1.75;
 }
+.helicopter {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+  gap: 70px;
+  align-items: center;
+  width: min(1180px, calc(100% - 40px));
+  margin: auto;
+  padding: 30px 0 140px;
+}
+.helicopterGallery {
+  position: relative;
+  min-height: 650px;
+}
+.helicopterMain {
+  width: 82%;
+  height: 650px;
+  object-fit: cover;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 217, 255, 0.24);
+}
+.helicopterDetail {
+  position: absolute;
+  right: 0;
+  bottom: 45px;
+  width: 48%;
+  border: 9px solid var(--navy);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+.helicopterLabel {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 40, 127, 0.45);
+  border-radius: 8px;
+  background: rgba(2, 7, 24, 0.88);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.helicopterCopy h2 {
+  margin-top: 20px;
+  font-size: clamp(42px, 5.2vw, 70px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+.helicopterCopy > p:not(.eyebrow) {
+  margin: 25px 0;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.75;
+}
+.helicopterFacts {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+.helicopterFacts span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.helicopterFacts svg {
+  color: var(--cyan);
+}
+
 .services {
   padding: 40px 0 120px;
 }
@@ -547,6 +617,7 @@
   }
   .serviceGrid,
   .catalogLayout,
+  .helicopter,
   .transfer,
   .trust {
     grid-template-columns: 1fr;
@@ -559,6 +630,15 @@
   }
   .catalogVisuals {
     position: static;
+  }
+  .helicopter {
+    gap: 44px;
+  }
+  .helicopterGallery {
+    min-height: 540px;
+  }
+  .helicopterMain {
+    height: 540px;
   }
   .transfer {
     gap: 45px;
@@ -574,6 +654,7 @@
   }
   .intro,
   .catalog,
+  .helicopter,
   .services,
   .transfer,
   .trust {
