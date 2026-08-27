@@ -1,0 +1,471 @@
+.page {
+  --navy: #020718;
+  --cyan: #00d9ff;
+  --pink: #ff287f;
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-montserrat), sans-serif;
+  overflow: hidden;
+}
+.hero {
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 7, 24, 0.97) 0%,
+      rgba(2, 7, 24, 0.86) 42%,
+      rgba(2, 7, 24, 0.2) 78%
+    ),
+    linear-gradient(0deg, #020718 0%, transparent 32%);
+}
+.orbOne,
+.orbTwo {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  pointer-events: none;
+}
+.orbOne {
+  width: 420px;
+  height: 420px;
+  background: rgba(0, 217, 255, 0.2);
+  right: 8%;
+  top: 14%;
+}
+.orbTwo {
+  width: 260px;
+  height: 260px;
+  background: rgba(255, 40, 127, 0.2);
+  right: 28%;
+  bottom: 12%;
+}
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, calc(100% - 40px));
+  margin: auto;
+  padding: 130px 0 80px;
+}
+.brandLockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brandLockup strong {
+  display: block;
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+.brandLockup small {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 7px;
+  letter-spacing: 0.25em;
+}
+.waveMark {
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  border: 1px solid rgba(0, 217, 255, 0.7);
+  border-radius: 50%;
+  color: var(--pink);
+  font-size: 31px;
+  font-weight: 800;
+  box-shadow: 0 0 26px rgba(0, 217, 255, 0.18);
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.hero .eyebrow {
+  margin-top: 64px;
+}
+.hero h1,
+.intro h2,
+.sectionHeading h2,
+.transfer h2,
+.trust h2,
+.finalCta h2 {
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+.hero h1 {
+  font-size: clamp(54px, 7.2vw, 102px);
+  margin: 22px 0 0;
+  max-width: 900px;
+}
+.page em {
+  color: var(--pink);
+  font-style: normal;
+}
+.lede {
+  max-width: 650px;
+  margin-top: 28px;
+  color: rgba(255, 255, 255, 0.73);
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.7;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  border-radius: 7px;
+  padding: 0 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.primaryButton {
+  background: linear-gradient(110deg, var(--pink), #ff4b9c);
+  color: white;
+  box-shadow: 0 13px 45px rgba(255, 40, 127, 0.26);
+}
+.secondaryButton {
+  border: 1px solid rgba(0, 217, 255, 0.5);
+  background: rgba(2, 7, 24, 0.48);
+  color: white;
+}
+.quickTrust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-top: 36px;
+}
+.quickTrust span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.quickTrust svg {
+  color: var(--cyan);
+}
+.intro,
+.services,
+.transfer,
+.trust {
+  width: min(1180px, calc(100% - 40px));
+  margin: auto;
+}
+.intro {
+  padding: 120px 0;
+  text-align: center;
+}
+.intro .eyebrow {
+  justify-content: center;
+}
+.intro h2,
+.sectionHeading h2,
+.transfer h2,
+.trust h2,
+.finalCta h2 {
+  font-size: clamp(42px, 5.4vw, 72px);
+  margin-top: 20px;
+}
+.intro > p:last-child {
+  max-width: 730px;
+  margin: 28px auto 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 17px;
+  line-height: 1.75;
+}
+.services {
+  padding: 40px 0 120px;
+}
+.sectionHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 45px;
+}
+.sectionHeading > p {
+  max-width: 390px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+}
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.serviceCard {
+  position: relative;
+  min-height: 430px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.serviceCard > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s;
+}
+.serviceCard:hover > img {
+  transform: scale(1.04);
+}
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(2, 7, 24, 0.98),
+    rgba(2, 7, 24, 0.15) 72%
+  );
+}
+.cardContent {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 30px;
+}
+.cardContent > svg {
+  color: var(--cyan);
+}
+.cardContent h3 {
+  font-size: 30px;
+  margin-top: 18px;
+}
+.cardContent p {
+  max-width: 470px;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.cardContent a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--pink);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.transfer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 80px 0 130px;
+}
+.transferVisual {
+  position: relative;
+  height: 610px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.transferVisual > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.transferVisual:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(2, 7, 24, 0.7), transparent);
+}
+.transferBadge {
+  position: absolute;
+  z-index: 2;
+  bottom: 25px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: rgba(2, 7, 24, 0.82);
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  border-radius: 12px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+}
+.transferBadge svg {
+  color: var(--cyan);
+}
+.transferCopy > p:not(.eyebrow) {
+  margin: 25px 0;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.75;
+}
+.transferFacts {
+  display: grid;
+  gap: 13px;
+  margin-bottom: 30px;
+}
+.transferFacts span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.transferFacts svg {
+  color: var(--cyan);
+}
+.trust {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 80px;
+  padding: 100px 0;
+  border-top: 1px solid rgba(0, 217, 255, 0.14);
+}
+.benefitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.benefitGrid div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.benefitGrid svg {
+  flex: 0 0 auto;
+  color: var(--pink);
+}
+.finalCta {
+  text-align: center;
+  padding: 130px 20px;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 40, 127, 0.14),
+      transparent 44%
+    ),
+    radial-gradient(circle at 70% 30%, rgba(0, 217, 255, 0.12), transparent 30%);
+}
+.finalCta .eyebrow {
+  justify-content: center;
+}
+.finalCta > p:not(.eyebrow) {
+  max-width: 620px;
+  margin: 25px auto;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  width: min(1180px, calc(100% - 40px));
+  margin: auto;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 11px;
+}
+.footer a {
+  color: var(--cyan);
+}
+@media (max-width: 800px) {
+  .hero {
+    min-height: 920px;
+  }
+  .heroOverlay {
+    background: linear-gradient(
+      0deg,
+      #020718 4%,
+      rgba(2, 7, 24, 0.75) 55%,
+      rgba(2, 7, 24, 0.42)
+    );
+  }
+  .heroContent {
+    padding-top: 110px;
+  }
+  .hero .eyebrow {
+    margin-top: 55px;
+  }
+  .hero h1 {
+    font-size: 52px;
+  }
+  .quickTrust {
+    display: grid;
+  }
+  .sectionHeading,
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .serviceGrid,
+  .transfer,
+  .trust {
+    grid-template-columns: 1fr;
+  }
+  .serviceCard {
+    min-height: 400px;
+  }
+  .transfer {
+    gap: 45px;
+  }
+  .transferVisual {
+    height: 470px;
+  }
+  .benefitGrid {
+    grid-template-columns: 1fr;
+  }
+  .trust {
+    gap: 42px;
+  }
+  .intro,
+  .services,
+  .transfer,
+  .trust {
+    width: min(100% - 28px, 1180px);
+  }
+  .footer {
+    padding-bottom: 100px;
+  }
+}
