@@ -344,9 +344,24 @@ export default function FelaLanding() {
       <section className={styles.transfer}>
         <div className={styles.transferVisual}>
           <img
-            src="/images/orbis/ecosystem/travel.png"
-            alt="Traslados privados y compartidos de FELA TOURS"
+            className={styles.transferMain}
+            src="/fela/transfers/passengers.webp"
+            alt="Pasajeros y traslados de FELA TOURS"
           />
+          <div className={styles.transferMiniGrid}>
+            <img
+              src="/fela/transfers/airport-van.webp"
+              alt="Van FELA TOURS para traslados de aeropuerto"
+            />
+            <img
+              src="/fela/transfers/private-premium.webp"
+              alt="Transfer privado premium FELA TOURS"
+            />
+            <img
+              src="/fela/transfers/coverage.webp"
+              alt="Cobertura de traslados FELA TOURS"
+            />
+          </div>
           <div className={styles.transferBadge}>
             <BusFront size={25} />
             <span>Puerta a puerta</span>
@@ -360,9 +375,10 @@ export default function FelaLanding() {
             <em>es parte del viaje.</em>
           </h2>
           <p>
-            Coordinamos horario, punto de salida y destino. En aeropuerto
-            hacemos seguimiento del vuelo y te damos una hora de espera de
-            cortesía si se demora.
+            Coordinamos traslados privados y compartidos entre aeropuertos,
+            Río de Janeiro, Búzios, Arraial do Cabo, Cabo Frío, Angra dos Reis e
+            Ilha Grande. Hacemos seguimiento del vuelo y te damos una hora de
+            espera de cortesía si se demora.
           </p>
           <div className={styles.transferFacts}>
             <span>
