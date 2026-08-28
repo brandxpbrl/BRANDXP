@@ -140,7 +140,15 @@
   text-align: center;
 }
 
-.primaryButton {
+.catalogActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.primaryButton,
+.infoButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -148,26 +156,39 @@
   min-height: 52px;
   padding: 0 22px;
   border-radius: 7px;
-  background: linear-gradient(110deg, #ff287f, #ff4b9c);
   color: white;
-  box-shadow: 0 13px 45px rgba(255,40,127,.26);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
 
-.catalogLightbox {
+.primaryButton {
+  background: linear-gradient(110deg, #ff287f, #ff4b9c);
+  box-shadow: 0 13px 45px rgba(255,40,127,.26);
+}
+
+.infoButton {
+  border: 1px solid rgba(0,217,255,.4);
+  background: rgba(2,7,24,.58);
+  cursor: pointer;
+}
+
+.catalogLightbox,
+.detailsModal {
   position: fixed;
   z-index: 1000;
   inset: 0;
+  overflow: auto;
+  background: rgba(1, 4, 14, .96);
+  backdrop-filter: blur(14px);
+}
+
+.catalogLightbox {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow: auto;
   padding: 70px 76px;
-  background: rgba(1, 4, 14, .96);
-  backdrop-filter: blur(14px);
 }
 
 .catalogLightbox img {
@@ -195,6 +216,60 @@
   background: rgba(2,7,24,.88);
   color: white;
   cursor: pointer;
+}
+
+.detailsModal {
+  padding: 58px 18px 28px;
+}
+
+.detailsPanel {
+  position: relative;
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: 34px;
+  border: 1px solid rgba(0,217,255,.18);
+  border-radius: 22px;
+  background: #050b20;
+  box-shadow: 0 30px 100px rgba(0,0,0,.5);
+}
+
+.detailsHeader {
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+
+.detailsEyebrow {
+  color: #00d9ff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.detailsHeader h3 {
+  margin: 10px 0 12px;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1;
+}
+
+.detailsHeader p {
+  color: rgba(255,255,255,.62);
+  line-height: 1.7;
+}
+
+.detailsPages {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 26px;
+}
+
+.detailsPages img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: #fff;
 }
 
 @media (max-width: 800px) {
@@ -226,7 +301,9 @@
     font-size: 11px;
   }
 
-  .primaryButton {
+  .catalogActions,
+  .primaryButton,
+  .infoButton {
     width: 100%;
   }
 
@@ -243,4 +320,13 @@
 
   .catalogLightbox .catalogArrowLeft { left: calc(50% - 58px); }
   .catalogLightbox .catalogArrowRight { right: calc(50% - 58px); }
+
+  .detailsModal {
+    padding: 54px 8px 18px;
+  }
+
+  .detailsPanel {
+    padding: 22px 10px 18px;
+    border-radius: 16px;
+  }
 }
