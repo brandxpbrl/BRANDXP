@@ -19,16 +19,16 @@ const featured = [
 ];
 
 const services = [
-  ['BRAND EXPERIENCE','Branding & Identity','/brand-experience','text-fuchsia-300 border-fuchsia-400/30'],
-  ['MPE','Evolutionary Intelligence','/mpe','text-violet-300 border-violet-400/30'],
-  ['QUBIT','Technology & AI','/qubit','text-cyan-300 border-cyan-400/30'],
-  ['FRAGMA','Photography & Content','/fragma-brand-experience','text-pink-300 border-pink-400/30'],
-  ['VIPTOUR','Búzios Experiences','/projects/viptour','text-teal-300 border-teal-400/30'],
-  ['FELA TOURS','Tours & Transfers','/felatours','text-cyan-300 border-cyan-400/30'],
-  ['ZAPT','Night Delivery','/zaptdeliverybz','text-lime-300 border-lime-400/30'],
-  ['MELL & STONE','Natural Luxury Commerce','/mell-stone','text-amber-200 border-amber-400/30'],
-  ['WOODCRAFT','Custom Wood Solutions','/gonzalo','text-amber-300 border-amber-400/30'],
-  ['ELECTRICAL','Electrical Solutions','/services','text-yellow-300 border-yellow-400/30'],
+  { title: 'BRAND EXPERIENCE', meta: 'Branding & Identity', href: '/brand-experience', accent: 'text-fuchsia-300 border-fuchsia-400/35', image: '/images/almaycora2.png', imageClass: 'object-cover object-center' },
+  { title: 'MPE', meta: 'Evolutionary Intelligence', href: '/mpe', accent: 'text-violet-300 border-violet-400/35', image: '/images/vivo_nivel2_073748.png', imageClass: 'object-cover object-center' },
+  { title: 'QUBIT', meta: 'Technology & AI', href: '/qubit', accent: 'text-cyan-300 border-cyan-400/35', image: '/images/qubit/qubit-1.png', imageClass: 'object-cover object-center' },
+  { title: 'FRAGMA', meta: 'Photography & Content', href: '/fragma-brand-experience', accent: 'text-pink-300 border-pink-400/35', image: '/images/fragma sin fondo.png', imageClass: 'object-contain p-10' },
+  { title: 'VIPTOUR', meta: 'Búzios Experiences', href: '/projects/viptour', accent: 'text-teal-300 border-teal-400/35', image: '/images/hero-buggy.png', imageClass: 'object-cover object-center' },
+  { title: 'FELA TOURS', meta: 'Tours & Transfers', href: '/felatours', accent: 'text-cyan-300 border-cyan-400/35', image: '/fela/transfers/private-premium.webp', imageClass: 'object-cover object-center' },
+  { title: 'ZAPT', meta: 'Night Delivery', href: '/zaptdeliverybz', accent: 'text-lime-300 border-lime-400/35', image: '/images/orbis/ecosystem/lifestyle.png', imageClass: 'object-cover object-center' },
+  { title: 'MELL & STONE', meta: 'Natural Luxury Commerce', href: '/mell-stone', accent: 'text-amber-200 border-amber-400/35', image: '/images/mell-stone/products/conjunto-perolas-cristal-01.png', imageClass: 'object-cover object-center' },
+  { title: 'WOODCRAFT', meta: 'Custom Wood Solutions', href: '/gonzalo', accent: 'text-amber-300 border-amber-400/35', image: '/images/orbis/ecosystem/build.png', imageClass: 'object-cover object-center' },
+  { title: 'ELECTRICAL', meta: 'Electrical Solutions', href: '/services', accent: 'text-yellow-300 border-yellow-400/35', image: '/images/orbis/ecosystem/technology.png', imageClass: 'object-cover object-center' },
 ];
 
 export default function MasterSolutionsGrid() {
@@ -106,9 +106,19 @@ export default function MasterSolutionsGrid() {
           <div id="everything" className="scroll-mt-28 pt-24">
             <div className="mb-10 text-center"><h2 className="text-2xl font-light uppercase tracking-[0.32em] md:text-3xl">Explore Everything</h2></div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {services.map(([title,meta,href,accent]) => (
-                <Link key={title} href={href} className={`group rounded-2xl border bg-[#060914]/60 p-6 backdrop-blur-[2px] transition hover:-translate-y-1 hover:bg-[#0a0d18]/72 ${accent}`}>
-                  <div className="mb-10 text-xl opacity-80">◎</div><h3 className="text-base font-medium tracking-[0.08em] text-white">{title}</h3><p className="mt-2 text-[9px] uppercase tracking-[0.18em] text-slate-300/80">{meta}</p><ArrowUpRight size={14} className="mt-5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              {services.map((item) => (
+                <Link key={item.title} href={item.href} className={`group relative min-h-[290px] overflow-hidden rounded-2xl border bg-[#060914] p-6 transition duration-300 hover:-translate-y-1 ${item.accent}`}>
+                  <img src={item.image} alt="" className={`absolute inset-0 h-full w-full transition duration-700 group-hover:scale-[1.045] ${item.imageClass}`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#02040a]/98 via-[#02040a]/58 to-[#02040a]/08" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#02040a]/50 via-transparent to-transparent" />
+                  <div className="relative z-10 flex h-full min-h-[242px] flex-col justify-between">
+                    <div className="text-xl opacity-90 drop-shadow-[0_0_10px_currentColor]">◎</div>
+                    <div>
+                      <h3 className="text-base font-medium tracking-[0.08em] text-white">{item.title}</h3>
+                      <p className="mt-2 text-[9px] uppercase tracking-[0.18em] text-slate-200/90">{item.meta}</p>
+                      <ArrowUpRight size={14} className="mt-5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
