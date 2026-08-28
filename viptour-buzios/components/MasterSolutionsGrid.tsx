@@ -7,7 +7,7 @@ import { ArrowRight, ArrowUpRight, Aperture, Box, Leaf, Plane, Sparkles } from '
 const worlds = [
   { title: 'CREATE', subtitle: 'Brand Experience · Fragma · Content', image: '/images/orbis/ecosystem/create.png', accent: 'from-fuchsia-500/32', border: 'border-fuchsia-400/35', icon: Sparkles, href: '/brand-experience' },
   { title: 'TECHNOLOGY', subtitle: 'QUBIT · MPE · AI Solutions', image: '/images/orbis/ecosystem/technology.png', accent: 'from-cyan-500/28', border: 'border-cyan-400/35', icon: Box, href: '/qubit' },
-  { title: 'TRAVEL', subtitle: 'VIPTOUR · Transfers · Hospedajes', image: '/images/orbis/ecosystem/travel.png', accent: 'from-teal-400/26', border: 'border-teal-300/35', icon: Plane, href: '/projects/viptour' },
+  { title: 'TRAVEL', subtitle: 'FELA · VIPTOUR · Transfers', image: '/images/orbis/ecosystem/travel.png', accent: 'from-teal-400/26', border: 'border-teal-300/35', icon: Plane, href: '/projects/viptour' },
   { title: 'BUILD', subtitle: 'Woodcraft · Electrical · Construction', image: '/images/orbis/ecosystem/build.png', accent: 'from-amber-500/26', border: 'border-amber-400/35', icon: Aperture, href: '/gonzalo' },
   { title: 'LIFESTYLE', subtitle: 'ZAPT · Gastronomy · Experiences', image: '/images/orbis/ecosystem/lifestyle.png', accent: 'from-lime-400/24', border: 'border-lime-400/35', icon: Leaf, href: '/zaptdeliverybz' },
 ];
@@ -24,6 +24,7 @@ const services = [
   ['QUBIT','Technology & AI','/qubit','text-cyan-300 border-cyan-400/30'],
   ['FRAGMA','Photography & Content','/fragma-brand-experience','text-pink-300 border-pink-400/30'],
   ['VIPTOUR','Búzios Experiences','/projects/viptour','text-teal-300 border-teal-400/30'],
+  ['FELA TOURS','Tours & Transfers','/felatours','text-cyan-300 border-cyan-400/30'],
   ['ZAPT','Night Delivery','/zaptdeliverybz','text-lime-300 border-lime-400/30'],
   ['WOODCRAFT','Custom Wood Solutions','/gonzalo','text-amber-300 border-amber-400/30'],
   ['ELECTRICAL','Electrical Solutions','/services','text-yellow-300 border-yellow-400/30'],
