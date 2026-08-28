@@ -1,17 +1,17 @@
 # FELA TOURS International — private references
 
-This folder is internal project documentation. Its contents must never be copied to `public/` or exposed through a route, sitemap, or static asset URL.
+This folder is internal project documentation. The source copy remains here for traceability. The client has separately authorized the proposal flyer to appear as a clearly labelled public example; only the approved public derivative under `public/fela/international/` is exposed.
 
 ## Reference asset
 
-`family-proposal-reference.png` is a real English family proposal supplied by the client. It is used only to study:
+`family-proposal-reference.png` is a real English family proposal supplied by the client. It is used to study and, per the latest client instruction, support the public example section:
 
 - proposal hierarchy and pacing;
 - the relationship between included services and optional experiences;
 - transfer, guide, ticket, and concierge presentation;
 - package summaries and per-person/family total price blocks.
 
-Do not reuse its dates, prices, contact details, names, or other client-specific information in public content.
+The public page labels it as an example and states that its dates, prices, availability, and contact details are specific to that sample and are not a current quote. Do not reuse those values in new proposals.
 
 ## Approved visual source policy
 

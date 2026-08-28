@@ -16,11 +16,11 @@ Inventory checked in the PR-derived branch `codex/fela-tours-international` agai
 | `public/fela/catalog/buceo-1.webp` | 480×853 | 49.7 KB | WEBP | Catalog reference only until embedded commercial copy is approved. |
 | `public/fela/catalog/gastronomia.webp` | 480×853 | 52.8 KB | WEBP | Catalog reference only until embedded commercial copy is approved. |
 | `public/fela/catalog/pack-3-dias.webp` | 480×853 | 67.8 KB | WEBP | Catalog reference only; do not expose prices or old contact copy. |
-| `docs/references/fela-international/family-proposal-reference.png` | 1024×1536 | 2.22 MB | PNG | Private structure/visual reference only; never publish or link from the site. |
+| `docs/references/fela-international/family-proposal-reference.png` | 1024×1536 | 2.22 MB | PNG | Internal source copy; public page uses the separately approved derivative `public/fela/international/family-proposal-example.png`. |
 
 ## Duplicate, legacy, or restricted material
 
-- The PR contains the official public FELA set above. The international page currently uses the official logo and `transfers/passengers.webp`; it does not publish the private proposal or catalog flyers.
+- The PR contains the official public FELA set above. The international page uses the official logo, `transfers/passengers.webp`, and the client-approved proposal example derivative. It does not publish the private source copy or catalog flyers.
 - Repeated assets found in broader repository portfolio/archive folders are not treated as FELA production sources. They should remain outside the public FELA route unless individually approved.
 - Catalog flyers and transfer graphics with embedded Portuguese copy, prices, phone numbers, or old campaign claims are reference material until reviewed. Do not use them as primary English cards.
 - No BELA TOURS or `BS TRANSFERS` asset was selected for the FELA International page.
