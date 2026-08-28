@@ -1,0 +1,246 @@
+.mount {
+  display: block;
+}
+
+:global(#catalogo) > div:nth-child(2) {
+  display: none;
+}
+
+.fullCatalog {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  margin-top: 10px;
+}
+
+.catalogViewer {
+  position: relative;
+  width: min(880px, 100%);
+  padding: 18px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(0, 217, 255, 0.12), transparent 32%),
+    radial-gradient(circle at 88% 90%, rgba(255, 40, 127, 0.1), transparent 30%),
+    rgba(3, 10, 31, 0.92);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.32);
+}
+
+.catalogImageButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  cursor: zoom-in;
+}
+
+.catalogPageImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.catalogZoomHint {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  background: rgba(2, 7, 24, 0.82);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.catalogArrow {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(0, 217, 255, .28);
+  border-radius: 999px;
+  background: rgba(2, 7, 24, .88);
+  color: white;
+  cursor: pointer;
+  transform: translateY(-50%);
+  box-shadow: 0 12px 30px rgba(0,0,0,.28);
+}
+
+.catalogArrow:hover {
+  border-color: rgba(255, 40, 127, .72);
+}
+
+.catalogArrowLeft { left: -23px; }
+.catalogArrowRight { right: -23px; }
+
+.catalogControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: rgba(255,255,255,.72);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.catalogControls > button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  color: white;
+  cursor: pointer;
+}
+
+.catalogDots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.catalogDots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.24);
+  cursor: pointer;
+}
+
+.catalogDots .catalogDotActive {
+  width: 24px;
+  background: #00d9ff;
+}
+
+.catalogDisclaimer {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255,255,255,.56);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 7px;
+  background: linear-gradient(110deg, #ff287f, #ff4b9c);
+  color: white;
+  box-shadow: 0 13px 45px rgba(255,40,127,.26);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.catalogLightbox {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  padding: 70px 76px;
+  background: rgba(1, 4, 14, .96);
+  backdrop-filter: blur(14px);
+}
+
+.catalogLightbox img {
+  display: block;
+  width: min(1080px, 100%);
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.55);
+}
+
+.catalogLightbox .catalogArrowLeft { left: 22px; }
+.catalogLightbox .catalogArrowRight { right: 22px; }
+
+.catalogClose {
+  position: fixed;
+  z-index: 1002;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  background: rgba(2,7,24,.88);
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .catalogViewer {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .catalogImageButton {
+    border-radius: 10px;
+  }
+
+  .catalogViewer > .catalogArrow {
+    display: none;
+  }
+
+  .catalogZoomHint {
+    right: 9px;
+    bottom: 9px;
+    padding: 8px 10px;
+  }
+
+  .catalogControls {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .catalogDisclaimer {
+    font-size: 11px;
+  }
+
+  .primaryButton {
+    width: 100%;
+  }
+
+  .catalogLightbox {
+    padding: 64px 8px 30px;
+  }
+
+  .catalogLightbox .catalogArrow {
+    position: fixed;
+    top: auto;
+    bottom: 15px;
+    transform: none;
+  }
+
+  .catalogLightbox .catalogArrowLeft { left: calc(50% - 58px); }
+  .catalogLightbox .catalogArrowRight { right: calc(50% - 58px); }
+}
