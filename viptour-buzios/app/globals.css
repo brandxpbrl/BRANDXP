@@ -730,3 +730,1006 @@ html {
   .fragma-scope .fragma-sector-card,
   .fragma-scope .fragma-method-step { transition: none; }
 }
+
+/* MELL & STONE: route-local natural luxury commerce system. */
+.mell-scope {
+  --mell-obsidian: #111111;
+  --mell-ivory: #f8f6f2;
+  --mell-champagne: #c8a96a;
+  --mell-stone: #b7b2a8;
+  --mell-sand: #d8cbb8;
+  --mell-graphite: #444444;
+  --mell-quartz: #ffffff;
+  --mell-taupe: #9b9388;
+  --mell-bronze: #8a6e53;
+  --mell-forest: #314137;
+  --mell-border: rgba(17, 17, 17, .14);
+  --mell-border-strong: rgba(17, 17, 17, .25);
+  --mell-radius-sm: .35rem;
+  --mell-radius-md: .75rem;
+  --mell-radius-lg: 1.25rem;
+  --mell-container: 1480px;
+  --mell-space-page: clamp(1.25rem, 4vw, 4rem);
+  background: var(--mell-ivory);
+  color: var(--mell-obsidian);
+  font-family: var(--mell-font-body), sans-serif;
+}
+
+.mell-scope,
+.mell-scope * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.mell-scope a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mell-scope img {
+  display: block;
+}
+
+.mell-scope ::selection {
+  background: rgba(200, 169, 106, .35);
+  color: var(--mell-obsidian);
+}
+
+.mell-surface {
+  background:
+    radial-gradient(circle at 8% 5%, rgba(216, 203, 184, .55), transparent 31rem),
+    radial-gradient(circle at 94% 8%, rgba(200, 169, 106, .18), transparent 22rem),
+    linear-gradient(180deg, var(--mell-ivory) 0%, #f2eee8 46%, var(--mell-ivory) 100%);
+  min-height: 100svh;
+  overflow-x: clip;
+}
+
+.mell-header {
+  background: rgba(248, 246, 242, .84);
+  border-bottom: 1px solid rgba(17, 17, 17, .1);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(18px);
+}
+
+.mell-header-inner {
+  align-items: center;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(12rem, .8fr) minmax(0, auto) minmax(15rem, .9fr);
+  margin: 0 auto;
+  max-width: var(--mell-container);
+  padding: 1rem var(--mell-space-page);
+}
+
+.mell-brand {
+  display: inline-flex;
+  flex-direction: column;
+  gap: .22rem;
+  letter-spacing: .2em;
+  line-height: 1;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.mell-brand span {
+  font-family: var(--mell-font-display), serif;
+  font-size: clamp(1.25rem, 2vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: .26em;
+}
+
+.mell-brand small {
+  color: var(--mell-bronze);
+  font-size: .52rem;
+  font-weight: 700;
+  letter-spacing: .26em;
+}
+
+.mell-nav,
+.mell-header-actions {
+  align-items: center;
+  display: flex;
+  gap: clamp(.7rem, 1.8vw, 1.6rem);
+}
+
+.mell-nav {
+  justify-content: center;
+}
+
+.mell-nav a,
+.mell-platform-link,
+.mell-cart-link,
+.mell-text-link {
+  color: var(--mell-graphite);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  transition: color 220ms ease, border-color 220ms ease;
+}
+
+.mell-nav a:hover,
+.mell-platform-link:hover,
+.mell-cart-link:hover,
+.mell-text-link:hover {
+  color: var(--mell-bronze);
+}
+
+.mell-header-actions {
+  justify-content: flex-end;
+}
+
+.mell-button {
+  align-items: center;
+  border: 1px solid var(--mell-border-strong);
+  border-radius: 0;
+  display: inline-flex;
+  font-size: .72rem;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: .15em;
+  min-height: 2.9rem;
+  padding: .85rem 1.35rem;
+  text-transform: uppercase;
+  transition: background-color 240ms ease, color 240ms ease, transform 240ms ease, border-color 240ms ease;
+}
+
+.mell-button:hover {
+  transform: translateY(-2px);
+}
+
+.mell-button-dark {
+  background: var(--mell-obsidian);
+  border-color: var(--mell-obsidian);
+  color: var(--mell-ivory) !important;
+}
+
+.mell-button-light {
+  background: transparent;
+  color: var(--mell-obsidian) !important;
+}
+
+.mell-button-light:hover {
+  border-color: var(--mell-bronze);
+  color: var(--mell-bronze) !important;
+}
+
+.mell-page {
+  color: var(--mell-obsidian);
+}
+
+.mell-page h1,
+.mell-page h2,
+.mell-page h3,
+.mell-footer h3 {
+  font-family: var(--mell-font-display), serif;
+  font-weight: 500;
+  letter-spacing: -.045em;
+}
+
+.mell-page p {
+  color: var(--mell-graphite);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.85;
+}
+
+.mell-eyebrow {
+  color: var(--mell-bronze) !important;
+  font-family: var(--mell-font-body), sans-serif !important;
+  font-size: .72rem !important;
+  font-weight: 800;
+  letter-spacing: .22em;
+  line-height: 1.4 !important;
+  text-transform: uppercase;
+}
+
+.mell-hero {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, .85fr) minmax(22rem, 1.15fr);
+  margin: 0 auto;
+  max-width: var(--mell-container);
+  min-height: calc(100svh - 5rem);
+  padding: clamp(4rem, 7vw, 7.5rem) var(--mell-space-page);
+}
+
+.mell-hero-copy {
+  max-width: 43rem;
+}
+
+.mell-hero h1 {
+  font-size: clamp(4.4rem, 10vw, 10.6rem);
+  line-height: .78;
+  margin: 1.3rem 0 1.2rem;
+}
+
+.mell-hero-tagline {
+  color: var(--mell-bronze) !important;
+  font-family: var(--mell-font-display), serif;
+  font-size: clamp(1.7rem, 3vw, 3rem) !important;
+  line-height: 1.08 !important;
+}
+
+.mell-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+  margin-top: 2rem;
+}
+
+.mell-hero-visual {
+  aspect-ratio: 1.08 / 1;
+  background:
+    linear-gradient(140deg, rgba(17, 17, 17, .92), rgba(49, 65, 55, .78)),
+    var(--mell-obsidian);
+  border: 1px solid rgba(248, 246, 242, .22);
+  box-shadow: 0 2rem 5rem rgba(17, 17, 17, .16);
+  overflow: hidden;
+  position: relative;
+}
+
+.mell-hero-visual::before,
+.mell-hero-visual::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+}
+
+.mell-hero-visual::before {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(200, 169, 106, .32), transparent 8rem),
+    repeating-linear-gradient(90deg, rgba(248, 246, 242, .08) 0 1px, transparent 1px 5.5rem),
+    repeating-linear-gradient(0deg, rgba(248, 246, 242, .06) 0 1px, transparent 1px 5.5rem);
+  inset: 0;
+  opacity: .45;
+}
+
+.mell-hero-visual::after {
+  border: 1px solid rgba(200, 169, 106, .35);
+  inset: 1.25rem;
+}
+
+.mell-hero-visual img {
+  object-fit: contain;
+  padding: clamp(1.5rem, 5vw, 4.5rem);
+  z-index: 1;
+}
+
+.mell-hero-stone {
+  background: linear-gradient(120deg, rgba(200, 169, 106, .28), rgba(248, 246, 242, .1));
+  bottom: 2.5rem;
+  height: 1px;
+  left: 2.5rem;
+  position: absolute;
+  right: 2.5rem;
+  z-index: 2;
+}
+
+.mell-statement,
+.mell-page-hero,
+.mell-about-hero,
+.mell-contact-panel,
+.mell-editorial-split,
+.mell-final-cta,
+.mell-footer {
+  margin: 0 auto;
+  max-width: var(--mell-container);
+  padding-left: var(--mell-space-page);
+  padding-right: var(--mell-space-page);
+}
+
+.mell-statement {
+  border-top: 1px solid var(--mell-border);
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  grid-template-columns: .35fr 1.2fr .8fr;
+  padding-bottom: clamp(4.5rem, 8vw, 8rem);
+  padding-top: clamp(4.5rem, 8vw, 8rem);
+}
+
+.mell-statement h2 {
+  font-size: clamp(2.6rem, 5.7vw, 7rem);
+  line-height: .95;
+}
+
+.mell-section {
+  margin: 0 auto;
+  max-width: var(--mell-container);
+  padding: clamp(4.5rem, 8vw, 8rem) var(--mell-space-page);
+}
+
+.mell-section-sand {
+  background:
+    linear-gradient(180deg, rgba(216, 203, 184, .32), rgba(248, 246, 242, .86)),
+    var(--mell-ivory);
+  max-width: none;
+}
+
+.mell-section-sand > * {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--mell-container);
+}
+
+.mell-section-tight {
+  padding-bottom: 1.75rem;
+  padding-top: 1.75rem;
+}
+
+.mell-section-heading {
+  align-items: end;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(17rem, .85fr);
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.mell-section-heading h2 {
+  font-size: clamp(3rem, 6.5vw, 7.2rem);
+  line-height: .92;
+}
+
+.mell-section-heading h2 span,
+.mell-editorial-split h2 span {
+  color: var(--mell-bronze);
+}
+
+.mell-collection-grid,
+.mell-product-grid,
+.mell-material-grid,
+.mell-process-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.mell-collection-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.mell-collection-grid-large {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mell-collection-card {
+  background: rgba(255, 255, 255, .42);
+  border: 1px solid var(--mell-border);
+  display: flex;
+  flex-direction: column;
+  min-height: 24rem;
+  overflow: hidden;
+  padding: clamp(1.2rem, 2vw, 1.8rem);
+  position: relative;
+}
+
+.mell-collection-card::after {
+  background: linear-gradient(180deg, transparent, rgba(17, 17, 17, .05));
+  bottom: 0;
+  content: "";
+  height: 40%;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.mell-collection-card h3 {
+  font-size: clamp(2.3rem, 4.4vw, 4.6rem);
+  line-height: .85;
+  margin: auto 0 1.1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.mell-collection-card p,
+.mell-collection-card a {
+  position: relative;
+  z-index: 1;
+}
+
+.mell-collection-card a {
+  color: var(--mell-bronze);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  margin-top: 1.35rem;
+  text-transform: uppercase;
+}
+
+.mell-collection-orb {
+  aspect-ratio: 1;
+  border: 1px solid rgba(17, 17, 17, .12);
+  border-radius: 999px;
+  position: absolute;
+  right: -20%;
+  top: -16%;
+  width: 70%;
+}
+
+.mell-collection-earth { background: linear-gradient(140deg, rgba(138, 110, 83, .24), rgba(248, 246, 242, .72)); }
+.mell-collection-ocean { background: linear-gradient(140deg, rgba(183, 178, 168, .3), rgba(255, 255, 255, .78)); }
+.mell-collection-forest { background: linear-gradient(140deg, rgba(49, 65, 55, .22), rgba(248, 246, 242, .72)); }
+.mell-collection-fire { background: linear-gradient(140deg, rgba(200, 169, 106, .28), rgba(216, 203, 184, .6)); }
+.mell-collection-signature { background: linear-gradient(140deg, rgba(17, 17, 17, .12), rgba(255, 255, 255, .75)); }
+
+.mell-product-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mell-product-card {
+  background: rgba(255, 255, 255, .45);
+  border: 1px solid var(--mell-border);
+}
+
+.mell-product-image,
+.mell-product-detail-image {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(200, 169, 106, .22), transparent 10rem),
+    linear-gradient(135deg, rgba(17, 17, 17, .88), rgba(49, 65, 55, .75));
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.mell-product-image {
+  aspect-ratio: 4 / 5;
+}
+
+.mell-product-image img,
+.mell-product-detail-image img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.mell-product-placeholder {
+  align-items: center;
+  color: rgba(248, 246, 242, .85);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  justify-content: center;
+  min-height: 20rem;
+  text-align: center;
+}
+
+.mell-product-placeholder strong {
+  border: 1px solid rgba(200, 169, 106, .38);
+  border-radius: 999px;
+  color: var(--mell-champagne);
+  font-family: var(--mell-font-display), serif;
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 500;
+  height: clamp(9rem, 22vw, 16rem);
+  letter-spacing: -.09em;
+  line-height: 1;
+  padding-top: .23em;
+  width: clamp(9rem, 22vw, 16rem);
+}
+
+.mell-product-placeholder span {
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.mell-product-body {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+.mell-product-body h3 {
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: .92;
+  margin-top: .6rem;
+}
+
+.mell-product-meta {
+  align-items: center;
+  border-top: 1px solid var(--mell-border);
+  color: var(--mell-bronze);
+  display: flex;
+  font-size: .73rem;
+  font-weight: 800;
+  justify-content: space-between;
+  letter-spacing: .11em;
+  padding-top: 1rem;
+  text-transform: uppercase;
+}
+
+.mell-status {
+  border: 1px solid rgba(138, 110, 83, .35);
+  color: var(--mell-bronze);
+  display: inline-flex;
+  font-size: .65rem;
+  font-weight: 800;
+  justify-self: start;
+  letter-spacing: .12em;
+  padding: .45rem .6rem;
+  text-transform: uppercase;
+}
+
+.mell-editorial-split {
+  align-items: start;
+  border-bottom: 1px solid var(--mell-border);
+  border-top: 1px solid var(--mell-border);
+  display: grid;
+  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: .85fr 1.15fr;
+  padding-bottom: clamp(4.5rem, 8vw, 8rem);
+  padding-top: clamp(4.5rem, 8vw, 8rem);
+}
+
+.mell-editorial-split h2 {
+  font-size: clamp(3rem, 6vw, 7rem);
+  line-height: .93;
+}
+
+.mell-process-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mell-process-list article,
+.mell-material-card,
+.mell-contact-panel article {
+  background: rgba(255, 255, 255, .42);
+  border: 1px solid var(--mell-border);
+  padding: clamp(1.25rem, 2vw, 2rem);
+}
+
+.mell-process-list span {
+  color: var(--mell-bronze);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.mell-process-list h3,
+.mell-material-card h3 {
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  line-height: .95;
+  margin: 2.5rem 0 .8rem;
+}
+
+.mell-material-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mell-material-card {
+  min-height: 18rem;
+}
+
+.mell-material-dot {
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, .72), transparent 24%),
+    linear-gradient(145deg, var(--mell-stone), var(--mell-bronze));
+  border-radius: 999px;
+  display: block;
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+.mell-material-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-top: 1.35rem;
+}
+
+.mell-material-tags span {
+  border: 1px solid rgba(17, 17, 17, .12);
+  color: var(--mell-graphite);
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  padding: .35rem .5rem;
+  text-transform: uppercase;
+}
+
+.mell-text-link {
+  border-bottom: 1px solid currentColor;
+  display: inline-flex;
+  margin-top: 2rem;
+  padding-bottom: .3rem;
+}
+
+.mell-final-cta {
+  background:
+    linear-gradient(100deg, rgba(17, 17, 17, .88), rgba(49, 65, 55, .78)),
+    var(--mell-obsidian);
+  color: var(--mell-ivory);
+  display: grid;
+  justify-items: center;
+  max-width: none;
+  padding-bottom: clamp(5rem, 9vw, 9rem);
+  padding-top: clamp(5rem, 9vw, 9rem);
+  position: relative;
+  text-align: center;
+}
+
+.mell-final-cta::before {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(200, 169, 106, .26), transparent 24rem),
+    linear-gradient(90deg, transparent, rgba(248, 246, 242, .08), transparent);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.mell-final-cta > * {
+  max-width: 52rem;
+  position: relative;
+}
+
+.mell-final-cta h2 {
+  color: var(--mell-ivory);
+  font-size: clamp(3rem, 6.5vw, 7rem);
+  line-height: .9;
+  margin: 1rem 0;
+}
+
+.mell-final-cta p {
+  color: rgba(248, 246, 242, .74);
+}
+
+.mell-page-hero {
+  padding-bottom: clamp(4rem, 7vw, 7rem);
+  padding-top: clamp(5rem, 9vw, 9rem);
+}
+
+.mell-page-hero h1,
+.mell-about-hero h1 {
+  font-size: clamp(4rem, 8vw, 9rem);
+  line-height: .86;
+  margin: 1rem 0 1.4rem;
+  max-width: 72rem;
+}
+
+.mell-page-hero p,
+.mell-about-hero p {
+  max-width: 46rem;
+}
+
+.mell-page-hero-dark {
+  background:
+    radial-gradient(circle at 78% 20%, rgba(200, 169, 106, .22), transparent 21rem),
+    linear-gradient(120deg, rgba(17, 17, 17, .95), rgba(49, 65, 55, .86));
+  color: var(--mell-ivory);
+  max-width: none;
+}
+
+.mell-page-hero-dark > * {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--mell-container);
+}
+
+.mell-page-hero-dark h1 {
+  color: var(--mell-ivory);
+}
+
+.mell-page-hero-dark p:not(.mell-eyebrow) {
+  color: rgba(248, 246, 242, .76);
+}
+
+.mell-category-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+
+.mell-category-row a {
+  border: 1px solid var(--mell-border);
+  color: var(--mell-bronze);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  padding: .75rem 1rem;
+  text-transform: uppercase;
+}
+
+.mell-about-hero {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: .95fr 1.05fr;
+  padding-bottom: clamp(4.5rem, 8vw, 8rem);
+  padding-top: clamp(5rem, 9vw, 9rem);
+}
+
+.mell-about-mark {
+  aspect-ratio: 1.1 / 1;
+  background: var(--mell-obsidian);
+  border: 1px solid rgba(17, 17, 17, .12);
+  box-shadow: 0 2rem 5rem rgba(17, 17, 17, .13);
+  overflow: hidden;
+  position: relative;
+}
+
+.mell-about-mark img {
+  object-fit: contain;
+  padding: clamp(2rem, 5vw, 5rem);
+}
+
+.mell-contact-panel {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr .55fr;
+  padding-bottom: clamp(4.5rem, 8vw, 8rem);
+}
+
+.mell-contact-panel h2 {
+  font-size: clamp(2.7rem, 5vw, 5.8rem);
+  line-height: .92;
+  margin: 1rem 0;
+}
+
+.mell-contact-panel article:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mell-contact-panel article:last-child a {
+  border-bottom: 1px solid var(--mell-border);
+  color: var(--mell-bronze);
+  font-size: 1.1rem;
+  padding-bottom: .7rem;
+}
+
+.mell-cart-empty {
+  min-height: 72svh;
+}
+
+.mell-product-detail {
+  align-items: start;
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1.08fr) minmax(20rem, .72fr);
+  margin: 0 auto;
+  max-width: var(--mell-container);
+  padding: clamp(4rem, 7vw, 7rem) var(--mell-space-page);
+}
+
+.mell-product-gallery {
+  display: grid;
+  gap: 1rem;
+}
+
+.mell-product-detail-image {
+  aspect-ratio: 4 / 5;
+}
+
+.mell-product-info {
+  position: sticky;
+  top: 7rem;
+}
+
+.mell-product-info h1 {
+  font-size: clamp(3.8rem, 6vw, 7rem);
+  line-height: .86;
+  margin: 1rem 0;
+}
+
+.mell-product-purchase {
+  align-items: center;
+  border-bottom: 1px solid var(--mell-border);
+  border-top: 1px solid var(--mell-border);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin: 2rem 0 1rem;
+  padding: 1rem 0;
+}
+
+.mell-product-purchase span {
+  color: var(--mell-bronze);
+  font-size: .85rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.mell-product-note {
+  background: rgba(216, 203, 184, .28);
+  border-left: 2px solid var(--mell-bronze);
+  padding: 1rem;
+}
+
+.mell-accordions {
+  border-top: 1px solid var(--mell-border);
+  margin-top: 2rem;
+}
+
+.mell-accordions details {
+  border-bottom: 1px solid var(--mell-border);
+  padding: 1.1rem 0;
+}
+
+.mell-accordions summary {
+  cursor: pointer;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.mell-footer {
+  border-top: 1px solid var(--mell-border);
+  display: grid;
+  gap: clamp(2rem, 6vw, 5rem);
+  grid-template-columns: .9fr 1.1fr;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.mell-footer p {
+  color: var(--mell-graphite);
+  line-height: 1.8;
+  margin-top: 1.5rem;
+  max-width: 34rem;
+}
+
+.mell-footer-grid {
+  display: grid;
+  gap: 1.4rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mell-footer-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+}
+
+.mell-footer-grid strong {
+  color: var(--mell-bronze);
+  font-size: .7rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.mell-footer-grid a {
+  color: var(--mell-graphite);
+  font-size: .9rem;
+}
+
+@media (max-width: 1180px) {
+  .mell-header-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .mell-nav,
+  .mell-header-actions {
+    justify-content: flex-start;
+  }
+
+  .mell-nav {
+    overflow-x: auto;
+    padding-bottom: .25rem;
+  }
+
+  .mell-hero,
+  .mell-statement,
+  .mell-section-heading,
+  .mell-editorial-split,
+  .mell-about-hero,
+  .mell-contact-panel,
+  .mell-product-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .mell-product-info {
+    position: static;
+  }
+
+  .mell-collection-grid,
+  .mell-collection-grid-large,
+  .mell-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .mell-brand span {
+    font-size: 1.12rem;
+  }
+
+  .mell-brand small {
+    font-size: .46rem;
+  }
+
+  .mell-header-inner {
+    gap: .85rem;
+    padding-bottom: .85rem;
+    padding-top: .85rem;
+  }
+
+  .mell-header-actions {
+    flex-wrap: wrap;
+  }
+
+  .mell-nav {
+    justify-content: flex-start;
+  }
+
+  .mell-button {
+    width: 100%;
+  }
+
+  .mell-header-actions .mell-button {
+    width: auto;
+  }
+
+  .mell-hero {
+    gap: 2.25rem;
+    min-height: auto;
+    padding-top: 3.5rem;
+  }
+
+  .mell-hero h1 {
+    font-size: clamp(4rem, 22vw, 6.6rem);
+  }
+
+  .mell-hero-visual {
+    aspect-ratio: 1 / 1.05;
+  }
+
+  .mell-statement {
+    gap: 1.5rem;
+  }
+
+  .mell-section-heading {
+    margin-bottom: 2rem;
+  }
+
+  .mell-section-heading h2,
+  .mell-statement h2,
+  .mell-editorial-split h2,
+  .mell-final-cta h2,
+  .mell-page-hero h1,
+  .mell-about-hero h1,
+  .mell-product-info h1 {
+    font-size: clamp(3.1rem, 17vw, 5rem);
+    line-height: .9;
+  }
+
+  .mell-collection-grid,
+  .mell-collection-grid-large,
+  .mell-product-grid,
+  .mell-material-grid,
+  .mell-process-list,
+  .mell-footer,
+  .mell-footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mell-collection-card {
+    min-height: 19rem;
+  }
+
+  .mell-product-purchase {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mell-nav a,
+  .mell-platform-link,
+  .mell-cart-link,
+  .mell-text-link,
+  .mell-button {
+    transition: none;
+  }
+
+  .mell-button:hover {
+    transform: none;
+  }
+}

@@ -26,6 +26,7 @@ const services = [
   ['VIPTOUR','Búzios Experiences','/projects/viptour','text-teal-300 border-teal-400/30'],
   ['FELA TOURS','Tours & Transfers','/felatours','text-cyan-300 border-cyan-400/30'],
   ['ZAPT','Night Delivery','/zaptdeliverybz','text-lime-300 border-lime-400/30'],
+  ['MELL & STONE','Natural Luxury Commerce','/mell-stone','text-amber-200 border-amber-400/30'],
   ['WOODCRAFT','Custom Wood Solutions','/gonzalo','text-amber-300 border-amber-400/30'],
   ['ELECTRICAL','Electrical Solutions','/services','text-yellow-300 border-yellow-400/30'],
 ];

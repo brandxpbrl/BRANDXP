@@ -6,7 +6,12 @@ import { Navbar } from "./Navbar";
 export function ConditionalNavbar() {
   const pathname = usePathname();
 
-  if (pathname === "/zaptdeliverybz" || pathname.startsWith("/zaptdeliverybz/")) {
+  if (
+    pathname === "/zaptdeliverybz" ||
+    pathname.startsWith("/zaptdeliverybz/") ||
+    pathname === "/mell-stone" ||
+    pathname.startsWith("/mell-stone/")
+  ) {
     return null;
   }
 
