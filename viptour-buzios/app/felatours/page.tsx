@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CatalogViewer from "./CatalogViewer";
 import FelaLanding from "./FelaLanding";
 
 const canonical = "https://www.riovibestransfer.com/felatours";
@@ -72,6 +73,7 @@ export default function FelaToursPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <FelaLanding />
+      <CatalogViewer />
     </>
   );
 }
