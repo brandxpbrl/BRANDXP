@@ -25,7 +25,7 @@ const services = [
   { title: 'FRAGMA', meta: 'Photography & Content', href: '/fragma-brand-experience', accent: 'text-pink-300 border-pink-400/35', image: '/images/fragma sin fondo.png', imageClass: 'object-contain p-10' },
   { title: 'VIPTOUR', meta: 'Búzios Experiences', href: '/projects/viptour', accent: 'text-teal-300 border-teal-400/35', image: '/images/hero-buggy.png', imageClass: 'object-cover object-center' },
   { title: 'FELA TOURS', meta: 'Tours & Transfers', href: '/felatours', accent: 'text-cyan-300 border-cyan-400/35', image: '/fela/transfers/private-premium.webp', imageClass: 'object-cover object-center' },
-  { title: 'ZAPT', meta: 'Night Delivery', href: '/zaptdeliverybz', accent: 'text-lime-300 border-lime-400/35', image: '/images/orbis/ecosystem/lifestyle.png', imageClass: 'object-cover object-center' },
+  { title: 'ZAPT', meta: 'Night Delivery', href: '/zaptdeliverybz', accent: 'text-lime-300 border-lime-400/35', image: '/images/zaptorbit.png', imageClass: 'object-cover object-center' },
   { title: 'MELL & STONE', meta: 'Natural Luxury Commerce', href: '/mell-stone', accent: 'text-amber-200 border-amber-400/35', image: '/images/mell-stone/products/conjunto-perolas-cristal-01.png', imageClass: 'object-cover object-center' },
   { title: 'WOODCRAFT', meta: 'Custom Wood Solutions', href: '/gonzalo', accent: 'text-amber-300 border-amber-400/35', image: '/images/orbis/ecosystem/build.png', imageClass: 'object-cover object-center' },
   { title: 'ELECTRICAL', meta: 'Electrical Solutions', href: '/services', accent: 'text-yellow-300 border-yellow-400/35', image: '/images/orbis/ecosystem/technology.png', imageClass: 'object-cover object-center' },
@@ -124,7 +124,7 @@ export default function MasterSolutionsGrid() {
             </div>
           </div>
 
-          <div className="mt-24 border-t border-white/[0.07] py-16 text-center"><div className="mx-auto text-3xl text-cyan-200/90">◎</div><p className="mt-6 text-3xl tracking-[0.105em] md:text-5xl" style={{ fontFamily: 'var(--font-orbis)' }}>ORBIS</p><p className="mt-4 text-[9px] uppercase tracking-[0.4em] text-slate-300/80">Everything, connected.</p></div>
+          <div className="mt-24 border-t border-white/[0.07] py-16 text-center"><div className="mx-auto text-3xl text-cyan-200/90">◎</div><p className="mt-6 text-3xl tracking-[0.105em] md:text-4xl" style={{ fontFamily: 'var(--font-orbis)', fontWeight: 400 }}>ORBIS</p><p className="mt-3 text-[9px] uppercase tracking-[0.42em] text-slate-300">Everything, connected.</p></div>
         </div>
       </div>
     </section>
