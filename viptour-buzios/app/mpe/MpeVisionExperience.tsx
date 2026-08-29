@@ -11,13 +11,14 @@ const NODE_COUNT = 432;
 const SAMPLE_W = 96;
 const SAMPLE_H = 72;
 const INTRO = [
-  "Esto no son partículas decorativas. Los nodos vuelven visibles relaciones y cambios dentro de un estado.",
-  "Estable significa que, durante un intervalo, el entorno cambia poco. Coherencia, aquí, significa que varios cambios conservan una organización común.",
-  "MPE compara diferencias, relaciones y persistencias para estudiar qué configuraciones abren o cierran posibilidades.",
-  "Cuando algo cambia, el campo se dispersa. Cuando recupera organización, converge. Ahora mové algo frente a la cámara.",
+  "Estos nodos muestran cambios y relaciones.",
+  "Estable: por un momento, cambia poco.",
+  "Coherencia: varios cambios conservan organización.",
+  "MPE compara diferencias, relaciones y persistencias.",
+  "Así estudia qué configuraciones abren más posibilidades.",
+  "Ahora mové algo frente a la cámara.",
 ];
-const INTRO_DELAYS = [0, 3200, 6900, 10400];
-const INTRO_END = 14200;
+const INTRO_PAUSE_MS = 420;
 
 function clamp(value: number, min = 0, max = 1) { return Math.max(min, Math.min(max, value)); }
 function entropy16(values: Uint8ClampedArray) {
@@ -34,7 +35,7 @@ export default function MpeVisionExperience() {
   const visualRef = useRef({ opening: 0, turbulence: 0, energy: 0 });
   const baselineRef = useRef(0), activatedAtRef = useRef(0), lastEventRef = useRef(0), lastEpisodeEndRef = useRef(0), eventRef = useRef<PerceptionEvent>("INTRO");
   const episodeActiveRef = useRef(false), episodeStartRef = useRef(0), episodePeakRatioRef = useRef(0), episodeCountRef = useRef(0), highFramesRef = useRef(0), lowFramesRef = useRef(0), stableAnnouncedRef = useRef(false);
-  const introActiveRef = useRef(false), introTimersRef = useRef<number[]>([]), introSpreadRef = useRef(0);
+  const introActiveRef = useRef(false), introTimersRef = useRef<number[]>([]), introSpreadRef = useRef(0), introTokenRef = useRef(0);
   const [active, setActive] = useState(false), [cameraError, setCameraError] = useState("");
   const [metrics, setMetrics] = useState<VisionMetrics>({ brightness: 0, contrast: 0, motion: 0, entropy: 0 });
   const [visualState, setVisualState] = useState<VisualState>("NUCLEUS"), [event, setEvent] = useState<PerceptionEvent>("INTRO");
@@ -42,7 +43,7 @@ export default function MpeVisionExperience() {
 
   const speak = useCallback((text: string) => {
     if (muted || typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "es-ES"; u.rate = 1.05; u.pitch = .96;
+    window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "es-ES"; u.rate = 1.02; u.pitch = .96;
     const voice = window.speechSynthesis.getVoices().find(v => v.lang.toLowerCase().startsWith("es")); if (voice) u.voice = voice; window.speechSynthesis.speak(u);
   }, [muted]);
   const announce = useCallback((next: PerceptionEvent, text: string, now: number, force = false) => {
@@ -50,20 +51,53 @@ export default function MpeVisionExperience() {
     if (!force && now - lastEventRef.current < 2400) return;
     lastEventRef.current = now; eventRef.current = next; setEvent(next); setNarration(text); speak(text);
   }, [speak]);
-  const clearIntro = useCallback(() => { introTimersRef.current.forEach(id => window.clearTimeout(id)); introTimersRef.current = []; introActiveRef.current = false; }, []);
+  const clearIntro = useCallback(() => {
+    introTokenRef.current += 1;
+    introTimersRef.current.forEach(id => window.clearTimeout(id)); introTimersRef.current = []; introActiveRef.current = false;
+  }, []);
   const stopCamera = useCallback(() => { if (rafRef.current) cancelAnimationFrame(rafRef.current); clearIntro(); streamRef.current?.getTracks().forEach(t => t.stop()); streamRef.current = null; if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); }, [clearIntro]);
   useEffect(() => stopCamera, [stopCamera]);
 
   const runIntro = useCallback(() => {
+    clearIntro();
+    const token = introTokenRef.current;
     introActiveRef.current = true; introSpreadRef.current = 0; eventRef.current = "INTRO"; setEvent("INTRO");
-    INTRO.forEach((text, index) => {
-      const id = window.setTimeout(() => { setNarration(text); speak(text); }, INTRO_DELAYS[index]); introTimersRef.current.push(id);
-    });
-    const end = window.setTimeout(() => {
-      introActiveRef.current = false; eventRef.current = "CALIBRATING"; setEvent("CALIBRATING"); setNarration("Percepción en vivo. Ahora observo lo que realmente cambia en la escena."); speak("Percepción en vivo. Ahora observo lo que realmente cambia en la escena.");
-      lastEventRef.current = performance.now();
-    }, INTRO_END); introTimersRef.current.push(end);
-  }, [speak]);
+
+    const finishIntro = () => {
+      if (token !== introTokenRef.current) return;
+      introActiveRef.current = false; eventRef.current = "CALIBRATING"; setEvent("CALIBRATING");
+      const text = "Percepción en vivo. Ahora observo lo que realmente cambia.";
+      setNarration(text); speak(text); lastEventRef.current = performance.now();
+    };
+
+    const playPhrase = (index: number) => {
+      if (token !== introTokenRef.current) return;
+      if (index >= INTRO.length) { finishIntro(); return; }
+      const text = INTRO[index]; setNarration(text);
+
+      const next = () => {
+        if (token !== introTokenRef.current) return;
+        const id = window.setTimeout(() => playPhrase(index + 1), INTRO_PAUSE_MS); introTimersRef.current.push(id);
+      };
+
+      if (muted || typeof window === "undefined" || !("speechSynthesis" in window)) {
+        const displayMs = Math.max(2100, text.split(/\s+/).length * 320);
+        const id = window.setTimeout(next, displayMs); introTimersRef.current.push(id); return;
+      }
+
+      const u = new SpeechSynthesisUtterance(text); u.lang = "es-ES"; u.rate = 1.02; u.pitch = .96;
+      const voice = window.speechSynthesis.getVoices().find(v => v.lang.toLowerCase().startsWith("es")); if (voice) u.voice = voice;
+      let completed = false;
+      const complete = () => { if (completed) return; completed = true; next(); };
+      u.onend = complete; u.onerror = complete;
+      const watchdogMs = Math.max(3200, text.split(/\s+/).length * 650 + 1400);
+      const watchdog = window.setTimeout(complete, watchdogMs); introTimersRef.current.push(watchdog);
+      window.speechSynthesis.speak(u);
+    };
+
+    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    playPhrase(0);
+  }, [clearIntro, muted, speak]);
 
   const activateVision = useCallback(async () => {
     setCameraError(""); if (!navigator.mediaDevices?.getUserMedia) { setCameraError("Este navegador no permite acceso a cámara."); return; }
@@ -89,7 +123,7 @@ export default function MpeVisionExperience() {
         if (age < 2200) baselineRef.current = baselineRef.current * .9 + motion * .1; else if (!episodeActiveRef.current) baselineRef.current = baselineRef.current * .998 + motion * .002;
         const startThreshold = Math.max(.024, baselineRef.current * 3.8 + .010), stopThreshold = Math.max(.012, baselineRef.current * 1.8 + .004), strongChange = motion > startThreshold || changedRatio > .09, quiet = motion < stopThreshold && changedRatio < .035;
 
-        if (!introActiveRef.current && age > INTRO_END) {
+        if (!introActiveRef.current && age > 1500) {
           if (!episodeActiveRef.current) {
             highFramesRef.current = strongChange ? highFramesRef.current + 1 : Math.max(0, highFramesRef.current - 1);
             if (highFramesRef.current >= 4) {
@@ -131,7 +165,7 @@ export default function MpeVisionExperience() {
 
   return <main className="relative min-h-[100svh] overflow-hidden bg-black text-white">
     <video ref={videoRef} playsInline muted className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${active&&showCamera?"opacity-75":"opacity-0"}`}/><div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,.16)_42%,rgba(0,0,0,.82)_100%)]"/><canvas ref={fieldRef} className={`absolute inset-0 h-full w-full ${active?"opacity-100":"opacity-35"}`}/><canvas ref={sampleRef} className="hidden"/>
-    {!active?<section className="relative z-10 flex min-h-[100svh] items-center justify-center px-6"><div className="max-w-xl text-center"><div className="mb-7 text-[10px] font-bold uppercase tracking-[.42em] text-cyan-300/70">ORBIS // MPE VISION v0.4</div><h1 className="text-4xl font-black tracking-[-.04em]">Activá la visión. Entendé MPE en segundos.</h1><p className="mt-5 text-sm leading-7 text-white/55">La cámara se procesa localmente. Primero te muestro qué representan los nodos; después la experiencia responde a cambios reales.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center"><button onClick={activateVision} className="rounded-full bg-cyan-200 px-7 py-4 text-xs font-black uppercase tracking-[.2em] text-black">Activar visión</button><Link href="/" className="rounded-full border border-white/10 px-7 py-4 text-xs uppercase tracking-[.18em] text-white/70">Continuar sin cámara</Link></div>{cameraError&&<p className="mt-6 text-sm text-rose-300">{cameraError}</p>}</div></section>:
+    {!active?<section className="relative z-10 flex min-h-[100svh] items-center justify-center px-6"><div className="max-w-xl text-center"><div className="mb-7 text-[10px] font-bold uppercase tracking-[.42em] text-cyan-300/70">ORBIS // MPE VISION v0.5</div><h1 className="text-4xl font-black tracking-[-.04em]">Activá la visión. Entendé MPE en segundos.</h1><p className="mt-5 text-sm leading-7 text-white/55">La cámara se procesa localmente. Cada frase termina antes de que comience la siguiente.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center"><button onClick={activateVision} className="rounded-full bg-cyan-200 px-7 py-4 text-xs font-black uppercase tracking-[.2em] text-black">Activar visión</button><Link href="/" className="rounded-full border border-white/10 px-7 py-4 text-xs uppercase tracking-[.18em] text-white/70">Continuar sin cámara</Link></div>{cameraError&&<p className="mt-6 text-sm text-rose-300">{cameraError}</p>}</div></section>:
     <section className="relative z-10 flex min-h-[100svh] flex-col justify-between p-4 sm:p-8"><header className="flex items-start justify-between gap-3"><div><div className="text-[8px] font-bold uppercase tracking-[.3em] text-cyan-200/70">ORBIS // MPE LIVE</div><div className="mt-1 text-lg font-black">{introActiveRef.current?"DISCOVER":visualState}</div><div className="mt-1 text-[8px] uppercase tracking-[.18em] text-white/35">{event} · señales visuales · no diagnóstico</div></div><div className="flex gap-1"><button onClick={()=>setMuted(v=>!v)} className="rounded-full border border-white/10 bg-black/35 px-2.5 py-2 text-[8px] uppercase">{muted?"Voice off":"Voice"}</button><button onClick={()=>setShowCamera(v=>!v)} className="rounded-full border border-white/10 bg-black/35 px-2.5 py-2 text-[8px] uppercase">Camera</button><button onClick={()=>setShowHud(v=>!v)} className="rounded-full border border-white/10 bg-black/35 px-2.5 py-2 text-[8px] uppercase">HUD</button></div></header>
       <div className="pointer-events-none flex flex-1 flex-col items-center justify-center gap-5 px-4"><p key={narration} className="max-w-lg rounded-2xl bg-black/20 px-4 py-3 text-center text-base font-medium leading-7 text-white/90 backdrop-blur-[2px] sm:text-xl">{narration}</p>{introActiveRef.current?<div className="flex flex-wrap justify-center gap-2 text-[8px] font-bold uppercase tracking-[.16em]"><span className="rounded-full border border-cyan-200/20 bg-black/30 px-3 py-2 text-cyan-100/75">ESTABLE · poco cambio</span><span className="rounded-full border border-cyan-200/20 bg-black/30 px-3 py-2 text-cyan-100/75">COHERENCIA · organización común</span><span className="rounded-full border border-fuchsia-200/20 bg-black/30 px-3 py-2 text-fuchsia-100/75">DIFERENCIA · nueva información</span></div>:null}</div>
       <footer className="flex items-end justify-between gap-3">{showHud?<div className="grid grid-cols-2 gap-x-4 rounded-2xl border border-white/10 bg-black/35 p-3 text-[8px] uppercase tracking-[.12em] text-white/55 backdrop-blur-md"><span>Motion {metrics.motion.toFixed(3)}</span><span>Light {metrics.brightness.toFixed(3)}</span><span>Contrast {metrics.contrast.toFixed(3)}</span><span>Entropy {metrics.entropy.toFixed(3)}</span></div>:<span/>}<div className="flex gap-1"><Link href="/" className="rounded-full border border-white/10 bg-black/45 px-3 py-3 text-[8px] font-bold uppercase tracking-[.14em]">Entrar a ORBIS</Link><button onClick={()=>{stopCamera();setActive(false);setNarration("Para comenzar, necesito percibir tu entorno.");}} className="rounded-full border border-white/10 bg-black/45 px-3 py-3 text-[8px] uppercase text-white/50">Cerrar</button></div></footer>
