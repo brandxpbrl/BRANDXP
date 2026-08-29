@@ -198,6 +198,17 @@ export default function FelaLanding() {
         </p>
       </section>
 
+      <section className={styles.internationalPromo} aria-labelledby="international-travelers-title">
+        <div>
+          <p className={styles.eyebrow}>FELA TOURS INTERNATIONAL</p>
+          <h2 id="international-travelers-title">International Travelers</h2>
+          <p>Explore Brazil with local support in English.</p>
+        </div>
+        <Link className={styles.internationalPromoLink} href="/felatours/international">
+          Design your Brazil experience <ArrowRight size={17} />
+        </Link>
+      </section>
+
       <section id="catalogo" className={styles.catalog}>
         <div className={styles.catalogLead}>
           <div>
