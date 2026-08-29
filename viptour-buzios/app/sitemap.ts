@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
+      url: `${siteConfig.url}/felatours/international/experiences`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.87,
+    },
+    {
       url: `${siteConfig.url}/zaptdeliverybz`,
       lastModified: now,
       changeFrequency: 'daily',
