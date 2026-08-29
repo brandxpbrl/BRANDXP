@@ -166,9 +166,9 @@ export default function FelaLanding() {
               <MessageCircle size={19} /> Consultar disponibilidad{" "}
               <ArrowRight size={17} />
             </a>
-            <a className={styles.secondaryButton} href="#experiencias">
-              Explorar experiencias
-            </a>
+            <Link className={styles.secondaryButton} href="/felatours/experiencias">
+              Ver catálogo completo <ArrowRight size={16} />
+            </Link>
           </div>
           <div className={styles.quickTrust}>
             <span>
@@ -196,6 +196,17 @@ export default function FelaLanding() {
           recordar por años, coordinamos cada detalle para que viajes tranquilo
           y aproveches cada día.
         </p>
+      </section>
+
+      <section className={styles.internationalPromo} aria-labelledby="catalogo-detallado-title">
+        <div>
+          <p className={styles.eyebrow}>NUEVO CATÁLOGO DIGITAL</p>
+          <h2 id="catalogo-detallado-title">20 experiencias reales</h2>
+          <p>Descubrí tours, playas, aventura y traslados con imágenes oficiales.</p>
+        </div>
+        <Link className={styles.internationalPromoLink} href="/felatours/experiencias">
+          Ver todas las experiencias <ArrowRight size={17} />
+        </Link>
       </section>
 
       <section className={styles.internationalPromo} aria-labelledby="international-travelers-title">
