@@ -264,6 +264,9 @@ export default function FelaLanding() {
                 />
               ))}
             </div>
+            <Link className={styles.secondaryButton} href="/felatours/experiencias">
+              Ver catálogo detallado <ArrowRight size={16} />
+            </Link>
             <a
               className={styles.primaryButton}
               href={ask("el catálogo completo")}
