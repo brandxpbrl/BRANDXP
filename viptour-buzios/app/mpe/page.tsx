@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { portalConfig } from "@/config/portal";
-import MpeVisionExperience from "./MpeVisionExperience";
+import MpeOrganismShell from "./MpeOrganismShell";
 
 export const metadata: Metadata = {
-  title: "MPE Vision | ORBIS",
-  description: "Experiencia interactiva de percepción visual MPE dentro de ORBIS.",
+  title: "MPE Organism | ORBIS",
+  description: "Interfaz viva de MPE: percepción, evolución, memoria, geometría, evidencia y estado conectados.",
   alternates: { canonical: "/mpe" },
   openGraph: {
-    title: "MPE Vision | ORBIS",
-    description: "Activá la cámara y experimentá cómo MPE hace visible el cambio, la relación y la organización en tiempo real.",
+    title: "MPE Organism | ORBIS",
+    description: "La evolución no maximiza complejidad. Maximiza posibilidades viables.",
     url: `${portalConfig.url}/mpe`,
   },
 };
 
 export default function MpePage() {
-  return <MpeVisionExperience />;
+  return <MpeOrganismShell />;
 }
