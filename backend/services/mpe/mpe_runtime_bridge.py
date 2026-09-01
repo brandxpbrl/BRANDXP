@@ -8,6 +8,25 @@ MAX_EVENTS = 100
 MAX_ARTIFACTS = 100
 MAX_SERVICES = 100
 
+SAFE_KERNEL_KEYS = {
+    "status",
+    "state",
+    "health",
+    "mode",
+    "tick",
+    "uptime",
+    "uptime_seconds",
+    "started_at",
+    "updated_at",
+    "timestamp",
+    "time",
+    "ts",
+    "version",
+    "node_id",
+    "service",
+    "service_name",
+}
+
 
 def _read_json(path: Path):
     try:
@@ -62,6 +81,22 @@ def _text(record, keys, fallback=None):
         if text:
             return text
     return fallback
+
+
+def _sanitize_kernel_status(record):
+    if not isinstance(record, dict):
+        return {}
+    # Kernel status is an allow-list projection, not a filtered copy. This keeps
+    # filesystem paths, database locations, logs, environment/config payloads,
+    # and arbitrary nested dictionaries out of the public runtime snapshot.
+    sanitized = {}
+    for key in SAFE_KERNEL_KEYS:
+        value = record.get(key)
+        if value is None or isinstance(value, (dict, list, tuple, set)):
+            continue
+        if isinstance(value, (str, int, float, bool)):
+            sanitized[key] = value
+    return sanitized
 
 
 def _normalize_event(record, index):
@@ -137,6 +172,7 @@ def build_runtime_snapshot():
     }
 
     kernel_status = _read_json(kernel_status_path) if kernel_status_path and kernel_status_path.is_file() else None
+    kernel_status = _sanitize_kernel_status(kernel_status)
 
     services = []
     if service_health_path and service_health_path.is_file():
@@ -166,7 +202,7 @@ def build_runtime_snapshot():
         "mode": "LIVE" if any(configured.values()) else "DISCONNECTED",
         "observed_at": datetime.now(timezone.utc).isoformat(),
         "configured_sources": configured,
-        "kernel": kernel_status if isinstance(kernel_status, dict) else {},
+        "kernel": kernel_status,
         "services": services,
         "events": events,
         "artifacts": artifacts,
