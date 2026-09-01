@@ -37,7 +37,21 @@ class RuntimeBridgeTest(unittest.TestCase):
             earth = root / "earth_memory.jsonl"
             artifacts = root / "artifacts.json"
 
-            kernel.write_text(json.dumps({"status": "online", "tick": 7}), encoding="utf-8")
+            kernel.write_text(
+                json.dumps(
+                    {
+                        "status": "online",
+                        "tick": 7,
+                        "database_path": "C:/private/runtime/mpe.db",
+                        "log_path": "C:/private/logs/kernel.log",
+                        "config": {
+                            "artifact_root": "C:/private/output",
+                            "secret_path": "/home/user/.mpe/secret",
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
             services.write_text("service,status,timestamp\nEarth Server,online,2026-09-01T18:00:00Z\n", encoding="utf-8")
             events.write_text(json.dumps({"event_id": "evt-1", "event_type": "SENSOR_EVENT", "source": "sensor", "timestamp": "2026-09-01T18:00:01Z"}) + "\n", encoding="utf-8")
             earth.write_text(json.dumps({"event_id": "evt-2", "type": "EARTH_STATE", "source_service": "Earth Server", "ts": "2026-09-01T18:00:02Z"}) + "\n", encoding="utf-8")
@@ -53,6 +67,12 @@ class RuntimeBridgeTest(unittest.TestCase):
 
             self.assertEqual(snapshot["mode"], "LIVE")
             self.assertEqual(snapshot["kernel"]["tick"], 7)
+            self.assertEqual(snapshot["kernel"]["status"], "online")
+            self.assertNotIn("database_path", snapshot["kernel"])
+            self.assertNotIn("log_path", snapshot["kernel"])
+            self.assertNotIn("config", snapshot["kernel"])
+            self.assertNotIn("C:/private", json.dumps(snapshot))
+            self.assertNotIn("/home/user", json.dumps(snapshot))
             self.assertEqual(snapshot["services"][0]["name"], "Earth Server")
             self.assertEqual([event["id"] for event in snapshot["events"]], ["evt-1", "evt-2"])
             self.assertEqual(snapshot["artifacts"][0]["source_ref"], "evt-2")
