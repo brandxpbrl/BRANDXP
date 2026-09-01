@@ -85,9 +85,9 @@ export const organismNodes: OrganismNode[] = [
 ];
 
 export const organismViews: OrganismView[] = [
-  { id: "alive", label: "ALIVE", description: "Estado global del organismo, órganos, salud y propagación de eventos.", status: "active" },
+  { id: "alive", label: "ALIVE", description: "Estado global del organismo, órganos, salud y propagación de eventos.", status: "active", href: "/mpe" },
   { id: "perception", label: "PERCEPTION", description: "Cámara, sensores y entradas externas.", status: "active", href: "/mpe/vision" },
-  { id: "earth", label: "EARTH", description: "FaseOS, Earth Memory y telemetría física.", status: "next" },
+  { id: "earth", label: "EARTH", description: "FaseOS, Earth Memory y telemetría física.", status: "active", href: "/mpe/earth" },
   { id: "mind", label: "MIND", description: "Hipótesis, posibilidades, ranking y discovery engine.", status: "next" },
   { id: "lab", label: "LAB", description: "Experimentos, perturbaciones, replay y comparación.", status: "next" },
   { id: "evolution", label: "EVOLUTION", description: "Poblaciones, viabilidad, selección, recovery y futuros posibles.", status: "next" },
@@ -95,7 +95,7 @@ export const organismViews: OrganismView[] = [
   { id: "memory", label: "MEMORY", description: "Working memory, episodios, experimentos y búsqueda histórica.", status: "next" },
   { id: "heritage", label: "HERITAGE", description: "Resultados y estructuras promovidas para persistir.", status: "next" },
   { id: "evidence", label: "SOURCE / EVIDENCE", description: "Provenance completa de claims, métricas, resultados y artefactos.", status: "active", href: "/mpe/source" },
-  { id: "system", label: "SYSTEM", description: "Servicios, puertos, logs, errores y recovery operativo.", status: "next" },
+  { id: "system", label: "SYSTEM", description: "Servicios, puertos, logs, errores y recovery operativo.", status: "active", href: "/mpe/system" },
 ];
 
 export const organismFlow = [
