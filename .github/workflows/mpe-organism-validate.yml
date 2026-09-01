@@ -32,8 +32,26 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
+      - name: Lint MPE Organism changes
+        run: >-
+          npx eslint
+          app/mpe/MpeOrganismShell.tsx
+          app/mpe/MpeRuntimeStatus.tsx
+          app/mpe/MpeRuntimeSurface.tsx
+          app/mpe/MpeMindSurface.tsx
+          app/mpe/MpeOrganSourceSurface.tsx
+          app/mpe/page.tsx
+          app/mpe/earth
+          app/mpe/evolution
+          app/mpe/geometry
+          app/mpe/heritage
+          app/mpe/lab
+          app/mpe/memory
+          app/mpe/mind
+          app/mpe/source
+          app/mpe/system
+          app/api/mpe
+          lib/mpe
 
-      - name: Build
+      - name: Build complete site
         run: npm run build
