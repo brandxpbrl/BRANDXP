@@ -94,7 +94,7 @@ export const organismViews: OrganismView[] = [
   { id: "geometry", label: "GEOMETRY", description: "Morphogenesis, atlas, estados y artefactos GLB.", status: "next" },
   { id: "memory", label: "MEMORY", description: "Working memory, episodios, experimentos y búsqueda histórica.", status: "next" },
   { id: "heritage", label: "HERITAGE", description: "Resultados y estructuras promovidas para persistir.", status: "next" },
-  { id: "evidence", label: "SOURCE / EVIDENCE", description: "Provenance completa de claims, métricas, resultados y artefactos.", status: "next" },
+  { id: "evidence", label: "SOURCE / EVIDENCE", description: "Provenance completa de claims, métricas, resultados y artefactos.", status: "active", href: "/mpe/source" },
   { id: "system", label: "SYSTEM", description: "Servicios, puertos, logs, errores y recovery operativo.", status: "next" },
 ];
 
