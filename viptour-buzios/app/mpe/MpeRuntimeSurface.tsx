@@ -73,11 +73,14 @@ export default function MpeRuntimeSurface() {
   const artifacts = useMemo(() => firstCollection(state, ["recent_artifacts", "artifacts", "outputs", "generated_artifacts"]), [state]);
   const services = useMemo(() => firstCollection(state, ["services", "service_health", "registry", "nodes"]), [state]);
   const scalarState = useMemo(() => {
-    if (!state) return [] as [string, string][];
-    return Object.entries(state)
-      .map(([key, value]) => [key, scalar(value)] as const)
-      .filter((entry): entry is [string, string] => entry[1] !== null)
-      .slice(0, 8);
+    if (!state) return [] as Array<[string, string]>;
+    const rows: Array<[string, string]> = [];
+    for (const [key, value] of Object.entries(state)) {
+      const rendered = scalar(value);
+      if (rendered !== null) rows.push([key, rendered]);
+      if (rows.length >= 8) break;
+    }
+    return rows;
   }, [state]);
 
   const connected = probe?.connected === true;
