@@ -226,49 +226,76 @@ export default function MpeBrowserLab() {
     seed: 42,
   });
   const points = useMemo(() => generatePoints(config), [config]);
-  const runId = useMemo(() => `SIM-${config.sourceId}-${config.seed}-${points.length}`, [config.sourceId, config.seed, points.length]);
+  const configIdentity = useMemo(
+    () => JSON.stringify({
+      sourceType: config.sourceType,
+      sourceId: config.sourceId,
+      family: config.family,
+      mode: config.mode,
+      complexity: config.complexity,
+      perturbation: config.perturbation,
+      symmetry: config.symmetry,
+      seed: config.seed,
+    }),
+    [config],
+  );
+  const configHash = useMemo(() => hashString(configIdentity).toString(16).padStart(8, "0"), [configIdentity]);
+  const runId = useMemo(() => `SIM-${config.sourceId}-${configHash}`, [config.sourceId, configHash]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const ratio = window.devicePixelRatio || 1;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    canvas.width = Math.round(width * ratio);
-    canvas.height = Math.round(height * ratio);
-    ctx.scale(ratio, ratio);
-    ctx.clearRect(0, 0, width, height);
 
-    const gradient = ctx.createRadialGradient(width * 0.5, height * 0.46, 5, width * 0.5, height * 0.5, Math.max(width, height) * 0.58);
-    gradient.addColorStop(0, "rgba(34,211,238,0.18)");
-    gradient.addColorStop(0.45, "rgba(139,92,246,0.10)");
-    gradient.addColorStop(1, "rgba(2,7,11,0)");
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, width, height);
+    const draw = () => {
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const ratio = window.devicePixelRatio || 1;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      if (!width || !height) return;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.clearRect(0, 0, width, height);
 
-    const yaw = -0.72;
-    const cy = Math.cos(yaw);
-    const sy = Math.sin(yaw);
-    for (let i = 0; i < points.length; i += 1) {
-      const [px, py, pz] = points[i];
-      const x = px * cy - pz * sy;
-      const z = px * sy + pz * cy;
-      const scale = 1 / (2.45 - z * 0.55);
-      const sx = width * 0.5 + x * width * 0.68 * scale;
-      const sy2 = height * 0.5 - py * height * 0.88 * scale;
-      const size = Math.max(1.1, 3.2 * scale);
-      const hue = 178 + ((i / points.length) * 120 + config.seed) % 120;
-      ctx.beginPath();
-      ctx.arc(sx, sy2, size, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${hue}, 92%, 68%, ${0.42 + scale * 0.38})`;
-      ctx.fill();
+      const gradient = ctx.createRadialGradient(width * 0.5, height * 0.46, 5, width * 0.5, height * 0.5, Math.max(width, height) * 0.58);
+      gradient.addColorStop(0, "rgba(34,211,238,0.18)");
+      gradient.addColorStop(0.45, "rgba(139,92,246,0.10)");
+      gradient.addColorStop(1, "rgba(2,7,11,0)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      const yaw = -0.72;
+      const cy = Math.cos(yaw);
+      const sy = Math.sin(yaw);
+      for (let i = 0; i < points.length; i += 1) {
+        const [px, py, pz] = points[i];
+        const x = px * cy - pz * sy;
+        const z = px * sy + pz * cy;
+        const scale = 1 / (2.45 - z * 0.55);
+        const sx = width * 0.5 + x * width * 0.68 * scale;
+        const sy2 = height * 0.5 - py * height * 0.88 * scale;
+        const size = Math.max(1.1, 3.2 * scale);
+        const hue = 178 + ((i / points.length) * 120 + config.seed) % 120;
+        ctx.beginPath();
+        ctx.arc(sx, sy2, size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${hue}, 92%, 68%, ${0.42 + scale * 0.38})`;
+        ctx.fill();
+      }
+    };
+
+    draw();
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(draw);
+      observer.observe(canvas);
+      return () => observer.disconnect();
     }
+    window.addEventListener("resize", draw);
+    return () => window.removeEventListener("resize", draw);
   }, [points, config.seed]);
 
   const patch = <K extends keyof LabConfig>(key: K, value: LabConfig[K]) => setConfig((current) => ({ ...current, [key]: value }));
-  const filenameBase = `mpe_${config.sourceType}_${config.sourceId}_${config.family}_${config.seed}`.toLowerCase();
+  const filenameBase = `mpe_${config.sourceType}_${config.sourceId}_${configHash}`.toLowerCase();
 
   const exportPng = () => {
     const canvas = canvasRef.current;
@@ -281,6 +308,7 @@ export default function MpeBrowserLab() {
     const manifest = {
       schema: "MPE_BROWSER_LAB_MANIFEST_V0.1",
       run_id: runId,
+      config_hash: configHash,
       generated_at: new Date().toISOString(),
       epistemic_status: "SIMULATION",
       execution_mode: "BROWSER_NATIVE",
