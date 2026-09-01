@@ -88,7 +88,7 @@ export const organismViews: OrganismView[] = [
   { id: "alive", label: "ALIVE", description: "Estado global del organismo, órganos, salud y propagación de eventos.", status: "active", href: "/mpe" },
   { id: "perception", label: "PERCEPTION", description: "Cámara, sensores y entradas externas.", status: "active", href: "/mpe/vision" },
   { id: "earth", label: "EARTH", description: "FaseOS, Earth Memory y telemetría física.", status: "active", href: "/mpe/earth" },
-  { id: "mind", label: "MIND", description: "Hipótesis, posibilidades, ranking y discovery engine.", status: "next" },
+  { id: "mind", label: "MIND", description: "Hipótesis, posibilidades, ranking y discovery engine.", status: "active", href: "/mpe/mind" },
   { id: "lab", label: "LAB", description: "Experimentos, perturbaciones, replay y comparación.", status: "next" },
   { id: "evolution", label: "EVOLUTION", description: "Poblaciones, viabilidad, selección, recovery y futuros posibles.", status: "next" },
   { id: "geometry", label: "GEOMETRY", description: "Morphogenesis, atlas, estados y artefactos GLB.", status: "next" },
