@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MpeRuntimeSurface from "./MpeRuntimeSurface";
+import MpeEntityObserverMax from "./MpeEntityObserverMax";
 import { organismFlow, organismNodes, organismViews, epistemicLegend } from "./mpe-organism.data";
 
 const statusLabel: Record<string, string> = {
@@ -13,6 +14,7 @@ const statusLabel: Record<string, string> = {
 export default function MpeOrganismShell() {
   return (
     <main className="min-h-screen bg-[#02070b] text-white">
+      <MpeEntityObserverMax />
       <section className="relative overflow-hidden border-b border-cyan-300/10 px-5 py-16 sm:px-8 lg:px-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.17),transparent_42%),radial-gradient(circle_at_78%_28%,rgba(217,70,239,0.10),transparent_30%)]" />
         <div className="relative mx-auto max-w-7xl">
