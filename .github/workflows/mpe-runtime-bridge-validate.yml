@@ -1,0 +1,43 @@
+name: MPE Runtime Bridge Validate
+
+on:
+  push:
+    branches:
+      - feat/mpe-runtime-bridge-v0-1
+    paths:
+      - 'backend/mpe_runtime_bridge_server.py'
+      - 'backend/services/mpe/mpe_runtime_bridge.py'
+      - 'backend/services/mpe/mpe_runtime_api.py'
+      - 'backend/tests/test_mpe_runtime_bridge.py'
+      - '.github/workflows/mpe-runtime-bridge-validate.yml'
+  pull_request:
+    paths:
+      - 'backend/mpe_runtime_bridge_server.py'
+      - 'backend/services/mpe/mpe_runtime_bridge.py'
+      - 'backend/services/mpe/mpe_runtime_api.py'
+      - 'backend/tests/test_mpe_runtime_bridge.py'
+      - '.github/workflows/mpe-runtime-bridge-validate.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile bridge
+        run: >-
+          python -m py_compile
+          backend/mpe_runtime_bridge_server.py
+          backend/services/mpe/mpe_runtime_bridge.py
+          backend/services/mpe/mpe_runtime_api.py
+
+      - name: Test bridge contracts
+        env:
+          PYTHONPATH: backend
+        run: python -m unittest backend/tests/test_mpe_runtime_bridge.py
