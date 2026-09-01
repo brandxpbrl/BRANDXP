@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MpeRuntimeSurface from "./MpeRuntimeSurface";
 import { organismFlow, organismNodes, organismViews, epistemicLegend } from "./mpe-organism.data";
 
 const statusLabel: Record<string, string> = {
@@ -38,7 +39,9 @@ export default function MpeOrganismShell() {
           <span className="rounded-full border border-emerald-300/25 bg-emerald-300/8 px-3 py-1 text-xs tracking-[0.16em] text-emerald-200">ARCHITECTURE ONLINE</span>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <MpeRuntimeSurface />
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {organismNodes.map((node) => (
             <article key={node.id} className="rounded-2xl border border-white/9 bg-white/[0.025] p-5 backdrop-blur">
               <div className="flex items-start justify-between gap-4">
