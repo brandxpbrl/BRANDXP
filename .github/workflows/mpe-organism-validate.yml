@@ -1,0 +1,57 @@
+name: MPE Organism Validate
+
+on:
+  push:
+    branches:
+      - feat/mpe-organism-v0-1
+    paths:
+      - 'viptour-buzios/**'
+      - '.github/workflows/mpe-organism-validate.yml'
+  pull_request:
+    paths:
+      - 'viptour-buzios/**'
+      - '.github/workflows/mpe-organism-validate.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: viptour-buzios
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: viptour-buzios/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint MPE Organism changes
+        run: >-
+          npx eslint
+          app/mpe/MpeOrganismShell.tsx
+          app/mpe/MpeRuntimeStatus.tsx
+          app/mpe/MpeRuntimeSurface.tsx
+          app/mpe/MpeMindSurface.tsx
+          app/mpe/MpeOrganSourceSurface.tsx
+          app/mpe/page.tsx
+          app/mpe/earth
+          app/mpe/evolution
+          app/mpe/geometry
+          app/mpe/heritage
+          app/mpe/lab
+          app/mpe/memory
+          app/mpe/mind
+          app/mpe/source
+          app/mpe/system
+          app/api/mpe
+          lib/mpe
+
+      - name: Build complete site
+        run: npm run build
