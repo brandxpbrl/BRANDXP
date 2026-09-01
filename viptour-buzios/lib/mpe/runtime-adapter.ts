@@ -1,13 +1,17 @@
+import { normalizeRuntimeState, type NormalizedRuntimeState } from "./runtime-normalizer";
+
 export type MpeRuntimeProbe = {
   connected: boolean;
   mode: "remote-read-only" | "disconnected";
   checked_at: string;
   endpoint: string | null;
   state: unknown | null;
+  normalized: NormalizedRuntimeState;
   error: string | null;
 };
 
 const STATE_PATH = "/api/state";
+const EMPTY = normalizeRuntimeState(null);
 
 export async function probeMpeRuntime(): Promise<MpeRuntimeProbe> {
   const baseUrl = process.env.MPE_RUNTIME_BASE_URL?.replace(/\/$/, "") || "";
@@ -20,6 +24,7 @@ export async function probeMpeRuntime(): Promise<MpeRuntimeProbe> {
       checked_at: checkedAt,
       endpoint: null,
       state: null,
+      normalized: EMPTY,
       error: "MPE_RUNTIME_BASE_URL is not configured",
     };
   }
@@ -41,16 +46,19 @@ export async function probeMpeRuntime(): Promise<MpeRuntimeProbe> {
         checked_at: checkedAt,
         endpoint,
         state: null,
+        normalized: EMPTY,
         error: `Runtime returned HTTP ${response.status}`,
       };
     }
 
+    const state = await response.json();
     return {
       connected: true,
       mode: "remote-read-only",
       checked_at: checkedAt,
       endpoint,
-      state: await response.json(),
+      state,
+      normalized: normalizeRuntimeState(state),
       error: null,
     };
   } catch (error) {
@@ -60,6 +68,7 @@ export async function probeMpeRuntime(): Promise<MpeRuntimeProbe> {
       checked_at: checkedAt,
       endpoint,
       state: null,
+      normalized: EMPTY,
       error: error instanceof Error ? error.message : "Unknown runtime connection error",
     };
   }
