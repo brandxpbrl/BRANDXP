@@ -9,7 +9,7 @@ import { organismFlow, organismNodes, organismViews, epistemicLegend } from "./m
 
 const statusLabel: Record<string, string> = { implemented: "IMPLEMENTED", partial: "PARTIAL", bridge: "BRIDGE", proposed: "PROPOSED", evidence: "EVIDENCE" };
 
-export default function MpeOrganismShell() {
+function RuntimeStateCards() {
   const { probe } = useMpeRuntime();
   const runtimeObserved = probe?.connected === true;
   const topStates = [
@@ -18,6 +18,10 @@ export default function MpeOrganismShell() {
     ["EPISTEMIC", "ENFORCED"],
   ];
 
+  return <div className="grid gap-2">{topStates.map(([k,v]) => <div key={k} className="rounded-xl border border-white/[0.07] bg-black/15 px-4 py-3"><p className="text-[9px] tracking-[0.16em] text-white/30">{k}</p><p className="mt-1 text-sm">{v}</p></div>)}</div>;
+}
+
+export default function MpeOrganismShell() {
   return (
     <MpeInterfaceFrame active="ALIVE">
       <MpeEntityObserverMax />
@@ -29,7 +33,7 @@ export default function MpeOrganismShell() {
             <div className="relative mx-auto grid h-[270px] w-full max-w-[520px] place-items-center">
               <div className="absolute h-64 w-64 rounded-full border border-cyan-300/10"/><div className="absolute h-48 w-48 rounded-full border border-fuchsia-300/10"/><div className="absolute h-36 w-36 animate-pulse rounded-full bg-[radial-gradient(circle,rgba(34,211,238,.32),rgba(168,85,247,.14)_40%,transparent_72%)] shadow-[0_0_90px_rgba(34,211,238,.12)]"/><div className="relative text-center"><p className="text-[9px] tracking-[0.24em] text-cyan-200/45">ORGANISM CORE</p><p className="mt-2 text-xl font-semibold">MPE</p><p className="mt-1 text-[10px] text-white/30">observable · traceable</p></div>
             </div>
-            <div className="grid gap-2">{topStates.map(([k,v]) => <div key={k} className="rounded-xl border border-white/[0.07] bg-black/15 px-4 py-3"><p className="text-[9px] tracking-[0.16em] text-white/30">{k}</p><p className="mt-1 text-sm">{v}</p></div>)}</div>
+            <RuntimeStateCards />
           </div>
         </section>
 
