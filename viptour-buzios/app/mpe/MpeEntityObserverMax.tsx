@@ -4,7 +4,29 @@ import { useMemo, useState } from "react";
 import { useMpeRuntime, type RuntimeEvent } from "./MpeRuntimeContext";
 
 type ObservedArtifact = { source_ref: string | null };
-function latestEvent(events: RuntimeEvent[]) { const dated=events.map((event)=>({event,time:event.timestamp?Date.parse(event.timestamp):NaN})).filter((item)=>Number.isFinite(item.time)); if(!dated.length)return null; return dated.reduce((latest,item)=>item.time>latest.time?item:latest).event; }
+
+function parseEventTime(timestamp: string | null | undefined) {
+  if (!timestamp) return NaN;
+  const value = timestamp.trim();
+  if (!value) return NaN;
+
+  if (/^[+-]?\d+(?:\.\d+)?$/.test(value)) {
+    const epoch = Number(value);
+    if (!Number.isFinite(epoch)) return NaN;
+    return Math.abs(epoch) < 1e12 ? epoch * 1000 : epoch;
+  }
+
+  return Date.parse(value);
+}
+
+function latestEvent(events: RuntimeEvent[]) {
+  const dated = events
+    .map((event) => ({ event, time: parseEventTime(event.timestamp) }))
+    .filter((item) => Number.isFinite(item.time));
+  if (!dated.length) return null;
+  return dated.reduce((latest, item) => (item.time > latest.time ? item : latest)).event;
+}
+
 function interpretation(connected:boolean,services:number,events:RuntimeEvent[],artifacts:ObservedArtifact[]){
  if(!connected)return{status:"unknown",headline:"El nodo físico no está observado.",body:"El probe runtime no confirma conexión. El nodo puede estar apagado, inaccesible o simplemente fuera del alcance de esta interfaz; su estado físico permanece UNKNOWN.",action:"El organismo web sigue autónomo. No presentaré actividad FaseOS/Earth como LIVE hasta recibir una fuente observable."};
  const traceable=artifacts.filter((artifact)=>Boolean(artifact.source_ref)).length; const incomplete=artifacts.length>traceable; const last=latestEvent(events);
