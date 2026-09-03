@@ -1,18 +1,11 @@
 import Link from "next/link";
 import MpeMindSurface from "../MpeMindSurface";
+import MpeEntityObserverMax from "../MpeEntityObserverMax";
+import MpeInterfaceFrame from "../MpeInterfaceFrame";
 
 export default function MpeMindPage() {
-  return (
-    <main className="min-h-screen bg-[#02070b] px-5 py-10 text-white sm:px-8 lg:px-12">
-      <div className="mx-auto max-w-7xl">
-        <Link href="/mpe" className="text-xs tracking-[0.18em] text-cyan-200/55 transition hover:text-cyan-100">← MPE ORGANISM</Link>
-        <div className="mt-10 max-w-4xl">
-          <p className="text-[11px] tracking-[0.24em] text-cyan-300/65">MIND</p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-[-0.035em] sm:text-6xl">Hipótesis, descubrimiento y memoria útil</h1>
-          <p className="mt-5 text-base leading-7 text-white/48">Gateway read-only hacia el MPE Core científico. No usa el motor MPE de Brand Experience como sustituto del núcleo científico y no fabrica hipótesis cuando la fuente local no está conectada.</p>
-        </div>
-        <MpeMindSurface />
-      </div>
-    </main>
-  );
+  return <MpeInterfaceFrame active="MIND"><MpeEntityObserverMax/><main className="px-4 py-5 sm:px-6">
+    <section className="relative overflow-hidden rounded-[28px] border border-violet-300/10 bg-[#07101b]/55 p-6 sm:p-8"><div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,rgba(139,92,246,.13),transparent_34%),radial-gradient(circle_at_60%_55%,rgba(34,211,238,.06),transparent_25%)]"/><div className="relative grid gap-8 xl:grid-cols-[minmax(0,1fr)_430px] xl:items-center"><div><p className="text-[9px] tracking-[0.22em] text-violet-200/45">MIND · COGNITIVE CORE GATEWAY</p><h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Hipótesis, descubrimiento y memoria útil</h1><p className="mt-4 max-w-2xl text-sm leading-6 text-white/40">MIND observa el núcleo científico sin sustituirlo. Hipótesis, ranking, viability y discovery conservan sus contratos y estados epistemológicos originales.</p><div className="mt-5 flex gap-2"><Link href="/mpe/evolution" className="rounded-xl border border-fuchsia-300/20 px-3 py-2 text-[10px] text-fuchsia-100">EVOLUTION</Link><Link href="/mpe/memory" className="rounded-xl border border-violet-300/20 px-3 py-2 text-[10px] text-violet-100">MEMORY</Link></div></div><div className="relative mx-auto grid h-64 w-64 place-items-center"><div className="absolute inset-0 rounded-full border border-violet-300/10"/><div className="absolute inset-8 rounded-full border border-cyan-300/10"/><div className="absolute h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,.28),rgba(34,211,238,.10)_45%,transparent_72%)] shadow-[0_0_70px_rgba(139,92,246,.16)]"/><div className="relative text-center"><p className="text-[9px] tracking-[0.2em] text-violet-100/45">COGNITIVE LOOP</p><p className="mt-2 text-[10px] text-white/35">hypothesis → evaluation</p></div></div></div></section>
+    <section className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1fr)_320px]"><div className="rounded-2xl border border-white/[0.07] bg-[#07101b]/45 p-5"><MpeMindSurface /></div><div className="grid gap-3"><div className="rounded-2xl border border-white/[0.07] bg-[#07101b]/45 p-5"><p className="text-[9px] tracking-[0.18em] text-violet-200/40">COGNITIVE PATH</p><p className="mt-3 text-xs leading-6 text-white/42">POSSIBILITY → HYPOTHESIS → EXPERIMENT → EVALUATION → MEMORY</p></div><div className="rounded-2xl border border-amber-300/10 bg-amber-300/[0.025] p-5"><p className="text-[9px] tracking-[0.18em] text-amber-200/45">BOUNDARY</p><p className="mt-2 text-[10px] leading-5 text-white/35">El modelo quantum_neural es simbólico/interno. Esta interfaz no lo presenta como evidencia de computación cuántica física.</p></div></div></section>
+  </main></MpeInterfaceFrame>;
 }
