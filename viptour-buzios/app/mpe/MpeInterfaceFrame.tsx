@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { MpeRuntimeProvider } from "./MpeRuntimeContext";
 
-const primaryNav = [["ALIVE","/mpe"],["PERCEPTION","/mpe/vision"],["EARTH","/mpe/earth"],["MIND","/mpe/mind"],["LAB","/mpe/lab"],["EVOLUTION","/mpe/evolution"],["GEOMETRY","/mpe/geometry"]] as const;
+const primaryNav = [["ALIVE","/mpe"],["POSSIBILITY","/mpe/possibility"],["PERCEPTION","/mpe/vision"],["EARTH","/mpe/earth"],["MIND","/mpe/mind"],["LAB","/mpe/lab"],["EVOLUTION","/mpe/evolution"],["GEOMETRY","/mpe/geometry"]] as const;
 const secondaryNav = [["SYSTEM","/mpe/system"],["MEMORY","/mpe/memory"],["HERITAGE","/mpe/heritage"],["SOURCE","/mpe/source"]] as const;
 
 export default function MpeInterfaceFrame({ active, children }: { active: string; children: ReactNode }) {
