@@ -2,6 +2,7 @@ import type { MpeState, Possibility, PossibilityGraph, PossibilityOperator } fro
 import { buildPossibilityGraph, generateStructuralCandidates } from "./engine";
 import { deriveAdaptiveExplorationPolicy, reorderForAdaptiveExploration, type AdaptiveExplorationPolicy } from "./adaptive-learning";
 import type { TemporalMemory } from "./temporal-memory";
+import { generateNovelStructures, type RecombinantPossibility } from "./recombination";
 
 export type ClosedLoopCycle = {
   cycleId: string;
@@ -10,7 +11,9 @@ export type ClosedLoopCycle = {
   graph: PossibilityGraph;
   generated: Possibility[];
   retained: Possibility[];
+  novelGenerated: RecombinantPossibility[];
   boundary: "MEMORY_CHANGES_SEARCH_NOT_TRUTH";
+  noveltyBoundary: "NOVEL_STRUCTURE_IS_PROPOSED_NOT_EVIDENCE";
 };
 
 const preferred = (p: Possibility, operators: PossibilityOperator[]) => p.operators.some((o) => operators.includes(o));
@@ -45,19 +48,25 @@ export function generateNextAdaptiveCycle(
 
   const generated = orderedFresh.slice(0, Math.max(4, Math.min(8, orderedFresh.length)));
   const nodes = [...retained, ...generated];
-  const graph = buildPossibilityGraph(state, nodes, previousGraph.exploration.depth + 1);
+  const adaptiveGraph = buildPossibilityGraph(state, nodes, previousGraph.exploration.depth + 1);
   for (const p of generated) {
-    graph.edges.push({ from: previousGraph.rootStateId, to: p.id, relation: "derived_from" });
+    adaptiveGraph.edges.push({ from: previousGraph.rootStateId, to: p.id, relation: "derived_from" });
   }
-  graph.exploration.generatedCount = nodes.length;
+  adaptiveGraph.exploration.generatedCount = nodes.length;
+
+  const novelty = generateNovelStructures(adaptiveGraph, 6);
+  const graph = novelty.graph;
+  graph.exploration.generatedCount = graph.nodes.length;
 
   return {
     cycleId: `adaptive-cycle-${cycleIndex + 1}`,
     sourceStateId: state.id,
     policy,
     graph,
-    generated,
+    generated: [...novelty.generated.map((item) => item.possibility), ...generated],
     retained,
+    novelGenerated: novelty.generated,
     boundary: "MEMORY_CHANGES_SEARCH_NOT_TRUTH",
+    noveltyBoundary: novelty.boundary,
   };
 }
