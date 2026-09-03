@@ -3,16 +3,21 @@ import { buildPossibilityGraph, generateStructuralCandidates } from "./engine";
 import { deriveAdaptiveExplorationPolicy, reorderForAdaptiveExploration, type AdaptiveExplorationPolicy } from "./adaptive-learning";
 import type { TemporalMemory } from "./temporal-memory";
 import { generateNovelStructures, type RecombinantPossibility } from "./recombination";
+import { selectPossibilityPopulation, type PossibilityPopulationSelection } from "./population-selection";
+import type { ScenarioPersistenceReport } from "./scenario-persistence";
 
 export type ClosedLoopCycle = {
   cycleId: string;
   sourceStateId: string;
   policy: AdaptiveExplorationPolicy;
+  populationSelection: PossibilityPopulationSelection;
+  reproductiveParentIds: string[];
   graph: PossibilityGraph;
   generated: Possibility[];
   retained: Possibility[];
   novelGenerated: RecombinantPossibility[];
   boundary: "MEMORY_CHANGES_SEARCH_NOT_TRUTH";
+  reproductionBoundary: "SELECTION_CONTROLS_REPRODUCTION_NOT_TRUTH";
   noveltyBoundary: "NOVEL_STRUCTURE_IS_PROPOSED_NOT_EVIDENCE";
 };
 
@@ -22,18 +27,27 @@ export function generateNextAdaptiveCycle(
   state: MpeState,
   previousGraph: PossibilityGraph,
   memory: TemporalMemory,
-  cycleIndex: number
+  cycleIndex: number,
+  persistence: ScenarioPersistenceReport | null = null,
 ): ClosedLoopCycle {
   const policy = deriveAdaptiveExplorationPolicy(previousGraph, memory);
+  const populationSelection = selectPossibilityPopulation(previousGraph, persistence, memory);
+  const dispositionById = new Map(populationSelection.members.map((m) => [m.possibilityId, m.disposition] as const));
+  const reproductiveParents = previousGraph.nodes.filter((p) => dispositionById.get(p.id) === "continue_exploration");
+  const reserveParents = previousGraph.nodes.filter((p) => dispositionById.get(p.id) === "reserve");
+  const parentPool = reproductiveParents.length ? reproductiveParents : reserveParents;
+  const reproductiveParentIds = parentPool.map((p) => p.id);
+
   const fresh = generateStructuralCandidates(state).map((p) => ({
     ...p,
     id: `${p.id}-c${cycleIndex + 1}`,
+    parentPossibilityIds: parentPool.length ? [parentPool[cycleIndex % parentPool.length].id] : p.parentPossibilityIds,
     sources: [
       ...p.sources,
       {
         kind: "evolutionary" as const,
         ref: `adaptive-cycle:${cycleIndex + 1}`,
-        note: "Candidate regenerated under a history-guided search policy; this is not evidence or epistemic promotion.",
+        note: "Candidate regenerated under history-guided population selection; this is not evidence or epistemic promotion.",
       },
     ],
   }));
@@ -43,30 +57,42 @@ export function generateNextAdaptiveCycle(
   const orderedFresh = reorderForAdaptiveExploration([...preferredFresh, ...fallbackFresh], policy);
 
   const retained = previousGraph.nodes
-    .filter((p) => policy.guidance.find((g) => g.possibilityId === p.id)?.signal !== "deprioritize")
+    .filter((p) => dispositionById.get(p.id) !== "deprioritize")
     .map((p) => ({ ...p, parentPossibilityIds: [...p.parentPossibilityIds], childPossibilityIds: [...p.childPossibilityIds] }));
 
   const generated = orderedFresh.slice(0, Math.max(4, Math.min(8, orderedFresh.length)));
   const nodes = [...retained, ...generated];
   const adaptiveGraph = buildPossibilityGraph(state, nodes, previousGraph.exploration.depth + 1);
   for (const p of generated) {
-    adaptiveGraph.edges.push({ from: previousGraph.rootStateId, to: p.id, relation: "derived_from" });
+    const parentId = p.parentPossibilityIds[0];
+    adaptiveGraph.edges.push({ from: parentId ?? previousGraph.rootStateId, to: p.id, relation: parentId ? "opens" : "derived_from" });
   }
   adaptiveGraph.exploration.generatedCount = nodes.length;
 
-  const novelty = generateNovelStructures(adaptiveGraph, 6);
-  const graph = novelty.graph;
+  const noveltySourceGraph: PossibilityGraph = parentPool.length >= 2
+    ? { ...adaptiveGraph, nodes: adaptiveGraph.nodes.filter((n) => reproductiveParentIds.includes(n.id) || generated.some((g) => g.id === n.id)) }
+    : adaptiveGraph;
+  const novelty = generateNovelStructures(noveltySourceGraph, 6);
+  const novelIds = new Set(novelty.generated.map((item) => item.possibility.id));
+  const graph: PossibilityGraph = {
+    ...adaptiveGraph,
+    nodes: [...adaptiveGraph.nodes, ...novelty.graph.nodes.filter((n) => novelIds.has(n.id) && !adaptiveGraph.nodes.some((a) => a.id === n.id))],
+    edges: [...adaptiveGraph.edges, ...novelty.graph.edges.filter((e) => novelIds.has(e.to) && !adaptiveGraph.edges.some((a) => a.from === e.from && a.to === e.to && a.relation === e.relation))],
+  };
   graph.exploration.generatedCount = graph.nodes.length;
 
   return {
     cycleId: `adaptive-cycle-${cycleIndex + 1}`,
     sourceStateId: state.id,
     policy,
+    populationSelection,
+    reproductiveParentIds,
     graph,
     generated: [...novelty.generated.map((item) => item.possibility), ...generated],
     retained,
     novelGenerated: novelty.generated,
     boundary: "MEMORY_CHANGES_SEARCH_NOT_TRUTH",
+    reproductionBoundary: "SELECTION_CONTROLS_REPRODUCTION_NOT_TRUTH",
     noveltyBoundary: novelty.boundary,
   };
 }
