@@ -1,159 +1,24 @@
-export type EpistemicStatus =
-  | "generated_candidate"
-  | "structural_candidate"
-  | "experiment_candidate"
-  | "observed"
-  | "repeated"
-  | "validated_in_context"
-  | "heritage_candidate"
-  | "rejected";
-
-export type EvidenceKind =
-  | "user_state"
-  | "memory"
-  | "external_data"
-  | "derived"
-  | "generative_model"
-  | "experiment";
-
-export type PossibilitySource = {
-  kind: EvidenceKind;
-  ref: string;
-  note?: string;
-};
-
-export type StateFact = {
-  id: string;
-  label: string;
-  value: string | number | boolean;
-  confidence: "declared" | "observed" | "derived" | "unknown";
-  source?: PossibilitySource;
-};
-
-export type MpeState = {
-  id: string;
-  objective: string;
-  resources: StateFact[];
-  constraints: StateFact[];
-  pressures: StateFact[];
-  opportunities: StateFact[];
-  unknowns: StateFact[];
-  createdAt: string;
-};
-
-export type PossibilityOperator =
-  | "combine"
-  | "acquire"
-  | "remove_constraint"
-  | "reuse"
-  | "connect"
-  | "cooperate"
-  | "divide"
-  | "scale"
-  | "delay"
-  | "abandon"
-  | "experiment"
-  | "mutate";
-
-export type ViabilityDimension = {
-  id:
-    | "resource_fit"
-    | "constraint_fit"
-    | "dependency_load"
-    | "uncertainty"
-    | "reversibility"
-    | "evidence_support"
-    | "future_optionality";
-  status: "low" | "medium" | "high" | "unknown";
-  rationale: string;
-  sourceRefs: string[];
-};
-
-export type Perturbation = {
-  id: string;
-  label: string;
-  changes: Array<{
-    factId: string;
-    operation: "set" | "increase" | "decrease" | "remove";
-    value?: string | number | boolean;
-  }>;
-};
-
-export type PerturbationResult = {
-  perturbationId: string;
-  viability: "survives" | "degrades" | "fails" | "unknown";
-  reason: string;
-};
-
-export type ExperimentProposal = {
-  id: string;
-  question: string;
-  action: string;
-  successSignal: string;
-  failureSignal: string;
-  costClass: "low" | "medium" | "high" | "unknown";
-  reversible: boolean;
-  status: "proposed" | "running" | "completed" | "rejected";
-};
-
-export type Possibility = {
-  id: string;
-  title: string;
-  description: string;
-  parentStateId: string;
-  parentPossibilityIds: string[];
-  operators: PossibilityOperator[];
-  sources: PossibilitySource[];
-  assumptions: string[];
-  dependencies: string[];
-  viability: ViabilityDimension[];
-  perturbationResults: PerturbationResult[];
-  experiment?: ExperimentProposal;
-  epistemicStatus: EpistemicStatus;
-  openedFutureIds: string[];
-  closedReason?: string;
-};
-
-export type PossibilityFamily = {
-  id: string;
-  label: string;
-  possibilityIds: string[];
-  sharedPattern: string;
-};
-
-export type PossibilityLedgerEvent = {
-  id: string;
-  timestamp: string;
-  type:
-    | "state_created"
-    | "possibility_generated"
-    | "possibility_filtered"
-    | "perturbation_applied"
-    | "experiment_proposed"
-    | "experiment_completed"
-    | "epistemic_updated"
-    | "heritage_promoted";
-  entityId: string;
-  note: string;
-  sourceRefs: string[];
-};
-
-export type PossibilitySession = {
-  id: string;
-  state: MpeState;
-  possibilities: Possibility[];
-  families: PossibilityFamily[];
-  perturbations: Perturbation[];
-  ledger: PossibilityLedgerEvent[];
-  law: {
-    exhaustiveClaimAllowed: false;
-    probabilityClaimsRequireCalibration: true;
-    generatedIsNotEvidence: true;
-  };
-};
-
-export const POSSIBILITY_ENGINE_LAW: PossibilitySession["law"] = {
-  exhaustiveClaimAllowed: false,
-  probabilityClaimsRequireCalibration: true,
-  generatedIsNotEvidence: true,
-};
+export type EpistemicStatus = "proposed" | "observation" | "internal_result" | "discovery_candidate" | "unknown" | "rejected";
+export type PossibilityLifecycleStage = "generated" | "candidate" | "structurally_viable" | "testable" | "tested" | "replicated" | "heritage" | "rejected";
+export type EvidenceKind = "user_state" | "memory" | "external_data" | "derived" | "generative_model" | "experiment" | "evolutionary";
+export type PossibilitySource = { kind: EvidenceKind; ref: string; note?: string };
+export type StateFact = { id: string; label: string; value: string | number | boolean; confidence: "declared" | "observed" | "derived" | "unknown"; source?: PossibilitySource };
+export type MpeState = { id: string; objective: string; resources: StateFact[]; constraints: StateFact[]; pressures: StateFact[]; opportunities: StateFact[]; unknowns: StateFact[]; createdAt: string };
+export type PossibilityOperator = "combine" | "acquire" | "remove_constraint" | "reuse" | "connect" | "cooperate" | "divide" | "scale" | "delay" | "abandon" | "experiment" | "mutate";
+export type ViabilityDimension = { id: "resource_fit" | "constraint_fit" | "dependency_load" | "uncertainty" | "reversibility" | "evidence_support" | "future_optionality"; status: "low" | "medium" | "high" | "unknown"; rationale: string; sourceRefs: string[] };
+export type Perturbation = { id: string; label: string; changes: Array<{ factId: string; operation: "set" | "increase" | "decrease" | "remove"; value?: string | number | boolean }> };
+export type PerturbationResult = { perturbationId: string; viability: "survives" | "degrades" | "fails" | "unknown"; reason: string };
+export type Scenario = { id: string; label: string; familyId: string; perturbationIds: string[]; sourceRefs: string[]; calibrated: boolean };
+export type ScenarioFamily = { id: string; label: string; scenarioIds: string[]; purpose: "support" | "adverse" | "null_control" | "exploration" };
+export type StressTestResult = { possibilityId: string; scenarioId: string; outcome: "compatible" | "fragile" | "incompatible" | "unknown"; openedPossibilityIds: string[]; closedPossibilityIds: string[]; rationale: string };
+export type NegativeControl = { id: string; label: string; expectation: string; scenarioId: string; passed: boolean | null; rationale: string };
+export type FalsificationCriterion = { id: string; claim: string; falsifiedBy: string; status: "untested" | "survived" | "falsified" };
+export type TrajectoryObservation = { id: string; possibilityId: string; scenarioId?: string; sequence: Array<{ step: number; state: "accessible" | "fragile" | "closed" | "unknown"; note: string }>; persistence: "persistent" | "transient" | "collapsed" | "unknown" };
+export type ExpectationOutcome = { id: string; possibilityId: string; expected: string; observed: string; match: "supported" | "contradicted" | "inconclusive"; sourceRefs: string[] };
+export type ExperimentProposal = { id: string; question: string; action: string; successSignal: string; failureSignal: string; costClass: "low" | "medium" | "high" | "unknown"; reversible: boolean; status: "proposed" | "running" | "completed" | "rejected" };
+export type Possibility = { id: string; title: string; description: string; parentStateId: string; parentPossibilityIds: string[]; childPossibilityIds: string[]; operators: PossibilityOperator[]; sources: PossibilitySource[]; assumptions: string[]; dependencies: string[]; supportsObjectiveIds: string[]; contradictsConstraintIds: string[]; viability: ViabilityDimension[]; perturbationResults: PerturbationResult[]; experiment?: ExperimentProposal; epistemicStatus: EpistemicStatus; lifecycleStage: PossibilityLifecycleStage; openedFutureIds: string[]; closedFutureIds: string[]; falsificationCriteria: FalsificationCriterion[]; closedReason?: string };
+export type PossibilityFamily = { id: string; label: string; possibilityIds: string[]; sharedPattern: string };
+export type PossibilityGraph = { rootStateId: string; nodes: Possibility[]; edges: Array<{ from: string; to: string; relation: "derived_from" | "depends_on" | "opens" | "closes" | "contradicts" | "supports" }>; exploration: { exhaustiveClaimAllowed: false; depth: number; generatedCount: number } };
+export type PossibilityLedgerEvent = { id: string; timestamp: string; type: "state_created" | "possibility_generated" | "possibility_filtered" | "perturbation_applied" | "scenario_evaluated" | "negative_control_evaluated" | "experiment_proposed" | "experiment_completed" | "expectation_compared" | "epistemic_updated" | "heritage_promoted"; entityId: string; note: string; sourceRefs: string[] };
+export type PossibilitySession = { id: string; state: MpeState; graph: PossibilityGraph; families: PossibilityFamily[]; perturbations: Perturbation[]; scenarioFamilies: ScenarioFamily[]; scenarios: Scenario[]; stressTests: StressTestResult[]; negativeControls: NegativeControl[]; trajectories: TrajectoryObservation[]; expectationOutcomes: ExpectationOutcome[]; ledger: PossibilityLedgerEvent[]; law: { exhaustiveClaimAllowed: false; probabilityClaimsRequireCalibration: true; generatedIsNotEvidence: true; documentationIsNotEvidence: true; falsificationMustBeRecorded: true } };
+export const POSSIBILITY_ENGINE_LAW: PossibilitySession["law"] = { exhaustiveClaimAllowed: false, probabilityClaimsRequireCalibration: true, generatedIsNotEvidence: true, documentationIsNotEvidence: true, falsificationMustBeRecorded: true };
