@@ -10,7 +10,9 @@ export function ConditionalNavbar() {
     pathname === "/zaptdeliverybz" ||
     pathname.startsWith("/zaptdeliverybz/") ||
     pathname === "/mell-stone" ||
-    pathname.startsWith("/mell-stone/")
+    pathname.startsWith("/mell-stone/") ||
+    pathname === "/mpe" ||
+    pathname.startsWith("/mpe/")
   ) {
     return null;
   }
