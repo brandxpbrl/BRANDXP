@@ -5,6 +5,7 @@ import "./zapt.css";
 import { portalConfig } from "@/config/portal";
 import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
 import SelfObserverIdentity from "@/components/system/SelfObserverIdentity";
+import SelfObserverMind from "@/components/system/SelfObserverMind";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -71,6 +72,7 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex flex-col">
         <ConditionalNavbar />
         {children}
+        <SelfObserverMind />
         <SelfObserverIdentity />
       </body>
     </html>
