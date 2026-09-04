@@ -1,14 +1,14 @@
 import type { PossibilityGraph } from "./model";
 import type { GraphPerturbationResult } from "./perturbation-engine";
 import type { ScenarioPersistenceReport } from "./scenario-persistence";
-import { buildPossibilityMorphospace, type MorphospaceBoundaryState } from "./possibility-morphospace";
+import { buildPossibilityMorphospace, type PerturbationBoundaryState } from "./possibility-morphospace";
 
 export type RegionPerturbationTransition = {
   regionId: string;
-  before: MorphospaceBoundaryState;
-  after: MorphospaceBoundaryState;
+  before: PerturbationBoundaryState;
+  after: PerturbationBoundaryState;
   affectedPossibilityIds: string[];
-  interpretation: "UNCHANGED" | "AFFECTED" | "FRAGMENTED" | "CLOSED" | "INDETERMINATE";
+  interpretation: "unchanged" | "affected" | "fragmented" | "closed" | "indeterminate";
 };
 
 export type PerturbationBoundaryComparison = {
@@ -33,13 +33,13 @@ export function comparePerturbationBoundary(
     const b = beforeById.get(regionId);
     const a = afterById.get(regionId);
     const touched = [...new Set([...(b?.possibilityIds ?? []), ...(a?.possibilityIds ?? [])])].filter((id) => affected.has(id));
-    const beforeState = b?.boundary ?? "INDETERMINATE";
-    const afterState = a?.boundary ?? "INDETERMINATE";
-    let interpretation: RegionPerturbationTransition["interpretation"] = "UNCHANGED";
-    if (afterState === "OBSERVED_CLOSED") interpretation = "CLOSED";
-    else if (afterState === "OBSERVED_FRAGMENTED") interpretation = "FRAGMENTED";
-    else if (touched.length && afterState === "INDETERMINATE") interpretation = "INDETERMINATE";
-    else if (touched.length || beforeState !== afterState) interpretation = "AFFECTED";
+    const beforeState: PerturbationBoundaryState = b?.boundaryState ?? "indeterminate";
+    const afterState: PerturbationBoundaryState = a?.boundaryState ?? "indeterminate";
+    let interpretation: RegionPerturbationTransition["interpretation"] = "unchanged";
+    if (afterState === "observed_closed") interpretation = "closed";
+    else if (afterState === "observed_fragmented") interpretation = "fragmented";
+    else if (touched.length && afterState === "indeterminate") interpretation = "indeterminate";
+    else if (touched.length || beforeState !== afterState) interpretation = "affected";
     return { regionId, before: beforeState, after: afterState, affectedPossibilityIds: touched, interpretation };
   });
   return {
