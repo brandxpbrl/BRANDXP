@@ -63,7 +63,12 @@ const normalize=(value:string)=>value.toLowerCase().normalize("NFD").replace(/[\
 export function retrieveKnowledgeDomains(query:string,limit=6):KnowledgeRetrieval{
   const tokens=new Set(normalize(query).split(/\s+/).filter(Boolean));
   const ranked=ENTITY_BIBLE_DOMAINS.map(domain=>{
-    const score=domain.tags.reduce((sum,tag)=>sum+(tokens.has(normalize(tag))?3:0),0)+domain.tags.reduce((sum,tag)=>sum+[...tokens].some(token=>normalize(tag).includes(token)||token.includes(normalize(tag)))?sum+1:sum,0);
+    const score=domain.tags.reduce((sum,tag)=>{
+      const normalizedTag=normalize(tag);
+      if(tokens.has(normalizedTag)) return sum+3;
+      const related=[...tokens].some(token=>normalizedTag.includes(token)||token.includes(normalizedTag));
+      return sum+(related?1:0);
+    },0);
     return {domain,score};
   }).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||b.domain.documentCount-a.domain.documentCount).slice(0,limit).map(item=>item.domain);
   const fallback=["narrative_architecture","storytelling","memory","symbols","rhythm","emotional_intelligence"].map(id=>ENTITY_BIBLE_DOMAINS.find(domain=>domain.id===id)!).filter(Boolean).slice(0,limit);
