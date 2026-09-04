@@ -1,0 +1,50 @@
+name: MCOS Literary Validate
+
+on:
+  pull_request:
+    paths:
+      - 'backend/services/mcos/literary_adapter.py'
+      - 'backend/services/mcos/api.py'
+      - 'backend/services/mcos_literary_v01/**'
+      - '.github/workflows/mcos-literary-validate.yml'
+  push:
+    branches:
+      - feat/mpe-public-experience-v1
+    paths:
+      - 'backend/services/mcos/literary_adapter.py'
+      - 'backend/services/mcos/api.py'
+      - 'backend/services/mcos_literary_v01/**'
+      - '.github/workflows/mcos-literary-validate.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile literary runtime
+        run: python -m compileall -q services/mcos_literary_v01 services/mcos/literary_adapter.py services/mcos/api.py
+      - name: Smoke literary pipeline
+        run: |
+          python - <<'PY'
+          from services.mcos.literary_adapter import LiteraryAdapterRequest, build_literary_analysis, get_literary_adapter_status
+
+          status = get_literary_adapter_status()
+          assert status['mode'] == 'VENDORED_MCOS_V0_1', status
+          result = build_literary_analysis(LiteraryAdapterRequest(
+              text='Una hoja quedó sobre la mesa. Felipe la miró. ¿Por qué seguía apareciendo?',
+              source='CI_SMOKE',
+          ))
+          assert result['adapter']['full_mcos_pipeline_active'] is True
+          assert result['blueprint']
+          assert result['scene_dna']['scene_identity']
+          assert '## Narrative Purpose' in result['director_notes']
+          assert result['self_observer_packet']['schema'] == 'MPE_SELF_OBSERVER_NARRATIVE_PACKET_V0_1'
+          assert result['readiness']['character_canon_declared'] is False
+          print('MCOS literary pipeline smoke OK')
+          PY
