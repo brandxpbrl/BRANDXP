@@ -21,10 +21,11 @@ export type PerturbationBoundaryComparison = {
 export function comparePerturbationBoundary(
   beforeGraph: PossibilityGraph,
   result: GraphPerturbationResult,
-  persistence: ScenarioPersistenceReport | null,
+  beforePersistence: ScenarioPersistenceReport | null,
+  afterPersistence: ScenarioPersistenceReport | null,
 ): PerturbationBoundaryComparison {
-  const before = buildPossibilityMorphospace(beforeGraph, persistence);
-  const after = buildPossibilityMorphospace(result.graph, persistence);
+  const before = buildPossibilityMorphospace(beforeGraph, beforePersistence);
+  const after = buildPossibilityMorphospace(result.graph, afterPersistence);
   const affected = new Set(result.changedPossibilityIds);
   const beforeById = new Map(before.regions.map((region) => [region.id, region] as const));
   const afterById = new Map(after.regions.map((region) => [region.id, region] as const));
