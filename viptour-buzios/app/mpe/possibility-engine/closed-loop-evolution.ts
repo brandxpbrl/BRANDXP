@@ -6,12 +6,21 @@ import { generateNovelStructures, type RecombinantPossibility } from "./recombin
 import { selectPossibilityPopulation, type PossibilityPopulationSelection } from "./population-selection";
 import type { ScenarioPersistenceReport } from "./scenario-persistence";
 
+export type ReproductionTrace = {
+  childId: string;
+  parentIds: string[];
+  mode: "selected_parent" | "root_fallback" | "recombination";
+  reasons: string[];
+  boundary: "REPRODUCTION_TRACE_IS_PROVENANCE_NOT_EVIDENCE";
+};
+
 export type ClosedLoopCycle = {
   cycleId: string;
   sourceStateId: string;
   policy: AdaptiveExplorationPolicy;
   populationSelection: PossibilityPopulationSelection;
   reproductiveParentIds: string[];
+  reproductionTrace: ReproductionTrace[];
   graph: PossibilityGraph;
   generated: Possibility[];
   retained: Possibility[];
@@ -33,24 +42,31 @@ export function generateNextAdaptiveCycle(
   const policy = deriveAdaptiveExplorationPolicy(previousGraph, memory);
   const populationSelection = selectPossibilityPopulation(previousGraph, persistence, memory);
   const dispositionById = new Map(populationSelection.members.map((m) => [m.possibilityId, m.disposition] as const));
+  const decisionById = new Map(populationSelection.members.map((m) => [m.possibilityId, m] as const));
   const reproductiveParents = previousGraph.nodes.filter((p) => dispositionById.get(p.id) === "continue_exploration");
   const reserveParents = previousGraph.nodes.filter((p) => dispositionById.get(p.id) === "reserve");
   const parentPool = reproductiveParents.length ? reproductiveParents : reserveParents;
   const reproductiveParentIds = parentPool.map((p) => p.id);
 
-  const fresh = generateStructuralCandidates(state).map((p) => ({
-    ...p,
-    id: `${p.id}-c${cycleIndex + 1}`,
-    parentPossibilityIds: parentPool.length ? [parentPool[cycleIndex % parentPool.length].id] : p.parentPossibilityIds,
-    sources: [
-      ...p.sources,
-      {
-        kind: "evolutionary" as const,
-        ref: `adaptive-cycle:${cycleIndex + 1}`,
-        note: "Candidate regenerated under history-guided population selection; this is not evidence or epistemic promotion.",
-      },
-    ],
-  }));
+  const fresh = generateStructuralCandidates(state).map((p, index) => {
+    const parent = parentPool.length ? parentPool[index % parentPool.length] : undefined;
+    const decision = parent ? decisionById.get(parent.id) : undefined;
+    return {
+      ...p,
+      id: `${p.id}-c${cycleIndex + 1}`,
+      parentPossibilityIds: parent ? [parent.id] : p.parentPossibilityIds,
+      sources: [
+        ...p.sources,
+        {
+          kind: "evolutionary" as const,
+          ref: `adaptive-cycle:${cycleIndex + 1}`,
+          note: parent
+            ? `Child generated from ${parent.id} after population selection (${decision?.disposition ?? "unknown"}). ${decision?.reasons.join(" ") ?? ""} This is provenance, not evidence or epistemic promotion.`
+            : "Candidate regenerated from S₀ because no selected reproductive parent was available. This is provenance, not evidence or epistemic promotion.",
+        },
+      ],
+    };
+  });
 
   const preferredFresh = fresh.filter((p) => preferred(p, policy.preferredOperators));
   const fallbackFresh = fresh.filter((p) => !preferred(p, policy.preferredOperators));
@@ -81,12 +97,30 @@ export function generateNextAdaptiveCycle(
   };
   graph.exploration.generatedCount = graph.nodes.length;
 
+  const reproductionTrace: ReproductionTrace[] = generated.map((child) => ({
+    childId: child.id,
+    parentIds: [...child.parentPossibilityIds],
+    mode: child.parentPossibilityIds.length ? "selected_parent" : "root_fallback",
+    reasons: child.parentPossibilityIds.flatMap((parentId) => decisionById.get(parentId)?.reasons ?? []),
+    boundary: "REPRODUCTION_TRACE_IS_PROVENANCE_NOT_EVIDENCE",
+  }));
+  for (const item of novelty.generated) {
+    reproductionTrace.push({
+      childId: item.possibility.id,
+      parentIds: [...item.possibility.parentPossibilityIds],
+      mode: item.possibility.parentPossibilityIds.length > 1 ? "recombination" : "selected_parent",
+      reasons: ["Novel structure generated from the selected reproductive subgraph."],
+      boundary: "REPRODUCTION_TRACE_IS_PROVENANCE_NOT_EVIDENCE",
+    });
+  }
+
   return {
     cycleId: `adaptive-cycle-${cycleIndex + 1}`,
     sourceStateId: state.id,
     policy,
     populationSelection,
     reproductiveParentIds,
+    reproductionTrace,
     graph,
     generated: [...novelty.generated.map((item) => item.possibility), ...generated],
     retained,
