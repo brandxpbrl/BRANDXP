@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Any
 
 
-LITERARY_ADAPTER_VERSION = "0.2"
+LITERARY_ADAPTER_VERSION = "0.3"
 LITERARY_BOUNDARIES = [
     "SOURCE_TEXT_IS_OBSERVATION_NOT_CANON",
     "GENERATED_BLUEPRINT_IS_PROPOSED_NOT_CANON",
@@ -13,6 +13,7 @@ LITERARY_BOUNDARIES = [
     "MCOS_ADAPTER_DOES_NOT_PROMOTE_EPISTEMIC_STATUS",
     "CHARACTER_RUNTIME_REQUIRES_DECLARED_CANON",
     "SCENE_RUNTIME_IS_COMPILED_REPRESENTATION_NOT_OBSERVED_REALITY",
+    "SELF_OBSERVER_PACKET_IS_CONTEXT_NOT_AUTONOMOUS_TRUTH",
 ]
 
 try:
@@ -26,10 +27,9 @@ try:
     )
     VENDORED_MCOS_AVAILABLE = True
     VENDORED_MCOS_ERROR = ""
-except Exception as exc:  # Safe capability boundary: backend must still boot.
+except Exception as exc:
     VENDORED_MCOS_AVAILABLE = False
     VENDORED_MCOS_ERROR = type(exc).__name__
-
 
 BODY_TERMS = {"mano", "manos", "mirada", "ojos", "pecho", "espalda", "cuello", "cuerpo", "respira", "respirar", "tension"}
 OBJECT_TERMS = {"archivo", "cuaderno", "documento", "espejo", "hoja", "papel", "mesa", "puerta", "ventana", "taza", "lapiz", "lampara", "espiral"}
@@ -60,7 +60,6 @@ def _build_vendored_pipeline(request: LiteraryAdapterRequest) -> dict[str, Any]:
     analysis = _mcos_analyze_chapter(text=request.text)
     if request.chapter and not analysis.get("chapter", {}).get("number"):
         analysis.setdefault("chapter", {})["number"] = request.chapter
-
     blueprint = _mcos_compose_blueprint(analysis)
     scene_dna = _mcos_build_scene_dna(blueprint)
     director_notes = _mcos_render_director_notes(scene_dna)
@@ -76,10 +75,7 @@ def _build_vendored_pipeline(request: LiteraryAdapterRequest) -> dict[str, Any]:
     provenance = [
         {"source": request.source, "status": "SOURCE"},
         {"source": "USER_SUPPLIED_MCOS_ZIP::v0.1", "status": "SOURCE"},
-        *[
-            {"source": item.get("source", "ENTITY_BIBLE"), "status": item.get("status", "SOURCE")}
-            for item in knowledge
-        ],
+        *[{"source": item.get("source", "ENTITY_BIBLE"), "status": item.get("status", "SOURCE")} for item in knowledge],
     ]
     if canon_declared:
         provenance.append({"source": character_canon.get("_source", "REQUEST_CHARACTER_CANON"), "status": "CANON"})
@@ -87,22 +83,18 @@ def _build_vendored_pipeline(request: LiteraryAdapterRequest) -> dict[str, Any]:
     analysis["knowledge_context"] = knowledge
     character_missing = character_runtime.get("character_runtime", {}).get("readiness", {}).get("missing", [])
     scene_missing = scene_runtime.get("scene_runtime", {}).get("readiness", {}).get("missing", [])
+    observer_packet = _build_self_observer_packet(analysis, blueprint, scene_dna, scene_runtime, provenance)
 
     return {
         "status": "ok",
-        "adapter": {
-            "name": "MPE_MCOS_LITERARY_ADAPTER",
-            "version": LITERARY_ADAPTER_VERSION,
-            "mode": "VENDORED_MCOS_V0_1",
-            "full_mcos_pipeline_active": True,
-            "source_runtime": "user_supplied_mcos.zip",
-        },
+        "adapter": {"name": "MPE_MCOS_LITERARY_ADAPTER", "version": LITERARY_ADAPTER_VERSION, "mode": "VENDORED_MCOS_V0_1", "full_mcos_pipeline_active": True, "source_runtime": "user_supplied_mcos.zip"},
         "analysis": analysis,
         "blueprint": blueprint,
         "scene_dna": scene_dna,
         "director_notes": director_notes,
         "character_runtime": character_runtime,
         "scene_runtime": scene_runtime,
+        "self_observer_packet": observer_packet,
         "provenance": provenance,
         "readiness": {
             "ready_for_scene_dna": True,
@@ -117,62 +109,85 @@ def _build_vendored_pipeline(request: LiteraryAdapterRequest) -> dict[str, Any]:
     }
 
 
+def _build_self_observer_packet(analysis: dict[str, Any], blueprint: dict[str, Any], scene_dna: dict[str, Any], scene_runtime: dict[str, Any], provenance: list[dict[str, Any]]) -> dict[str, Any]:
+    narrative = analysis.get("narrative", {})
+    embodiment = analysis.get("embodiment", {})
+    diagnostics = analysis.get("diagnostics", {})
+    runtime = scene_runtime.get("scene_runtime", {})
+    return {
+        "schema": "MPE_SELF_OBSERVER_NARRATIVE_PACKET_V0_1",
+        "status": "CONTEXT_PACKET",
+        "observed": {
+            "source": analysis.get("source", ""),
+            "main_object": analysis.get("objects", {}).get("main_object", ""),
+            "physical_reaction": embodiment.get("physical_reaction", ""),
+            "location": analysis.get("scene", {}).get("location", ""),
+        },
+        "interpreted": {
+            "dominant_symbol": narrative.get("dominant_symbol", ""),
+            "theme": narrative.get("theme", ""),
+            "hidden_question": narrative.get("hidden_question", ""),
+            "voice_signature": analysis.get("voice_signature", {}),
+        },
+        "diagnostic": {
+            "novel_rule_score": diagnostics.get("novel_rule_score"),
+            "body_rule_score": diagnostics.get("body_rule_score"),
+            "show_vs_tell_score": diagnostics.get("show_vs_tell_score"),
+            "recommendations": diagnostics.get("recommendations", []),
+        },
+        "compiled_scene": {
+            "scene_identity": scene_dna.get("scene_identity", {}),
+            "camera": scene_dna.get("camera", {}),
+            "emotion": scene_dna.get("emotion", {}),
+            "transition": scene_dna.get("transition", {}),
+            "runtime_ready": runtime.get("readiness", {}).get("ready_for_flow_package", False),
+        },
+        "proposed": {
+            "blueprint": blueprint,
+            "narration_candidate": _narration_candidate(analysis, blueprint),
+            "epistemic_status": "PROPOSED",
+        },
+        "provenance": provenance,
+        "boundary": "SELF_OBSERVER_PACKET_IS_CONTEXT_NOT_AUTONOMOUS_TRUTH",
+    }
+
+
+def _narration_candidate(analysis: dict[str, Any], blueprint: dict[str, Any]) -> str:
+    obj = analysis.get("objects", {}).get("main_object", "")
+    question = analysis.get("narrative", {}).get("hidden_question", "")
+    reaction = analysis.get("embodiment", {}).get("physical_reaction", "")
+    parts = []
+    if obj: parts.append(f"Observo {obj} como ancla de esta escena.")
+    if reaction: parts.append(f"El cuerpo registra: {reaction}")
+    if question: parts.append(f"La pregunta que permanece abierta es: {question}")
+    if not parts and blueprint.get("opening_scene"): parts.append(f"La escena abre con: {blueprint['opening_scene']}")
+    return " ".join(parts)
+
+
 def _tokens(text: str) -> list[str]:
     normalized = text.lower()
-    for old, new in {"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ñ": "n"}.items():
-        normalized = normalized.replace(old, new)
+    for old, new in {"á":"a","é":"e","í":"i","ó":"o","ú":"u","ñ":"n"}.items(): normalized = normalized.replace(old,new)
     return re.findall(r"[a-z0-9]+", normalized)
 
-
 def _extract(text: str, terms: set[str]) -> list[str]:
-    tokens = set(_tokens(text))
-    return sorted(term for term in terms if term in tokens)
-
-
-def _sentences(text: str) -> list[str]:
-    return [part.strip() for part in re.split(r"(?<=[.!?])\s+|\n{2,}", text) if part.strip()]
-
-
+    tokens = set(_tokens(text)); return sorted(term for term in terms if term in tokens)
+def _sentences(text: str) -> list[str]: return [part.strip() for part in re.split(r"(?<=[.!?])\s+|\n{2,}", text) if part.strip()]
 def _question(text: str) -> str:
-    questions = [sentence for sentence in _sentences(text) if "?" in sentence]
-    return questions[-1] if questions else "¿Qué cambia después de esta escena?"
-
-
+    questions=[sentence for sentence in _sentences(text) if "?" in sentence]; return questions[-1] if questions else "¿Qué cambia después de esta escena?"
 def _score(count: int, total: int, multiplier: int) -> int:
-    if total <= 0:
-        return 0
-    return max(0, min(100, round((count / total) * multiplier)))
+    if total <= 0: return 0
+    return max(0,min(100,round((count/total)*multiplier)))
 
 
 def _build_contract_fallback(request: LiteraryAdapterRequest) -> dict[str, Any]:
-    text = request.text.strip(); tokens = _tokens(text); objects = _extract(text, OBJECT_TERMS); body = _extract(text, BODY_TERMS); themes = _extract(text, THEME_TERMS); sensory = _extract(text, SENSORY_TERMS); abstract = _extract(text, ABSTRACT_TERMS); hidden_question = _question(text); main_object = objects[0] if objects else ""
-    diagnostics = {
-        "body_rule_score": _score(len(body), len(tokens), 2200),
-        "show_vs_tell_score": max(0, min(100, _score(len(body) + len(objects) + len(sensory), len(tokens), 1800) - _score(len(abstract), len(tokens), 700))),
-        "hidden_question_presence": 100 if hidden_question else 0,
-        "method": "deterministic_contract_adapter",
-    }
-    blueprint = {"chapter": request.chapter, "opening_scene": _sentences(text)[0] if _sentences(text) else "", "main_object": main_object, "physical_reaction": next((s for s in _sentences(text) if _extract(s, BODY_TERMS)), ""), "dominant_symbol": main_object, "hidden_question": hidden_question, "character_focus": [], "objects": objects, "themes": themes, "scene_priority": _sentences(text)[:3]}
-    knowledge = request.knowledge_context or []
-    return {
-        "status": "degraded",
-        "adapter": {"name": "MPE_MCOS_LITERARY_ADAPTER", "version": LITERARY_ADAPTER_VERSION, "mode": "DETERMINISTIC_CONTRACT_FALLBACK", "full_mcos_pipeline_active": False, "vendor_error": VENDORED_MCOS_ERROR},
-        "analysis": {"chapter": {"number": request.chapter, "title": ""}, "objects": {"main_object": main_object, "secondary_objects": objects[1:]}, "embodiment": {"body_signals": body, "physical_reaction": blueprint["physical_reaction"]}, "narrative": {"hidden_question": hidden_question, "dominant_symbol": main_object, "themes": themes}, "diagnostics": diagnostics, "knowledge_context": knowledge},
-        "blueprint": blueprint,
-        "provenance": [{"source": request.source, "status": "SOURCE"}],
-        "readiness": {"ready_for_scene_dna": bool(main_object or blueprint["opening_scene"]), "ready_for_full_mcos": False, "missing": ["vendored_literary_mcos_runtime"]},
-        "boundaries": LITERARY_BOUNDARIES,
-    }
+    text=request.text.strip(); tokens=_tokens(text); objects=_extract(text,OBJECT_TERMS); body=_extract(text,BODY_TERMS); themes=_extract(text,THEME_TERMS); sensory=_extract(text,SENSORY_TERMS); abstract=_extract(text,ABSTRACT_TERMS); hidden_question=_question(text); main_object=objects[0] if objects else ""
+    diagnostics={"body_rule_score":_score(len(body),len(tokens),2200),"show_vs_tell_score":max(0,min(100,_score(len(body)+len(objects)+len(sensory),len(tokens),1800)-_score(len(abstract),len(tokens),700))),"hidden_question_presence":100 if hidden_question else 0,"method":"deterministic_contract_adapter"}
+    blueprint={"chapter":request.chapter,"opening_scene":_sentences(text)[0] if _sentences(text) else "","main_object":main_object,"physical_reaction":next((s for s in _sentences(text) if _extract(s,BODY_TERMS)),""),"dominant_symbol":main_object,"hidden_question":hidden_question,"character_focus":[],"objects":objects,"themes":themes,"scene_priority":_sentences(text)[:3]}
+    knowledge=request.knowledge_context or []
+    analysis={"source":request.source,"chapter":{"number":request.chapter,"title":""},"objects":{"main_object":main_object,"secondary_objects":objects[1:]},"embodiment":{"body_signals":body,"physical_reaction":blueprint["physical_reaction"]},"narrative":{"hidden_question":hidden_question,"dominant_symbol":main_object,"themes":themes},"diagnostics":diagnostics,"knowledge_context":knowledge}
+    provenance=[{"source":request.source,"status":"SOURCE"}]
+    return {"status":"degraded","adapter":{"name":"MPE_MCOS_LITERARY_ADAPTER","version":LITERARY_ADAPTER_VERSION,"mode":"DETERMINISTIC_CONTRACT_FALLBACK","full_mcos_pipeline_active":False,"vendor_error":VENDORED_MCOS_ERROR},"analysis":analysis,"blueprint":blueprint,"self_observer_packet":{"schema":"MPE_SELF_OBSERVER_NARRATIVE_PACKET_V0_1","status":"DEGRADED_CONTEXT_PACKET","observed":{"source":request.source,"main_object":main_object},"interpreted":{"hidden_question":hidden_question},"diagnostic":diagnostics,"proposed":{"blueprint":blueprint,"epistemic_status":"PROPOSED"},"provenance":provenance,"boundary":"SELF_OBSERVER_PACKET_IS_CONTEXT_NOT_AUTONOMOUS_TRUTH"},"provenance":provenance,"readiness":{"ready_for_scene_dna":bool(main_object or blueprint["opening_scene"]),"ready_for_full_mcos":False,"missing":["vendored_literary_mcos_runtime"]},"boundaries":LITERARY_BOUNDARIES}
 
 
 def get_literary_adapter_status() -> dict[str, Any]:
-    return {
-        "status": "available" if VENDORED_MCOS_AVAILABLE else "degraded",
-        "adapter": "MPE_MCOS_LITERARY_ADAPTER",
-        "version": LITERARY_ADAPTER_VERSION,
-        "mode": "VENDORED_MCOS_V0_1" if VENDORED_MCOS_AVAILABLE else "DETERMINISTIC_CONTRACT_FALLBACK",
-        "full_mcos_pipeline_active": VENDORED_MCOS_AVAILABLE,
-        "identity_gate": "DECLARED_CHARACTER_CANON_REQUIRED",
-        "vendor_error": VENDORED_MCOS_ERROR,
-        "boundaries": LITERARY_BOUNDARIES,
-    }
+    return {"status":"available" if VENDORED_MCOS_AVAILABLE else "degraded","adapter":"MPE_MCOS_LITERARY_ADAPTER","version":LITERARY_ADAPTER_VERSION,"mode":"VENDORED_MCOS_V0_1" if VENDORED_MCOS_AVAILABLE else "DETERMINISTIC_CONTRACT_FALLBACK","full_mcos_pipeline_active":VENDORED_MCOS_AVAILABLE,"identity_gate":"DECLARED_CHARACTER_CANON_REQUIRED","self_observer_packet":"MPE_SELF_OBSERVER_NARRATIVE_PACKET_V0_1","vendor_error":VENDORED_MCOS_ERROR,"boundaries":LITERARY_BOUNDARIES}
