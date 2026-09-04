@@ -15,6 +15,12 @@ export type NarrativeState = {
   provenance: { source: string; status: LiteraryEpistemicStatus }[];
 };
 
+export type NarrativeKnowledgeContext = {
+  domains:{id:string}[];
+  principles:{id:string;text:string;sources:string[]}[];
+  provenance:string[];
+};
+
 export type NarrativePossibility = {
   id: string;
   title: string;
@@ -22,6 +28,7 @@ export type NarrativePossibility = {
   changes: string[];
   status: "candidate" | "development" | "contradiction" | "novel";
   epistemicStatus: "PROPOSED";
+  contextSources:string[];
 };
 
 export const LITERARY_BOUNDARIES = [
@@ -29,6 +36,7 @@ export const LITERARY_BOUNDARIES = [
   "NARRATIVE_MEMORY_IS_CONTEXT_NOT_TRUTH",
   "STYLE_MATCH_IS_NOT_EVIDENCE",
   "STATE_TRANSITION_IS_EXPLORATORY_NOT_OBSERVED_REALITY",
+  "CONTEXT_GUIDES_GENERATION_NOT_CANON",
 ] as const;
 
 const unique=(values:string[])=>[...new Set(values.map(v=>v.trim()).filter(Boolean))];
@@ -54,17 +62,31 @@ export function buildNarrativeState(sourceText:string):NarrativeState{
   return {id:`narrative-${seed}`,sourceText:clean,objective:"Transformar el estado narrativo sin romper canon ni continuidad.",characters:[],locations,objects,openThreads:[question],themes,symbols:objects.slice(0,3),bodySignals,hiddenQuestion:question,provenance:[{source:"USER_TEXT",status:"SOURCE"}]};
 }
 
-export function generateNarrativePossibilities(state:NarrativeState):NarrativePossibility[]{
+export function generateNarrativePossibilities(state:NarrativeState,context?:NarrativeKnowledgeContext):NarrativePossibility[]{
   const anchor=state.symbols[0]??state.objects[0]??"objeto central";
   const question=state.hiddenQuestion;
+  const domains=new Set(context?.domains.map(item=>item.id)??[]);
+  const sources=context?.provenance.slice(0,4)??[];
+  const bodyTransformation=domains.has("emotional_intelligence")||domains.has("psychology")
+   ?"El cuerpo registra una consecuencia emocional antes de que la escena permita interpretarla."
+   :"La consecuencia aparece físicamente antes de que el texto la interprete.";
+  const symbolTransformation=domains.has("symbols")||domains.has("narrative_architecture")
+   ?`${anchor} reaparece con una función narrativa distinta y obliga a reinterpretar una relación previa.`
+   :`${anchor} reaparece, pero deja de significar lo mismo.`;
+  const revelationTransformation=domains.has("memory")
+   ?`El personaje recupera sólo una parte de lo que ${anchor} conecta con el pasado, abriendo una deuda de memoria.`
+   :`El personaje descubre sólo una parte de lo que ${anchor} implica.`;
+  const contradictionTransformation=domains.has("storytelling")||domains.has("transformation")
+   ?`La escena altera una certeza operativa y deja una consecuencia observable alrededor de: ${question}`
+   :`La escena introduce evidencia narrativa que tensiona: ${question}`;
   return [
-    {id:"reveal-partial",title:"Revelación parcial",transformation:`El personaje descubre sólo una parte de lo que ${anchor} implica.`,changes:["information_state","open_thread"],status:"development",epistemicStatus:"PROPOSED"},
-    {id:"body-before-idea",title:"El cuerpo registra primero",transformation:"La consecuencia aparece físicamente antes de que el texto la interprete.",changes:["character_state","embodiment"],status:"development",epistemicStatus:"PROPOSED"},
-    {id:"symbol-shift",title:"El símbolo cambia de función",transformation:`${anchor} reaparece, pero deja de significar lo mismo.`,changes:["symbol_state","reader_expectation"],status:"novel",epistemicStatus:"PROPOSED"},
-    {id:"contradict-assumption",title:"Contradecir una certeza",transformation:`La escena introduce evidencia narrativa que tensiona: ${question}`,changes:["belief_state","relationship_or_world_state"],status:"contradiction",epistemicStatus:"PROPOSED"},
+    {id:"reveal-partial",title:"Revelación parcial",transformation:revelationTransformation,changes:["information_state","open_thread"],status:"development",epistemicStatus:"PROPOSED",contextSources:sources},
+    {id:"body-before-idea",title:"El cuerpo registra primero",transformation:bodyTransformation,changes:["character_state","embodiment"],status:"development",epistemicStatus:"PROPOSED",contextSources:sources},
+    {id:"symbol-shift",title:"El símbolo cambia de función",transformation:symbolTransformation,changes:["symbol_state","reader_expectation"],status:"novel",epistemicStatus:"PROPOSED",contextSources:sources},
+    {id:"contradict-assumption",title:"Contradecir una certeza",transformation:contradictionTransformation,changes:["belief_state","relationship_or_world_state"],status:"contradiction",epistemicStatus:"PROPOSED",contextSources:sources},
   ];
 }
 
 export function transitionNarrativeState(state:NarrativeState,possibility:NarrativePossibility):NarrativeState{
-  return {...state,id:`${state.id}-${possibility.id}`,openThreads:unique([...state.openThreads,`Consecuencia pendiente: ${possibility.transformation}`]),provenance:[...state.provenance,{source:`GENERATED:${possibility.id}`,status:"PROPOSED"}]};
+  return {...state,id:`${state.id}-${possibility.id}`,openThreads:unique([...state.openThreads,`Consecuencia pendiente: ${possibility.transformation}`]),provenance:[...state.provenance,{source:`GENERATED:${possibility.id}`,status:"PROPOSED"},...possibility.contextSources.map(source=>({source:`ENTITY_BIBLE:${source}`,status:"SOURCE" as const}))]};
 }
