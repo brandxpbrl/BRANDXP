@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+const base = process.env.FERINHA_TEST_URL || 'http://127.0.0.1:3100';
+const proposal = {name:'Prueba local',project:'',whatsapp:'5500000000000',website:'',city:'Prueba',type:'Artista',description:'Propuesta ficticia de prueba',share:'',contribution:'',interests:['Mostrar mi proyecto'],consent:true};
+const post = (body, headers={}) => fetch(`${base}/api/ferinha-cultural`,{method:'POST',headers:{origin:base,'content-type':'application/json',...headers},body:JSON.stringify(body)});
+test('valid proposal fails closed without storage',async()=>{const r=await post(proposal);assert.equal(r.status,503);assert.deepEqual(await r.json(),{accepted:false,error:'registration_not_configured'});});
+test('rejects invalid required fields and consent',async()=>{for(const change of [{name:' '},{consent:false},{type:'Unknown'},{interests:[]},{whatsapp:'---'}]){assert.equal((await post({...proposal,...change})).status,400);}});
+test('rejects cross-origin submissions',async()=>{assert.equal((await post(proposal,{origin:'https://example.com'})).status,403);});
+test('rejects oversized and non-JSON submissions',async()=>{assert.equal((await post({...proposal,description:'a'.repeat(17000)})).status,413);assert.equal((await post(proposal,{'content-type':'text/plain'})).status,415);});
+test('FERINHA metadata and Open Graph are served',async()=>{const r=await fetch(`${base}/ferinha-cultural`);assert.equal(r.status,200);const html=await r.text();assert.match(html,/FERINHA CULTURAL \| Mostrar, descubrir, conectar y disfrutar/);assert.match(html,/https:\/\/www.riovibestransfer.com\/ferinha-cultural/);const image=await fetch(`${base}/ferinha-cultural/opengraph-image`);assert.equal(image.status,200);assert.match(image.headers.get('content-type'),/image\/png/);});
+test('existing principal routes remain available',async()=>{for(const path of ['/','/felatours','/brandexperience','/mpe','/qubit','/projects','/mell-stone','/zaptdeliverybz']){assert.equal((await fetch(base+path)).status,200,path);}});

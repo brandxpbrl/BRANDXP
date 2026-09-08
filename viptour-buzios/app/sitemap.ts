@@ -5,6 +5,7 @@ import { mellProducts } from '@/config/mell-stone.content';
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
+    { url: 'https://www.riovibestransfer.com/ferinha-cultural', changeFrequency: 'weekly', priority: 0.8 },
     {
       url: siteConfig.url,
       lastModified: now,
