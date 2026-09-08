@@ -1,4 +1,5 @@
 import os
+from threading import Thread
 
 from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
@@ -6,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from ai_provider import get_provider_status, reset_provider_state
-from client_manager import build_client_analysis_plan, build_framework_prompt, ensure_client, generate_client_deliverables, generate_client_prompt_pack, generate_client_visual_board_specs, generate_master_deliverable, get_client_deliverable_asset_path, get_client_deliverable_content, list_client_deliverables, list_clients, load_latest_client_intake, render_client_visual_board_images, save_client_analysis, save_client_intake, save_uploaded_file
+from client_manager import build_client_analysis_plan, build_framework_prompt, ensure_client, generate_client_deliverables, generate_client_prompt_pack, generate_client_visual_board_specs, generate_master_deliverable, get_client_deliverable_asset_path, get_client_deliverable_content, list_client_deliverables, list_clients, load_latest_client_intake, save_client_analysis, save_client_intake, save_uploaded_file
 from cognitive_orchestrator import AnalysisSaveError, process_request
 from dynamic_agent_loader import load_all_agents
 from services.ai_agent_os_builder import generate_ai_agent_os
@@ -28,6 +29,7 @@ from services.entity_voice_script_engine import build_entity_voice_script
 from services.mpe.mpe_entity_scan import load_persisted_mpe_entity_scan, run_mpe_entity_scan
 from services.mpe.mpe_brand_geometry import generate_mpe_brand_geometry, get_mpe_brand_geometry_svg_path, load_persisted_mpe_brand_geometry
 from services.mpe.mpe_morphogenesis import generate_mpe_morphogenesis, get_mpe_morphogenesis_svg_path, load_persisted_mpe_morphogenesis
+from services.mpe_probability_adapter import load_market_research_state
 from services.tts_service import generate_entity_voice
 from services.disk_seed import seed_disk_if_needed
 from services.mcos.api import mcos_router
@@ -68,6 +70,12 @@ app = FastAPI(
 )
 app.include_router(mcos_router, prefix="/api/mcos")
 
+
+@app.get("/api/mpe/market-research/state")
+async def mpe_market_research_state():
+    """Expose optional probability research context without executing the lab."""
+    return load_market_research_state()
+
 # =====================================================
 # CORS
 # =====================================================
@@ -94,6 +102,8 @@ class ClientRequest(BaseModel):
 class IntakeRequest(BaseModel):
 
     client_name: str
+
+    category: str = "Not specified"
 
     instagram: str | None = None
 
@@ -1307,27 +1317,10 @@ async def client_generate_visual_board_specs(client_name: str):
 
 @app.post("/clients/{client_name}/visual-boards/render-images")
 async def client_render_visual_board_images(client_name: str):
-
-    try:
-        result = render_client_visual_board_images(client_name)
-    except FileNotFoundError as error:
-        raise HTTPException(
-            status_code=400,
-            detail=str(error)
-        ) from error
-    except ValueError as error:
-        raise HTTPException(
-            status_code=400,
-            detail=str(error)
-        ) from error
-
-    if result is None:
-        raise HTTPException(
-            status_code=404,
-            detail="Client not found."
-        )
-
-    return result
+    raise HTTPException(
+        status_code=410,
+        detail="La generación local de imágenes está desactivada. Usa los archivos .md/.json en una IA generativa externa.",
+    )
 
 
 @app.post("/clients")
@@ -1365,6 +1358,7 @@ async def client_intake(request: IntakeRequest):
         existing_intake = {}
 
     merged_intake = {
+        "category": request.category or existing_intake.get("category", "Not specified"),
         "instagram": request.instagram if (request.instagram or request.force_overwrite) else existing_intake.get("instagram", ""),
         "links": request.links if (request.links or request.force_overwrite) else existing_intake.get("links", []),
         "transcription": request.transcription if (request.transcription or request.force_overwrite) else existing_intake.get("transcription", ""),
@@ -1395,6 +1389,7 @@ async def analyze_client(request: IntakeRequest):
         existing_intake = {}
 
     merged_intake = {
+        "category": request.category or existing_intake.get("category", "Not specified"),
         "instagram": request.instagram if (request.instagram or request.force_overwrite) else existing_intake.get("instagram", ""),
         "links": request.links if (request.links or request.force_overwrite) else existing_intake.get("links", []),
         "transcription": request.transcription if (request.transcription or request.force_overwrite) else existing_intake.get("transcription", ""),
@@ -1555,13 +1550,35 @@ from services.automated_onboarding_orchestrator import onboard_new_client
 
 class OnboardRequest(BaseModel):
     client_name: str = Field(..., min_length=1)
-    category: str = "default"
+    category: str = "Not specified"
     instagram: str | None = None
     links: list[str] = []
     transcription: str | None = None
     notes: str | None = None
 
 ONBOARD_JOBS = {}
+
+
+def _compact_baseline_intake(intake_data: dict) -> dict:
+    """Keep the optional baseline prompt bounded for local/fallback providers."""
+    compact = {}
+    for key, value in (intake_data or {}).items():
+        if isinstance(value, str):
+            compact[key] = value[:4000]
+        elif isinstance(value, list):
+            compact[key] = [item[:800] if isinstance(item, str) else item for item in value[:20]]
+        else:
+            compact[key] = value
+    return compact
+
+
+def _run_baseline_analysis_background(client_name: str, intake_data: dict):
+    """Run the optional baseline analysis without holding onboarding in RUNNING."""
+    try:
+        prompt = build_framework_prompt(client_name, _compact_baseline_intake(intake_data))
+        process_request(prompt, client_name)
+    except Exception as analysis_error:
+        print(f"[onboarding] baseline analysis failed for {client_name}: {analysis_error}")
 
 
 def _run_onboarding_background(job_id: str, client_name: str, category: str, intake_data: dict):
@@ -1577,6 +1594,21 @@ def _run_onboarding_background(job_id: str, client_name: str, category: str, int
         final_status = "COMPLETED" if result.get("status") == "COMPLETED" else "FAILED"
         
         if final_status == "COMPLETED":
+            # The client is ready after orchestration. Baseline enrichment is
+            # optional and must not keep onboarding in RUNNING.
+            result["baseline_analysis"] = "STARTED_ASYNC"
+            ONBOARD_JOBS[job_id].update({
+                "status": final_status,
+                "result": result,
+            })
+            Thread(
+                target=_run_baseline_analysis_background,
+                args=(client_name, intake_data),
+                daemon=True,
+                name=f"baseline-analysis-{job_id[:8]}",
+            ).start()
+            return
+
             try:
                 # Generate Baseline Analysis for Entity Advisor
                 prompt = build_framework_prompt(client_name, intake_data)
@@ -1645,6 +1677,7 @@ async def onboard_client(request: Request, payload: OnboardRequest, background_t
         payload.category,
         {
             "instagram": payload.instagram,
+            "category": payload.category,
             "links": payload.links,
             "transcription": payload.transcription,
             "notes": payload.notes

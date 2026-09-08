@@ -5,6 +5,7 @@ import "./zapt.css";
 import { portalConfig } from "@/config/portal";
 import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
 import SelfObserverIdentity from "@/components/system/SelfObserverIdentity";
+import { MaxPublicObserver } from "@/components/max/MaxPublicObserver";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -72,6 +73,7 @@ export default function RootLayout({
         <ConditionalNavbar />
         {children}
         <SelfObserverIdentity />
+        <MaxPublicObserver />
       </body>
     </html>
   );
