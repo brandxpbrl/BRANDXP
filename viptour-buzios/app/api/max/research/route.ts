@@ -19,8 +19,8 @@ function responseBody(body: Record<string, unknown>, status = 200) {
 }
 
 export async function GET() {
-  const sourceUrl = process.env.MPE_MARKET_RESEARCH_STATE_URL;
-  if (!sourceUrl) return responseBody(FALLBACK, 503);
+  const sourceUrl = process.env.MPE_MARKET_RESEARCH_STATE_URL ||
+    "https://raw.githubusercontent.com/brandxpbrl/BRANDXP/main/backend/data/max_market_research_state.json";
 
   let parsedUrl: URL;
   try { parsedUrl = new URL(sourceUrl); } catch { return responseBody({ ...FALLBACK, message: "MPE_MARKET_RESEARCH_STATE_URL inválido." }, 503); }
