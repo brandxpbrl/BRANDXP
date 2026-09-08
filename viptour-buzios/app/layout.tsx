@@ -4,6 +4,7 @@ import "./globals.css";
 import "./zapt.css";
 import { portalConfig } from "@/config/portal";
 import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
+import { MaxPublicObserver } from "@/components/max/MaxPublicObserver";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -70,6 +71,7 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex flex-col">
         <ConditionalNavbar />
         {children}
+        <MaxPublicObserver />
       </body>
     </html>
   );

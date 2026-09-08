@@ -1,0 +1,22 @@
+{
+  "schema_version": "mpe-market-research-v1",
+  "source": "mpe_probability_statistics",
+  "provenance": "outputs/portfolio_cycles/portfolio_cycle_20260908_120335.json",
+  "generated_at": "2026-09-08T12:03:35.958153+00:00",
+  "metric_namespace": "mpe.market_research",
+  "status": "PROPOSED",
+  "validation": "UNVALIDATED",
+  "availability": "AVAILABLE",
+  "lineage": ["mpe_probability_statistics", "H009_META_POLICY_ROUTER", "research_only_no_execution", "insufficient_test_entries"],
+  "scientific_boundary": "research_only_not_financial_advice",
+  "message": "Research context only. This JSON is not a booking, market or user prediction.",
+  "assets": [{
+    "symbol": "BTCUSDT",
+    "status": "risk_warning",
+    "timeframes": {
+      "4h": {"timestamp": "2026-09-08T12:00:00Z", "SAI": 0.337811, "NII": 0.350011, "FTR": 0.965143, "Re_MPE": 13.324488, "LFR": 0, "open_paths": 3, "resilience": 0.777286, "openness_score": 0.466197, "fertile_region_type": "destructive_noise_region", "fertile_region_evidence_level": "research_observation_only"},
+      "15m": {"timestamp": "2026-09-08T12:00:00Z", "SAI": 0.495978, "NII": 0.316638, "FTR": 1.566388, "Re_MPE": 14.123452, "LFR": 1, "open_paths": 3, "resilience": 0.745338, "openness_score": 0.498885, "fertile_region_type": "broad_fertile_band", "fertile_region_evidence_level": "research_observation_only"}
+    },
+    "out_of_sample": {"status": "insufficient_test_entries", "edge_validated": false, "test_entries": 0, "scientific_boundary": "unvalidated_paper_only"}
+  }]
+}
