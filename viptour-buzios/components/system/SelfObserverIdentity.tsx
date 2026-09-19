@@ -3,6 +3,7 @@
 import {useEffect,useMemo,useRef,useState} from "react";
 import {usePathname} from "next/navigation";
 import {extractVisibleNarrativeContext,generateVisibleNarration,type NarrationMemory} from "./selfObserverNarrator";
+import {canSpeak,speakWithCoordinator} from "./speechCoordinator";
 
 export type SelfObserverPacket={observed?:string[];interpreted?:string[];proposed?:string[];unknown?:string[];provenance?:string[];source?:string};
 type ObserverMode="OBSERVING"|"INTERPRETING"|"PROPOSING"|"UNKNOWN";
@@ -38,36 +39,42 @@ export default function SelfObserverIdentity(){
   const story=useMemo(()=>storyFor(pathname),[pathname]);
 
   const speak=(text:string,lang=story.lang)=>{
-    if(!voiceOn||typeof window==="undefined"||!("speechSynthesis" in window))return;
+    if(!voiceOn||!canSpeak())return;
     const phrase=short(text,430);if(!phrase||phrase===lastSpokenRef.current)return;
-    window.speechSynthesis.cancel();
-    const utterance=new SpeechSynthesisUtterance(phrase);
-    utterance.lang=lang;utterance.rate=.94;utterance.pitch=.92;utterance.volume=.9;
     const voices=window.speechSynthesis.getVoices();
     const exact=voices.find(v=>v.lang.toLowerCase()===lang.toLowerCase());
     const family=voices.find(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
-    if(exact||family)utterance.voice=exact??family??null;
-    utterance.onstart=()=>{speakingRef.current=true;setSpeaking(true)};
-    utterance.onend=()=>{speakingRef.current=false;setSpeaking(false)};
-    utterance.onerror=()=>{speakingRef.current=false;setSpeaking(false)};
     lastSpokenRef.current=phrase;
-    window.speechSynthesis.speak(utterance);
+    speakWithCoordinator(phrase,{
+      lang,rate:.94,pitch:.92,volume:.9,voice:exact??family??null,
+      onstart:()=>{speakingRef.current=true;setSpeaking(true)},
+      onend:()=>{speakingRef.current=false;setSpeaking(false)},
+      onerror:()=>{speakingRef.current=false;setSpeaking(false)},
+    });
   };
 
   const enableVoice=()=>{
-    const next=!voiceOn;setVoiceOn(next);
-    if(!next){window.speechSynthesis?.cancel();setSpeaking(false);return}
+    const next=!voiceOn;
+    if(next&&!canSpeak()){
+      setVoiceOn(false);
+      setSpeaking(false);
+      setNarrative({mode:"UNKNOWN",line:"La voz no está disponible en este navegador.",source:"SPEECH_SYNTHESIS_UNAVAILABLE"});
+      return;
+    }
+    setVoiceOn(next);
+    if(!next){window.speechSynthesis.cancel();setSpeaking(false);return}
     window.setTimeout(()=>{
       const intro=story.intro.join(" ");
       setNarrative({mode:"OBSERVING",line:story.intro[0],source:`ROUTE_IDENTITY · ${pathname}`});
-      const utterance=new SpeechSynthesisUtterance(intro);
-      utterance.lang=story.lang;utterance.rate=.94;utterance.pitch=.92;utterance.volume=.9;
       const voices=window.speechSynthesis.getVoices();
-      utterance.voice=voices.find(v=>v.lang.toLowerCase()===story.lang.toLowerCase())??voices.find(v=>v.lang.toLowerCase().startsWith(story.lang.slice(0,2).toLowerCase()))??null;
-      utterance.onstart=()=>{speakingRef.current=true;setSpeaking(true)};
-      utterance.onend=()=>{speakingRef.current=false;setSpeaking(false);lastSpokenRef.current=intro};
-      utterance.onerror=()=>{speakingRef.current=false;setSpeaking(false)};
-      window.speechSynthesis.cancel();window.speechSynthesis.speak(utterance);
+      const exact=voices.find(v=>v.lang.toLowerCase()===story.lang.toLowerCase());
+      const family=voices.find(v=>v.lang.toLowerCase().startsWith(story.lang.slice(0,2).toLowerCase()));
+      speakWithCoordinator(intro,{
+        lang:story.lang,rate:.94,pitch:.92,volume:.9,voice:exact??family??null,
+        onstart:()=>{speakingRef.current=true;setSpeaking(true)},
+        onend:()=>{speakingRef.current=false;setSpeaking(false);lastSpokenRef.current=intro},
+        onerror:()=>{speakingRef.current=false;setSpeaking(false)},
+      });
     },40);
   };
 
@@ -106,7 +113,10 @@ export default function SelfObserverIdentity(){
     const first=window.setTimeout(inspect,1500);
     window.addEventListener("scroll",schedule,{passive:true});
     window.addEventListener("resize",schedule);
-    return()=>{window.clearTimeout(timer);window.clearTimeout(first);window.removeEventListener("scroll",schedule);window.removeEventListener("resize",schedule)};
+    const root=document.querySelector("main")??document.body;
+    const observer=new MutationObserver(schedule);
+    observer.observe(root,{subtree:true,childList:true,characterData:true});
+    return()=>{window.clearTimeout(timer);window.clearTimeout(first);window.removeEventListener("scroll",schedule);window.removeEventListener("resize",schedule);observer.disconnect()};
   },[pathname,voiceOn,story.lang]);
 
   useEffect(()=>{
