@@ -3,7 +3,7 @@
 import {useEffect,useMemo,useRef,useState} from "react";
 import {usePathname} from "next/navigation";
 import {extractVisibleNarrativeContext,generateVisibleNarration,type NarrationMemory} from "./selfObserverNarrator";
-import {canSpeak,speakWithCoordinator} from "./speechCoordinator";
+import {canSpeak,cancelCoordinatedSpeech,speakWithCoordinator} from "./speechCoordinator";
 
 export type SelfObserverPacket={observed?:string[];interpreted?:string[];proposed?:string[];unknown?:string[];provenance?:string[];source?:string};
 type ObserverMode="OBSERVING"|"INTERPRETING"|"PROPOSING"|"UNKNOWN";
@@ -62,7 +62,7 @@ export default function SelfObserverIdentity(){
       return;
     }
     setVoiceOn(next);
-    if(!next){window.speechSynthesis.cancel();setSpeaking(false);return}
+    if(!next){cancelCoordinatedSpeech();setSpeaking(false);return}
     window.setTimeout(()=>{
       const intro=story.intro.join(" ");
       setNarrative({mode:"OBSERVING",line:story.intro[0],source:`ROUTE_IDENTITY · ${pathname}`});
@@ -142,7 +142,7 @@ export default function SelfObserverIdentity(){
             <div className="flex items-center justify-between gap-3"><p className="truncate text-[8px] tracking-[.22em] text-cyan-100/48">SELF OBSERVER · {story.area}</p><span className="text-[7px] tracking-[.12em] text-white/20">{speaking?"SPEAKING":narrative.mode}</span></div>
             <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-white/54">{narrative.line}</p>
           </button>
-          <button onClick={enableVoice} className={`rounded-full border px-2.5 py-1 text-[7px] tracking-[.14em] transition ${voiceOn?"border-cyan-200/25 bg-cyan-200/10 text-cyan-100/70":"border-white/10 text-white/35"}`}>{voiceOn?"VOICE ON":"VOICE OFF"}</button>
+          <button onClick={enableVoice} aria-pressed={voiceOn} className={`rounded-full border px-2.5 py-1 text-[7px] tracking-[.14em] transition ${voiceOn?"border-cyan-200/25 bg-cyan-200/10 text-cyan-100/70":"border-white/10 text-white/35"}`}>{voiceOn?"VOICE ON":"VOICE OFF"}</button>
         </div>
         {expanded?<div className="mt-3 border-t border-white/[.06] pt-3">
           <div className="grid gap-2 text-[8px] leading-4 text-white/30">
