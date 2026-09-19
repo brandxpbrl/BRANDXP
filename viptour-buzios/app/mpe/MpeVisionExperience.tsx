@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import {cancelCoordinatedSpeech,speakWithCoordinator} from "../../components/system/speechCoordinator";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type VisionMetrics = { brightness: number; contrast: number; motion: number; entropy: number };
@@ -42,9 +43,9 @@ export default function MpeVisionExperience() {
   const [narration, setNarration] = useState("Para comenzar, necesito percibir tu entorno."), [muted, setMuted] = useState(false), [showCamera, setShowCamera] = useState(true), [showHud, setShowHud] = useState(true);
 
   const speak = useCallback((text: string) => {
-    if (muted || typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "es-ES"; u.rate = 1.02; u.pitch = .96;
-    const voice = window.speechSynthesis.getVoices().find(v => v.lang.toLowerCase().startsWith("es")); if (voice) u.voice = voice; window.speechSynthesis.speak(u);
+    if (muted || typeof window === "undefined") return;
+    const voice = window.speechSynthesis?.getVoices().find(v => v.lang.toLowerCase().startsWith("es"));
+    speakWithCoordinator(text,{lang:"es-ES",rate:1.02,pitch:.96,voice});
   }, [muted]);
   const announce = useCallback((next: PerceptionEvent, text: string, now: number, force = false) => {
     if (introActiveRef.current && next !== "INTRO") return;
@@ -55,7 +56,7 @@ export default function MpeVisionExperience() {
     introTokenRef.current += 1;
     introTimersRef.current.forEach(id => window.clearTimeout(id)); introTimersRef.current = []; introActiveRef.current = false;
   }, []);
-  const stopCamera = useCallback(() => { if (rafRef.current) cancelAnimationFrame(rafRef.current); clearIntro(); streamRef.current?.getTracks().forEach(t => t.stop()); streamRef.current = null; if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); }, [clearIntro]);
+  const stopCamera = useCallback(() => { if (rafRef.current) cancelAnimationFrame(rafRef.current); clearIntro(); streamRef.current?.getTracks().forEach(t => t.stop()); streamRef.current = null; cancelCoordinatedSpeech(); }, [clearIntro]);
   useEffect(() => stopCamera, [stopCamera]);
 
   const runIntro = useCallback(() => {
