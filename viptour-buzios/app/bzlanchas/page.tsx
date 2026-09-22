@@ -1,70 +1,20 @@
 import type { Metadata } from "next";
-import { Anchor, Bath, Bluetooth, Droplets, Flame, Ship, Users, Waves } from "lucide-react";
+import { Anchor, Bath, Bluetooth, Droplets, Flame, MapPin, Music2, Ship, Users, Waves } from "lucide-react";
 import "./bzlanchas.css";
 
-export const metadata: Metadata = {
-  title: "BZ Lanchas | Passeio Privativo em Búzios",
-  description: "Passeio privativo em Búzios a bordo de uma lancha cabinada de 27,5 pés para até 10 pessoas.",
-};
-
-const whatsapp = "https://wa.me/5522992362297?text=Ol%C3%A1%21%20Quero%20consultar%20a%20disponibilidade%20da%20BZ%20Lanchas.";
-
-const roteiro = ["Armação","Praia do Canto","Amores","Tartaruguinha","Tartaruga","Ossos","Azeda","Azedinha","João Fernandes","João Fernandinho"];
-
-export default function BZLanchasPage() {
-  return (
-    <main className="bz">
-      <header className="bz-nav">
-        <a className="bz-logo" href="#inicio" aria-label="BZ Lanchas"><span>BZ</span><small>LANCHAS</small></a>
-        <nav><a href="#lancha">A lancha</a><a href="#roteiro">Roteiro</a><a href="#incluso">Incluso</a></nav>
-        <a className="bz-nav-cta" href={whatsapp} target="_blank" rel="noreferrer">Reservar</a>
-      </header>
-
-      <section className="bz-hero" id="inicio">
-        <div className="bz-overlay" />
-        <div className="bz-hero-content">
-          <p className="bz-kicker">PASSEIO PRIVATIVO • BÚZIOS</p>
-          <h1>Búzios visto<br/><em>de outro ângulo.</em></h1>
-          <p className="bz-lead">Um dia no mar, no seu ritmo. Conforto, liberdade e os cenários mais desejados da península.</p>
-          <a className="bz-primary" href={whatsapp} target="_blank" rel="noreferrer">CONSULTAR DISPONIBILIDADE <span>→</span></a>
-        </div>
-        <div className="bz-stats">
-          <div><strong>27,5</strong><span>PÉS</span></div><div><strong>10</strong><span>PESSOAS</span></div><div><strong>100%</strong><span>PRIVATIVO</span></div>
-        </div>
-      </section>
-
-      <section className="bz-intro" id="lancha">
-        <p className="bz-kicker dark">SUA EXPERIÊNCIA NO MAR</p>
-        <h2>Seu barco. Seu grupo.<br/><em>Seu dia.</em></h2>
-        <p>Uma lancha cabinada preparada para você aproveitar Búzios com privacidade, conforto e estrutura para curtir cada parada.</p>
-        <div className="bz-features">
-          <article><Ship/><h3>Lancha cabinada</h3><p>27,5 pés com espaço para até 10 pessoas.</p></article>
-          <article><Bath/><h3>Cabine + banheiro</h3><p>Quarto e banheiro com vaso sanitário elétrico.</p></article>
-          <article><Bluetooth/><h3>Som Bluetooth</h3><p>Sua trilha sonora durante toda a experiência.</p></article>
-          <article><Droplets/><h3>Água doce</h3><p>Pia e ducha com água doce a bordo.</p></article>
-          <article><Flame/><h3>Churrasqueira</h3><p>Mais liberdade para aproveitar o dia no mar.</p></article>
-          <article><Users/><h3>Até 10 pessoas</h3><p>Ideal para família, amigos e momentos especiais.</p></article>
-        </div>
-      </section>
-
-      <section className="bz-route" id="roteiro">
-        <div className="bz-route-copy"><p className="bz-kicker">UM ROTEIRO. VÁRIOS PARAÍSOS.</p><h2>Descubra Búzios<br/><em>pelo mar.</em></h2><p>Uma sequência de paisagens icônicas para viver a península de um ponto de vista completamente diferente.</p></div>
-        <div className="bz-route-list">{roteiro.map((lugar, i)=><div key={lugar}><span>{String(i+1).padStart(2,"0")}</span><strong>{lugar}</strong></div>)}</div>
-      </section>
-
-      <section className="bz-included" id="incluso">
-        <p className="bz-kicker dark">JÁ ESTÁ INCLUSO</p><h2>Você só precisa<br/><em>aproveitar.</em></h2>
-        <div className="bz-included-grid"><div><Waves/><strong>Gelo em escamas</strong></div><div><Flame/><strong>Carvão</strong></div><div><Droplets/><strong>Água mineral</strong></div></div>
-      </section>
-
-      <section className="bz-final">
-        <Anchor/>
-        <p className="bz-kicker">BZ LANCHAS • BÚZIOS</p>
-        <h2>O mar está<br/><em>te esperando.</em></h2>
-        <p>Consulte valores e disponibilidade para o seu dia em Búzios.</p>
-        <a className="bz-primary" href={whatsapp} target="_blank" rel="noreferrer">FALAR NO WHATSAPP <span>→</span></a>
-      </section>
-      <footer><div className="bz-logo"><span>BZ</span><small>LANCHAS</small></div><p>Experiências privativas no mar de Búzios.</p></footer>
-    </main>
-  );
-}
+export const metadata: Metadata={title:"BZ Lanchas | Passeio Privativo em Búzios",description:"Passeio privativo em Búzios em lancha cabinada de 27,5 pés para até 10 pessoas."};
+const whatsapp="https://wa.me/5522992362297?text=Ol%C3%A1%21%20Quero%20consultar%20a%20disponibilidade%20da%20BZ%20Lanchas.";
+const roteiro=["Armação","Praia do Canto","Amores","Tartaruguinha","Tartaruga","Ossos","Azeda","Azedinha","João Fernandes","João Fernandinho"];
+const features=[["Quarto","na cabine",Anchor],["Banheiro","com vaso elétrico",Bath],["Som","Bluetooth",Music2],["Pia","com água doce",Droplets],["Ducha","com água doce",Waves],["Churrasqueira","a bordo",Flame]] as const;
+export default function Page(){return <main className="bz">
+<header className="nav"><a className="logo" href="#inicio"><b>BZ</b><span>LANCHAS</span></a><nav><a href="#inicio">Início</a><a href="#lancha">A lancha</a><a href="#roteiro">Roteiros</a><a href="#galeria">Galeria</a><a href="#contato">Contato</a></nav><a className="outline" href={whatsapp}>◉ FALE NO WHATSAPP</a></header>
+<section className="hero" id="inicio"><div className="heroPhoto"/><div className="shade"/><div className="heroCopy"><p className="eyebrow">EXPERIÊNCIAS EXCLUSIVAS EM BÚZIOS</p><h1>BÚZIOS<br/>VISTO DE<br/><em>OUTRO ÂNGULO.</em></h1><p>Passeios privativos de lancha para viver o mar com liberdade, conforto e momentos inesquecíveis.</p><a className="gold" href={whatsapp}>◉ FALE NO WHATSAPP <b>→</b></a></div><div className="script">Búzios<br/><small>é mais vida aqui.</small></div></section>
+<section className="quick"><div><Ship/><b>27,5 PÉS</b><span>LANCHA CABINADA</span></div><div><Users/><b>ATÉ 10 PESSOAS</b><span>PASSEIO PRIVATIVO</span></div><div><Anchor/><b>CONFORTO</b><span>PARA CURTIR O DIA</span></div><div><MapPin/><b>ROTEIRO PELOS</b><span>MELHORES PONTOS</span></div></section>
+<section className="boat" id="lancha"><div className="boatCopy"><p className="eyebrow">CONHEÇA NOSSA LANCHA</p><h2>27,5 PÉS<br/>CABINADA</h2><h3>CONFORTO EM TODOS OS DETALHES</h3><p>Uma embarcação completa, ideal para quem busca privacidade, conforto e a melhor experiência em Búzios.</p><a className="gold" href={whatsapp}>◉ FALE NO WHATSAPP →</a></div><div className="mosaic"><div className="ph cockpit"><span>ÁREA EXTERNA</span></div><div className="ph cabin"><span>CABINE</span></div><div className="ph bath"><span>BANHEIRO</span></div><div className="ph boatpic"><span>27,5 PÉS</span></div></div></section>
+<section className="amenities"><h3>ESTRUTURA E COMODIDADES</h3><div>{features.map(([a,b,I])=><article key={a}><I/><b>{a}</b><span>{b}</span></article>)}</div></section>
+<section className="route" id="roteiro"><div className="routeVisual"><p className="eyebrow">CENÁRIOS INCRÍVEIS EM UM SÓ PASSEIO</p><h2>ROTEIRO<br/>POR BÚZIOS</h2><p>Descubra algumas das praias mais desejadas da península pelo melhor ponto de vista: o mar.</p></div><div className="routeList">{roteiro.map((r,i)=><div key={r}><i>{i+1}</i><span>{r}</span></div>)}</div></section>
+<section className="gallery" id="galeria"><div className="sectionHead"><div><p className="eyebrow">MOMENTOS QUE FICAM</p><h2>GALERIA DE EXPERIÊNCIAS</h2></div></div><div className="galleryGrid"><div className="ph bow"/><div className="ph cockpit"/><div className="ph sea"/><div className="ph sunset"/></div></section>
+<section className="included"><p className="eyebrow">INCLUSO NO PASSEIO</p><div><span>❄<b>Gelo em escamas</b></span><span>♨<b>Carvão</b></span><span>♢<b>Água mineral</b></span></div></section>
+<section className="final" id="contato"><div><h2>PRONTO PARA VIVER<br/>ESSA EXPERIÊNCIA?</h2><p>Entre em contato agora e consulte a disponibilidade.</p><a className="gold" href={whatsapp}>◉ FALE NO WHATSAPP →</a></div><div className="script">Mais que um passeio,<br/><small>uma experiência.</small></div></section>
+<footer><a className="logo" href="#inicio"><b>BZ</b><span>LANCHAS</span></a><p className="script">Búzios é mais vida aqui.</p><p>@Bzlanchas &nbsp; • &nbsp; (22) 99236-2297</p></footer>
+</main>}
