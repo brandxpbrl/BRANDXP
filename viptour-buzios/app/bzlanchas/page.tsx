@@ -3,7 +3,7 @@ import { Anchor, Bath, Bluetooth, Droplets, Flame, MapPin, Music2, Ship, Users, 
 import "./bzlanchas.css";
 
 export const metadata: Metadata={title:"BZ Lanchas | Passeio Privativo em Búzios",description:"Passeio privativo em Búzios em lancha cabinada de 27,5 pés para até 10 pessoas."};
-const whatsapp="https://wa.me/5522992362297?text=Ol%C3%A1%21%20Quero%20consultar%20a%20disponibilidade%20da%20BZ%20Lanchas.";
+const whatsapp="https://wa.me/5522997362297?text=Ol%C3%A1%21%20Quero%20consultar%20a%20disponibilidade%20da%20BZ%20Lanchas.";
 const roteiro=["Armação","Praia do Canto","Amores","Tartaruguinha","Tartaruga","Ossos","Azeda","Azedinha","João Fernandes","João Fernandinho"];
 const features=[["Quarto","na cabine",Anchor],["Banheiro","com vaso elétrico",Bath],["Som","Bluetooth",Music2],["Pia","com água doce",Droplets],["Ducha","com água doce",Waves],["Churrasqueira","a bordo",Flame]] as const;
 export default function Page(){return <main className="bz">
@@ -16,5 +16,5 @@ export default function Page(){return <main className="bz">
 <section className="gallery" id="galeria"><div className="sectionHead"><div><p className="eyebrow">MOMENTOS QUE FICAM</p><h2>GALERIA DE EXPERIÊNCIAS</h2></div></div><div className="galleryGrid"><div className="ph photo bow"/><div className="ph photo cockpit"/><div className="ph photo sea"/><div className="ph photo sunset"/></div></section>
 <section className="included"><p className="eyebrow">INCLUSO NO PASSEIO</p><div><span>❄<b>Gelo em escamas</b></span><span>♨<b>Carvão</b></span><span>♢<b>Água mineral</b></span></div></section>
 <section className="final photoFinal" id="contato"><div><h2>PRONTO PARA VIVER<br/>ESSA EXPERIÊNCIA?</h2><p>Entre em contato agora e consulte a disponibilidade.</p><a className="gold" href={whatsapp}>◉ FALE NO WHATSAPP →</a></div><div className="script">Mais que um passeio,<br/><small>uma experiência.</small></div></section>
-<footer><a className="logo imageLogo footerLogo" href="#inicio"><img src="/logolancha.jpeg" alt="BZ Lanchas" /></a><p className="script">Búzios é mais vida aqui.</p><p>@Bzlanchas &nbsp; • &nbsp; (22) 99236-2297</p></footer>
+<footer><a className="logo imageLogo footerLogo" href="#inicio"><img src="/logolancha.jpeg" alt="BZ Lanchas" /></a><p className="script">Búzios é mais vida aqui.</p><p>@Bzlanchas &nbsp; • &nbsp; (22) 99736-2297</p></footer>
 </main>}
