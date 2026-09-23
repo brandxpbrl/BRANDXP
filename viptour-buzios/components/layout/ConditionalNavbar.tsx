@@ -7,6 +7,8 @@ export function ConditionalNavbar() {
   const pathname = usePathname();
 
   if (
+    pathname === "/bzlanchas" ||
+    pathname.startsWith("/bzlanchas/") ||
     pathname === "/ferinha-cultural" ||
     pathname === "/zaptdeliverybz" ||
     pathname.startsWith("/zaptdeliverybz/") ||

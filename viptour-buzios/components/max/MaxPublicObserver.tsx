@@ -2,6 +2,7 @@
 
 import { Activity, Volume2, VolumeX, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type ResearchState = { source: string; provenance: string; timestamp: string; metric_namespace: string; status: string; validation: string; availability: "AVAILABLE" | "NO_EVIDENCE" | "UNAVAILABLE"; lineage: string[]; message: string };
 type ObservationPacket = { source: "MAX_PUBLIC_OBSERVER"; provenance: string; timestamp: string; metric_namespace: "mpe.observation"; status: "OBSERVED"; lineage: string[]; route: string; scene: string; scroll_band: string; delta: string; research: ResearchState };
@@ -11,6 +12,8 @@ const FALLBACK_RESEARCH: ResearchState = { source: "mpe_probability_statistics",
 function scrollBand() { const max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1); const ratio = window.scrollY / max; return ratio < .2 ? "top" : ratio > .8 ? "bottom" : "middle"; }
 
 export function MaxPublicObserver() {
+  const pathname = usePathname();
+  if (pathname === "/bzlanchas" || pathname.startsWith("/bzlanchas/")) return null;
   const [open, setOpen] = useState(false); const [voiceEnabled, setVoiceEnabled] = useState(false); const [packet, setPacket] = useState<ObservationPacket | null>(null);
   const previousScene = useRef(""); const lastVoice = useRef(""); const lastVoiceAt = useRef(0);
   const capture = useCallback((reason: string) => {
