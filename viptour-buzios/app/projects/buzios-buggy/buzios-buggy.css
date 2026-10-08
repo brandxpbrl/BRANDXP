@@ -13,3 +13,10 @@
 @media(max-width:850px){.bb-hero{min-height:420px}}
 @media(max-width:530px){.bb-hero{min-height:385px}.bb-hero-inner{padding-top:65px;padding-bottom:32px}.bb-gallery{grid-auto-rows:140px}.bb-gallery-tall{grid-row:span 2}.bb-mapnote{padding:20px}}
 @media(prefers-reduced-motion:reduce){.bb-gallery img{transition:none}}
+
+/* Interactive language tabs */
+.bb-toplinks .bb-lang{display:inline-flex;align-items:center;justify-content:center;min-width:34px;padding:10px 8px;border-radius:9px;color:#666;font-size:15px;transition:background .2s ease}
+.bb-toplinks .bb-lang.bb-selected{color:#172a32;background:#e4f6fd;font-weight:bold}
+.bb-toplinks .bb-lang:hover{background:#eaf5fa}
+.bb-toplinks .bb-lang:focus-visible{outline:3px solid #189ed0;outline-offset:2px}
+@media(max-width:530px){.bb-toplinks .bb-lang:not(.bb-selected){display:inline-flex}.bb-toplinks{gap:4px}.bb-toplinks .bb-lang{font-size:12px;padding:8px 5px;min-width:25px}}
