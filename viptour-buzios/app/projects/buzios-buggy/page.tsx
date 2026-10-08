@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import "./buzios-buggy.css";
 
 export const metadata: Metadata = {
-  title: "Búzios Buggy | Passeio de Buggy Privativo em Búzios",
+  title: "Buzios Buggy | Passeio de Buggy Privativo em Búzios",
   description: "Passeio de buggy privativo em Búzios: 8 praias e 3 mirantes em cerca de 1h30. Consulte disponibilidade e reserve pelo WhatsApp.",
   alternates: { canonical: "/projects/buzios-buggy" },
-  openGraph: { title: "Búzios Buggy", description: "Conheça 8 praias e 3 mirantes em um passeio privativo por Búzios.", url: "https://www.riovibestransfer.com/projects/buzios-buggy" },
+  openGraph: { title: "Buzios Buggy", description: "Conheça 8 praias e 3 mirantes em um passeio privativo por Búzios.", url: "https://www.riovibestransfer.com/projects/buzios-buggy" },
 };
 
 const structuredData = {
@@ -16,7 +16,7 @@ const structuredData = {
   serviceType: "Passeio turístico privativo de buggy",
   provider: {
     "@type": "Organization",
-    name: "Búzios Buggy",
+    name: "Buzios Buggy",
     url: "https://www.riovibestransfer.com/projects/buzios-buggy",
     telephone: "+5545999686381",
   },
@@ -153,7 +153,7 @@ const translations = {
       "Pickup included: we collect you from your hotel, guesthouse or Airbnb.",
       "Availability and service details confirmed by WhatsApp."
     ],
-    "galleryTitle": "Búzios Buggy Tour Photo Gallery",
+    "galleryTitle": "Buzios Buggy Tour Photo Gallery",
     "gallerySub": "A preview of the experience awaiting you.",
     "routeTitle": "Traditional Buggy Tour Route in Búzios",
     "routeFeatures": [
@@ -320,9 +320,9 @@ type Language = keyof typeof translations;
 const whatsapp = "5545999686381";
 const book = (service = "Passeio de Buggy Privativo", language: Language = "br") => {
   const introductions = {
-    br: `Olá! Gostaria de consultar disponibilidade para ${service} com a Búzios Buggy.`,
-    us: `Hello! I'd like to check availability for ${service} with Búzios Buggy.`,
-    es: `¡Hola! Quisiera consultar disponibilidad para ${service} con Búzios Buggy.`,
+    br: `Olá! Gostaria de consultar disponibilidade para ${service} com a Buzios Buggy.`,
+    us: `Hello! I'd like to check availability for ${service} with Buzios Buggy.`,
+    es: `¡Hola! Quisiera consultar disponibilidad para ${service} con Buzios Buggy.`,
   };
   return `https://wa.me/${whatsapp}?text=${encodeURIComponent(introductions[language])}`;
 };
@@ -365,7 +365,7 @@ export default async function BuziosBuggyPage({ searchParams }: { searchParams: 
   return <main className="bb">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <header className="bb-header">
-      <div className="bb-top"><a className="bb-logo" href="#inicio"><span>Búzios</span> Buggy</a><div className="bb-toplinks"><a href="#blog">Blog</a>{(["br","us","es"] as const).map(code => <a key={code} href={`/projects/buzios-buggy?lang=${code}#inicio`} lang={code === "br" ? "pt-BR" : code === "us" ? "en" : "es"} aria-current={lang === code ? "page" : undefined} className={`bb-lang ${lang === code ? "bb-selected" : ""}`}>{code.toUpperCase()}</a>)}</div></div>
+      <div className="bb-top"><a className="bb-logo" href="#inicio"><span>Buzios</span> Buggy</a><div className="bb-toplinks"><a href="#blog">Blog</a>{(["br","us","es"] as const).map(code => <a key={code} href={`/projects/buzios-buggy?lang=${code}#inicio`} lang={code === "br" ? "pt-BR" : code === "us" ? "en" : "es"} aria-current={lang === code ? "page" : undefined} className={`bb-lang ${lang === code ? "bb-selected" : ""}`}>{code.toUpperCase()}</a>)}</div></div>
       <nav className="bb-services" aria-label="Passeios e serviços">{services.map(([icon, , , id], i)=><a key={id} className={i===0?"bb-service active":"bb-service"} href={i===0?"#inicio":`#${id}`}><span className="bb-icon">{icon}</span><span><strong>{t.nav[i]}</strong><small>{t.navSub[i]}</small></span></a>)}</nav>
     </header>
     <section id="inicio" className="bb-hero"><div className="bb-heroshade"/><div className="bb-hero-inner"><p>{t.heroKicker}</p><h1>{t.heroTitle}</h1></div></section>
@@ -382,7 +382,7 @@ export default async function BuziosBuggyPage({ searchParams }: { searchParams: 
     <section className="bb-section bb-wrap"><h2>{t.faq}</h2><div className="bb-faq">{t.faqItems.map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></section>
     <section className="bb-section bb-wrap"><h2>{t.location}</h2><iframe title="Mapa de Búzios" src="https://www.google.com/maps?q=Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%2C%20RJ&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade"/></section>
     <section id="blog" className="bb-section bb-wrap"><h2>{t.blog}</h2><p className="bb-subtitle">{t.blogDesc}</p></section>
-    <footer className="bb-footer"><div className="bb-wrap"><strong><span>Búzios</span> Buggy</strong><p>Armação dos Búzios · Rio de Janeiro · Brasil</p><p>{t.footer}: +55 45 99968-6381</p><small>© {new Date().getFullYear()} Búzios Buggy</small></div></footer>
+    <footer className="bb-footer"><div className="bb-wrap"><strong><span>Buzios</span> Buggy</strong><p>Armação dos Búzios · Rio de Janeiro · Brasil</p><p>{t.footer}: +55 45 99968-6381</p><small>© {new Date().getFullYear()} Buzios Buggy</small></div></footer>
     <a className="bb-floating" aria-label="Reservar por WhatsApp" href={book(undefined, lang)} target="_blank" rel="noopener noreferrer">☏</a>
   </main>;
 }
