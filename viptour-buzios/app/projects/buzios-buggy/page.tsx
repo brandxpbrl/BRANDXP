@@ -318,8 +318,14 @@ const translations = {
 type Language = keyof typeof translations;
 
 const whatsapp = "5545999686381";
-const book = (service = "Passeio de Buggy Privativo") =>
-  `https://wa.me/${whatsapp}?text=${encodeURIComponent(`Olá! Gostaria de consultar disponibilidade para ${service} com a Búzios Buggy.`)}`;
+const book = (service = "Passeio de Buggy Privativo", language: Language = "br") => {
+  const introductions = {
+    br: `Olá! Gostaria de consultar disponibilidade para ${service} com a Búzios Buggy.`,
+    us: `Hello! I'd like to check availability for ${service} with Búzios Buggy.`,
+    es: `¡Hola! Quisiera consultar disponibilidad para ${service} con Búzios Buggy.`,
+  };
+  return `https://wa.me/${whatsapp}?text=${encodeURIComponent(introductions[language])}`;
+};
 
 const services = [
   ["🚙", "Passeio Buggy", "1h30m • Búzios", "buggy"],
@@ -352,14 +358,6 @@ const beaches = [
   ["Praia da Ferradura", "Águas calmas e uma das praias favoritas das famílias."],
 ];
 const viewpoints = ["Mirante de João Fernandes", "Mirante do Forno", "Ponta da Lagoinha"];
-const faq = [
-  ["Quantas pessoas cabem em cada buggy?", "Até quatro passageiros, além do motorista. Para grupos maiores, consulte mais de um buggy."],
-  ["Preciso pagar antecipado?", "Não. A reserva é consultada pelo WhatsApp e o pagamento é feito no dia, conforme confirmação."],
-  ["O buggy busca no meu local?", "A busca em hotel, pousada ou Airbnb de Búzios está incluída nas regiões atendidas."],
-  ["Quanto tempo dura o passeio?", "Aproximadamente 1h30, incluindo paradas para fotos e banho."],
-  ["Qual o horário das saídas?", "Entre 8h e 16h30, conforme disponibilidade."],
-  ["Qual a diferença entre o passeio tradicional e o estendido?", "O estendido permite mais tempo e personalização do roteiro. Consulte condições e preço."],
-];
 export default async function BuziosBuggyPage({ searchParams }: { searchParams: Promise<{ lang?: string }> }) {
   const query = await searchParams;
   const lang: Language = query.lang === "us" || query.lang === "es" ? query.lang : "br";
@@ -368,23 +366,23 @@ export default async function BuziosBuggyPage({ searchParams }: { searchParams: 
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <header className="bb-header">
       <div className="bb-top"><a className="bb-logo" href="#inicio"><span>Búzios</span> Buggy</a><div className="bb-toplinks"><a href="#blog">Blog</a>{(["br","us","es"] as const).map(code => <a key={code} href={`/projects/buzios-buggy?lang=${code}#inicio`} lang={code === "br" ? "pt-BR" : code === "us" ? "en" : "es"} aria-current={lang === code ? "page" : undefined} className={`bb-lang ${lang === code ? "bb-selected" : ""}`}>{code.toUpperCase()}</a>)}</div></div>
-      <nav className="bb-services" aria-label="Passeios e serviços">{services.map(([icon, title, sub, id], i)=><a key={id} className={i===0?"bb-service active":"bb-service"} href={i===0?"#inicio":`#${id}`}><span className="bb-icon">{icon}</span><span><strong>{t.nav[i]}</strong><small>{t.navSub[i]}</small></span></a>)}</nav>
+      <nav className="bb-services" aria-label="Passeios e serviços">{services.map(([icon, , , id], i)=><a key={id} className={i===0?"bb-service active":"bb-service"} href={i===0?"#inicio":`#${id}`}><span className="bb-icon">{icon}</span><span><strong>{t.nav[i]}</strong><small>{t.navSub[i]}</small></span></a>)}</nav>
     </header>
     <section id="inicio" className="bb-hero"><div className="bb-heroshade"/><div className="bb-hero-inner"><p>{t.heroKicker}</p><h1>{t.heroTitle}</h1></div></section>
     <section className="bb-intro bb-wrap"><div className="bb-risk"><strong>✓</strong><h3>{t.risk}<br/><em>{t.noRisk}</em></h3><p>{t.noDeposit}</p><p>{t.noSignal}</p><p>{t.freeCancel}</p></div><p className="bb-lead">{t.lead}</p>
       <div className="bb-price"><div className="bb-pill">{t.promo}</div><p>{t.popular}</p><div className="bb-price-line"><del>R$ 130</del><strong>R$ 100</strong><span>{t.person}</span></div><hr/><p>{t.kids}</p><p>{t.terms}</p></div>
-      <a className="bb-button" href={book()} target="_blank" rel="noopener noreferrer">☏ {t.reserve}</a>
+      <a className="bb-button" href={book(undefined, lang)} target="_blank" rel="noopener noreferrer">☏ {t.reserve}</a>
       <div className="bb-benefits">{t.benefits.map((item,i)=><div key={item}>{["◷","♙","⌖","▣"][i]} {item}</div>)}</div>
       <div className="bb-info"><h3>♧ {t.infoTitle}</h3>{t.info.map(line=><p key={line}>✓ {line}</p>)}</div>
     </section>
     <section id="galeria" className="bb-section bb-wrap"><h2>{t.galleryTitle}</h2><p className="bb-subtitle">{t.gallerySub}</p><div className="bb-gallery">{gallery.map(([name,img],i)=><div key={i} className={i===0?"bb-gallery-tall":""}><img src={img} alt={name} loading="lazy"/></div>)}</div></section>
     <section id="roteiro" className="bb-section bb-wrap"><h2>{t.routeTitle}</h2><div className="bb-route"><p>✓ {t.routeFeatures[0]}</p><p>✓ {t.routeFeatures[1]}</p><p>⌖ Orla Bardot → Armação → Ossos → Brava → Forno → João Fernandes → Ferradura</p></div><div className="bb-mapnote"><strong>{t.mapIntro}</strong><p>{t.mapPending}</p></div><h3>{t.beaches}</h3><div className="bb-placegrid">{beaches.map(([name,desc],i)=><article key={name}><img src="/images/hero-buggy.png" alt={name} loading="lazy"/><div><strong>{i+1}. {name}</strong><p>{desc}</p></div></article>)}</div><h3>{t.viewpoints}</h3><div className="bb-placegrid">{viewpoints.map((name,i)=><article key={name}><img src="/images/hero-buggy.png" alt={name} loading="lazy"/><div><strong>{i+1}. {name}</strong><p>Parada especial para contemplar e fotografar a paisagem.</p></div></article>)}</div><h3>{t.history}</h3><div className="bb-placegrid">{["Orla Bardot & Estátua de Brigitte Bardot","Monumento dos Três Pescadores","Igreja de Sant’Anna (1740)"].map(name=><article key={name}><div><strong>{name}</strong><p>Um encontro com a história e a cultura de Búzios.</p></div></article>)}</div></section>
-    <section id="combo" className="bb-extended"><div className="bb-wrap"><h2>{t.extraTitle}</h2><img src="/images/hero-buggy.png" alt="Paisagens de Búzios" loading="lazy"/><p>{t.extraDesc}</p><div className="bb-info"><h3>{t.extraBoxTitle}</h3><p>{t.extraBoxDesc}</p></div><a className="bb-button" href={book("Passeio Estendido de Buggy")} target="_blank" rel="noopener noreferrer">{t.quote}</a></div></section>
-    <section id="barco" className="bb-extra bb-wrap"><h2>{t.other}</h2><div className="bb-other">{services.slice(2).map(([,name,desc,id])=><article id={id} key={id}><strong>{t.nav[services.findIndex(service => service[3] === id)]}</strong><p>{t.navSub[services.findIndex(service => service[3] === id)]}</p><a href={book(name)} target="_blank" rel="noopener noreferrer">{t.consult}</a></article>)}</div></section>
+    <section id="combo" className="bb-extended"><div className="bb-wrap"><h2>{t.extraTitle}</h2><img src="/images/hero-buggy.png" alt="Paisagens de Búzios" loading="lazy"/><p>{t.extraDesc}</p><div className="bb-info"><h3>{t.extraBoxTitle}</h3><p>{t.extraBoxDesc}</p></div><a className="bb-button" href={book("Passeio Estendido de Buggy", lang)} target="_blank" rel="noopener noreferrer">{t.quote}</a></div></section>
+    <section id="barco" className="bb-extra bb-wrap"><h2>{t.other}</h2><div className="bb-other">{services.slice(2).map(([,name,,id])=><article id={id} key={id}><strong>{t.nav[services.findIndex(service => service[3] === id)]}</strong><p>{t.navSub[services.findIndex(service => service[3] === id)]}</p><a href={book(name, lang)} target="_blank" rel="noopener noreferrer">{t.consult}</a></article>)}</div></section>
     <section className="bb-section bb-wrap"><h2>{t.faq}</h2><div className="bb-faq">{t.faqItems.map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></section>
     <section className="bb-section bb-wrap"><h2>{t.location}</h2><iframe title="Mapa de Búzios" src="https://www.google.com/maps?q=Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%2C%20RJ&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade"/></section>
     <section id="blog" className="bb-section bb-wrap"><h2>{t.blog}</h2><p className="bb-subtitle">{t.blogDesc}</p></section>
     <footer className="bb-footer"><div className="bb-wrap"><strong><span>Búzios</span> Buggy</strong><p>Armação dos Búzios · Rio de Janeiro · Brasil</p><p>{t.footer}: +55 45 99968-6381</p><small>© {new Date().getFullYear()} Búzios Buggy</small></div></footer>
-    <a className="bb-floating" aria-label="Reservar por WhatsApp" href={book()} target="_blank" rel="noopener noreferrer">☏</a>
+    <a className="bb-floating" aria-label="Reservar por WhatsApp" href={book(undefined, lang)} target="_blank" rel="noopener noreferrer">☏</a>
   </main>;
 }
