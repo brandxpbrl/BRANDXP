@@ -8,6 +8,29 @@ export const metadata: Metadata = {
   openGraph: { title: "Búzios Buggy", description: "Conheça 8 praias e 3 mirantes em um passeio privativo por Búzios.", url: "https://www.riovibestransfer.com/projects/buzios-buggy" },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Passeio de Buggy Privativo em Búzios",
+  description: "Passeio de buggy privativo pela península de Armação dos Búzios, passando por oito praias e três mirantes, com duração aproximada de 1h30.",
+  serviceType: "Passeio turístico privativo de buggy",
+  provider: {
+    "@type": "Organization",
+    name: "Búzios Buggy",
+    url: "https://www.riovibestransfer.com/projects/buzios-buggy",
+    telephone: "+5545999686381",
+  },
+  areaServed: { "@type": "Place", name: "Armação dos Búzios, Rio de Janeiro, Brasil" },
+  offers: {
+    "@type": "Offer",
+    price: "100",
+    priceCurrency: "BRL",
+    priceValidUntil: "2026-10-31",
+    url: "https://www.riovibestransfer.com/projects/buzios-buggy",
+    description: "Tarifa promocional por pessoa sujeita à disponibilidade e condições publicadas.",
+  },
+};
+
 const whatsapp = "5545999686381";
 const book = (service = "Passeio de Buggy Privativo") =>
   `https://wa.me/${whatsapp}?text=${encodeURIComponent(`Olá! Gostaria de consultar disponibilidade para ${service} com a Búzios Buggy.`)}`;
@@ -53,6 +76,7 @@ const faq = [
 ];
 export default function BuziosBuggyPage() {
   return <main className="bb">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <header className="bb-header">
       <div className="bb-top"><a className="bb-logo" href="#inicio"><span>Búzios</span> Buggy</a><div className="bb-toplinks"><a href="#blog">Blog</a><span className="bb-lang bb-selected">BR</span><span className="bb-lang">US</span><span className="bb-lang">ES</span></div></div>
       <nav className="bb-services" aria-label="Passeios e serviços">{services.map(([icon, title, sub, id], i)=><a key={id} className={i===0?"bb-service active":"bb-service"} href={i===0?"#inicio":`#${id}`}><span className="bb-icon">{icon}</span><span><strong>{title}</strong><small>{sub}</small></span></a>)}</nav>
