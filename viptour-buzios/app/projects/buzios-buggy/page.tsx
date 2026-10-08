@@ -336,7 +336,9 @@ const services = [
   ["✈", "Transfer Privado", "Búzios ⇄ Rio (GIG)", "transfer"],
 ] as const;
 
-// Fotografias da galeria original do cliente; migrar para assets locais antes do lançamento.\nconst gallery = [\n  ["Mirante de João Fernandes em Búzios", "https://buggybuzios.com/__l5e/assets-v1/fd52298f-b9b1-4835-95b5-03745cedcf9d/gallery-mirante-joao-fernandes-buzios.jpg"],
+// Fotografias da galeria original do cliente; migrar para assets locais antes do lançamento.
+const gallery = [
+  ["Mirante de João Fernandes em Búzios", "https://buggybuzios.com/__l5e/assets-v1/fd52298f-b9b1-4835-95b5-03745cedcf9d/gallery-mirante-joao-fernandes-buzios.jpg"],
   ["Praia de areia rosada em Búzios", "https://buggybuzios.com/__l5e/assets-v1/28b522b7-f456-4386-8b20-5082d72c45bb/gallery-praia-areia-rosa-buzios.jpg"],
   ["Mirante da Praia do Forno", "https://buggybuzios.com/__l5e/assets-v1/afdb1be5-a7d6-413b-a032-e3201d742517/gallery-mirante-praia-forno-buzios.jpg"],
   ["Casal em buggy amarelo com vista para Búzios", "https://buggybuzios.com/__l5e/assets-v1/895573eb-db66-40d5-83c5-1b92ab52e766/gallery-buggy-amarelo-casal-buzios.jpg"],
