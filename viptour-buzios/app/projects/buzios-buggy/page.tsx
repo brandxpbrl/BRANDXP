@@ -31,6 +31,292 @@ const structuredData = {
   },
 };
 
+const translations = {
+  "br": {
+    "heroKicker": "EXPERIÊNCIAS EM BÚZIOS",
+    "heroTitle": "Passeio de Buggy Privativo em Búzios – 8 Praias e 3 Mirantes",
+    "risk": "RESERVA",
+    "noRisk": "SEM RISCO",
+    "noDeposit": "SEM PAGAMENTO ANTECIPADO",
+    "noSignal": "SEM SINAL PARA RESERVAR",
+    "freeCancel": "ALTERE OU CANCELE GRÁTIS*",
+    "lead": "Descubra 8 praias e 3 mirantes em apenas 1h30 com uma experiência exclusiva, pensada para quem valoriza conforto, privacidade e atenção aos detalhes. Paradas estratégicas para fotos e banho nos cenários mais deslumbrantes da região.",
+    "promo": "PROMOÇÃO ESPECIAL 2026",
+    "popular": "Mais reservado",
+    "person": "/pessoa",
+    "kids": "Crianças: 0–5 anos grátis · 6–10 anos meia · 11+ inteira",
+    "terms": "Promoção válida para reservas até 31/10/2026 · Pagamento no dia",
+    "reserve": "Reservar pelo WhatsApp",
+    "benefits": [
+      "Duração média: 1h30",
+      "Tour 100% privativo",
+      "Busca na hospedagem",
+      "Saídas das 08h às 16h30"
+    ],
+    "infoTitle": "Reserva Segura e Sem Compromisso",
+    "info": [
+      "Zero pagamento antecipado: reserve sem sinal e pague no dia ao guia.",
+      "Busca inclusa: buscamos você no hotel, pousada ou Airbnb.",
+      "Segurança e atendimento com confirmação pelo WhatsApp."
+    ],
+    "galleryTitle": "Galeria do Passeio de Buggy em Búzios",
+    "gallerySub": "Uma prévia da experiência que espera por você.",
+    "routeTitle": "Roteiro Tradicional de Buggy em Búzios",
+    "routeFeatures": [
+      "8 praias & 3 mirantes",
+      "Paradas flexíveis para fotos e banho"
+    ],
+    "mapIntro": "Roteiro pela península de Armação dos Búzios",
+    "mapPending": "Mapa ilustrativo detalhado: aguardando o arquivo original autorizado para publicação.",
+    "beaches": "8 Praias",
+    "viewpoints": "3 Mirantes",
+    "history": "Pontos Históricos no Caminho",
+    "extraTitle": "Quer Descobrir Ainda Mais de Búzios?",
+    "extraDesc": "Além do passeio tradicional, também oferecemos uma experiência estendida com mais tempo e roteiro personalizado.",
+    "extraBoxTitle": "Uma Experiência 100% Personalizada",
+    "extraBoxDesc": "Converse com a gente para adaptar o percurso ao seu ritmo e aos pontos que deseja conhecer.",
+    "quote": "Solicitar orçamento no WhatsApp",
+    "other": "Outras Experiências",
+    "consult": "Consultar disponibilidade →",
+    "faq": "Perguntas Frequentes",
+    "location": "Onde Atuamos em Búzios",
+    "blog": "Guia de Viagem",
+    "blogDesc": "Explore praias, passeios e experiências inesquecíveis em Búzios.",
+    "footer": "Reservas e informações pelo WhatsApp",
+    "faqItems": [
+      [
+        "Quantas pessoas cabem em cada buggy?",
+        "Até quatro passageiros, além do motorista. Para grupos maiores, consulte mais de um buggy."
+      ],
+      [
+        "Preciso pagar antecipado?",
+        "Não. A reserva é consultada pelo WhatsApp e o pagamento é feito no dia, conforme confirmação."
+      ],
+      [
+        "O buggy busca no meu local?",
+        "A busca em hotel, pousada ou Airbnb de Búzios está incluída nas regiões atendidas."
+      ],
+      [
+        "Quanto tempo dura o passeio?",
+        "Aproximadamente 1h30, incluindo paradas para fotos e banho."
+      ],
+      [
+        "Qual o horário das saídas?",
+        "Entre 8h e 16h30, conforme disponibilidade."
+      ],
+      [
+        "Qual a diferença entre o passeio tradicional e o estendido?",
+        "O estendido permite mais tempo e personalização do roteiro. Consulte condições e preço."
+      ]
+    ],
+    "nav": [
+      "Passeio Buggy",
+      "Combo Búzios",
+      "Passeio de Barco",
+      "Arubinha",
+      "Arraial do Cabo",
+      "Transfer Privado"
+    ],
+    "navSub": [
+      "1h30m • Búzios",
+      "Terra/Mar",
+      "3h • Búzios",
+      "Saindo de Búzios",
+      "Saindo de Búzios",
+      "Búzios ⇄ Rio (GIG)"
+    ]
+  },
+  "us": {
+    "heroKicker": "EXPERIENCES IN BÚZIOS",
+    "heroTitle": "Private Buggy Tour in Búzios – 8 Beaches and 3 Viewpoints",
+    "risk": "BOOK WITH",
+    "noRisk": "NO RISK",
+    "noDeposit": "NO ADVANCE PAYMENT",
+    "noSignal": "NO DEPOSIT TO BOOK",
+    "freeCancel": "CHANGE OR CANCEL FREE*",
+    "lead": "Discover 8 beaches and 3 viewpoints in about 90 minutes on a private experience designed for travelers who value comfort, privacy and thoughtful service. Enjoy scenic stops for photos and swimming along Búzios's spectacular coastline.",
+    "promo": "SPECIAL OFFER 2026",
+    "popular": "Most booked",
+    "person": "/person",
+    "kids": "Children: ages 0–5 free · 6–10 half price · 11+ full price",
+    "terms": "Offer valid for bookings through Oct 31, 2026 · Pay on the day",
+    "reserve": "Book via WhatsApp",
+    "benefits": [
+      "Approx. duration: 90 min",
+      "100% private tour",
+      "Hotel pickup included",
+      "Departures 8:00–16:30"
+    ],
+    "infoTitle": "Secure Booking, No Commitment",
+    "info": [
+      "No advance payment: reserve without a deposit and pay the guide on the day.",
+      "Pickup included: we collect you from your hotel, guesthouse or Airbnb.",
+      "Availability and service details confirmed by WhatsApp."
+    ],
+    "galleryTitle": "Búzios Buggy Tour Photo Gallery",
+    "gallerySub": "A preview of the experience awaiting you.",
+    "routeTitle": "Traditional Buggy Tour Route in Búzios",
+    "routeFeatures": [
+      "8 beaches & 3 viewpoints",
+      "Flexible stops for photos and swimming"
+    ],
+    "mapIntro": "Tour route around the Búzios peninsula",
+    "mapPending": "Detailed illustrated route map: original asset pending transfer.",
+    "beaches": "8 Beaches",
+    "viewpoints": "3 Viewpoints",
+    "history": "Historic Sights Along the Way",
+    "extraTitle": "Want to Discover Even More of Búzios?",
+    "extraDesc": "Alongside the traditional tour, we offer an extended private experience with more time and a flexible itinerary.",
+    "extraBoxTitle": "A Fully Personalized Experience",
+    "extraBoxDesc": "Talk to us about adapting the route to your preferred pace and places.",
+    "quote": "Request a quote on WhatsApp",
+    "other": "More Experiences",
+    "consult": "Check availability →",
+    "faq": "Frequently Asked Questions",
+    "location": "Where We Operate in Búzios",
+    "blog": "Travel Guide",
+    "blogDesc": "Discover beaches, tours and unforgettable experiences in Búzios.",
+    "footer": "Reservations and information on WhatsApp",
+    "faqItems": [
+      [
+        "How many guests fit in each buggy?",
+        "Up to four passengers plus the driver. Larger groups can request additional buggies."
+      ],
+      [
+        "Do I need to pay in advance?",
+        "No. Book by WhatsApp and pay on the day, as confirmed with the provider."
+      ],
+      [
+        "Will the buggy pick me up?",
+        "Pickup at hotels, guesthouses and Airbnbs in serviced areas of Búzios is included."
+      ],
+      [
+        "How long does the tour take?",
+        "About 90 minutes, including photo and swimming stops."
+      ],
+      [
+        "When do tours depart?",
+        "Between 8:00 and 16:30, subject to availability."
+      ],
+      [
+        "What is the difference between the regular and extended tours?",
+        "The extended tour offers more time and itinerary flexibility. Please ask for pricing and conditions."
+      ]
+    ],
+    "nav": [
+      "Buggy Tour",
+      "Búzios Combo",
+      "Boat Tour",
+      "Arubinha",
+      "Arraial do Cabo",
+      "Private Transfer"
+    ],
+    "navSub": [
+      "90 min • Búzios",
+      "Land/Sea",
+      "3h • Búzios",
+      "From Búzios",
+      "From Búzios",
+      "Búzios ⇄ Rio (GIG)"
+    ]
+  },
+  "es": {
+    "heroKicker": "EXPERIENCIAS EN BÚZIOS",
+    "heroTitle": "Paseo Privado en Buggy por Búzios – 8 Playas y 3 Miradores",
+    "risk": "RESERVA",
+    "noRisk": "SIN RIESGO",
+    "noDeposit": "SIN PAGO ANTICIPADO",
+    "noSignal": "SIN SEÑA PARA RESERVAR",
+    "freeCancel": "MODIFICA O CANCELA GRATIS*",
+    "lead": "Descubrí 8 playas y 3 miradores en aproximadamente 1 hora y media con una experiencia privada, pensada para quienes valoran la comodidad, la privacidad y la atención personalizada. Paradas especiales para fotos y baño en los paisajes más increíbles de Búzios.",
+    "promo": "PROMOCIÓN ESPECIAL 2026",
+    "popular": "Más reservado",
+    "person": "/persona",
+    "kids": "Niños: 0–5 años gratis · 6–10 mitad de precio · 11+ tarifa completa",
+    "terms": "Promoción válida para reservas hasta el 31/10/2026 · Pagás el día del paseo",
+    "reserve": "Reservar por WhatsApp",
+    "benefits": [
+      "Duración aproximada: 1h30",
+      "Paseo 100% privado",
+      "Traslado desde alojamiento",
+      "Salidas de 08:00 a 16:30"
+    ],
+    "infoTitle": "Reserva Segura y Sin Compromiso",
+    "info": [
+      "Sin pago anticipado: reservá sin seña y pagá al guía el día del paseo.",
+      "Búsqueda incluida: te pasamos a buscar por tu hotel, posada o Airbnb.",
+      "Disponibilidad y detalles confirmados por WhatsApp."
+    ],
+    "galleryTitle": "Galería del Paseo en Buggy por Búzios",
+    "gallerySub": "Un adelanto de la experiencia que te espera.",
+    "routeTitle": "Recorrido Tradicional en Buggy por Búzios",
+    "routeFeatures": [
+      "8 playas y 3 miradores",
+      "Paradas flexibles para fotos y baño"
+    ],
+    "mapIntro": "Recorrido por la península de Armação dos Búzios",
+    "mapPending": "Mapa ilustrativo detallado: pendiente de incorporar el original.",
+    "beaches": "8 Playas",
+    "viewpoints": "3 Miradores",
+    "history": "Lugares Históricos en el Camino",
+    "extraTitle": "¿Querés Descubrir Todavía Más de Búzios?",
+    "extraDesc": "Además del paseo tradicional, ofrecemos una experiencia privada extendida con más tiempo y un recorrido personalizado.",
+    "extraBoxTitle": "Una Experiencia 100% Personalizada",
+    "extraBoxDesc": "Hablemos para adaptar el recorrido a tu ritmo y los lugares que más te interesan.",
+    "quote": "Pedir presupuesto por WhatsApp",
+    "other": "Otras Experiencias",
+    "consult": "Consultar disponibilidad →",
+    "faq": "Preguntas Frecuentes",
+    "location": "Dónde Trabajamos en Búzios",
+    "blog": "Guía de Viaje",
+    "blogDesc": "Descubrí playas, paseos y experiencias inolvidables en Búzios.",
+    "footer": "Reservas e información por WhatsApp",
+    "faqItems": [
+      [
+        "¿Cuántas personas entran en cada buggy?",
+        "Hasta cuatro pasajeros, además del conductor. Para grupos más grandes, consultanos por varios buggies."
+      ],
+      [
+        "¿Tengo que pagar por adelantado?",
+        "No. Reservás por WhatsApp y pagás el día del paseo, según las condiciones confirmadas."
+      ],
+      [
+        "¿El buggy me busca en el alojamiento?",
+        "Incluimos la búsqueda en hoteles, posadas y Airbnbs de las zonas atendidas en Búzios."
+      ],
+      [
+        "¿Cuánto dura el paseo?",
+        "Aproximadamente 1 hora y media, incluyendo paradas para fotos y baño."
+      ],
+      [
+        "¿Cuáles son los horarios de salida?",
+        "Entre las 08:00 y las 16:30, según disponibilidad."
+      ],
+      [
+        "¿Qué diferencia hay entre el paseo tradicional y el extendido?",
+        "El extendido permite disfrutar más tiempo y personalizar el recorrido. Consultá precio y condiciones."
+      ]
+    ],
+    "nav": [
+      "Paseo en Buggy",
+      "Combo Búzios",
+      "Paseo en Barco",
+      "Arubinha",
+      "Arraial do Cabo",
+      "Transfer Privado"
+    ],
+    "navSub": [
+      "1h30 • Búzios",
+      "Tierra/Mar",
+      "3h • Búzios",
+      "Desde Búzios",
+      "Desde Búzios",
+      "Búzios ⇄ Río (GIG)"
+    ]
+  }
+} as const;
+type Language = keyof typeof translations;
+
 const whatsapp = "5545999686381";
 const book = (service = "Passeio de Buggy Privativo") =>
   `https://wa.me/${whatsapp}?text=${encodeURIComponent(`Olá! Gostaria de consultar disponibilidade para ${service} com a Búzios Buggy.`)}`;
@@ -74,7 +360,10 @@ const faq = [
   ["Qual o horário das saídas?", "Entre 8h e 16h30, conforme disponibilidade."],
   ["Qual a diferença entre o passeio tradicional e o estendido?", "O estendido permite mais tempo e personalização do roteiro. Consulte condições e preço."],
 ];
-export default function BuziosBuggyPage() {
+export default async function BuziosBuggyPage({ searchParams }: { searchParams: Promise<{ lang?: string }> }) {
+  const query = await searchParams;
+  const lang: Language = query.lang === "us" || query.lang === "es" ? query.lang : "br";
+  const t = translations[lang];
   return <main className="bb">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <header className="bb-header">
