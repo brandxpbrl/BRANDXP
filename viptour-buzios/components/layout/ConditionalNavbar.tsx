@@ -14,6 +14,8 @@ export function ConditionalNavbar() {
     pathname.startsWith("/zaptdeliverybz/") ||
     pathname === "/mell-stone" ||
     pathname.startsWith("/mell-stone/") ||
+    pathname === "/projects/buzios-buggy" ||
+    pathname.startsWith("/projects/buzios-buggy/") ||
     pathname === "/mpe" ||
     pathname.startsWith("/mpe/")
   ) {
