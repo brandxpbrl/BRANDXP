@@ -7,14 +7,14 @@ import { ArrowRight, ArrowUpRight, Aperture, Box, Leaf, Plane, Sparkles } from '
 const worlds = [
   { title: 'CREATE', subtitle: 'Brand Experience · Fragma · Content', image: '/images/orbis/ecosystem/create.png', accent: 'from-fuchsia-500/32', border: 'border-fuchsia-400/35', icon: Sparkles, href: '/brand-experience' },
   { title: 'TECHNOLOGY', subtitle: 'QUBIT · MPE · AI Solutions', image: '/images/orbis/ecosystem/technology.png', accent: 'from-cyan-500/28', border: 'border-cyan-400/35', icon: Box, href: '/qubit' },
-  { title: 'TRAVEL', subtitle: 'FELA · VIPTOUR · Transfers', image: '/images/orbis/ecosystem/travel.png', accent: 'from-teal-400/26', border: 'border-teal-300/35', icon: Plane, href: '/projects/viptour' },
+  { title: 'TRAVEL', subtitle: 'FELA · BUZIOS BUGGY · Transfers', image: '/images/orbis/ecosystem/travel.png', accent: 'from-teal-400/26', border: 'border-teal-300/35', icon: Plane, href: '/projects/buzios-buggy' },
   { title: 'BUILD', subtitle: 'Woodcraft · Electrical · Construction', image: '/images/orbis/ecosystem/build.png', accent: 'from-amber-500/26', border: 'border-amber-400/35', icon: Aperture, href: '/gonzalo' },
   { title: 'LIFESTYLE', subtitle: 'ZAPT · Gastronomy · Experiences', image: '/images/orbis/ecosystem/lifestyle.png', accent: 'from-lime-400/24', border: 'border-lime-400/35', icon: Leaf, href: '/zaptdeliverybz' },
 ];
 
 const featured = [
   { title: 'FRAGMA', kicker: 'FILMMAKING & VISUAL STORYTELLING', href: '/fragma-brand-experience', image: '/images/buziosama-retiros.jpg', logo: '/images/fragma-logo.png', position: 'object-center' },
-  { title: 'VIPTOUR', kicker: 'BÚZIOS EXPERIENCES', href: '/projects/viptour', image: '/images/hero-buggy.png', position: 'object-center' },
+  { title: 'BUZIOS BUGGY', kicker: 'BÚZIOS EXPERIENCES', href: '/projects/buzios-buggy', image: '/images/hero-buggy.png', position: 'object-center' },
   { title: 'QUBIT', kicker: 'TECHNOLOGY & AI SOLUTIONS', href: '/qubit', image: '/assets/cognitive-core-Cc-9lS73.png', position: 'object-center' },
 ];
 
@@ -23,7 +23,7 @@ const services = [
   { title: 'MPE', meta: 'Evolutionary Intelligence', href: '/mpe', accent: 'text-violet-300 border-violet-400/35', image: '/images/vivo_nivel2_073748.png', imageClass: 'object-cover object-center' },
   { title: 'QUBIT', meta: 'Technology & AI', href: '/qubit', accent: 'text-cyan-300 border-cyan-400/35', image: '/images/qubit/qubit-1.png', imageClass: 'object-cover object-center' },
   { title: 'FRAGMA', meta: 'Photography & Content', href: '/fragma-brand-experience', accent: 'text-pink-300 border-pink-400/35', image: '/images/fragma sin fondo.png', imageClass: 'object-contain p-10' },
-  { title: 'VIPTOUR', meta: 'Búzios Experiences', href: '/projects/viptour', accent: 'text-teal-300 border-teal-400/35', image: '/images/hero-buggy.png', imageClass: 'object-cover object-center' },
+  { title: 'BUZIOS BUGGY', meta: 'Búzios Experiences', href: '/projects/buzios-buggy', accent: 'text-teal-300 border-teal-400/35', image: '/images/hero-buggy.png', imageClass: 'object-cover object-center' },
   { title: 'FELA TOURS', meta: 'Tours & Transfers', href: '/felatours', accent: 'text-cyan-300 border-cyan-400/35', image: '/fela/transfers/private-premium.webp', imageClass: 'object-cover object-center' },
   { title: 'ZAPT', meta: 'Night Delivery', href: '/zaptdeliverybz', accent: 'text-lime-300 border-lime-400/35', image: '/images/zaptorbit.png', imageClass: 'object-cover object-center' },
   { title: 'MELL & STONE', meta: 'Natural Luxury Commerce', href: '/mell-stone', accent: 'text-amber-200 border-amber-400/35', image: '/images/mell-stone/products/conjunto-perolas-cristal-01.png', imageClass: 'object-cover object-center' },

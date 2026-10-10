@@ -41,12 +41,12 @@ const portfolioAreas = [
 
 const contentMap = [
   {
-    title: "Cliente VIPTOUR",
+    title: "Cliente Buzios Buggy",
     subtitle: "Landing ejemplo del ecosistema",
     body:
       "Aquí debe vivir la landing operativa del cliente con su narrativa, servicios, FAQ, contacto y SEO listo para producción.",
-    route: "/projects/viptour",
-    cta: "Abrir VIPTOUR",
+    route: "/projects/buzios-buggy",
+    cta: "Abrir Buzios Buggy",
   },
   {
     title: "Brand Experience",
@@ -129,7 +129,7 @@ export function PortfolioLibrary() {
             Reglas prácticas
           </p>
           <ul className="mt-5 space-y-3 text-sm leading-6 text-text-secondary">
-            <li>No mezclar VIPTOUR con Brand Experience.</li>
+            <li>No mezclar Buzios Buggy con Brand Experience.</li>
             <li>Guardar logos y variantes en `logos`.</li>
             <li>Usar `identidades` para boards y presentaciones de marca.</li>
             <li>Dejar `brand-systems` para reglas, color y tipografía.</li>

@@ -4,21 +4,21 @@ import { portalConfig } from "@/config/portal";
 
 export const metadata: Metadata = {
   title: "Proyectos",
-  description: "Casos de éxito del ecosistema, comenzando por VIPTOUR BÚZIOS.",
+  description: "Casos de éxito del ecosistema, comenzando por Buzios Buggy.",
   alternates: { canonical: "/projects" },
   openGraph: {
     title: "Proyectos",
-    description: "Casos de éxito del ecosistema, comenzando por VIPTOUR BÚZIOS.",
+    description: "Casos de éxito del ecosistema, comenzando por Buzios Buggy.",
     url: `${portalConfig.url}/projects`,
   },
 };
 
 const projectItems = [
   {
-    title: "VIPTOUR BÚZIOS",
+    title: "Buzios Buggy",
     description:
       "Landing premium construida con los motores del ecosistema para excursiones y alquiler de buggy.",
-    href: "/projects/viptour",
+    href: "/projects/buzios-buggy",
     cta: "Ver proyecto",
   },
 ];
@@ -28,7 +28,7 @@ export default function ProjectsPage() {
     <PortalPage
       eyebrow="Casos de éxito"
       title="Proyectos creados sobre los motores del ecosistema"
-      description="La primera tarjeta está reservada para VIPTOUR BÚZIOS y redirige a la landing ya construida."
+      description="Conoce Buzios Buggy: paseos privativos por las playas y miradores de Búzios."
     >
       <PortalCardGrid items={projectItems} />
     </PortalPage>
