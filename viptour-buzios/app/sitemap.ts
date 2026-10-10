@@ -42,6 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+    {
+      url: `${siteConfig.url}/projects/buzios-buggy`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     ...[
       ['/mell-stone', 'weekly', 0.86],
       ['/mell-stone/shop', 'weekly', 0.78],
