@@ -45,3 +45,171 @@
 .bb-other-link{display:block;font-weight:bold;color:#0d7fa8!important;margin:10px 0 12px}
 .bb-other article>a:focus-visible,.bb-tour-back:focus-visible{outline:3px solid #128fba;outline-offset:3px}
 @media(max-width:700px){.bb-tour-hero{min-height:360px}.bb-tour-title{padding:45px 22px 30px}.bb-tour-title h1{font-size:clamp(35px,9vw,56px)}.bb-tour-content{padding-top:28px}.bb-tour-lead{font-size:20px}.bb-tour-highlights{padding:24px 19px}.bb-tour-cta{padding:28px 18px}}
+
+
+/* Buzios Buggy: reference-driven modular experience sections */
+.bb-reference{background:#fff;color:#23313a;font-family:Arial,Helvetica,sans-serif}
+.bb-reference .bb-wrap{max-width:1000px}
+.bb-reference h2{font-size:clamp(28px,3.8vw,43px);line-height:1.15;letter-spacing:-.035em;font-weight:800;text-align:center;color:#212529;margin:18px auto 20px}
+.bb-reference h3{font-size:clamp(19px,2.4vw,25px);line-height:1.25;font-weight:750;color:#22323a}
+.bb-ref-section{padding:75px 0}
+.bb-ref-mist{background:linear-gradient(135deg,#f3fcff 0%,#eaf9f5 100%)}
+.bb-ref-deck{font-size:clamp(19px,2.4vw,27px);line-height:1.58;color:#577581;text-align:center;max-width:840px;margin:15px auto 46px}
+.bb-ref-top-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:40px;max-width:820px;margin:22px auto 50px;align-items:center}
+.bb-ref-pricing{padding:32px 25px;border:1px solid #dce7eb;border-radius:20px;box-shadow:0 12px 27px #123a4a16;text-align:center;background:white}
+.bb-ref-pill{background:#129ed0;border-radius:100px;padding:10px 20px;display:inline-block;color:white;font-weight:800;letter-spacing:.03em;font-size:13px}
+.bb-ref-price-label,.bb-ref-offer>p{margin:17px auto;color:#6d8591;font-size:16px}
+.bb-ref-price{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:18px 0}
+.bb-ref-price del{font-size:21px;font-weight:700;color:#758b96;line-height:1.2}
+.bb-ref-price strong{font-size:clamp(45px,6vw,78px);color:#139fce;letter-spacing:-.06em;line-height:1}
+.bb-ref-price span{font-weight:650;color:#57717c;max-width:85px}
+.bb-ref-pricing hr{border:0;border-top:1px solid #e3ebee;margin:22px auto}
+.bb-ref-kid-title{font-size:16px;font-weight:800;margin:9px 0}
+.bb-ref-kids{display:grid;gap:7px;font-size:16px;color:#556f7d}
+.bb-ref-expiry{font-size:13px;margin-top:20px;color:#5d7e8c}
+.bb-ref-assurance{background:#095476;border:6px solid #41b28b;border-radius:50%;width:260px;height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:25px 13px;box-shadow:0 12px 27px #123a4a20;text-align:center;color:white}
+.bb-reference .bb-ref-assurance h2{font-size:22px;color:white;margin:10px 0}
+.bb-ref-assurance p{font-weight:700;color:#fff;font-size:12px;line-height:1.4;margin:5px 0}
+.bb-ref-check{width:44px;height:44px;border-radius:50%;background:#27b780;color:white;display:grid;place-items:center;font-size:29px}
+.bb-ref-perks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:940px;margin:25px auto 40px}
+.bb-ref-perks>div{border-radius:14px;padding:22px 12px;border:1px solid #dbe6eb;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-align:center;background:#f9fcfd}
+.bb-ref-perks span{font-size:25px;color:#19a1cb}
+.bb-ref-perks strong{color:#394c56;font-size:14px;line-height:1.4}
+.bb-ref-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:950px;margin:40px auto 25px}
+.bb-ref-option{background:white;border:1px solid #dce9ee;border-radius:25px;box-shadow:0 10px 21px #08436e0b;padding:35px 28px;text-align:center}
+.bb-ref-number{width:61px;height:61px;border-radius:50%;background:#12a4d5;color:white;display:grid;place-items:center;font-size:36px;font-weight:800;margin:0 auto 25px}
+.bb-ref-option h3{max-width:400px;margin:0 auto 20px}
+.bb-ref-option ul{padding:0;margin:0;list-style:none;display:grid;gap:11px}
+.bb-ref-option li{color:#617a88;line-height:1.5;font-size:17px}
+.bb-ref-footnote{font-size:13px;color:#67838f;line-height:1.6;text-align:center;max-width:830px;margin:30px auto 0}
+.bb-ref-tag{display:table;margin:0 auto 20px;padding:10px 20px;border-radius:25px;background:#e7f6fc;color:#159cca;font-weight:800;letter-spacing:.1em;font-size:13px}
+.bb-ref-land-list{max-width:740px;margin:35px auto 30px}
+.bb-ref-land-list h3{text-align:center;margin-bottom:25px}
+.bb-ref-land-list ol{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 25px}
+.bb-ref-land-list li{display:flex;align-items:center;gap:16px;color:#516e7b;font-size:17px}
+.bb-ref-land-list li span{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:#e3f5fb;color:#159cca;display:grid;place-items:center;font-weight:800}
+.bb-ref-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;max-width:950px;margin:35px auto}
+.bb-ref-photo-grid figure{margin:0;border-radius:17px;overflow:hidden;position:relative;aspect-ratio:3/3.1;background:#cfe6ed}
+.bb-ref-photo-grid img{width:100%;height:100%;object-fit:cover}
+.bb-ref-photo-grid figcaption{position:absolute;bottom:0;left:0;right:0;padding:26px 14px 14px;background:linear-gradient(transparent,#000a);color:white;font-size:13px;font-weight:800}
+.bb-ref-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:850px;margin:30px auto 45px}
+.bb-ref-stats>div{display:flex;flex-direction:column;align-items:center;border:1px solid #dae7ee;padding:22px 10px;border-radius:15px;background:#fff}
+.bb-ref-stats strong{font-size:48px;line-height:1;color:#19a4d1}
+.bb-ref-stats span{color:#506e79;font-weight:750;text-align:center;font-size:15px;margin-top:6px}
+.bb-ref-ship{display:block;width:100%;max-width:700px;height:370px;object-fit:cover;object-position:center 45%;border-radius:20px;margin:30px auto;box-shadow:0 12px 20px #05283124}
+.bb-ref-boat-details{max-width:790px;margin:32px auto 0;padding:28px 32px;background:white;border-radius:19px;border:1px solid #dce9ed}
+.bb-ref-boat-details h3{color:#1398c4;margin-bottom:17px}
+.bb-ref-boat-details ul{margin:0 0 25px;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.bb-ref-boat-details li{color:#526d79;font-size:17px}
+.bb-ref-boat-details p{padding:13px 0;color:#526d79;border-top:1px solid #e5edf1;font-size:15px;line-height:1.6}
+.bb-ref-included{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:25px auto 55px}
+.bb-ref-included>div{padding:25px 28px;border-radius:20px;background:#f6fafb;border:1px solid #dce7ed}
+.bb-reference .bb-ref-included h2{font-size:22px;text-align:left;margin:0 0 20px}
+.bb-ref-included ul,.bb-ref-notes{display:grid;gap:14px;color:#54717b;line-height:1.5;padding-left:21px}
+.bb-reference .bb-ref-faq-title{margin-top:45px}
+.bb-ref-faq{max-width:800px;margin:25px auto}
+.bb-ref-faq details{border:1px solid #dbe9ef;border-radius:12px;margin:10px 0;padding:16px 21px;background:white}
+.bb-ref-faq summary{cursor:pointer;font-weight:750;font-size:16px;color:#293d48}
+.bb-ref-faq p{margin-top:14px;color:#597580;line-height:1.6}
+.bb-ref-book{text-align:center;margin:25px 0 8px}
+.bb-ref-book .bb-button{font-size:16px;padding:17px 30px}
+.bb-ref-info-header{display:grid;grid-template-columns:minmax(0,330px) 1fr;gap:35px;align-items:center;padding-top:48px;padding-bottom:48px}
+.bb-ref-offer{padding:30px 15px;border:1px solid #dce8ee;border-radius:22px;text-align:center;box-shadow:0 10px 22px #0b4a6c10}
+.bb-ref-offer .bb-ref-price{gap:11px}
+.bb-ref-offer .bb-ref-price strong{font-size:60px}
+.bb-ref-quick h2{text-align:left;margin:0 0 15px;font-size:29px}
+.bb-ref-quick p{font-size:17px;line-height:1.6;color:#5d7885}
+.bb-ref-quick ul{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0;list-style:none;margin:20px 0}
+.bb-ref-quick li{color:#516b77;font-size:14px}
+.bb-ref-timeline{max-width:800px;margin:35px auto;display:grid;gap:0}
+.bb-ref-timeline article{display:grid;grid-template-columns:105px 1fr;gap:28px;padding:22px 14px;border-bottom:1px solid #d3e6ec;align-items:start}
+.bb-ref-timeline article>span{font-size:19px;font-weight:800;color:#12a2cc;text-align:right}
+.bb-ref-timeline article h3{font-size:21px;margin-bottom:10px}
+.bb-ref-timeline article p{font-size:16px;color:#5b7886;line-height:1.6}
+.bb-ref-features{display:grid;grid-template-columns:1fr 1fr;gap:18px 30px;list-style:none;padding:0;max-width:900px;margin:30px auto}
+.bb-ref-features li{padding:19px;border-radius:11px;background:#eef9fc;color:#536c77;font-size:16px;line-height:1.4}
+.bb-ref-notes{max-width:800px;margin:25px auto}
+.bb-ref-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:21px;margin:40px auto}
+.bb-ref-route{background:white;border:1px solid #d7e7ed;overflow:hidden;border-radius:17px}
+.bb-ref-route-head{padding:24px;background:#f5fbfe}
+.bb-ref-route-head h3{font-size:21px;margin:0 0 10px}
+.bb-ref-route-head small{color:#57808d;font-size:14px}
+.bb-ref-table-wrap{overflow-x:auto;padding:8px 16px 20px}
+.bb-ref-route table{width:100%;border-collapse:collapse;font-size:14px}
+.bb-ref-route th{text-align:left;color:#56717c;font-weight:750;padding:12px 5px;border-bottom:1px solid #dce9ed}
+.bb-ref-route td{padding:11px 5px;color:#486b79;border-bottom:1px solid #edf1f2}
+.bb-ref-route td:last-child strong{color:#1299cb}
+@media(max-width:760px){
+ .bb-ref-section{padding:48px 0}
+ .bb-ref-top-grid{grid-template-columns:minmax(0,1fr);gap:0;max-width:460px;margin:12px auto 35px}
+ .bb-ref-assurance{order:-1;width:195px;height:195px;padding:20px 13px;margin:0 auto -19px;z-index:1}
+ .bb-reference .bb-ref-assurance h2{font-size:17px}
+ .bb-ref-assurance p{font-size:10px;margin:3px 0}
+ .bb-ref-pricing{padding:45px 22px 23px}
+ .bb-ref-perks{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .bb-ref-options{grid-template-columns:1fr;max-width:470px}
+ .bb-ref-option{padding:30px 20px}
+ .bb-ref-land-list ol{grid-template-columns:1fr;max-width:490px;margin:auto}
+ .bb-ref-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .bb-ref-photo-grid figure:last-child{grid-column:span 2;aspect-ratio:16/9}
+ .bb-ref-stats{gap:9px}
+ .bb-ref-stats strong{font-size:36px}
+ .bb-ref-stats span{font-size:12px}
+ .bb-ref-ship{height:300px}
+ .bb-ref-boat-details{padding:23px 18px}
+ .bb-ref-boat-details ul{grid-template-columns:1fr}
+ .bb-ref-included,.bb-ref-info-header,.bb-ref-routes{grid-template-columns:1fr}
+ .bb-ref-info-header{gap:22px}
+ .bb-ref-quick h2{text-align:center}
+ .bb-ref-quick ul{grid-template-columns:1fr 1fr}
+ .bb-ref-features{grid-template-columns:1fr}
+ .bb-ref-timeline article{grid-template-columns:80px 1fr;gap:16px}
+ .bb-ref-timeline article>span{font-size:16px}
+}
+@media(max-width:420px){.bb-ref-price{gap:10px}.bb-ref-price del{font-size:19px}.bb-ref-price strong{font-size:51px}.bb-ref-photo-grid figcaption{font-size:11px}.bb-ref-quick ul{grid-template-columns:1fr}}
+
+
+/* Mobile viewport polish: keep every client tour within the visible screen.
+   Scoped to Buzios Buggy, does not touch ORBIS or other brand pages. */
+.bb{color-scheme:only light;max-width:100%;overflow-x:clip}
+.bb-tour-detail,.bb-tour-content,.bb-tour-hero,.bb-reference{min-width:0;max-width:100%;overflow-wrap:break-word}
+.bb-tour-content .bb-reference{width:100%}
+.bb-tour-detail .bb-tour-content > .bb-reference .bb-wrap{max-width:100%}
+.bb-tour-detail .bb-tour-content > .bb-reference{margin-left:-22px;margin-right:-22px;width:calc(100% + 44px)}
+/* Transfer photograph contains promotional typography in the source; move
+   attention to the vehicle without treating image text as live page copy. */
+.bb-tour-transfer .bb-tour-cover{object-position:65% 70%!important}
+.bb-tour-transfer .bb-tour-shade{background:linear-gradient(180deg,rgba(0,32,49,.75),rgba(0,28,48,.05) 42%,rgba(0,23,43,.85))}
+@media(max-width:760px){
+ .bb-header{width:100%}
+ .bb-top{gap:10px;padding:14px 16px}
+ .bb-logo{font-size:clamp(22px,6vw,28px);white-space:nowrap;letter-spacing:-.7px}
+ .bb-toplinks{gap:3px;flex-shrink:0}
+ .bb-toplinks a:not(.bb-lang){display:none}
+ .bb-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:8px;overflow:visible}
+ .bb-service{min-width:0;width:100%;height:62px;gap:5px;border-radius:15px;padding:8px 6px;justify-content:flex-start}
+ .bb-service .bb-icon{flex:0 0 19px;font-size:18px;text-align:center}
+ .bb-service>span:last-child{min-width:0;flex:1;display:block;overflow:hidden}
+ .bb-service strong,.bb-service small{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .bb-service strong{font-size:11px;letter-spacing:-.1px}
+ .bb-service small{font-size:10px}
+ .bb-tour-detail{scroll-margin-top:184px}
+ .bb-tour-hero{min-height:330px}
+ .bb-tour-title{padding:44px 20px 26px}
+ .bb-tour-title h1{font-size:clamp(31px,8vw,42px);line-height:1.13;letter-spacing:-1px}
+ .bb-tour-title p{font-size:17px;line-height:1.45}
+ .bb-tour-content{padding-top:18px}
+ .bb-tour-lead{font-size:clamp(17px,4.65vw,20px)!important;line-height:1.55;margin:0 auto 20px}
+ .bb-tour-content .bb-reference{margin-top:18px}
+ .bb-reference .bb-ref-deck{font-size:clamp(17px,4.8vw,22px);line-height:1.52}
+ .bb-reference h2{font-size:clamp(24px,6.7vw,32px)}
+ .bb-floating{width:55px;height:55px;font-size:28px;right:15px;bottom:18px}
+}
+@media(max-width:390px){
+ .bb-logo{font-size:22px}
+ .bb-top{padding:13px 12px}
+ .bb-toplinks .bb-lang{min-width:23px;padding:7px 4px;font-size:11px}
+ .bb-service{gap:4px;padding:7px 5px}
+ .bb-service strong{font-size:10px}
+ .bb-service small{font-size:9px}
+}

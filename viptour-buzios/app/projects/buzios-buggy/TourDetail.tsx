@@ -1,3 +1,5 @@
+import ComboExperience from "./ComboExperience";
+import OtherTourExperience from "./OtherTourExperience";
 export type TourId = "buggy" | "combo" | "barco" | "arubinha" | "arraial" | "transfer";
 type DetailId = Exclude<TourId, "buggy">;
 type Language = "br" | "us" | "es";
@@ -8,7 +10,7 @@ const tours: Record<DetailId, { icon: string; image: string; imagePosition?: str
   combo: {
     icon: "⛴",
     // Imagem da parte marítima do combo. Fotos dos buggies reais serão adicionadas pelo cliente.
-    image: "https://buggybuzios.com/__l5e/assets-v1/f248ff38-06a7-4305-a8b6-598fff085d3f/boat-g1-praia-azeda-aerea.jpg",
+    image: "https://buggybuzios.com/__l5e/assets-v1/44107ff9-3c96-48c4-b08a-9ce9d781163a/gallery-mergulho-snorkel-buzios.jpg",
     copy: {
       br: { title: "Combo Búzios — Buggy + Barco", subtitle: "Búzios por terra e por mar", intro: "Uma experiência que combina o passeio de buggy pelos mirantes e praias de Búzios com um passeio de barco pelas paisagens do litoral. Consulte a programação para aproveitar as duas experiências no mesmo dia.", highlights: ["Passeio guiado de buggy de aproximadamente 1h30", "Passeio de barco com paradas de banho, conforme as condições do mar", "Experiências de terra e mar no mesmo dia"], callout: "Consulte valores, horários e disponibilidade pelo WhatsApp.", imageAlt: "Vista aérea da Praia Azeda, Búzios, com barcos no mar" },
       us: { title: "Búzios Combo — Buggy + Boat", subtitle: "Discover Búzios by land and sea", intro: "Combine a guided buggy experience around the scenic viewpoints and beaches of Búzios with a boat trip along the coast. Ask about scheduling both experiences on the same day.", highlights: ["Guided buggy tour lasting approximately 90 minutes", "Boat trip with swimming stops, subject to sea conditions", "Land and sea experiences on the same day"], callout: "Ask for pricing, departure details and availability on WhatsApp.", imageAlt: "Aerial view of Praia Azeda, Búzios, with boats" },
@@ -66,7 +68,7 @@ export default function TourDetail({ tour, lang, bookingUrl }: { tour: DetailId;
   const l = labels[lang];
 
   return (
-    <section id="inicio" className="bb-tour-detail">
+    <section id="inicio" className={`bb-tour-detail bb-tour-${tour}`}>
       <div className="bb-tour-hero">
         <img className="bb-tour-cover" src={data.image} alt={copy.imageAlt} style={{ objectPosition: data.imagePosition ?? "center 48%" }} />
         <div className="bb-tour-shade" />
@@ -78,15 +80,7 @@ export default function TourDetail({ tour, lang, bookingUrl }: { tour: DetailId;
       </div>
       <div className="bb-wrap bb-tour-content">
         <p className="bb-tour-lead">{copy.intro}</p>
-        <div className="bb-tour-highlights">
-          <h2>{l.highlights}</h2>
-          <ul>{copy.highlights.map(line => <li key={line}><span aria-hidden="true">✓</span>{line}</li>)}</ul>
-        </div>
-        <div className="bb-tour-cta">
-          <h2>{l.schedule}</h2>
-          <p>{copy.callout}</p>
-          <a className="bb-button" href={bookingUrl} target="_blank" rel="noopener noreferrer">{l.cta}</a>
-        </div>
+        {tour === "combo" ? <ComboExperience lang={lang} bookingUrl={bookingUrl} /> : <OtherTourExperience tour={tour} lang={lang} bookingUrl={bookingUrl} />}
         <p className="bb-tour-image-note">{l.note}</p>
         <a className="bb-tour-back" href={"/projects/buzios-buggy?lang=" + lang + "&tour=buggy"}>← {l.back}</a>
       </div>
