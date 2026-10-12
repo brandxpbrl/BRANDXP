@@ -1,0 +1,14 @@
+/* Resilient web typography: Google Fonts is loaded by the browser, not at build time.
+   Fallbacks allow pages to render even when Google Fonts is unavailable. */
+html {
+  --font-montserrat: "Montserrat", "Arial", sans-serif;
+  --font-orbis: "Michroma", "Montserrat", "Arial", sans-serif;
+}
+.fragma-scope {
+  --fragma-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --fragma-font-body: "Manrope", Arial, sans-serif;
+}
+.mell-scope {
+  --mell-font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --mell-font-body: "Manrope", Arial, sans-serif;
+}
