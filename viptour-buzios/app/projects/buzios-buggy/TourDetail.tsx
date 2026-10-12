@@ -1,3 +1,5 @@
+import ComboExperience from "./ComboExperience";
+import OtherTourExperience from "./OtherTourExperience";
 export type TourId = "buggy" | "combo" | "barco" | "arubinha" | "arraial" | "transfer";
 type DetailId = Exclude<TourId, "buggy">;
 type Language = "br" | "us" | "es";
@@ -78,6 +80,7 @@ export default function TourDetail({ tour, lang, bookingUrl }: { tour: DetailId;
       </div>
       <div className="bb-wrap bb-tour-content">
         <p className="bb-tour-lead">{copy.intro}</p>
+        {tour === "combo" ? <ComboExperience lang={lang} bookingUrl={bookingUrl} /> : <OtherTourExperience tour={tour} lang={lang} bookingUrl={bookingUrl} />}
         <div className="bb-tour-highlights">
           <h2>{l.highlights}</h2>
           <ul>{copy.highlights.map(line => <li key={line}><span aria-hidden="true">✓</span>{line}</li>)}</ul>
