@@ -51,8 +51,8 @@ const texts = {
 } as const;
 
 const landImages = [
-  ["Orla Bardot","https://buggybuzios.com/__l5e/assets-v1/fd52298f-b9b1-4835-95b5-03745cedcf9d/gallery-mirante-joao-fernandes-buzios.jpg"],
-  ["Praia Brava","https://buggybuzios.com/__l5e/assets-v1/afdb1be5-a7d6-413b-a032-e3201d742517/gallery-mirante-praia-forno-buzios.jpg"],
+  ["Mirante João Fernandes","https://buggybuzios.com/__l5e/assets-v1/fd52298f-b9b1-4835-95b5-03745cedcf9d/gallery-mirante-joao-fernandes-buzios.jpg"],
+  ["Mirante Praia do Forno","https://buggybuzios.com/__l5e/assets-v1/afdb1be5-a7d6-413b-a032-e3201d742517/gallery-mirante-praia-forno-buzios.jpg"],
   ["Praia da Ferradura","https://buggybuzios.com/__l5e/assets-v1/f38111f3-8bf8-4729-93ce-0414798561df/gallery-praia-ferradura-aerea-buzios.jpg"],
 ];
 
