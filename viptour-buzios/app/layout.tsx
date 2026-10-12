@@ -4,8 +4,7 @@ import "./web-fonts.css";
 import "./zapt.css";
 import { portalConfig } from "@/config/portal";
 import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
-import SelfObserverIdentity from "@/components/system/SelfObserverIdentity";
-import { MaxPublicObserver } from "@/components/max/MaxPublicObserver";
+import { ClientObservers } from "@/components/layout/ClientObservers";
 
 export const metadata: Metadata = {
   metadataBase: new URL(portalConfig.url),
@@ -66,8 +65,7 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex flex-col">
         <ConditionalNavbar />
         {children}
-        <SelfObserverIdentity />
-        <MaxPublicObserver />
+        <ClientObservers />
       </body>
     </html>
   );
