@@ -81,15 +81,6 @@ export default function TourDetail({ tour, lang, bookingUrl }: { tour: DetailId;
       <div className="bb-wrap bb-tour-content">
         <p className="bb-tour-lead">{copy.intro}</p>
         {tour === "combo" ? <ComboExperience lang={lang} bookingUrl={bookingUrl} /> : <OtherTourExperience tour={tour} lang={lang} bookingUrl={bookingUrl} />}
-        <div className="bb-tour-highlights">
-          <h2>{l.highlights}</h2>
-          <ul>{copy.highlights.map(line => <li key={line}><span aria-hidden="true">✓</span>{line}</li>)}</ul>
-        </div>
-        <div className="bb-tour-cta">
-          <h2>{l.schedule}</h2>
-          <p>{copy.callout}</p>
-          <a className="bb-button" href={bookingUrl} target="_blank" rel="noopener noreferrer">{l.cta}</a>
-        </div>
         <p className="bb-tour-image-note">{l.note}</p>
         <a className="bb-tour-back" href={"/projects/buzios-buggy?lang=" + lang + "&tour=buggy"}>← {l.back}</a>
       </div>
