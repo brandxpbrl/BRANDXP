@@ -68,7 +68,7 @@ export default function TourDetail({ tour, lang, bookingUrl }: { tour: DetailId;
   const l = labels[lang];
 
   return (
-    <section id="inicio" className="bb-tour-detail">
+    <section id="inicio" className={`bb-tour-detail bb-tour-${tour}`}>
       <div className="bb-tour-hero">
         <img className="bb-tour-cover" src={data.image} alt={copy.imageAlt} style={{ objectPosition: data.imagePosition ?? "center 48%" }} />
         <div className="bb-tour-shade" />
