@@ -10,7 +10,7 @@ const tours: Record<DetailId, { icon: string; image: string; imagePosition?: str
   combo: {
     icon: "⛴",
     // Imagem da parte marítima do combo. Fotos dos buggies reais serão adicionadas pelo cliente.
-    image: "https://buggybuzios.com/__l5e/assets-v1/f248ff38-06a7-4305-a8b6-598fff085d3f/boat-g1-praia-azeda-aerea.jpg",
+    image: "https://buggybuzios.com/__l5e/assets-v1/44107ff9-3c96-48c4-b08a-9ce9d781163a/gallery-mergulho-snorkel-buzios.jpg",
     copy: {
       br: { title: "Combo Búzios — Buggy + Barco", subtitle: "Búzios por terra e por mar", intro: "Uma experiência que combina o passeio de buggy pelos mirantes e praias de Búzios com um passeio de barco pelas paisagens do litoral. Consulte a programação para aproveitar as duas experiências no mesmo dia.", highlights: ["Passeio guiado de buggy de aproximadamente 1h30", "Passeio de barco com paradas de banho, conforme as condições do mar", "Experiências de terra e mar no mesmo dia"], callout: "Consulte valores, horários e disponibilidade pelo WhatsApp.", imageAlt: "Vista aérea da Praia Azeda, Búzios, com barcos no mar" },
       us: { title: "Búzios Combo — Buggy + Boat", subtitle: "Discover Búzios by land and sea", intro: "Combine a guided buggy experience around the scenic viewpoints and beaches of Búzios with a boat trip along the coast. Ask about scheduling both experiences on the same day.", highlights: ["Guided buggy tour lasting approximately 90 minutes", "Boat trip with swimming stops, subject to sea conditions", "Land and sea experiences on the same day"], callout: "Ask for pricing, departure details and availability on WhatsApp.", imageAlt: "Aerial view of Praia Azeda, Búzios, with boats" },
