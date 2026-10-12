@@ -167,3 +167,49 @@
  .bb-ref-timeline article>span{font-size:16px}
 }
 @media(max-width:420px){.bb-ref-price{gap:10px}.bb-ref-price del{font-size:19px}.bb-ref-price strong{font-size:51px}.bb-ref-photo-grid figcaption{font-size:11px}.bb-ref-quick ul{grid-template-columns:1fr}}
+
+
+/* Mobile viewport polish: keep every client tour within the visible screen.
+   Scoped to Buzios Buggy, does not touch ORBIS or other brand pages. */
+.bb{color-scheme:only light;max-width:100%;overflow-x:clip}
+.bb-tour-detail,.bb-tour-content,.bb-tour-hero,.bb-reference{min-width:0;max-width:100%;overflow-wrap:break-word}
+.bb-tour-content .bb-reference{width:100%}
+.bb-tour-detail .bb-tour-content > .bb-reference .bb-wrap{max-width:100%}
+.bb-tour-detail .bb-tour-content > .bb-reference{margin-left:-22px;margin-right:-22px;width:calc(100% + 44px)}
+/* Transfer photograph contains promotional typography in the source; move
+   attention to the vehicle without treating image text as live page copy. */
+.bb-tour-transfer .bb-tour-cover{object-position:65% 70%!important}
+.bb-tour-transfer .bb-tour-shade{background:linear-gradient(180deg,rgba(0,32,49,.75),rgba(0,28,48,.05) 42%,rgba(0,23,43,.85))}
+@media(max-width:760px){
+ .bb-header{width:100%}
+ .bb-top{gap:10px;padding:14px 16px}
+ .bb-logo{font-size:clamp(22px,6vw,28px);white-space:nowrap;letter-spacing:-.7px}
+ .bb-toplinks{gap:3px;flex-shrink:0}
+ .bb-toplinks a:not(.bb-lang){display:none}
+ .bb-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:8px;overflow:visible}
+ .bb-service{min-width:0;width:100%;height:62px;gap:5px;border-radius:15px;padding:8px 6px;justify-content:flex-start}
+ .bb-service .bb-icon{flex:0 0 19px;font-size:18px;text-align:center}
+ .bb-service>span:last-child{min-width:0;flex:1;display:block;overflow:hidden}
+ .bb-service strong,.bb-service small{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .bb-service strong{font-size:11px;letter-spacing:-.1px}
+ .bb-service small{font-size:10px}
+ .bb-tour-detail{scroll-margin-top:184px}
+ .bb-tour-hero{min-height:330px}
+ .bb-tour-title{padding:44px 20px 26px}
+ .bb-tour-title h1{font-size:clamp(31px,8vw,42px);line-height:1.13;letter-spacing:-1px}
+ .bb-tour-title p{font-size:17px;line-height:1.45}
+ .bb-tour-content{padding-top:18px}
+ .bb-tour-lead{font-size:clamp(17px,4.65vw,20px)!important;line-height:1.55;margin:0 auto 20px}
+ .bb-tour-content .bb-reference{margin-top:18px}
+ .bb-reference .bb-ref-deck{font-size:clamp(17px,4.8vw,22px);line-height:1.52}
+ .bb-reference h2{font-size:clamp(24px,6.7vw,32px)}
+ .bb-floating{width:55px;height:55px;font-size:28px;right:15px;bottom:18px}
+}
+@media(max-width:390px){
+ .bb-logo{font-size:22px}
+ .bb-top{padding:13px 12px}
+ .bb-toplinks .bb-lang{min-width:23px;padding:7px 4px;font-size:11px}
+ .bb-service{gap:4px;padding:7px 5px}
+ .bb-service strong{font-size:10px}
+ .bb-service small{font-size:9px}
+}
