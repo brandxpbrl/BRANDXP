@@ -1,15 +1,4 @@
-import { Cormorant_Garamond, Manrope } from "next/font/google";
-
-export const mellDisplayFont = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--mell-font-display",
-  display: "swap",
-});
-
-export const mellBodyFont = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--mell-font-body",
-  display: "swap",
-});
+// Runtime CSS families defined in app/web-fonts.css.
+// Keep the original variable class API used by Mell & Stone, without build-time downloads.
+export const mellDisplayFont = { variable: "mell-fonts" } as const;
+export const mellBodyFont = { variable: "mell-fonts" } as const;
