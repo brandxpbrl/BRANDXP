@@ -1,25 +1,10 @@
 import type { Metadata } from "next";
-import { Michroma, Montserrat } from "next/font/google";
 import "./globals.css";
+import "./web-fonts.css";
 import "./zapt.css";
 import { portalConfig } from "@/config/portal";
 import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
-import SelfObserverIdentity from "@/components/system/SelfObserverIdentity";
-import { MaxPublicObserver } from "@/components/max/MaxPublicObserver";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
-
-const orbisDisplay = Michroma({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-orbis",
-  display: "swap",
-});
+import { ClientObservers } from "@/components/layout/ClientObservers";
 
 export const metadata: Metadata = {
   metadataBase: new URL(portalConfig.url),
@@ -68,12 +53,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${montserrat.variable} ${orbisDisplay.variable} scroll-smooth`}>
+    <html lang="es" className="scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Michroma&family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        />
+      </head>
       <body className="antialiased min-h-screen flex flex-col">
         <ConditionalNavbar />
         {children}
-        <SelfObserverIdentity />
-        <MaxPublicObserver />
+        <ClientObservers />
       </body>
     </html>
   );
