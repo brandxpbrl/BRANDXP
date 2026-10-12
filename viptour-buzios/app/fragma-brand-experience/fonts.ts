@@ -1,4 +1,4 @@
-import { Manrope, Playfair_Display } from "next/font/google";
-
-export const fragmaDisplayFont = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fragma-font-display", display: "swap" });
-export const fragmaBodyFont = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fragma-font-body", display: "swap" });
+// Runtime CSS families defined in app/web-fonts.css.
+// Keep the original variable class API used by Fragma, without build-time downloads.
+export const fragmaDisplayFont = { variable: "fragma-fonts" } as const;
+export const fragmaBodyFont = { variable: "fragma-fonts" } as const;
