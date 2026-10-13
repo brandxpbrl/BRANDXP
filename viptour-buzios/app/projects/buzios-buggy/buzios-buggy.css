@@ -213,3 +213,78 @@
  .bb-service strong{font-size:10px}
  .bb-service small{font-size:9px}
 }
+
+
+/* Buzios Buggy: accessible, language-aware three-line navigation overlay */
+.bb .bb-menu{position:relative;z-index:100}
+.bb .bb-menu-trigger{display:grid;place-items:center;cursor:pointer;list-style:none;width:42px;height:42px;border-radius:10px;color:#24343b;background:transparent;user-select:none}
+.bb .bb-menu-trigger::-webkit-details-marker{display:none}
+.bb .bb-menu-trigger::marker{display:none;content:""}
+.bb .bb-menu-trigger:hover,.bb .bb-menu[open]>.bb-menu-trigger{background:#e9f6fb}
+.bb .bb-menu-trigger:focus-visible{outline:3px solid #169ed1;outline-offset:3px}
+.bb .bb-menu-bars{display:inline-flex;align-items:center;justify-content:center;font-size:32px;font-family:Arial,sans-serif;line-height:1;font-weight:400}
+.bb .bb-menu-panel{position:absolute;right:0;top:calc(100% + 15px);width:min(375px,calc(100vw - 24px));max-height:min(640px,calc(100dvh - 140px));overflow-y:auto;overscroll-behavior:contain;padding:12px 0;background:white;color:#304a55;border:1px solid #dce8ed;border-radius:16px;box-shadow:0 18px 48px #082b4050;z-index:120}
+.bb .bb-menu-panel a{display:block!important;padding:13px 21px;color:#3c5560!important;font-size:16px;line-height:1.35;font-weight:550;white-space:normal}
+.bb .bb-menu-panel a:hover,.bb .bb-menu-panel a[aria-current="page"]{background:#e8f7fc;color:#087ba7!important}
+.bb .bb-menu-panel a:focus-visible{outline:2px solid #149ed1;outline-offset:-3px}
+@media(max-width:760px){
+ .bb .bb-menu-trigger{width:34px;height:40px}
+ .bb .bb-menu-bars{font-size:28px}
+ .bb .bb-menu-panel{top:calc(100% + 12px);right:-6px;max-height:calc(100dvh - 110px)}
+}
+
+/* Rental of the client's own buggies — no third-party vehicle photos. */
+.bb-rental{background:#fff;color:#243d48;scroll-margin-top:170px}
+.bb-rental-hero{background:radial-gradient(circle at 85% 25%,#6ad6e66b,transparent 45%),linear-gradient(115deg,#07547b,#138fbb 85%);color:white;padding:88px 0 80px}
+.bb-rental-eyebrow{display:inline-flex;padding:10px 18px;border:1px solid #ffffff75;border-radius:30px;letter-spacing:.13em;font-weight:800;font-size:12px;margin-bottom:18px}
+.bb-rental-hero h1{font-weight:850;color:white;font-size:clamp(37px,5.7vw,68px);line-height:1.08;letter-spacing:-.035em;margin:0 0 17px;max-width:810px}
+.bb-rental-hero p{color:#e7faff;font-size:clamp(18px,2.3vw,26px);max-width:750px;line-height:1.55}
+.bb-rental-body{padding-top:42px;padding-bottom:76px}
+.bb-rental-top{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:26px;max-width:950px;margin:0 auto 58px;align-items:center}
+.bb-rental-price{text-align:center;padding:27px 24px;background:white;border:1px solid #dce9ed;border-radius:20px;box-shadow:0 10px 24px #08548112}
+.bb-rental-price .bb-ref-pill{font-size:11px}
+.bb-rental-money{display:flex;align-items:center;justify-content:center;gap:14px;margin:26px 0 7px}
+.bb-rental-money del{color:#7b939c;font-size:21px;font-weight:700}
+.bb-rental-money strong{color:#10a0cf;font-weight:850;font-size:clamp(43px,5.5vw,62px);letter-spacing:-.05em}
+.bb-rental-price p{font-weight:700;color:#4f6f7e;font-size:18px;margin:5px 0 13px}
+.bb-rental-price small{display:block;font-size:12px;line-height:1.5;color:#64808b}
+.bb-rental-price .bb-button{margin:22px 0 0}
+.bb-rental-keypoints{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.bb-rental-keypoints>div{display:flex;align-items:center;gap:11px;min-height:112px;padding:18px 14px;border:1px solid #dce8ed;background:#f7fcff;border-radius:15px;color:#3c5967}
+.bb-rental-keypoints span{font-size:28px;color:#109dcb}
+.bb-rental-keypoints strong{font-size:15px;line-height:1.45}
+.bb-rental-photo-placeholder{max-width:950px;margin:0 auto 72px;min-height:220px;border:2px dashed #a9dce9;border-radius:22px;background:linear-gradient(125deg,#ecfbff,#f4f9fa);display:flex;align-items:center;gap:25px;padding:35px 50px}
+.bb-rental-photo-placeholder>span{font-size:57px}
+.bb-rental-photo-placeholder h2{font-size:25px;font-weight:800;color:#23556b;margin:0 0 9px}
+.bb-rental-photo-placeholder p{font-size:16px;color:#5a7885;line-height:1.6;max-width:610px}
+.bb-rental-section{max-width:950px;margin:0 auto 70px}
+.bb-rental-section h2{font-size:clamp(25px,3.5vw,35px);font-weight:850;margin:0 0 30px;text-align:center}
+.bb-rental-benefits{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.bb-rental-benefits li{display:flex;gap:12px;align-items:center;padding:20px;border-radius:13px;background:#f0f9fc;color:#456774}
+.bb-rental-benefits li span{color:#0da0ce;font-size:24px}
+.bb-rental-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.bb-rental-steps article{padding:25px 17px 22px;background:white;border:1px solid #dce8ef;border-radius:17px;text-align:center}
+.bb-rental-steps article>span{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#14a0cf;color:white;font-weight:800;font-size:25px;margin:0 auto 16px}
+.bb-rental-steps h3{color:#243e4b;font-size:18px;line-height:1.25;font-weight:800;margin:0 0 10px}
+.bb-rental-steps p{color:#5b7885;font-size:14px;line-height:1.6}
+.bb-rental-rules{max-width:810px;margin:auto;padding:24px 35px 24px 51px;background:#f5fbfe;border:1px solid #e0ebef;border-radius:19px;color:#536f7d;display:grid;gap:14px;line-height:1.5}
+.bb-rental-bottom{text-align:center}
+.bb-rental-bottom p{max-width:720px;margin:4px auto;color:#69838e;font-size:13px;line-height:1.6}
+@media(max-width:760px){
+ .bb-rental-hero{padding:59px 0 50px}
+ .bb-rental-body{padding-top:25px}
+ .bb-rental-top{grid-template-columns:1fr;gap:16px;margin-bottom:38px}
+ .bb-rental-keypoints>div{min-height:84px;padding:12px 10px}
+ .bb-rental-keypoints strong{font-size:12px}
+ .bb-rental-photo-placeholder{margin-bottom:48px;min-height:0;padding:27px 17px;gap:14px}
+ .bb-rental-photo-placeholder>span{font-size:35px}
+ .bb-rental-photo-placeholder h2{font-size:20px}
+ .bb-rental-photo-placeholder p{font-size:13px}
+ .bb-rental-section{margin-bottom:50px}
+ .bb-rental-benefits{grid-template-columns:1fr}
+ .bb-rental-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .bb-rental-steps article{padding:20px 11px}
+ .bb-rental-steps h3{font-size:16px}
+ .bb-rental-steps p{font-size:12px}
+}
+@media(max-width:385px){.bb-rental-steps{grid-template-columns:1fr}}
