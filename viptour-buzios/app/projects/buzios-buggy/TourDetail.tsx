@@ -1,7 +1,7 @@
 import ComboExperience from "./ComboExperience";
 import OtherTourExperience from "./OtherTourExperience";
-export type TourId = "buggy" | "combo" | "barco" | "arubinha" | "arraial" | "transfer";
-type DetailId = Exclude<TourId, "buggy">;
+export type TourId = "buggy" | "aluguel" | "combo" | "barco" | "arubinha" | "arraial" | "transfer";
+type DetailId = Exclude<TourId, "buggy" | "aluguel">;
 type Language = "br" | "us" | "es";
 type TourCopy = { title: string; subtitle: string; intro: string; highlights: string[]; callout: string; imageAlt: string };
 type LocalCopy = Record<Language, TourCopy>;

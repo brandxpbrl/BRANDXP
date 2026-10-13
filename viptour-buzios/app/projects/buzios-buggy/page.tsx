@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./buzios-buggy.css";
 import TourDetail, { type TourId } from "./TourDetail";
+import RentalExperience from "./RentalExperience";
 
 export const metadata: Metadata = {
   title: "Buzios Buggy | Passeio de Buggy Privativo em Búzios",
@@ -19,7 +20,7 @@ const structuredData = {
     "@type": "Organization",
     name: "Buzios Buggy",
     url: "https://www.riovibestransfer.com/projects/buzios-buggy",
-    telephone: "+5545999686381",
+    telephone: "+5522999593276",
   },
   areaServed: { "@type": "Place", name: "Armação dos Búzios, Rio de Janeiro, Brasil" },
   offers: {
@@ -116,7 +117,7 @@ const translations = {
       "Passeio de Barco",
       "Arubinha",
       "Arraial do Cabo",
-      "Transfer Privado"
+      "Aluguel de Buggy"
     ],
     "navSub": [
       "1h30m • Búzios",
@@ -124,7 +125,7 @@ const translations = {
       "3h • Búzios",
       "Saindo de Búzios",
       "Saindo de Búzios",
-      "Búzios ⇄ Rio (GIG)"
+      "24h • Búzios"
     ]
   },
   "us": {
@@ -210,7 +211,7 @@ const translations = {
       "Boat Tour",
       "Arubinha",
       "Arraial do Cabo",
-      "Private Transfer"
+      "Buggy Rental"
     ],
     "navSub": [
       "90 min • Búzios",
@@ -218,7 +219,7 @@ const translations = {
       "3h • Búzios",
       "From Búzios",
       "From Búzios",
-      "Búzios ⇄ Rio (GIG)"
+      "24h • Búzios"
     ]
   },
   "es": {
@@ -304,7 +305,7 @@ const translations = {
       "Paseo en Barco",
       "Arubinha",
       "Arraial do Cabo",
-      "Transfer Privado"
+      "Alquiler de Buggy"
     ],
     "navSub": [
       "1h30 • Búzios",
@@ -312,13 +313,13 @@ const translations = {
       "3h • Búzios",
       "Desde Búzios",
       "Desde Búzios",
-      "Búzios ⇄ Río (GIG)"
+      "24h • Búzios"
     ]
   }
 } as const;
 type Language = keyof typeof translations;
 
-const whatsapp = "5545999686381";
+const whatsapp = "5522999593276";
 const book = (service = "Passeio de Buggy Privativo", language: Language = "br") => {
   const introductions = {
     br: `Olá! Gostaria de consultar disponibilidade para ${service} com a Buzios Buggy.`,
@@ -334,8 +335,14 @@ const services = [
   ["⛵", "Passeio de Barco", "3h • Búzios", "barco"],
   ["🌴", "Arubinha", "Saindo de Búzios", "arubinha"],
   ["🐠", "Arraial do Cabo", "Saindo de Búzios", "arraial"],
-  ["✈", "Transfer Privado", "Búzios ⇄ Rio (GIG)", "transfer"],
+  ["🔑", "Aluguel de Buggy", "24h • Búzios", "aluguel"],
 ] as const;
+
+const menuLabels = {
+  br: { menu: "Abrir menu de navegação", title: "Navegação", transfer: "Transfer Privado", blog: "Blog" },
+  us: { menu: "Open navigation menu", title: "Navigation", transfer: "Private Transfer", blog: "Blog" },
+  es: { menu: "Abrir menú de navegación", title: "Navegación", transfer: "Transfer Privado", blog: "Blog" },
+} as const;
 
 // Fotografias da galeria original do cliente; migrar para assets locais antes do lançamento.
 const gallery = [
@@ -365,12 +372,25 @@ export default async function BuziosBuggyPage({ searchParams }: { searchParams: 
   const query = await searchParams;
   const lang: Language = query.lang === "us" || query.lang === "es" ? query.lang : "br";
   const t = translations[lang];
-  const activeTour = (services.some(item => item[3] === query.tour) ? query.tour : "buggy") as TourId;
-  const selectedService = services.find(item => item[3] === activeTour);
+  const activeTour = ([...services.map(item => item[3]), "transfer"] as string[]).includes(query.tour ?? "") ? query.tour as TourId : "buggy";
+  const selectedService = activeTour === "transfer" ? (["✈", "Transfer Privado", "Búzios ⇄ Rio (GIG)", "transfer"] as const) : services.find(item => item[3] === activeTour);
   return <main className="bb">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <header className="bb-header">
-      <div className="bb-top"><a className="bb-logo" href="#inicio"><span>Buzios</span> Buggy</a><div className="bb-toplinks"><a href={`/projects/buzios-buggy?lang=${lang}&tour=buggy#blog`}>Blog</a>{(["br","us","es"] as const).map(code => <a key={code} href={`/projects/buzios-buggy?lang=${code}&tour=${activeTour}#inicio`} lang={code === "br" ? "pt-BR" : code === "us" ? "en" : "es"} aria-current={lang === code ? "page" : undefined} className={`bb-lang ${lang === code ? "bb-selected" : ""}`}>{code.toUpperCase()}</a>)}</div></div>
+      <div className="bb-top">
+        <a className="bb-logo" href={`/projects/buzios-buggy?lang=${lang}&tour=buggy#inicio`}><span>Buzios</span> Buggy</a>
+        <div className="bb-toplinks">
+          {(["br","us","es"] as const).map(code => <a key={code} href={`/projects/buzios-buggy?lang=${code}&tour=${activeTour}#inicio`} lang={code === "br" ? "pt-BR" : code === "us" ? "en" : "es"} aria-current={lang === code ? "page" : undefined} className={`bb-lang ${lang === code ? "bb-selected" : ""}`}>{code.toUpperCase()}</a>)}
+          <details className="bb-menu">
+            <summary className="bb-menu-trigger" aria-label={menuLabels[lang].menu} title={menuLabels[lang].menu}><span aria-hidden="true" className="bb-menu-bars">☰</span></summary>
+            <nav className="bb-menu-panel" aria-label={menuLabels[lang].title}>
+              {services.map(([, , , id],i) => <a key={id} href={`/projects/buzios-buggy?lang=${lang}&tour=${id}#inicio`} aria-current={activeTour===id ? "page" : undefined}>{t.nav[i]}</a>)}
+              <a href={`/projects/buzios-buggy?lang=${lang}&tour=transfer#inicio`} aria-current={activeTour==="transfer" ? "page" : undefined}>{menuLabels[lang].transfer}</a>
+              <a href={`/projects/buzios-buggy?lang=${lang}&tour=buggy#blog`}>{menuLabels[lang].blog}</a>
+            </nav>
+          </details>
+        </div>
+      </div>
       <nav className="bb-services" aria-label="Passeios e serviços">{services.map(([icon, , , id], i)=><a key={id} className={activeTour===id?"bb-service active":"bb-service"} aria-current={activeTour===id?"page":undefined} href={`/projects/buzios-buggy?lang=${lang}&tour=${id}#inicio`}><span className="bb-icon">{icon}</span><span><strong>{t.nav[i]}</strong><small>{t.navSub[i]}</small></span></a>)}</nav>
     </header>
     {activeTour === "buggy" ? <>
@@ -388,8 +408,8 @@ export default async function BuziosBuggyPage({ searchParams }: { searchParams: 
     <section className="bb-section bb-wrap"><h2>{t.faq}</h2><div className="bb-faq">{t.faqItems.map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></section>
     <section className="bb-section bb-wrap"><h2>{t.location}</h2><iframe title="Mapa de Búzios" src="https://www.google.com/maps?q=Arma%C3%A7%C3%A3o%20dos%20B%C3%BAzios%2C%20RJ&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade"/></section>
     <section id="blog" className="bb-section bb-wrap"><h2>{t.blog}</h2><p className="bb-subtitle">{t.blogDesc}</p></section>
-    </> : <TourDetail tour={activeTour} lang={lang} bookingUrl={book(selectedService?.[1], lang)} />}
-    <footer className="bb-footer"><div className="bb-wrap"><strong><span>Buzios</span> Buggy</strong><p>Armação dos Búzios · Rio de Janeiro · Brasil</p><p>{t.footer}: +55 45 99968-6381</p><small>© {new Date().getFullYear()} Buzios Buggy</small></div></footer>
+    </> : activeTour === "aluguel" ? <RentalExperience lang={lang} bookingUrl={book("Aluguel de Buggy 24h", lang)} /> : <TourDetail tour={activeTour} lang={lang} bookingUrl={book(selectedService?.[1], lang)} />}
+    <footer className="bb-footer"><div className="bb-wrap"><strong><span>Buzios</span> Buggy</strong><p>Armação dos Búzios · Rio de Janeiro · Brasil</p><p>{t.footer}: +55 22 99959-3276</p><small>© {new Date().getFullYear()} Buzios Buggy</small></div></footer>
     <a className="bb-floating" aria-label="Reservar por WhatsApp" href={book(activeTour === "buggy" ? undefined : selectedService?.[1], lang)} target="_blank" rel="noopener noreferrer">☏</a>
   </main>;
 }

@@ -7,7 +7,7 @@ Deliver a fully independent website owned by the customer, with **no permanent d
 - Current temporary development route: `https://www.riovibestransfer.com/projects/buzios-buggy`.
 - Source of truth during development: `brandxpbrl/BRANDXP`; do not delete or move this route before final acceptance.
 - Customer-facing brand: **Buzios Buggy** (not VIP TOUR, not the original reference's Buggy Búzios).
-- Temporary WhatsApp: `+55 45 99968-6381`, to be replaced only upon the customer's approval.
+- Buzios Buggy client WhatsApp: `+55 22 99959-3276` (wa.me/5522999593276). Keep this number in all CTAs, structured data and footer until the customer requests a new update.
 - Design/content inspiration: `buggybuzios.com`, provided by the customer as reference.
 - Rates and promotional dates in current modules are **reference data pending customer verification**.
 
@@ -21,7 +21,7 @@ Deliver a fully independent website owned by the customer, with **no permanent d
 7. Replace temporary placeholder buggy and fleet photographs with the client's own original vehicle photos, once provided. Do not represent another operator's vehicles as the customer's.
 8. Validate offer prices, child rates, itineraries, boardings, schedules, taxes, weather policies and offer expiry with the customer before promoting sale. Transfer table and promotional fares are provisional.
 9. Set contact, WhatsApp, social links, NAP and SEO to customer's real information. Keep client-specific assets and secrets in their accounts.
-10. Connect the new GitHub repo to **the customer's own Vercel**; configure environment variables and deploy Preview; test 6 services + BR/US/ES + WhatsApp on mobile and desktop.
+10. Connect the new GitHub repo to **the customer's own Vercel**; configure environment variables and deploy Preview; test six primary tabs (including rental), the separate Transfer page in the hamburger menu, BR/US/ES, and WhatsApp on mobile and desktop.
 11. Add the purchased domain **only to the customer Vercel project**, apply DNS records provided by that Vercel project, wait for issuance of TLS certificate and test HTTPS + both www/apex + canonical.
 12. Verify Search Console, sitemap, robots, structured data, mobile performance and redirects; only then announce launch.
 13. Remove or redirect the temporary ORBIS project link **after** the customer accepts the independent production website. Keep a rollback snapshot.
