@@ -24,7 +24,7 @@ npm run start
 
 El lockfile pertenece a esta aplicación. Para instalaciones reproducibles también se puede usar `npm ci`. No se requieren variables de entorno, backend, base de datos ni archivos externos a esta carpeta.
 
-## Verificación realizada el 14 de octubre de 2026
+## Verificación inicial de la extracción (14 de octubre de 2026)
 
 - `npm install`: completado. El primer intento de descarga sufrió un corte de red; el reintento terminó correctamente.
 - `npm run build`: completado con Next.js 16.4.0 / Turbopack; `/` se genera como página estática.
@@ -43,9 +43,9 @@ El lockfile pertenece a esta aplicación. Para instalaciones reproducibles tambi
 
 | Archivo nuevo | Procedencia / adaptación |
 | --- | --- |
-| `app/page.tsx` | Página aprobada: mismo JSX y contenido; se retira el import no utilizado `Users` y se añade `id="lanchas"` al catálogo para el enlace existente del footer. |
-| `app/bzlanchas.css` | Estilos aprobados, incluidos los breakpoints de 900 y 600 px. Se elimina la regla que ocultaba MAX y se codifica la URL de la imagen (incluida la coma como `%2C`) para que cargue correctamente. |
-| `public/logolancha.jpeg` | Logo original, sin cambios de bytes. |
+| `app/page.tsx` | Implementación aprobada, con el logo oficial en header/footer y solamente la embarcación real. El catálogo conserva `id="lanchas"` para el enlace del footer. |
+| `app/bzlanchas.css` | Dirección visual y breakpoints de 900 y 600 px preservados. Logos completos con `object-fit: contain`, proporción 3:2, sin zoom ni recorte; se retiran estilos de tarjetas ficticias. La URL del PNG de la lancha mantiene la coma codificada como `%2C`. |
+| `public/bz-lanchas-logo-oficial.png` | Imagen oficial aportada por el usuario, copiada exactamente; reemplaza al antiguo `logolancha.jpeg`, que se elimina de esta aplicación. |
 | `public/ChatGPT Image 22 sept 2026, 09_11_29 p.m..png` | Imagen original utilizada como fondo de la lancha, sin cambios de bytes. |
 | `tsconfig.json` | Configuración TypeScript del proyecto de origen, con rutas y tipos locales a esta carpeta. |
 | `next.config.ts` | Configuración mínima con raíz de Turbopack y de trazado dentro de esta aplicación. Se descartan las redirecciones de VIPTOUR/Búzios Buggy. |
@@ -56,7 +56,7 @@ El lockfile pertenece a esta aplicación. Para instalaciones reproducibles tambi
 - `app/globals.css`: únicamente reglas base que afectaban a la página aprobada (reset, botones, imágenes, tipografía y suavizado), para conservar su apariencia sin instalar Tailwind.
 - `package.json` y `package-lock.json`: scripts y dependencias independientes.
 - `next-env.d.ts`: tipos de Next.js generados localmente.
-- `eslint.config.mjs`: revisión del código; se conserva el elemento `img` aprobado y su recorte actual.
+- `eslint.config.mjs`: revisión del código; se conserva el elemento `img` para mostrar el logo completo. Se excluyen los archivos temporales de build y verificación.
 - `.gitignore`: excluye dependencias, build, caché local y configuración privada de Vercel.
 - `README.md`: análisis, inventario e instrucciones.
 
@@ -76,7 +76,16 @@ Next.js y su configuración de lint se actualizan de `16.2.9` a `16.4.0` solo en
 
 Los tres enlaces de reserva/WhatsApp mantienen `https://wa.me/5522997362297` y el mensaje aprobado. El teléfono visible sigue siendo `+55 (22) 99736-2297`.
 
-Se conservan todos los textos y características existentes, incluidos los bloques “em breve”. Los botones de idioma, menú, filtro y flechas no tenían handlers en el código de origen; mantienen ese comportamiento. Las políticas siguen teniendo sus enlaces placeholder. No se inventan traducciones, políticas ni información comercial.
+El catálogo muestra únicamente la lancha cabinada de 27,5 pés para hasta 10 personas. Se eliminaron las dos tarjetas ficticias “NOVA EMBARCAÇÃO / EM BREVE” por solicitud del usuario. Se preservan los textos y características de la embarcación publicada. Los botones de idioma, menú, filtro y flechas no tenían handlers en el código de origen; mantienen ese comportamiento. Las políticas siguen teniendo sus enlaces placeholder. No se inventan traducciones, políticas ni información comercial.
+
+## Actualización del logo oficial y catálogo (14 de octubre de 2026)
+
+- Se copia exactamente `Logotipo BZ Lanchas de Lujo.png`, sin rediseño, edición ni recomprensión. SHA-256: `aa2f23941934f3d1ed42ac18767b4d0810105d0699659cdde079af60a6d6e508`.
+- Header: logo de hasta 360 × 240 px; en móvil se adapta al ancho disponible. Footer: 245 px en escritorio y 260 px en móvil, siempre en proporción 3:2 y sin recortes.
+- Se actualiza el favicon para usar el PNG oficial y se retira el JPEG antiguo.
+- QA en Chrome a 1440, 1024, 900, 768, 600, 390, 375 y 320 px: una sola tarjeta, ambos logos completos, sin desbordamiento horizontal ni errores de JavaScript. Los tres enlaces de WhatsApp siguen apuntando a `5522997362297`.
+- La imagen oficial incluye el número impreso `22 99236-2297`. Se conserva tal cual, según la instrucción de no alterar el logo. El texto de contacto y los enlaces de la web mantienen el número confirmado `+55 (22) 99736-2297`.
+- No se modifica ningún archivo de `viptour-buzios` ni se hace merge.
 
 ## Metadata
 
@@ -107,6 +116,6 @@ La canonical es `/`. En Vercel, la base se obtiene de las variables automáticas
 
 El selector de Production Branch afecta solamente al proyecto nuevo. Tras una futura revisión y merge explícitamente autorizado, se podrá elegir `main` para este proyecto; no se hizo ningún merge en esta tarea.
 
-La conexión Vercel disponible durante la extracción devolvió una lista vacía de equipos: no se verificó acceso a ORBIS y no se creó ni desplegó ningún proyecto remoto.
+Durante la extracción inicial, el conector Vercel devolvió una lista vacía de equipos. En la actualización del logo se verificó la sesión de la CLI local y su acceso a ORBIS (`brandxpbrls-projects`), y se creó el proyecto independiente `bz-lanchas`, conectado a `brandxpbrl/BRANDXP`, con Root Directory `bz-lanchas`, Next.js y Node.js 24.x. Se excluyen archivos fuera del Root Directory. La branch de producción continúa siendo `main`; esta revisión se entrega como preview de `chore/extract-bz-lanchas`, sin promoción a producción, merge ni dominios personalizados.
 
 Documentación oficial: [configuración de build y Root Directory](https://vercel.com/docs/builds/configure-a-build), [despliegues desde una referencia Git y Production Branch](https://vercel.com/docs/git), [Next.js 16.4.0](https://github.com/vercel/next.js/releases/tag/v16.4.0).

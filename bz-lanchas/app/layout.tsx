@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description,
   },
   twitter: { card: "summary", title, description },
-  icons: { icon: { url: "/logolancha.jpeg", type: "image/jpeg" } },
+  icons: { icon: { url: "/bz-lanchas-logo-oficial.png", type: "image/png" } },
 };
 
 export default function RootLayout({

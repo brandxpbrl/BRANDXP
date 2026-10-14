@@ -7,8 +7,8 @@ export default defineConfig([
   ...nextTs,
   {
     files: ["app/page.tsx"],
-    // Keep the approved logo markup and its existing crop behavior.
+    // Preserve the supplied logo asset with its uncropped contain layout.
     rules: { "@next/next/no-img-element": "off" },
   },
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", ".vercel/**", ".npm-cache/**", "out/**", "build/**", "next-env.d.ts"]),
 ]);
