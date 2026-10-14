@@ -344,3 +344,73 @@
 .demoTableWrap{overflow:auto}.demoTable{width:100%;border-collapse:collapse;text-align:left;min-width:610px}.demoTable th{font-size:10px;color:#8ea1bf;letter-spacing:1px;padding:12px;border-bottom:1px solid #31405c}.demoTable td{padding:17px 12px;border-bottom:1px solid #26344d;font-size:13px;color:#c3cee0}.demoTable td strong{display:block;color:#f0f4ff}.demoTable td small{display:block;margin-top:5px;color:#7e90ac}.demoStatus{background:#1e3450;border:1px solid #315776;border-radius:99px;padding:6px 10px;color:#91def4}
 .demoIntegrations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.demoIntegrations article{padding:16px}.demoIntegrations strong,.demoIntegrations span{display:block}.demoIntegrations span{color:#91a2bf;font-size:11px;margin-top:10px;line-height:1.5}.demoFooter{color:#7185a5;padding:40px 0;font-size:10px;letter-spacing:1px}
 @media(max-width:800px){.demoShell{display:block}.demoSidebar{padding:16px;gap:12px}.demoSidebar nav{flex-direction:row;flex-wrap:wrap}.demoSidebar nav a{font-size:12px;padding:8px}.demoSidebarBottom,.demoNavTitle{display:none}.demoTopbar{flex-wrap:wrap}.demoMetrics{grid-template-columns:repeat(2,minmax(0,1fr))}.demoPipeline{grid-template-columns:repeat(2,minmax(0,1fr))}.demoIntegrations{grid-template-columns:1fr}.demoHero{padding:36px 0 25px}}
+
+
+/* Private NZ access screen: ORBIS-only, non-clickable watermark. */
+.login {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.loginContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+.loginWatermark {
+  position: absolute;
+  z-index: 0;
+  right: clamp(-90px, 3vw, 40px);
+  top: 50%;
+  width: min(48vw, 620px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  opacity: 0.055;
+  pointer-events: none;
+}
+.watermarkOrbitOuter,
+.watermarkOrbitInner,
+.watermarkCore {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+}
+.watermarkOrbitOuter {
+  width: 78%;
+  height: 78%;
+  border: 3px solid #cee4b1;
+}
+.watermarkOrbitInner {
+  width: 47%;
+  height: 47%;
+  border: 3px solid #cee4b1;
+}
+.watermarkCore {
+  width: 18%;
+  height: 18%;
+  background: #cee4b1;
+  box-shadow: 0 0 80px rgba(206, 228, 177, 0.35);
+}
+.watermarkWord {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  transform: translateX(-50%);
+  color: #cee4b1;
+  font-family: var(--font-orbis), Arial, sans-serif;
+  font-size: clamp(42px, 7vw, 92px);
+  letter-spacing: .16em;
+  white-space: nowrap;
+}
+@media (max-width: 850px) {
+  .loginWatermark {
+    right: -34vw;
+    width: 92vw;
+    opacity: 0.04;
+  }
+}
