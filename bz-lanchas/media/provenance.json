@@ -1,0 +1,345 @@
+{
+  "suppliedBy": "Client, explicitly authenticated in the attached task instructions on 2026-10-15",
+  "vessel": "FÊNIX 27.5 — Gratidão",
+  "transformations": "Continuous cuts, H.264/WebP compression and original-frame extraction only. No audio, generated content, retouching, compositing, optical interpolation, transitions or color changes. Original spatial resolution retained. Native loop restarts the original continuous segment.",
+  "ffmpegVersion": "ffmpeg version 2026-04-01-git-eedf8f0165-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "sources": [
+    {
+      "file": "media/originals/1000716633.mp4",
+      "sha256": "1f84676dea4b12de7bc1343c96bb8ca67e65bdeeee7fdf39a116753e9d00f3dd",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1024,
+          "height": 576,
+          "avg_frame_rate": "6995/237"
+        }
+      ],
+      "format": {
+        "duration": "47.400000",
+        "size": "5379127"
+      }
+    },
+    {
+      "file": "media/originals/1000717086.mp4",
+      "sha256": "f56b3f390decc1d83c06ed1d0e5e602723428b4222d35a6fa136d7276c228b62",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 480,
+          "height": 848,
+          "avg_frame_rate": "30/1"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "25.401020",
+        "size": "4354031"
+      }
+    },
+    {
+      "file": "media/originals/1000718566.mp4",
+      "sha256": "fd07e1b241a9f96f3fff8af2deccbedac55e3368f3d710d6b32751443fd84a4d",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1024,
+          "height": 576,
+          "avg_frame_rate": "23760/793",
+          "side_data_list": [
+            {}
+          ]
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "26.433333",
+        "size": "4538655"
+      }
+    },
+    {
+      "file": "media/originals/1000716629.mp4",
+      "sha256": "6c0773bf67707e86cc714da5c4d8b74cc068685eb27bb61e821ea37d716fb80a",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1024,
+          "height": 576,
+          "avg_frame_rate": "265800/8869"
+        }
+      ],
+      "format": {
+        "duration": "44.345000",
+        "size": "8919175"
+      }
+    }
+  ],
+  "videos": [
+    {
+      "source": "media/originals/1000716633.mp4",
+      "output": "public/videos/bz-hero-desktop.mp4",
+      "start": 24,
+      "duration": 12,
+      "maxrate": "1600k",
+      "bufsize": "3200k",
+      "args": [
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-ss",
+        "24",
+        "-i",
+        "media/originals/1000716633.mp4",
+        "-t",
+        "12",
+        "-map",
+        "0:v:0",
+        "-an",
+        "-sn",
+        "-dn",
+        "-vf",
+        "fps=30,setsar=1",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "slow",
+        "-crf",
+        "22",
+        "-maxrate",
+        "1600k",
+        "-bufsize",
+        "3200k",
+        "-pix_fmt",
+        "yuv420p",
+        "-profile:v",
+        "high",
+        "-level:v",
+        "3.1",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "-map_chapters",
+        "-1",
+        "-threads",
+        "2",
+        "-y",
+        "public/videos/bz-hero-desktop.mp4"
+      ],
+      "bytes": 1571398,
+      "sha256": "41f54b04343dd0cf55b55c1b5cef6bb7d3af7a40d7cbb93c50c8527f0a849e93",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1024,
+            "height": 576,
+            "avg_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "12.000000",
+          "size": "1571398"
+        }
+      }
+    },
+    {
+      "source": "media/originals/1000717086.mp4",
+      "output": "public/videos/bz-hero-mobile.mp4",
+      "start": 0,
+      "duration": 12,
+      "maxrate": "1000k",
+      "bufsize": "2000k",
+      "args": [
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-ss",
+        "0",
+        "-i",
+        "media/originals/1000717086.mp4",
+        "-t",
+        "12",
+        "-map",
+        "0:v:0",
+        "-an",
+        "-sn",
+        "-dn",
+        "-vf",
+        "fps=30,setsar=1",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "slow",
+        "-crf",
+        "22",
+        "-maxrate",
+        "1000k",
+        "-bufsize",
+        "2000k",
+        "-pix_fmt",
+        "yuv420p",
+        "-profile:v",
+        "high",
+        "-level:v",
+        "3.1",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "-map_chapters",
+        "-1",
+        "-threads",
+        "2",
+        "-y",
+        "public/videos/bz-hero-mobile.mp4"
+      ],
+      "bytes": 1602576,
+      "sha256": "d2f252e36ef2e6d13591e68a329486bf1a3b69c4f4db24642bfd29b5335356e8",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 480,
+            "height": 848,
+            "avg_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "12.000000",
+          "size": "1602576"
+        }
+      }
+    }
+  ],
+  "frames": [
+    {
+      "source": "media/originals/1000716633.mp4",
+      "output": "public/images/fenix-275-gratidao.webp",
+      "at": 26,
+      "quality": 90,
+      "usage": "boat photo and desktop/tablet hero poster",
+      "args": [
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-ss",
+        "26",
+        "-i",
+        "media/originals/1000716633.mp4",
+        "-map",
+        "0:v:0",
+        "-frames:v",
+        "1",
+        "-an",
+        "-c:v",
+        "libwebp",
+        "-quality",
+        "90",
+        "-compression_level",
+        "6",
+        "-map_metadata",
+        "-1",
+        "-y",
+        "public/images/fenix-275-gratidao.webp"
+      ],
+      "bytes": 26978,
+      "sha256": "6bfafad62ffea9c7d3c6718cf3cd427743bdbf05025df4f517ed6ec382e506e7",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "webp",
+            "codec_type": "video",
+            "width": 1024,
+            "height": 576,
+            "avg_frame_rate": "25/1"
+          }
+        ],
+        "format": {
+          "size": "26978"
+        }
+      }
+    },
+    {
+      "source": "media/originals/1000717086.mp4",
+      "output": "public/images/bz-hero-mobile.webp",
+      "at": 7.5,
+      "quality": 88,
+      "usage": "mobile hero poster",
+      "args": [
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-ss",
+        "7.5",
+        "-i",
+        "media/originals/1000717086.mp4",
+        "-map",
+        "0:v:0",
+        "-frames:v",
+        "1",
+        "-an",
+        "-c:v",
+        "libwebp",
+        "-quality",
+        "88",
+        "-compression_level",
+        "6",
+        "-map_metadata",
+        "-1",
+        "-y",
+        "public/images/bz-hero-mobile.webp"
+      ],
+      "bytes": 34442,
+      "sha256": "d7e7e42246eb895addf43f0c65dd4cef348cb0d1f7d16c080d5bc59e40e72435",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "webp",
+            "codec_type": "video",
+            "width": 480,
+            "height": 848,
+            "avg_frame_rate": "25/1"
+          }
+        ],
+        "format": {
+          "size": "34442"
+        }
+      }
+    }
+  ],
+  "reservedForFutureUse": [
+    "media/originals/1000718566.mp4",
+    "media/originals/1000716629.mp4"
+  ]
+}
