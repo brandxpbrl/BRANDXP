@@ -1,10 +1,9 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
 import Image from "next/image";
 import { ArrowDown, ArrowUpRight, Bath, DoorOpen, Droplets, Flame, Music2, Ruler, ShowerHead, UsersRound } from "lucide-react";
 import { HeroMedia } from "./components/HeroMedia";
 import { SiteHeader } from "./components/SiteHeader";
-import { BOAT_PHOTO, LOGO, WHATSAPP } from "./content";
+import { LOGO, WHATSAPP } from "./content";
+import { getClientMedia } from "./client-media";
 import "./bzlanchas.css";
 
 const features = [
@@ -19,14 +18,13 @@ const features = [
 ];
 
 export default function Page() {
-  // Evaluated at build time: an absent MP4 never creates a broken media request.
-  const hasHeroVideo = existsSync(path.join(process.cwd(), "public/videos/bz-hero.mp4"));
+  const media = getClientMedia();
 
   return (
     <main className="bz-home" id="conteudo">
       <a className="skip-link" href="#lancha">Ir para nossa lancha</a>
       <section className="hero" id="inicio" aria-label="BZ Lanchas em Búzios">
-        <HeroMedia available={hasHeroVideo} />
+        {(media.heroVideo || media.heroPoster) && <HeroMedia videoSrc={media.heroVideo} posterSrc={media.heroPoster} />}
         <SiteHeader />
         <div className="hero-content shell">
           <div className="hero-copy">
@@ -47,10 +45,10 @@ export default function Page() {
           <h2 id="boat-title">FÊNIX 27.5</h2>
           <p className="boat-subtitle">Lancha cabinada · Até 10 pessoas</p>
         </div>
-        <article className="boat-card" aria-label="Gratidão, FÊNIX 27.5">
-          <div className="boat-photo">
-            <Image src={BOAT_PHOTO} alt="FÊNIX 27.5 — Gratidão, lancha cabinada da BZ Lanchas" fill sizes="(max-width: 900px) 100vw, 60vw" quality={85} />
-          </div>
+        <article className={`boat-card${media.boatPhoto ? "" : " boat-card-without-photo"}`} aria-label="Gratidão, FÊNIX 27.5">
+          {media.boatPhoto && <div className="boat-photo">
+            <Image src={media.boatPhoto} alt="FÊNIX 27.5 — Gratidão, lancha cabinada da BZ Lanchas" fill sizes="(max-width: 900px) 100vw, 60vw" quality={85} />
+          </div>}
           <div className="boat-info">
             <p className="eyebrow">NOME DA EMBARCAÇÃO</p>
             <h3>Gratidão</h3>
