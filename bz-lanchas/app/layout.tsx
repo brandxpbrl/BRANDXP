@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const title = "BZ Lanchas | FÊNIX 27.5 — Passeio privativo em Búzios";
+const title = "BZ Lanchas | Passeio Privativo de Lancha em Búzios";
 const description =
   "Passeio privativo de lancha em Armação dos Búzios / RJ a bordo da FÊNIX 27.5, Gratidão. Lancha cabinada para até 10 pessoas. Consulte disponibilidade.";
 

@@ -24,12 +24,12 @@ export default function Page() {
     <main className="bz-home" id="conteudo">
       <a className="skip-link" href="#lancha">Ir para nossa lancha</a>
       <section className="hero" id="inicio" aria-label="BZ Lanchas em Búzios">
-        {(media.heroVideo || media.heroPoster) && <HeroMedia videoSrc={media.heroVideo} posterSrc={media.heroPoster} />}
+        {(media.heroVideo || media.heroPoster || media.heroMobileVideo || media.heroMobilePoster) && <HeroMedia desktopVideo={media.heroVideo} mobileVideo={media.heroMobileVideo} desktopPoster={media.heroPoster} mobilePoster={media.heroMobilePoster} />}
         <SiteHeader />
         <div className="hero-content shell">
           <div className="hero-copy">
             <h1>VIVA BÚZIOS <span>PELO MAR</span></h1>
-            <p>Experiências privativas a bordo da BZ Lanchas.</p>
+            <p>Experiências privativas a bordo da FÊNIX 27.5.</p>
             <div className="hero-actions">
               <a className="button button-light" href="#lancha">CONHEÇA NOSSA LANCHA <ArrowDown aria-hidden="true" /></a>
               <a className="hero-consult" href={WHATSAPP}>CONSULTAR DISPONIBILIDADE <ArrowUpRight aria-hidden="true" /></a>

@@ -9,7 +9,9 @@ Las fotografías y los videos del sitio deben ser auténticos y entregados por e
 
 ## Estado actual
 
-No hay fotografías ni videos de la embarcación con procedencia del cliente verificada en esta aplicación. La imagen artificial anterior se retiró del hero, de la ficha y de `public/`. El hero conserva únicamente el fondo de marca y la ficha muestra los datos confirmados, sin área de fotografía vacía.
+El usuario suministró `1000716633.mp4`, `1000717086.mp4`, `1000718566.mp4` y `1000716629.mp4` como originales del cliente y fuente visual oficial en las instrucciones adjuntas de esta tarea del 15 de octubre de 2026. El hero utiliza exclusivamente segmentos de los dos primeros y la ficha utiliza un frame del video horizontal. La imagen artificial anterior permanece eliminada del hero, de la ficha y de `public/`.
+
+Originales, SHA-256, intervalos y transformaciones se conservan en `media/`: consultar `media/README.md`, `media/provenance.json` y `scripts/prepare-client-media.mjs`. Los otros dos videos se reservan fuera de `public/` para futuras secciones.
 
 Se conserva intacto el logo oficial suministrado y aprobado por el usuario en `240abfc`. Es identidad gráfica, no una fotografía documental de la embarcación. Los iconos de interfaz tampoco representan fotografías del barco.
 
@@ -17,8 +19,8 @@ Se conserva intacto el logo oficial suministrado y aprobado por el usuario en `2
 
 1. Obtener los originales e identificar su entrega por el cliente. Verificar que muestran FÊNIX 27.5 “Gratidão”; no asumir autenticidad por el nombre del archivo.
 2. Registrar la procedencia y conservar la trazabilidad del original y cualquier optimización. No incluir datos personales o enlaces privados de acceso en el repositorio.
-3. Guardar la fotografía aprobada en `public/media/` y el video definitivo en `public/videos/bz-hero.mp4`. Un poster auténtico puede guardarse en `public/media/`.
-4. Registrar únicamente los recursos verificados en `app/client-media.ts`, con su URL local `src` y una descripción no vacía de la entrega original en `clientSource`. Los tres campos permanecen en `null` hasta entonces. Copiar un MP4 a la carpeta no lo activa automáticamente.
+3. Guardar fotografías y posters auténticos en `public/images/`, y videos web en `public/videos/`. Conservar originales y su procedencia en `media/`, fuera del contenido público.
+4. Registrar únicamente los recursos verificados en `app/client-media.ts`, con su URL local `src` y una descripción no vacía de la entrega original en `clientSource`. Cualquier recurso nuevo permanece sin registrar hasta verificar su procedencia. Copiar un MP4 a la carpeta no lo activa automáticamente.
 5. Ejecutar instalación, build, TypeScript, lint y QA de desktop/mobile. Volver a desplegar el Preview para revisión.
 
 Los archivos ausentes o no registrados se omiten. Si falla el video o el usuario prefiere movimiento reducido, solo se permite un poster auténtico registrado; sin poster, se conserva el fondo de marca sin imagen de sustitución.

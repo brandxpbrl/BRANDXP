@@ -16,9 +16,9 @@
 .hero-poster, .hero-video { object-fit: cover; object-position: center; }
 .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 500ms ease; }
 .hero-video.is-ready { opacity: 1; }
-.hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, #00192280 0%, #00192230 36%, #001922b0 100%); }
+.hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, #00192255 0%, #00192208 30%, #00192220 58%, #00192285 100%); }
 .site-header { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-block: 24px; position: relative; z-index: 4; }
-.header-logo { display: block; width: clamp(210px, 23vw, 320px); flex-shrink: 0; }
+.header-logo { display: block; width: clamp(176px, 17vw, 250px); flex-shrink: 0; }
 .header-logo img, .footer-logo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; object-position: center; }
 .main-navigation { display: flex; align-items: center; gap: clamp(20px, 2.8vw, 42px); }
 .main-navigation > a { font-size: 12px; font-weight: 700; letter-spacing: .1em; white-space: nowrap; text-shadow: 0 1px 12px #001922a0; }
@@ -29,7 +29,7 @@
 .menu-toggle svg { width: 24px; height: 24px; }
 .hero-content { flex: 1; display: flex; align-items: flex-end; padding-top: 40px; padding-bottom: clamp(28px, 6vh, 72px); }
 .hero-copy { max-width: 1020px; }
-.hero-copy h1 { font-size: clamp(60px, 7.5vw, 112px); font-weight: 700; letter-spacing: -.055em; line-height: 1.01; text-wrap: balance; }
+.hero-copy h1 { font-size: clamp(48px, 5.5vw, 80px); font-weight: 700; letter-spacing: -.055em; line-height: 1.01; text-wrap: balance; }
 .hero-copy h1 span { display: block; }
 .hero-copy > p { font-size: clamp(18px, 1.7vw, 24px); line-height: 1.5; margin-top: 24px; max-width: 36ch; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; margin-top: 36px; }
@@ -41,7 +41,8 @@
 .hero-consult svg { width: 17px; height: 17px; }
 .hero-scroll { align-self: center; padding: 16px; margin-bottom: 12px; }
 .hero-scroll svg { width: 24px; height: 24px; }
-.video-control { position: absolute; bottom: 22px; left: 32px; z-index: 2; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid #ffffff80; border-radius: 50%; background: #00192250; cursor: pointer; }
+.video-control { position: absolute; bottom: 22px; left: 32px; z-index: 2; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid #ffffff80; border-radius: 50%; background: #001922b0; cursor: pointer; opacity: 0; pointer-events: none; }
+.video-control:focus-visible { opacity: 1; pointer-events: auto; }
 .video-control svg { width: 18px; height: 18px; }
 .boat-section { padding-block: clamp(64px, 8vw, 120px); scroll-margin-top: 24px; }
 .section-heading { margin-bottom: 40px; }
@@ -77,7 +78,7 @@
 .floating-whatsapp:hover { background: #12874a; }
 @media (max-width: 1100px) {
   .main-navigation { gap: 20px; }
-  .header-logo { width: 230px; }
+  .header-logo { width: 210px; }
   .main-navigation > a { font-size: 11px; }
   .boat-info { padding: 30px; }
   .boat-features { gap: 22px 14px; }
@@ -116,7 +117,6 @@
 @media (max-width: 480px) {
   .shell { width: calc(100% - 40px); }
   .hero-copy h1 { font-size: clamp(38px, 11vw, 50px); }
-  .hero-shade { background: linear-gradient(180deg, #00192280, #00192240 35%, #001922c0); }
   .hero-actions .button { padding-inline: 18px; font-size: 11px; gap: 10px; }
   .hero-consult { font-size: 10px; gap: 8px; }
   .section-heading { margin-bottom: 28px; }

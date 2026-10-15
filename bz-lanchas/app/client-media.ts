@@ -13,10 +13,29 @@ const approvedMedia: {
   boatPhoto: ClientAsset | null;
   heroPoster: ClientAsset | null;
   heroVideo: ClientAsset | null;
+  heroMobilePoster: ClientAsset | null;
+  heroMobileVideo: ClientAsset | null;
 } = {
-  boatPhoto: null,
-  heroPoster: null,
-  heroVideo: null,
+  boatPhoto: {
+    src: "/images/fenix-275-gratidao.webp",
+    clientSource: "Client attachment 1000716633.mp4, original frame at 00:26; media/provenance.json",
+  },
+  heroPoster: {
+    src: "/images/fenix-275-gratidao.webp",
+    clientSource: "Client attachment 1000716633.mp4, original frame at 00:26; media/provenance.json",
+  },
+  heroVideo: {
+    src: "/videos/bz-hero-desktop.mp4",
+    clientSource: "Client attachment 1000716633.mp4, continuous segment 00:24–00:36; media/provenance.json",
+  },
+  heroMobilePoster: {
+    src: "/images/bz-hero-mobile.webp",
+    clientSource: "Client attachment 1000717086.mp4, original frame at 00:07.5; media/provenance.json",
+  },
+  heroMobileVideo: {
+    src: "/videos/bz-hero-mobile.mp4",
+    clientSource: "Client attachment 1000717086.mp4, continuous segment 00:00–00:12; media/provenance.json",
+  },
 };
 
 function localAsset(asset: ClientAsset | null): string | undefined {
@@ -32,5 +51,7 @@ export function getClientMedia() {
     boatPhoto: localAsset(approvedMedia.boatPhoto),
     heroPoster: localAsset(approvedMedia.heroPoster),
     heroVideo: localAsset(approvedMedia.heroVideo),
+    heroMobilePoster: localAsset(approvedMedia.heroMobilePoster),
+    heroMobileVideo: localAsset(approvedMedia.heroMobileVideo),
   };
 }
