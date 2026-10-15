@@ -1,1 +1,145 @@
-.bzRef{--turq:#339dbb;--turq2:#1593b1;--blue:#07559b;background:#f3f3f3;color:#111;font-family:Arial,sans-serif;min-height:100vh}.bzRef *{box-sizing:border-box}.refHeader{min-height:278px;background:var(--turq);display:flex;align-items:center;justify-content:space-between;padding:24px 4.2vw;gap:20px}.refLogo{width:360px;max-width:60%;aspect-ratio:3/2;display:block;flex-shrink:0}.refLogo img,.footerLogo img{width:100%;height:100%;object-fit:contain;object-position:center}.refHeaderRight{align-self:stretch;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;gap:28px}.languages{display:flex;gap:2px}.languages button{border:0;background:transparent;font-size:34px;padding:0;cursor:pointer}.menuBtn{border:0;background:transparent;color:#fff}.menuBtn svg{width:42px;height:42px;stroke-width:4}.catalogPage{padding:90px 32px 110px;max-width:1800px;margin:auto}.filterBtn{border:1.5px solid var(--blue);border-radius:28px;background:#fff;color:#124d84;padding:10px 25px;display:flex;align-items:center;gap:12px;font-size:24px;font-weight:700;margin-bottom:48px}.filterBtn svg{width:25px}.boatCards{display:flex;flex-direction:column;gap:28px}.boatCard{display:grid;grid-template-columns:50% 50%;background:#fff;border-radius:10px;overflow:hidden;min-height:390px;box-shadow:0 1px 4px #00000008}.boatImage{position:relative;min-height:390px}.realBoat{background-image:url("/ChatGPT%20Image%2022%20sept%202026%2C%2009_11_29%20p.m..png");background-size:cover;background-position:center}.arrow{position:absolute;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#fff;font-size:64px;font-weight:200;text-shadow:0 2px 5px #000}.arrow.left{left:28px}.arrow.right{right:28px}.boatInfo{padding:38px 34px}.boatInfo h1,.boatInfo h2{font-size:30px;line-height:1.25;margin:0 0 25px;font-weight:800}.boatInfo p{font-size:20px;line-height:1.55;margin:0 0 24px;color:#222}.chips{display:flex;gap:10px;flex-wrap:wrap}.chips span{background:var(--blue);color:#fff;border-radius:20px;padding:7px 18px;font-size:16px}.miniFeatures{display:flex;gap:18px;flex-wrap:wrap;margin:22px 0}.miniFeatures span{display:flex;align-items:center;gap:6px;font-size:14px}.miniFeatures svg{width:18px;color:var(--blue)}.reserve{display:inline-block;background:#18c969;color:#fff;border-radius:25px;text-decoration:none;padding:12px 20px;font-size:13px;font-weight:800}.refFooter{background:var(--turq2);color:#fff}.footerGrid{padding:30px 4vw 55px;display:grid;grid-template-columns:1.1fr 1.2fr .9fr 1.3fr 1fr;gap:35px;max-width:1800px;margin:auto}.footerLogo{display:block;width:245px;max-width:100%;aspect-ratio:3/2}.footerGrid nav,.contact,.social{display:flex;flex-direction:column;gap:15px;padding-top:15px}.footerGrid a{color:#fff;text-decoration:none;font-size:17px}.social b,.contact b,.payments b{font-size:15px}.social div,.contact span{font-size:15px;line-height:1.45}.payments{padding-top:15px}.payments div{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.payments span{background:#fff;color:#174a78;padding:13px 11px;font-weight:800;font-size:12px}.copyright{background:#fff;color:#555;text-align:center;padding:18px;font-size:12px}.floatingWhatsapp{position:fixed;right:50px;bottom:35px;width:88px;height:88px;border-radius:50%;background:#20d366;color:#fff;display:grid;place-items:center;text-decoration:none;font-size:52px;z-index:20;border:6px solid #20d366;box-shadow:0 3px 10px #0002}@media(max-width:900px){.refHeader{min-height:220px}.refLogo{width:285px}.languages button{font-size:26px}.boatCard{grid-template-columns:1fr}.boatImage{min-height:320px}.footerGrid{grid-template-columns:1fr 1fr}.footerGrid>div:first-child{grid-column:1/-1}}@media(max-width:600px){.refHeader{min-height:170px;padding:18px 20px;gap:12px}.refLogo{width:min(58vw,220px);max-width:calc(100% - 76px)}.languages button{font-size:21px}.menuBtn svg{width:32px}.catalogPage{padding:55px 15px 75px}.filterBtn{font-size:18px;margin-bottom:30px}.boatImage{min-height:245px}.boatInfo{padding:26px 22px}.boatInfo h1,.boatInfo h2{font-size:23px}.boatInfo p{font-size:16px}.footerGrid{grid-template-columns:1fr;padding:35px 25px}.footerGrid>div:first-child{grid-column:auto}.floatingWhatsapp{width:68px;height:68px;right:18px;bottom:20px;font-size:38px}.footerLogo{width:260px}}
+.bz-home {
+  --turquoise: #168fa8;
+  --ocean: #075b77;
+  --ink: #132e39;
+  background: #f3f4f4;
+  color: var(--ink);
+  font-family: Arial, sans-serif;
+}
+.shell { width: min(100% - 96px, 1440px); margin-inline: auto; }
+.bz-home a, .bz-home button { -webkit-tap-highlight-color: transparent; }
+.bz-home :focus-visible { outline: 3px solid #e5bc60; outline-offset: 6px; }
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 60; padding: 12px 18px; background: #fff; color: var(--ink); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+.hero { position: relative; isolation: isolate; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; background: #084653; color: #fff; }
+.hero-media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.hero-poster, .hero-video { object-fit: cover; object-position: center; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 500ms ease; }
+.hero-video.is-ready { opacity: 1; }
+.hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, #00192280 0%, #00192230 36%, #001922b0 100%); }
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-block: 24px; position: relative; z-index: 4; }
+.header-logo { display: block; width: clamp(210px, 23vw, 320px); flex-shrink: 0; }
+.header-logo img, .footer-logo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; object-position: center; }
+.main-navigation { display: flex; align-items: center; gap: clamp(20px, 2.8vw, 42px); }
+.main-navigation > a { font-size: 12px; font-weight: 700; letter-spacing: .1em; white-space: nowrap; text-shadow: 0 1px 12px #001922a0; }
+.main-navigation > a:hover { color: #bceaf1; }
+.header-whatsapp { display: flex; align-items: center; gap: 10px; border: 1px solid #ffffff80; border-radius: 100px; padding: 13px 18px; }
+.header-whatsapp img, .button-whatsapp img, .floating-whatsapp img { filter: brightness(0) invert(1); flex-shrink: 0; }
+.menu-toggle { display: none; cursor: pointer; width: 48px; height: 48px; align-items: center; justify-content: center; border: 1px solid #ffffff80; border-radius: 50%; }
+.menu-toggle svg { width: 24px; height: 24px; }
+.hero-content { flex: 1; display: flex; align-items: flex-end; padding-top: 40px; padding-bottom: clamp(28px, 6vh, 72px); }
+.hero-copy { max-width: 1020px; }
+.hero-copy h1 { font-size: clamp(60px, 7.5vw, 112px); font-weight: 700; letter-spacing: -.055em; line-height: 1.01; text-wrap: balance; }
+.hero-copy h1 span { display: block; }
+.hero-copy > p { font-size: clamp(18px, 1.7vw, 24px); line-height: 1.5; margin-top: 24px; max-width: 36ch; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; margin-top: 36px; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 14px; min-height: 56px; padding: 17px 24px; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: .055em; line-height: 1.5; text-align: center; transition: background-color 180ms ease, color 180ms ease; }
+.button svg { width: 19px; height: 19px; flex-shrink: 0; }
+.button-light { background: #fff; color: var(--ink); }
+.button-light:hover { background: #d8f0f3; }
+.hero-consult { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: .055em; padding-block: 14px; border-bottom: 1px solid #ffffff80; }
+.hero-consult svg { width: 17px; height: 17px; }
+.hero-scroll { align-self: center; padding: 16px; margin-bottom: 12px; }
+.hero-scroll svg { width: 24px; height: 24px; }
+.video-control { position: absolute; bottom: 22px; left: 32px; z-index: 2; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid #ffffff80; border-radius: 50%; background: #00192250; cursor: pointer; }
+.video-control svg { width: 18px; height: 18px; }
+.boat-section { padding-block: clamp(64px, 8vw, 120px); scroll-margin-top: 24px; }
+.section-heading { margin-bottom: 40px; }
+.eyebrow { color: var(--turquoise); font-size: 11px; font-weight: 700; letter-spacing: .18em; line-height: 1.5; }
+.section-heading h2 { font-size: clamp(36px, 4.5vw, 64px); font-weight: 600; line-height: 1.1; letter-spacing: -.04em; margin-top: 12px; }
+.boat-subtitle { font-size: clamp(16px, 1.5vw, 20px); color: #526873; margin-top: 14px; }
+.boat-card { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 18px 55px #143c4810; }
+.boat-photo { position: relative; min-height: 510px; }
+.boat-photo img { object-fit: cover; object-position: center; }
+.boat-info { padding: clamp(30px, 3.3vw, 52px); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.boat-info h3 { font-size: clamp(32px, 3vw, 46px); font-weight: 500; line-height: 1.15; letter-spacing: -.04em; margin-top: 10px; }
+.boat-features { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 18px; width: 100%; margin-block: 36px; }
+.boat-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; line-height: 1.5; }
+.boat-features svg { width: 20px; height: 20px; color: var(--turquoise); flex-shrink: 0; stroke-width: 1.5; }
+.button-turquoise { background: var(--ocean); color: #fff; }
+.button-turquoise:hover { background: #087b91; }
+.reservation { background: #e3eff0; padding-block: clamp(56px, 6vw, 88px); scroll-margin-top: 24px; }
+.reservation-inner { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+.reservation h2 { font-size: clamp(28px, 3vw, 44px); line-height: 1.15; letter-spacing: -.035em; max-width: 23ch; font-weight: 600; }
+.reservation p { color: #425e69; font-size: 17px; line-height: 1.65; margin-top: 20px; max-width: 44ch; }
+.button-whatsapp { color: #fff; background: #16834b; flex-shrink: 0; }
+.button-whatsapp:hover { background: #10663a; }
+.site-footer { background: var(--turquoise); color: #fff; padding-block: 42px; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding-right: 48px; }
+.footer-logo { display: block; width: 240px; flex-shrink: 0; }
+.footer-location p { font-size: 14px; line-height: 1.6; }
+.footer-name { font-size: 18px !important; font-weight: 600; margin-bottom: 8px; }
+.footer-contact { display: flex; flex-direction: column; gap: 8px; font-size: 16px; white-space: nowrap; }
+.footer-contact span:first-child { font-size: 11px; letter-spacing: .13em; text-transform: uppercase; }
+.floating-whatsapp { position: fixed; right: 24px; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 30; width: 62px; height: 62px; display: grid; place-items: center; background: #19b760; border: 1px solid #ffffff60; border-radius: 50%; box-shadow: 0 6px 24px #002e3440; transition: background-color 180ms ease; }
+.floating-whatsapp:hover { background: #12874a; }
+@media (max-width: 1100px) {
+  .main-navigation { gap: 20px; }
+  .header-logo { width: 230px; }
+  .main-navigation > a { font-size: 11px; }
+  .boat-info { padding: 30px; }
+  .boat-features { gap: 22px 14px; }
+  .reservation-inner { gap: 32px; }
+  .reservation h2 { font-size: 34px; }
+}
+@media (max-width: 900px) {
+  .shell { width: calc(100% - 56px); }
+  .boat-card { grid-template-columns: minmax(0, 1fr); }
+  .boat-photo { min-height: 0; aspect-ratio: 3 / 2; }
+  .boat-info { padding: 40px; }
+  .boat-features { max-width: 600px; }
+  .reservation-inner { align-items: flex-start; flex-direction: column; gap: 30px; }
+  .footer-inner { flex-wrap: wrap; justify-content: flex-start; gap: 28px 48px; }
+  .footer-logo { width: 210px; }
+  .footer-contact { margin-left: auto; }
+}
+@media (max-width: 767px) {
+  .site-header { padding-block: 18px; gap: 16px; }
+  .header-logo { width: clamp(172px, 32vw, 240px); }
+  .menu-toggle { display: flex; }
+  .main-navigation { display: none; position: absolute; top: calc(100% - 4px); right: 0; width: min(100%, 340px); background: #075566; border: 1px solid #ffffff30; border-radius: 8px; padding: 26px; box-shadow: 0 12px 30px #00212b40; }
+  .main-navigation.is-open { display: flex; align-items: stretch; flex-direction: column; gap: 0; }
+  .main-navigation > a { padding-block: 16px; font-size: 12px; }
+  .main-navigation .header-whatsapp { margin-top: 12px; justify-content: center; }
+  .hero-copy h1 { font-size: clamp(42px, 10vw, 72px); }
+  .hero-content { padding-top: 52px; padding-bottom: 24px; }
+  .hero-copy > p { font-size: 18px; max-width: 30ch; margin-top: 22px; }
+  .hero-actions { gap: 16px; margin-top: 28px; flex-direction: column; align-items: flex-start; }
+  .hero-scroll { margin-bottom: 6px; }
+  .footer-inner { padding-right: 0; flex-direction: column; align-items: flex-start; gap: 30px; }
+  .footer-contact { margin-left: 0; }
+  .site-footer { padding-bottom: 84px; }
+}
+@media (max-width: 480px) {
+  .shell { width: calc(100% - 40px); }
+  .hero-copy h1 { font-size: clamp(38px, 11vw, 50px); }
+  .hero-shade { background: linear-gradient(180deg, #00192280, #00192240 35%, #001922c0); }
+  .hero-actions .button { padding-inline: 18px; font-size: 11px; gap: 10px; }
+  .hero-consult { font-size: 10px; gap: 8px; }
+  .section-heading { margin-bottom: 28px; }
+  .boat-info { padding: 28px 22px; }
+  .boat-features { gap: 20px 12px; }
+  .boat-features li { align-items: flex-start; gap: 8px; font-size: 13px; }
+  .boat-info .button { width: 100%; font-size: 11px; padding-inline: 12px; }
+  .reservation h2 { font-size: 30px; }
+  .reservation p { font-size: 16px; }
+  .reservation .button { width: 100%; font-size: 10px; padding-inline: 12px; gap: 10px; }
+  .floating-whatsapp { width: 56px; height: 56px; right: 18px; bottom: max(18px, env(safe-area-inset-bottom)); }
+  .floating-whatsapp img { width: 27px; height: 27px; }
+  .video-control { left: 20px; bottom: 18px; }
+}
+@media (max-height: 650px) {
+  .site-header { padding-block: 8px; }
+  .header-logo { width: 144px; }
+  .hero-content { padding-top: 16px; padding-bottom: 16px; }
+  .hero-copy h1 { font-size: clamp(32px, 7.8svh, 52px); }
+  .hero-copy > p { font-size: 16px; margin-top: 12px; }
+  .hero-actions { margin-top: 18px; gap: 12px; }
+  .hero-actions .button { min-height: 48px; padding: 12px 18px; }
+  .hero-consult { padding-block: 10px; }
+  .hero-scroll { padding: 8px; margin-bottom: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bz-home *, .bz-home *::before, .bz-home *::after { transition: none; }
+}

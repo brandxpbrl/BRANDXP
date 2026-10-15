@@ -1,121 +1,90 @@
-# BZ Lanchas
+# BZ Lanchas — Home
 
-Aplicación Next.js independiente extraída de la implementación aprobada de `viptour-buzios/app/bzlanchas/` en `brandxpbrl/BRANDXP`, commit de origen `1c9521305fff66dec7d3d571337ac17d46ddc655`.
+Aplicación Next.js independiente de `brandxpbrl/BRANDXP`, branch `chore/extract-bz-lanchas`. Sirve la home directamente en `/`. Todas las modificaciones de esta fase están dentro de `bz-lanchas/`; `viptour-buzios` se conserva intacto y no se realiza merge ni configuración de dominios.
 
-La página se sirve directamente en `/`. El proyecto original conserva `/bzlanchas` y no se ha modificado ningún archivo suyo. La extracción se realiza en la branch `chore/extract-bz-lanchas`, sin merge a `main`.
+## Ejecutar y verificar
 
-## Ejecución local
-
-Desde esta carpeta, con Node.js 24 LTS (verificado con 24.15.0):
+Node.js 24.x. Desde esta carpeta:
 
 ```sh
-npm install
-npm run dev
-```
-
-Abrir `http://localhost:3000/`.
-
-```sh
+npm ci
 npm run build
 npm run typecheck
 npm run lint
 npm run start
 ```
 
-El lockfile pertenece a esta aplicación. Para instalaciones reproducibles también se puede usar `npm ci`. No se requieren variables de entorno, backend, base de datos ni archivos externos a esta carpeta.
+Desarrollo: `npm run dev`. No se requieren variables de entorno, backend ni base de datos. No se agregan dependencias npm en esta fase.
 
-## Verificación inicial de la extracción (14 de octubre de 2026)
+## Home
 
-- `npm install`: completado. El primer intento de descarga sufrió un corte de red; el reintento terminó correctamente.
-- `npm run build`: completado con Next.js 16.4.0 / Turbopack; `/` se genera como página estática.
-- `npm run typecheck`: completado sin errores.
-- `npm run lint`: completado sin errores ni warnings.
-- `npm audit --omit=dev`: cero vulnerabilidades.
-- Servidor de producción: `/` responde 200 y renderiza BZ Lanchas; `/bzlanchas` responde 404 en la aplicación nueva.
-- Browser QA en Chrome: 1440, 1024, 900, 768, 600, 390, 375 y 320 px. No hay desbordamiento horizontal. Contenido, estilos calculados y geometría coinciden con un render del JSX aprobado y el CSS heredado; las capturas completas coinciden dentro del contenido de la página. La referencia normaliza la URL del asset para cargar el mismo PNG en este entorno.
-- Los dos assets responden 200; el PNG de fondo se decodifica a 1536 × 1024. Ambos archivos coinciden por SHA-256 con los originales.
-- Se comprobaron los tres enlaces de WhatsApp y el número visible; no se envió ningún mensaje.
-- Se comprobaron título, descripción, canonical raíz, idioma, Open Graph, Twitter y favicon. No hay metadata ni observadores de ORBIS.
-- Sin errores de JavaScript ni solicitudes fallidas durante la navegación.
-- `git diff HEAD -- viptour-buzios`: vacío. El checkout local previo y sus cambios ajenos se conservaron mediante un worktree aislado.
+La experiencia se organiza en cuatro bloques: hero fullscreen, embarcación, reserva y footer. El hero usa `100svh`, mantiene espacio para el contenido en pantallas de poca altura y ofrece navegación a `#lancha` y `#reserva`. El menú móvil abre, cierra, responde a Escape y se cierra al navegar o pulsar fuera.
 
-## Archivos copiados y adaptados
+Solo se publica **FÊNIX 27.5**, nombre **Gratidão**, lancha cabinada para hasta 10 personas. La ficha muestra únicamente: 27,5 pés, até 10 pessoas, banheiro, churrasqueira, Bluetooth, cabine, pia y ducha com água doce. La reserva es directa por WhatsApp, sin formulario.
 
-| Archivo nuevo | Procedencia / adaptación |
-| --- | --- |
-| `app/page.tsx` | Implementación aprobada, con el logo oficial en header/footer y solamente la embarcación real. El catálogo conserva `id="lanchas"` para el enlace del footer. |
-| `app/bzlanchas.css` | Dirección visual y breakpoints de 900 y 600 px preservados. Logos completos con `object-fit: contain`, proporción 3:2, sin zoom ni recorte; se retiran estilos de tarjetas ficticias. La URL del PNG de la lancha mantiene la coma codificada como `%2C`. |
-| `public/bz-lanchas-logo-oficial.png` | Imagen oficial aportada por el usuario, copiada exactamente; reemplaza al antiguo `logolancha.jpeg`, que se elimina de esta aplicación. |
-| `public/ChatGPT Image 22 sept 2026, 09_11_29 p.m..png` | Imagen original utilizada como fondo de la lancha, sin cambios de bytes. |
-| `tsconfig.json` | Configuración TypeScript del proyecto de origen, con rutas y tipos locales a esta carpeta. |
-| `next.config.ts` | Configuración mínima con raíz de Turbopack y de trazado dentro de esta aplicación. Se descartan las redirecciones de VIPTOUR/Búzios Buggy. |
+El footer contiene únicamente la marca, Armação dos Búzios · RJ y WhatsApp +55 (22) 99736-2297. No hay pagos, políticas sin página, idiomas decorativos ni enlaces vacíos. Todos los CTA de WhatsApp usan la constante `https://wa.me/5522997362297` de `app/content.ts`.
 
-## Archivos creados
+## Video definitivo
 
-- `app/layout.tsx`: documento `pt-BR`, metadata exclusiva de BZ Lanchas, favicon con el logo existente; sin navbar ni observadores del proyecto principal.
-- `app/globals.css`: únicamente reglas base que afectaban a la página aprobada (reset, botones, imágenes, tipografía y suavizado), para conservar su apariencia sin instalar Tailwind.
-- `package.json` y `package-lock.json`: scripts y dependencias independientes.
-- `next-env.d.ts`: tipos de Next.js generados localmente.
-- `eslint.config.mjs`: revisión del código; se conserva el elemento `img` para mostrar el logo completo. Se excluyen los archivos temporales de build y verificación.
-- `.gitignore`: excluye dependencias, build, caché local y configuración privada de Vercel.
-- `README.md`: análisis, inventario e instrucciones.
+Colocar el MP4 exactamente en:
 
-Solo existen los dos assets utilizados dentro de `public/`. No se copiaron imágenes, favicons, manifests, fuentes, componentes ni APIs de otras marcas.
+```text
+bz-lanchas/public/videos/bz-hero.mp4
+```
 
-## Dependencias
+Su URL será `/videos/bz-hero.mp4`. **Mientras no exista ese archivo, el hero usa la fotografía existente de la embarcación.** No se incluye ni se inventa ningún video.
 
-Producción: Next.js `16.4.0`, React y React DOM `19.2.4`, Lucide React `1.22.0`.
+La presencia del archivo se comprueba durante el build: después de añadirlo, ejecutar `npm run build` y volver a desplegar. No hace falta cambiar código. El archivo debe ser un MP4 reproducible en los navegadores de destino (por ejemplo, H.264); conviene exportarlo sin pista de audio y con tamaño contenido.
 
-Desarrollo: TypeScript, tipos de Node/React, ESLint y la configuración de Next.js.
+Cuando el MP4 existe, se utiliza `autoPlay`, `muted`, `loop`, `playsInline`, `preload="metadata"`, poster y `object-fit: cover`. La foto aparece desde el render inicial y permanece visible mientras el video carga o si falla. Se ofrece control de pausa/reproducción y se conserva la fotografía para usuarios con preferencia de movimiento reducido. No hay reproductores ni videos externos.
 
-Se eliminan Framer Motion, Tailwind y su plugin PostCSS; BZ Lanchas no los necesita. No hay imports hacia `viptour-buzios` ni dependencias de workspace, servicios de ORBIS, MAX, SelfObserver o fuentes remotas.
+Las fotografías usan la optimización de imágenes de Next.js (calidad 85). El logo oficial se sirve sin optimización ni recomprensión. No se bloquea el render esperando al video.
 
-Next.js y su configuración de lint se actualizan de `16.2.9` a `16.4.0` solo en esta aplicación por los avisos detectados durante la instalación. El audit de producción queda sin hallazgos; el audit completo conserva cinco avisos altos de desarrollo en la cadena `eslint-config-next → @next/eslint-plugin-next → fast-glob → micromatch → braces`. npm propone un downgrade incompatible de la configuración de Next; no se aplica `npm audit fix --force`.
+## Logo oficial
 
-## Contenido e interacciones preservadas
+`public/bz-lanchas-logo-oficial.png` conserva exactamente los bytes de la versión aprobada en `240abfc`:
 
-Los tres enlaces de reserva/WhatsApp mantienen `https://wa.me/5522997362297` y el mensaje aprobado. El teléfono visible sigue siendo `+55 (22) 99736-2297`.
+```text
+SHA-256: aa2f23941934f3d1ed42ac18767b4d0810105d0699659cdde079af60a6d6e508
+Git blob: e47bbd5fc6dd9eb92d310a5fb05379a05ed47814
+```
 
-El catálogo muestra únicamente la lancha cabinada de 27,5 pés para hasta 10 personas. Se eliminaron las dos tarjetas ficticias “NOVA EMBARCAÇÃO / EM BREVE” por solicitud del usuario. Se preservan los textos y características de la embarcación publicada. Los botones de idioma, menú, filtro y flechas no tenían handlers en el código de origen; mantienen ese comportamiento. Las políticas siguen teniendo sus enlaces placeholder. No se inventan traducciones, políticas ni información comercial.
+Se muestra completo en header y footer, con proporción 3:2 y `object-fit: contain`, sin recortar, deformar ni editar su número impreso. Ese número no se utiliza para generar enlaces de contacto.
 
-## Actualización del logo oficial y catálogo (14 de octubre de 2026)
+## SEO
 
-- Se copia exactamente `Logotipo BZ Lanchas de Lujo.png`, sin rediseño, edición ni recomprensión. SHA-256: `aa2f23941934f3d1ed42ac18767b4d0810105d0699659cdde079af60a6d6e508`.
-- Header: logo de hasta 360 × 240 px; en móvil se adapta al ancho disponible. Footer: 245 px en escritorio y 260 px en móvil, siempre en proporción 3:2 y sin recortes.
-- Se actualiza el favicon para usar el PNG oficial y se retira el JPEG antiguo.
-- QA en Chrome a 1440, 1024, 900, 768, 600, 390, 375 y 320 px: una sola tarjeta, ambos logos completos, sin desbordamiento horizontal ni errores de JavaScript. Los tres enlaces de WhatsApp siguen apuntando a `5522997362297`.
-- La imagen oficial incluye el número impreso `22 99236-2297`. Se conserva tal cual, según la instrucción de no alterar el logo. El texto de contacto y los enlaces de la web mantienen el número confirmado `+55 (22) 99736-2297`.
-- No se modifica ningún archivo de `viptour-buzios` ni se hace merge.
+Documento `pt-BR`, un H1 en el hero y H2 para embarcación y reserva. La metadata menciona BZ Lanchas, FÊNIX 27.5, paseo privativo y Armação dos Búzios / RJ. No se emite canonical ni se fija un dominio definitivo.
 
-## Metadata
+## Archivos de la home
 
-Se mantienen exactamente el título `BZ Lanchas | Lanchas em Búzios` y la descripción aprobada. Se añade idioma `pt-BR` y metadata social de la propia marca, sin heredar ORBIS.
+- `app/page.tsx`: composición, ficha real y comprobación del MP4 local.
+- `app/components/HeroMedia.tsx`: fallback, video progresivo y pausa.
+- `app/components/SiteHeader.tsx`: navegación y menú móvil.
+- `app/content.ts`: rutas de los assets y WhatsApp confirmado.
+- `app/bzlanchas.css`: hero, ficha, reserva, footer y responsive.
+- `app/layout.tsx`: metadata específica, sin canonical.
+- `next.config.ts`: raíces independientes y calidades de imágenes permitidas.
+- `eslint.config.mjs`: revisión Next.js/TypeScript sin excepciones para imágenes.
+- `public/icons/whatsapp.svg`: icono local de Bootstrap Icons.
+- `public/videos/.gitkeep`: carpeta preparada para recibir el MP4.
+- `THIRD_PARTY_NOTICES.txt`: licencia del icono.
 
-La canonical es `/`. En Vercel, la base se obtiene de las variables automáticas `VERCEL_PROJECT_PRODUCTION_URL` o `VERCEL_URL`. No se fija un dominio futuro ni se configura ningún dominio personalizado.
+El logo oficial y la fotografía existente no se modifican. No se copian assets ni contenido de la web de referencia conceptual.
 
-## Crear el nuevo proyecto en Vercel
+## Icono de WhatsApp
 
-1. En Vercel, seleccionar el equipo **ORBIS** y abrir **Add New → Project**.
-2. Importar el repositorio existente **brandxpbrl/BRANDXP**. Seleccionar la branch **chore/extract-bz-lanchas** como fuente del primer despliegue: esa branch contiene la carpeta nueva, mientras que `main` todavía no la contiene.
-3. Configurar únicamente el proyecto nuevo:
+Se utiliza el SVG de [Bootstrap Icons](https://github.com/twbs/icons/blob/main/icons/whatsapp.svg), servido localmente. Su licencia MIT se conserva en `THIRD_PARTY_NOTICES.txt`. No se agrega una biblioteca npm de iconos de marcas.
 
-   | Campo | Valor |
-   | --- | --- |
-   | Project Name | `bz-lanchas` |
-   | Framework Preset | `Next.js` |
-   | Root Directory | `bz-lanchas` |
-   | Build Command | `npm run build` |
-   | Install Command | `npm ci` |
-   | Output Directory | Default de Next.js (sin override) |
-   | Node.js Version | `24.x` |
-   | Environment Variables | Ninguna requerida |
+## Verificación de esta fase — 15 de octubre de 2026
 
-4. Dejar desactivada la inclusión de archivos externos al Root Directory. No cambiar ajustes del proyecto `viptour-buzios`.
-5. Si la pantalla de importación no permite elegir la branch, guardar la configuración del proyecto nuevo; en **Settings → Environments → Production → Branch Tracking**, seleccionar `chore/extract-bz-lanchas`. Después usar **Deployments → Create Deployment** e introducir esa branch para construir el código correcto. No desplegar desde `main`, que aún no contiene esta extracción.
-6. Desplegar y revisar la URL `.vercel.app` generada, en `/`, incluyendo móvil y el destino de WhatsApp. No añadir ni transferir dominios personalizados.
+- Instalación reproducible con `npm ci`, build de producción, TypeScript y lint ejecutados correctamente. El build genera `/` como página estática.
+- QA de navegador a 320, 375, 390, 430, 768, 1024 y 1440 px: hero con altura de viewport, una columna en móvil/tablet y dos en escritorio, sin overflow horizontal. Se verifican imágenes, logos, menú (incluido Escape), cierre al navegar y scroll a `#lancha`.
+- Se comprueban H1/H2, FÊNIX 27.5, Gratidão, las ocho características confirmadas, footer simplificado y seis accesos con el WhatsApp correcto. No se emite canonical.
+- Sin MP4: foto visible y ninguna solicitud a un video inexistente. En una respuesta de prueba se simula disponibilidad del recurso y se aborta su petición: se verifican los atributos de video y el regreso a la foto, sin crear un MP4. También se verifica el fallback por movimiento reducido.
+- Logo y fotografía coinciden por hash Git con `240abfc`. Ninguna dependencia npm nueva. El proyecto original no tiene modificaciones.
 
-El selector de Production Branch afecta solamente al proyecto nuevo. Tras una futura revisión y merge explícitamente autorizado, se podrá elegir `main` para este proyecto; no se hizo ningún merge en esta tarea.
+## Vercel
 
-Durante la extracción inicial, el conector Vercel devolvió una lista vacía de equipos. En la actualización del logo se verificó la sesión de la CLI local y su acceso a ORBIS (`brandxpbrls-projects`), y se creó el proyecto independiente `bz-lanchas`, conectado a `brandxpbrl/BRANDXP`, con Root Directory `bz-lanchas`, Next.js y Node.js 24.x. Se excluyen archivos fuera del Root Directory. La branch de producción continúa siendo `main`; esta revisión se entrega como preview de `chore/extract-bz-lanchas`, sin promoción a producción, merge ni dominios personalizados.
+Proyecto `bz-lanchas` en ORBIS (`brandxpbrls-projects`), ID `prj_hlk1SQ0NCPf7AhKHnRrNOKEIA3G5`, repositorio `brandxpbrl/BRANDXP`, Root Directory `bz-lanchas`, Next.js, Node 24.x, instalación `npm ci`, build `npm run build`. No incluye archivos externos al Root Directory.
 
-Documentación oficial: [configuración de build y Root Directory](https://vercel.com/docs/builds/configure-a-build), [despliegues desde una referencia Git y Production Branch](https://vercel.com/docs/git), [Next.js 16.4.0](https://github.com/vercel/next.js/releases/tag/v16.4.0).
+Esta fase se revisa con un Preview de `chore/extract-bz-lanchas`. No se cambia la branch de producción, no se promueve un deployment y no se añaden ni modifican dominios. Los previews pueden requerir una sesión de Vercel con acceso a ORBIS.

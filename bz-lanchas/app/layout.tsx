@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const title = "BZ Lanchas | Lanchas em Búzios";
+const title = "BZ Lanchas | FÊNIX 27.5 — Passeio privativo em Búzios";
 const description =
-  "Passeios privativos de lancha em Búzios. Consulte disponibilidade e reserve pelo WhatsApp.";
-const deploymentHost =
-  process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+  "Passeio privativo de lancha em Armação dos Búzios / RJ a bordo da FÊNIX 27.5, Gratidão. Lancha cabinada para até 10 pessoas. Consulte disponibilidade.";
 
 export const metadata: Metadata = {
-  ...(deploymentHost && { metadataBase: new URL(`https://${deploymentHost}`) }),
   title,
   description,
-  alternates: { canonical: "/" },
+  keywords: ["BZ Lanchas", "FÊNIX 27.5", "Gratidão", "Passeio privativo de lancha em Búzios", "Armação dos Búzios", "RJ"],
   openGraph: {
     type: "website",
     locale: "pt_BR",

@@ -1,17 +1,91 @@
-import type { Metadata } from "next";
-import { Bath, Flame, Menu, Music2, SlidersHorizontal } from "lucide-react";
+import { existsSync } from "node:fs";
+import path from "node:path";
+import Image from "next/image";
+import { ArrowDown, ArrowUpRight, Bath, DoorOpen, Droplets, Flame, Music2, Ruler, ShowerHead, UsersRound } from "lucide-react";
+import { HeroMedia } from "./components/HeroMedia";
+import { SiteHeader } from "./components/SiteHeader";
+import { BOAT_PHOTO, LOGO, WHATSAPP } from "./content";
 import "./bzlanchas.css";
 
-export const metadata: Metadata={title:"BZ Lanchas | Lanchas em Búzios",description:"Passeios privativos de lancha em Búzios. Consulte disponibilidade e reserve pelo WhatsApp."};
-const whatsapp="https://wa.me/5522997362297?text=Ol%C3%A1%21%20Quero%20consultar%20a%20disponibilidade%20da%20BZ%20Lanchas.";
-const realFeatures=[["27,5 pés","27,5 PÉS"],["Até 10 pessoas","10 PESSOAS"]];
-export default function Page(){return <main className="bzRef">
-<header className="refHeader"><a className="refLogo" href="#"><img src="/bz-lanchas-logo-oficial.png" alt="BZ Lanchas" width={1536} height={1024}/></a><div className="refHeaderRight"><div className="languages"><button aria-label="English">🇺🇸</button><button aria-label="Português">🇧🇷</button><button aria-label="Español">🇪🇸</button></div><button className="menuBtn" aria-label="Menu"><Menu/></button></div></header>
-<section className="catalogPage" id="lanchas">
-<button className="filterBtn"><SlidersHorizontal/> Filtrar</button>
-<div className="boatCards">
-<article className="boatCard"><div className="boatImage realBoat"><button className="arrow left">‹</button><button className="arrow right">›</button></div><div className="boatInfo"><h1>Lancha cabinada de 27,5 pés com capacidade para até 10 pessoas.</h1><p><b>BZ Lanchas</b> — embarcação privativa equipada para aproveitar Búzios com conforto, liberdade e segurança. Cabine, banheiro, som Bluetooth, pia e ducha com água doce e churrasqueira a bordo.</p><div className="chips">{realFeatures.map(([a,b])=><span key={a}>{b}</span>)}</div><div className="miniFeatures"><span><Bath/> Banheiro</span><span><Flame/> Churrasqueira</span><span><Music2/> Bluetooth</span></div><a className="reserve" href={whatsapp}>INFORMAÇÕES & RESERVAS</a></div></article>
-</div></section>
-<footer className="refFooter"><div className="footerGrid"><div><a className="footerLogo" href="#"><img src="/bz-lanchas-logo-oficial.png" alt="BZ Lanchas" width={1536} height={1024}/></a></div><nav><a href="#">Início</a><a href="#lanchas">Lanchas</a><a href={whatsapp}>Reservas</a><a href="#">Política de privacidade</a><a href="#">Política de cancelamento</a></nav><div className="social"><b>Siga a BZ Lanchas</b><div>Instagram&nbsp;&nbsp; WhatsApp</div></div><div className="contact"><b>+55 (22) 99736-2297</b><span>WhatsApp: +55 (22) 99736-2297</span><span>Armação dos Búzios · RJ</span><span>Atendimento mediante consulta</span></div><div className="payments"><b>FORMAS DE PAGAMENTO</b><div><span>VISA</span><span>Mastercard</span><span>PIX</span></div></div></div><div className="copyright">BZ LANCHAS · ARMAÇÃO DOS BÚZIOS / RJ · BRASIL</div></footer>
-<a className="floatingWhatsapp" href={whatsapp} aria-label="WhatsApp">◉</a>
-</main>}
+const features = [
+  { Icon: Ruler, label: "27,5 pés" },
+  { Icon: UsersRound, label: "Até 10 pessoas" },
+  { Icon: Bath, label: "Banheiro" },
+  { Icon: Flame, label: "Churrasqueira" },
+  { Icon: Music2, label: "Bluetooth" },
+  { Icon: DoorOpen, label: "Cabine" },
+  { Icon: Droplets, label: "Pia" },
+  { Icon: ShowerHead, label: "Ducha com água doce" },
+];
+
+export default function Page() {
+  // Evaluated at build time: an absent MP4 never creates a broken media request.
+  const hasHeroVideo = existsSync(path.join(process.cwd(), "public/videos/bz-hero.mp4"));
+
+  return (
+    <main className="bz-home" id="conteudo">
+      <a className="skip-link" href="#lancha">Ir para nossa lancha</a>
+      <section className="hero" id="inicio" aria-label="BZ Lanchas em Búzios">
+        <HeroMedia available={hasHeroVideo} />
+        <SiteHeader />
+        <div className="hero-content shell">
+          <div className="hero-copy">
+            <h1>VIVA BÚZIOS <span>PELO MAR</span></h1>
+            <p>Experiências privativas a bordo da BZ Lanchas.</p>
+            <div className="hero-actions">
+              <a className="button button-light" href="#lancha">CONHEÇA NOSSA LANCHA <ArrowDown aria-hidden="true" /></a>
+              <a className="hero-consult" href={WHATSAPP}>CONSULTAR DISPONIBILIDADE <ArrowUpRight aria-hidden="true" /></a>
+            </div>
+          </div>
+        </div>
+        <a className="hero-scroll" href="#lancha" aria-label="Descer para nossa lancha"><ArrowDown aria-hidden="true" /></a>
+      </section>
+
+      <section className="boat-section shell" id="lancha" aria-labelledby="boat-title">
+        <div className="section-heading">
+          <p className="eyebrow">NOSSA LANCHA</p>
+          <h2 id="boat-title">FÊNIX 27.5</h2>
+          <p className="boat-subtitle">Lancha cabinada · Até 10 pessoas</p>
+        </div>
+        <article className="boat-card" aria-label="Gratidão, FÊNIX 27.5">
+          <div className="boat-photo">
+            <Image src={BOAT_PHOTO} alt="FÊNIX 27.5 — Gratidão, lancha cabinada da BZ Lanchas" fill sizes="(max-width: 900px) 100vw, 60vw" quality={85} />
+          </div>
+          <div className="boat-info">
+            <p className="eyebrow">NOME DA EMBARCAÇÃO</p>
+            <h3>Gratidão</h3>
+            <ul className="boat-features" aria-label="Características confirmadas">
+              {features.map(({ Icon, label }) => <li key={label}><Icon aria-hidden="true" /><span>{label}</span></li>)}
+            </ul>
+            <a className="button button-turquoise" href={WHATSAPP}>INFORMAÇÕES &amp; RESERVAS <ArrowUpRight aria-hidden="true" /></a>
+          </div>
+        </article>
+      </section>
+
+      <section className="reservation" id="reserva" aria-labelledby="reservation-title">
+        <div className="reservation-inner shell">
+          <div>
+            <h2 id="reservation-title">SEU DIA EM BÚZIOS COMEÇA PELO MAR.</h2>
+            <p>Consulte disponibilidade e fale diretamente com a BZ Lanchas.</p>
+          </div>
+          <a className="button button-whatsapp" href={WHATSAPP}>
+            <Image src="/icons/whatsapp.svg" alt="" aria-hidden="true" width={22} height={22} unoptimized />
+            CONSULTAR DISPONIBILIDADE
+          </a>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <div className="footer-inner shell">
+          <a className="footer-logo" href="#inicio" aria-label="BZ Lanchas — início"><Image src={LOGO} alt="BZ Lanchas" width={1536} height={1024} unoptimized /></a>
+          <div className="footer-location"><p className="footer-name">BZ Lanchas</p><p>Armação dos Búzios · RJ</p></div>
+          <a className="footer-contact" href={WHATSAPP}><span>WhatsApp</span><span>+55 (22) 99736-2297</span></a>
+        </div>
+      </footer>
+
+      <a className="floating-whatsapp" href={WHATSAPP} aria-label="Consultar disponibilidade pelo WhatsApp" title="WhatsApp">
+        <Image src="/icons/whatsapp.svg" alt="" aria-hidden="true" width={30} height={30} unoptimized />
+      </a>
+    </main>
+  );
+}
