@@ -1,41 +1,26 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 
-type ClientAsset = {
-  src: string;
-  // Record the client's original delivery, not just the asset's filename.
-  clientSource: string;
-};
+type ClientAsset = { src: string; clientSource: string };
 
-// Only register media after verifying that the client supplied authentic footage
-// or photographs of FÊNIX 27.5 “Gratidão”. See MEDIA_POLICY.md.
 const approvedMedia: {
   boatPhoto: ClientAsset | null;
   heroPoster: ClientAsset | null;
   heroVideo: ClientAsset | null;
   heroMobilePoster: ClientAsset | null;
   heroMobileVideo: ClientAsset | null;
+  experiencePhoto: ClientAsset | null;
+  interiorPhoto: ClientAsset | null;
+  bowPhoto: ClientAsset | null;
 } = {
-  boatPhoto: {
-    src: "/images/fenix-275-gratidao.webp",
-    clientSource: "Client attachment 1000716633.mp4, original frame at 00:26; media/provenance.json",
-  },
-  heroPoster: {
-    src: "/images/fenix-275-gratidao.webp",
-    clientSource: "Client attachment 1000716633.mp4, original frame at 00:26; media/provenance.json",
-  },
-  heroVideo: {
-    src: "/videos/bz-hero-desktop.mp4",
-    clientSource: "Client attachment 1000716633.mp4, continuous segment 00:24–00:36; media/provenance.json",
-  },
-  heroMobilePoster: {
-    src: "/images/bz-hero-mobile.webp",
-    clientSource: "Client attachment 1000717086.mp4, original frame at 00:07.5; media/provenance.json",
-  },
-  heroMobileVideo: {
-    src: "/videos/bz-hero-mobile.mp4",
-    clientSource: "Client attachment 1000717086.mp4, continuous segment 00:00–00:12; media/provenance.json",
-  },
+  boatPhoto: { src: "/IMG-20261017-WA0134.jpg", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
+  heroPoster: { src: "/IMG-20261017-WA0134.jpg", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
+  heroVideo: { src: "/VID-20261017-WA0136.mp4", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
+  heroMobilePoster: { src: "/IMG-20261015-WA0164.jpg", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
+  heroMobileVideo: { src: "/VID-20261015-WA0165.mp4", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
+  experiencePhoto: { src: "/IMG-20261017-WA0150.jpg", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
+  interiorPhoto: { src: "/IMG-20261017-WA0140.jpg", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
+  bowPhoto: { src: "/IMG-20261017-WA0141.jpg", clientSource: "Client delivery uploaded to GitHub on 2026-10-18." },
 };
 
 function localAsset(asset: ClientAsset | null): string | undefined {
@@ -53,5 +38,8 @@ export function getClientMedia() {
     heroVideo: localAsset(approvedMedia.heroVideo),
     heroMobilePoster: localAsset(approvedMedia.heroMobilePoster),
     heroMobileVideo: localAsset(approvedMedia.heroMobileVideo),
+    experiencePhoto: localAsset(approvedMedia.experiencePhoto),
+    interiorPhoto: localAsset(approvedMedia.interiorPhoto),
+    bowPhoto: localAsset(approvedMedia.bowPhoto),
   };
 }
