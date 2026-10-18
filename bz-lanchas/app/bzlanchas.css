@@ -61,6 +61,17 @@
 .boat-features svg { width: 20px; height: 20px; color: var(--turquoise); flex-shrink: 0; stroke-width: 1.5; }
 .button-turquoise { background: var(--ocean); color: #fff; }
 .button-turquoise:hover { background: #087b91; }
+.experience-section { padding-bottom: clamp(64px, 8vw, 120px); }
+.experience-copy { display: grid; grid-template-columns: minmax(0, .55fr) minmax(0, 1.45fr); gap: 18px 48px; align-items: start; margin-bottom: 38px; }
+.experience-copy .eyebrow { padding-top: 12px; }
+.experience-copy h2 { font-size: clamp(34px, 4.2vw, 62px); line-height: 1.04; letter-spacing: -.045em; font-weight: 600; max-width: 18ch; }
+.experience-copy > p:last-child { grid-column: 2; color: #526873; font-size: 18px; line-height: 1.65; max-width: 48ch; }
+.experience-grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(280px, .75fr); gap: 18px; }
+.experience-side { display: grid; grid-template-rows: 1fr 1fr; gap: 18px; }
+.experience-photo { position: relative; min-height: 280px; overflow: hidden; border-radius: 12px; background: #dce8e9; }
+.experience-photo-main { min-height: 650px; }
+.experience-photo img { object-fit: cover; object-position: center; }
+
 .reservation { background: #e3eff0; padding-block: clamp(56px, 6vw, 88px); scroll-margin-top: 24px; }
 .reservation-inner { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
 .reservation h2 { font-size: clamp(28px, 3vw, 44px); line-height: 1.15; letter-spacing: -.035em; max-width: 23ch; font-weight: 600; }
@@ -92,6 +103,13 @@
   .boat-photo { min-height: 0; aspect-ratio: 3 / 2; }
   .boat-info { padding: 40px; }
   .boat-features { max-width: 600px; }
+  .experience-copy { grid-template-columns: 1fr; gap: 14px; }
+  .experience-copy .eyebrow { padding-top: 0; }
+  .experience-copy > p:last-child { grid-column: 1; }
+  .experience-grid { grid-template-columns: 1fr; }
+  .experience-photo-main { min-height: 0; aspect-ratio: 4 / 3; }
+  .experience-side { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+  .experience-side .experience-photo { min-height: 0; aspect-ratio: 4 / 3; }
   .reservation-inner { align-items: flex-start; flex-direction: column; gap: 30px; }
   .footer-inner { flex-wrap: wrap; justify-content: flex-start; gap: 28px 48px; }
   .footer-logo { width: 210px; }
@@ -110,6 +128,8 @@
   .hero-copy > p { font-size: 18px; max-width: 30ch; margin-top: 22px; }
   .hero-actions { gap: 16px; margin-top: 28px; flex-direction: column; align-items: flex-start; }
   .hero-scroll { margin-bottom: 6px; }
+  .experience-side { grid-template-columns: 1fr; }
+  .experience-side .experience-photo { aspect-ratio: 3 / 2; }
   .footer-inner { padding-right: 0; flex-direction: column; align-items: flex-start; gap: 30px; }
   .footer-contact { margin-left: 0; }
   .site-footer { padding-bottom: 84px; }
