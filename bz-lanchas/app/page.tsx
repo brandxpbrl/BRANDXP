@@ -26,7 +26,7 @@ export default function Page() {
       </section>
 
       {(media.experiencePhoto || media.interiorPhoto || media.bowPhoto) && <section className="experience-section shell" aria-labelledby="experience-title">
-        <div className="experience-copy"><p className="eyebrow">A EXPERIÊNCIA</p><h2 id="experience-title">BÚZIOS PELO MAR, DE UM JEITO ESPECIAL.</h2><p>Liberdade, conforto e momentos para viver com família e amigos.</p></div>
+        <div className="experience-copy"><p className="eyebrow">A EXPERIÊNCIA</p><h2 id="experience-title">Búzios pelo mar <em>de um jeito especial.</em></h2><p className="experience-values">EXCLUSIVIDADE · CONFORTO · LIBERDADE</p></div>
         <div className="experience-grid">{media.experiencePhoto && <div className="experience-photo experience-photo-main"><Image src={media.experiencePhoto} alt="Grupo aproveitando Búzios a bordo da BZ Lanchas" fill sizes="(max-width: 800px) 100vw, 65vw" quality={88} /></div>}<div className="experience-side">{media.interiorPhoto && <div className="experience-photo"><Image src={media.interiorPhoto} alt="Interior da FÊNIX 27.5 Gratidão" fill sizes="(max-width: 800px) 100vw, 35vw" quality={88} /></div>}{media.bowPhoto && <div className="experience-photo"><Image src={media.bowPhoto} alt="Proa da Gratidão em Búzios" fill sizes="(max-width: 800px) 100vw, 35vw" quality={88} /></div>}</div></div>
       </section>}
 
