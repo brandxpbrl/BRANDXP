@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, Bath, DoorOpen, Droplets, Flame, Instagram, Music2, Phone, Ruler, ShowerHead, UsersRound } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Bath, DoorOpen, Droplets, Flame, Music2, Phone, Ruler, ShowerHead, UsersRound } from "lucide-react";
 import { HeroMedia } from "./components/HeroMedia";
 import { SiteHeader } from "./components/SiteHeader";
 import { LOGO, WHATSAPP } from "./content";
@@ -43,7 +43,7 @@ export default function Page() {
       <footer className="site-footer"><div className="footer-grid shell">
         <div className="footer-brand"><a className="footer-logo" href="#inicio" aria-label="BZ Lanchas — início"><Image src={LOGO} alt="BZ Lanchas" width={1200} height={1200} unoptimized /></a><p>Búzios pelo mar, de um jeito especial.</p></div>
         <div className="footer-column"><h2>INSTITUCIONAL</h2><a href="#inicio">Home</a><a href="/quem-somos">Quem Somos</a><a href="/nossa-missao">Nossa Missão</a><a href="/politica-de-privacidade">Política de Privacidade</a><a href="/politica-de-cancelamento">Política de Cancelamento</a></div>
-        <div className="footer-column"><h2>REDES SOCIAIS</h2><a className="social-link" href="https://www.instagram.com/bzlanchas/" target="_blank" rel="noreferrer"><Instagram aria-hidden="true" /> Instagram</a></div>
+        <div className="footer-column"><h2>REDES SOCIAIS</h2><a className="social-link" href="https://www.instagram.com/bzlanchas/" target="_blank" rel="noreferrer"><span className="instagram-mark" aria-hidden="true">◎</span> Instagram</a></div>
         <div className="footer-column"><h2>ATENDIMENTO</h2><a className="contact-row" href="tel:+5522997362297"><Phone aria-hidden="true" /><span>+55 (22) 99736-2297</span></a><a className="contact-row" href={WHATSAPP}><Image src="/icons/whatsapp.svg" alt="" aria-hidden="true" width={22} height={22} unoptimized /><span>WhatsApp</span></a><p>Armação dos Búzios · RJ</p></div>
       </div><div className="footer-bottom shell"><span>© 2026 BZ Lanchas</span><span>Momentos para viver e lembrar.</span></div></footer>
       <a className="floating-whatsapp" href={WHATSAPP} aria-label="Consultar disponibilidade pelo WhatsApp" title="WhatsApp"><Image src="/icons/whatsapp.svg" alt="" aria-hidden="true" width={30} height={30} unoptimized /></a>
