@@ -78,13 +78,19 @@
 .reservation p { color: #425e69; font-size: 17px; line-height: 1.65; margin-top: 20px; max-width: 44ch; }
 .button-whatsapp { color: #fff; background: #16834b; flex-shrink: 0; }
 .button-whatsapp:hover { background: #10663a; }
-.site-footer { background: var(--turquoise); color: #fff; padding-block: 42px; }
-.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding-right: 48px; }
-.footer-logo { display: block; width: 240px; flex-shrink: 0; }
-.footer-location p { font-size: 14px; line-height: 1.6; }
-.footer-name { font-size: 18px !important; font-weight: 600; margin-bottom: 8px; }
-.footer-contact { display: flex; flex-direction: column; gap: 8px; font-size: 16px; white-space: nowrap; }
-.footer-contact span:first-child { font-size: 11px; letter-spacing: .13em; text-transform: uppercase; }
+.site-footer { background: #075b77; color: #fff; padding: 58px 0 24px; }
+.footer-grid { display: grid; grid-template-columns: 1.1fr 1fr .8fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start; }
+.footer-brand { max-width: 260px; }
+.footer-logo { display: block; width: 190px; margin-bottom: 18px; }
+.footer-brand p { color: #d7edf0; font-size: 14px; line-height: 1.6; }
+.footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
+.footer-column h2 { font-size: 13px; font-weight: 800; letter-spacing: .09em; margin-bottom: 8px; }
+.footer-column a, .footer-column p { color: #e8f5f6; font-size: 14px; line-height: 1.5; }
+.footer-column a:hover { color: #e5bc60; }
+.social-link, .contact-row { display: inline-flex; align-items: center; gap: 10px; }
+.social-link svg, .contact-row svg { width: 22px; height: 22px; flex-shrink: 0; }
+.contact-row img { filter: brightness(0) invert(1); }
+.footer-bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid #ffffff2e; display: flex; justify-content: space-between; gap: 24px; color: #bcdce1; font-size: 12px; }
 .floating-whatsapp { position: fixed; right: 24px; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 30; width: 62px; height: 62px; display: grid; place-items: center; background: #19b760; border: 1px solid #ffffff60; border-radius: 50%; box-shadow: 0 6px 24px #002e3440; transition: background-color 180ms ease; }
 .floating-whatsapp:hover { background: #12874a; }
 @media (max-width: 1100px) {
@@ -111,9 +117,8 @@
   .experience-side { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
   .experience-side .experience-photo { min-height: 0; aspect-ratio: 4 / 3; }
   .reservation-inner { align-items: flex-start; flex-direction: column; gap: 30px; }
-  .footer-inner { flex-wrap: wrap; justify-content: flex-start; gap: 28px 48px; }
-  .footer-logo { width: 210px; }
-  .footer-contact { margin-left: auto; }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-logo { width: 180px; }
 }
 @media (max-width: 767px) {
   .site-header { padding-block: 18px; gap: 16px; }
@@ -130,8 +135,9 @@
   .hero-scroll { margin-bottom: 6px; }
   .experience-side { grid-template-columns: 1fr; }
   .experience-side .experience-photo { aspect-ratio: 3 / 2; }
-  .footer-inner { padding-right: 0; flex-direction: column; align-items: flex-start; gap: 30px; }
-  .footer-contact { margin-left: 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+  .footer-brand { max-width: 100%; }
+  .footer-bottom { flex-direction: column; margin-top: 38px; gap: 8px; }
   .site-footer { padding-bottom: 84px; }
 }
 @media (max-width: 480px) {
