@@ -33,6 +33,7 @@ export function SiteHeader() {
         <a href="#inicio">INÍCIO</a>
         <a href="#lancha">NOSSA LANCHA</a>
         <a href="#reserva">RESERVAS</a>
+        <a href="/trabalhe-conosco">TRABALHE CONOSCO</a>
         <a className="header-whatsapp" href={WHATSAPP} aria-label="Fale com a BZ Lanchas pelo WhatsApp">
           <Image src="/icons/whatsapp.svg" alt="" aria-hidden="true" width={20} height={20} unoptimized /> WhatsApp
         </a>
