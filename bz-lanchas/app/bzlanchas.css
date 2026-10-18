@@ -253,3 +253,10 @@
 .experience-copy h2 em { display: block; margin-top: 8px; color: #a9823f; font-family: inherit; font-size: .72em; font-weight: 400; font-style: italic; letter-spacing: -.025em; }
 .experience-values { margin-top: 25px; color: #315662 !important; font-size: clamp(12px, 1.15vw, 15px) !important; font-weight: 800; letter-spacing: .14em; }
 @media (max-width: 700px) { .experience-copy h2 { font-size: clamp(38px, 11vw, 56px); } .experience-values { line-height: 1.7; } }
+
+/* Typography system: one family, consistent hierarchy */
+.bz-home, .institutional-page, .boat-detail { font-family: Arial, Helvetica, sans-serif; }
+.hero-copy h1, .section-heading h2, .fleet-info h3, .experience-copy h2, .reservation h2, .institutional-content h1, .detail-intro h1, .detail-features h2 {
+  font-family: inherit; font-style: normal; font-weight: 700;
+}
+.experience-copy h2 span { display: block; margin-top: 4px; color: inherit; font: inherit; }
