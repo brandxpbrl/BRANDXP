@@ -1,0 +1,2 @@
+import { InstitutionalPage } from "../components/InstitutionalPage";
+export default function Page(){return <InstitutionalPage eyebrow="INSTITUCIONAL" title="Nossa Missão"><p>Proporcionar experiências especiais no mar de Búzios, unindo liberdade, conforto e um atendimento próximo para que cada grupo possa viver momentos que merecem ser lembrados.</p><p>Búzios pelo mar, de um jeito especial.</p></InstitutionalPage>}
