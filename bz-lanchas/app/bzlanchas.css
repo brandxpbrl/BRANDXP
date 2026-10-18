@@ -172,3 +172,14 @@
   html { scroll-behavior: auto; }
   .bz-home *, .bz-home *::before, .bz-home *::after { transition: none; }
 }
+
+.institutional-page { min-height: 100vh; background: #f3f4f4; }
+.institutional-header { min-height: 110px; display: flex; align-items: center; justify-content: space-between; gap: 28px; border-bottom: 1px solid #d9e3e5; }
+.institutional-logo { width: 120px; padding-block: 12px; }
+.institutional-logo img { width: 100%; height: auto; }
+.institutional-content { padding-block: clamp(64px, 9vw, 130px); max-width: 980px; }
+.institutional-content h1 { font-size: clamp(44px, 6vw, 76px); letter-spacing: -.05em; line-height: 1; margin: 14px 0 40px; }
+.institutional-body { max-width: 760px; }
+.institutional-body p { color: #425e69; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.75; margin-bottom: 22px; }
+.institutional-back { display: inline-block; margin-top: 32px; color: var(--ocean); font-weight: 700; }
+@media (max-width: 600px) { .institutional-header { min-height: 88px; } .institutional-logo { width: 90px; } .institutional-header .button { font-size: 9px; min-height: 46px; padding: 12px; } }
