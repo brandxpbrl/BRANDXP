@@ -18,7 +18,7 @@ export const boats: Boat[] = [
     name: "Gratidão",
     subtitle: "Lancha cabinada · Até 10 pessoas",
     description: "Conforto e praticidade para viver Búzios pelo mar com família e amigos.",
-    price: "A partir de R$ 2.000",
+    price: "A partir R$ 2.000",
     tags: ["27,5 pés", "10 pessoas"],
     features: ["Cabine", "Banheiro", "Churrasqueira", "Pia", "Ducha com água doce", "Som Bluetooth", "Máscara de mergulho", "Macarrão flutuante"],
     photos: [
