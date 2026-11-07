@@ -7,6 +7,7 @@ from services.gravity_runtime import (
     get_dry_run,
     list_dry_runs,
     record_synthetic_output,
+    review_task_output,
     request_task,
 )
 
@@ -26,6 +27,12 @@ class GravitySyntheticOutputRequest(BaseModel):
     sources: list[dict] = Field(default_factory=list)
     claims: list[dict] = Field(default_factory=list)
     contradictions: list[dict] = Field(default_factory=list)
+
+
+class GravityOutputReviewRequest(BaseModel):
+    decision: str
+    reviewer: str = Field(min_length=2, max_length=200)
+    note: str = Field(default="", max_length=2000)
 
 
 @gravity_runtime_router.post("/runs")
@@ -70,6 +77,24 @@ async def save_gravity_synthetic_output(
     try:
         payload = await run_in_threadpool(
             record_synthetic_output, run_id, component_id, request.model_dump()
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/tasks/{component_id}/review")
+async def review_gravity_output(run_id: str, component_id: str, request: GravityOutputReviewRequest):
+    try:
+        payload = await run_in_threadpool(
+            review_task_output,
+            run_id,
+            component_id,
+            request.decision,
+            request.reviewer,
+            request.note,
         )
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error

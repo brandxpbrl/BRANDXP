@@ -106,6 +106,7 @@ def create_dry_run(request):
             "input_hash": None,
             "output_hash": None,
             "output": None,
+            "review": {"state": "not_submitted", "reviewer": None, "reviewed_at": None, "note": ""},
         })
 
     payload = {
@@ -174,7 +175,10 @@ def request_task(run_id, component_id):
             raise ValueError("Gravity task is not pending.")
         incomplete = [
             dependency for dependency in task["depends_on_components"]
-            if next((item for item in payload["tasks"] if item["component_id"] == dependency), {}).get("state") != "completed"
+            if (
+                next((item for item in payload["tasks"] if item["component_id"] == dependency), {}).get("state") != "completed"
+                or next((item for item in payload["tasks"] if item["component_id"] == dependency), {}).get("review", {}).get("state") != "approved"
+            )
         ]
         if incomplete:
             raise ValueError("Gravity task dependencies are not completed.")
@@ -216,6 +220,7 @@ def record_synthetic_output(run_id, component_id, output):
         task["output"] = ledger
         task["output_hash"] = ledger["sha256"]
         task["state"] = "completed"
+        task["review"] = {"state": "pending", "reviewer": None, "reviewed_at": None, "note": ""}
         payload["state"] = "awaiting_review"
         payload["updated_at"] = _now()
         parent_ids = [payload["events"][-1]["id"]] if payload["events"] else []
@@ -231,6 +236,61 @@ def record_synthetic_output(run_id, component_id, output):
                 "model_call_performed": False,
                 "claim_count": len(ledger["claims"]),
                 "open_contradictions": ledger["open_contradictions"],
+                "memory_promotion_allowed": False,
+            },
+        )
+        _write_atomic(_run_path(run_id), payload)
+        return deepcopy(payload)
+
+
+def review_task_output(run_id, component_id, decision, reviewer, note=""):
+    component_id = str(component_id).upper().removeprefix("GRAVITY:")
+    namespaced_id = f"GRAVITY:{component_id}"
+    decision = str(decision).strip().casefold()
+    reviewer = " ".join(str(reviewer or "").split())
+    note = " ".join(str(note or "").split())
+    if decision not in {"approved", "rejected"}:
+        raise ValueError("Gravity review decision must be approved or rejected.")
+    if not reviewer:
+        raise ValueError("Gravity review requires a human reviewer.")
+    with _LOCK:
+        payload = get_dry_run(run_id)
+        if not payload:
+            return None
+        task = next((item for item in payload["tasks"] if item["component_id"] == namespaced_id), None)
+        if not task or task.get("state") != "completed" or not task.get("output"):
+            raise ValueError("Gravity task has no completed output to review.")
+        review_state = task.get("review", {}).get("state") or "pending"
+        if review_state != "pending":
+            raise ValueError("Gravity task output is not pending review.")
+        reviewed_at = _now()
+        task["review"] = {
+            "state": decision,
+            "reviewer": reviewer,
+            "reviewed_at": reviewed_at,
+            "note": note,
+            "output_hash": task["output_hash"],
+        }
+        if decision == "approved":
+            remaining = [item for item in payload["tasks"] if item["state"] != "completed"]
+            payload["state"] = "approved" if not remaining else "ready_for_next_stage"
+        else:
+            payload["state"] = "needs_revision"
+        payload["updated_at"] = reviewed_at
+        payload["approval_gate"]["state"] = "human_review_recorded"
+        parent_ids = [payload["events"][-1]["id"]] if payload["events"] else []
+        _event(
+            payload, GravityEventType.FEEDBACK_REQUESTED, namespaced_id, task["id"],
+            causal_parent_ids=parent_ids,
+            source_hashes=[task["output_hash"]],
+            output_hash=task["output_hash"],
+            trajectory_kind="observed",
+            validity=f"human_{decision}",
+            details={
+                "decision": decision,
+                "reviewer": reviewer,
+                "reviewed_at": reviewed_at,
+                "note": note,
                 "memory_promotion_allowed": False,
             },
         )

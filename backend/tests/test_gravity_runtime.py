@@ -80,6 +80,14 @@ class GravityRuntimeTests(unittest.TestCase):
         self.assertEqual(saved["events"][-1]["trajectory_kind"], "simulated")
         self.assertFalse(saved["events"][-1]["details"]["model_call_performed"])
 
+        approved = gravity_runtime.review_task_output(
+            run["id"], "A23", "approved", "Felipe Vallejo", "Salida sintética aprobada."
+        )
+        self.assertEqual(approved["state"], "approved")
+        self.assertEqual(approved["tasks"][0]["review"]["reviewer"], "Felipe Vallejo")
+        self.assertEqual(approved["events"][-1]["validity"], "human_approved")
+        self.assertFalse(approved["events"][-1]["details"]["memory_promotion_allowed"])
+
     def test_output_cannot_be_recorded_before_request_or_with_foreign_source(self):
         run = gravity_runtime.create_dry_run({"title": "Synthetic", "evidence": "Fictional evidence."})
         output = {
@@ -91,6 +99,22 @@ class GravityRuntimeTests(unittest.TestCase):
         gravity_runtime.request_task(run["id"], "A23")
         with self.assertRaises(ValueError):
             gravity_runtime.record_synthetic_output(run["id"], "A23", output)
+
+    def test_dependent_agent_requires_human_approval_of_a23(self):
+        run = gravity_runtime.create_dry_run({
+            "title": "Synthetic staged run", "evidence": "Fictional evidence.", "mode": "minimal_specialists"
+        })
+        run = gravity_runtime.request_task(run["id"], "A23")
+        h = run["input"]["sha256"]
+        run = gravity_runtime.record_synthetic_output(run["id"], "A23", {
+            "sources": [{"id": "source-input", "locator": "run.input", "sha256": h}],
+            "claims": [{"id": "claim-input", "text": "The input is fictional.", "truth_kind": "fact", "confidence": 1, "source_ids": ["source-input"]}],
+        })
+        with self.assertRaises(ValueError):
+            gravity_runtime.request_task(run["id"], "A01")
+        gravity_runtime.review_task_output(run["id"], "A23", "approved", "Human reviewer")
+        requested = gravity_runtime.request_task(run["id"], "A01")
+        self.assertEqual(next(item for item in requested["tasks"] if item["component_id"] == "GRAVITY:A01")["state"], "requested")
 
 
 if __name__ == "__main__":
