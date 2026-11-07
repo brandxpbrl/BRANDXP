@@ -1,0 +1,134 @@
+{
+  "gravity_contract_version": "1.0.0",
+  "knowledge_id": "eb-operational-coherence",
+  "canon_version": "2.0.0-candidate.1",
+  "generated_at": "2026-11-07T01:15:23-03:00",
+  "rector_documents": [
+    "00_indice_maestro_agentes.md",
+    "00_protocolo_evidencia_comun.md",
+    "00_protocolo_seguridad_etica.md"
+  ],
+  "execution_order": [
+    {
+      "stage": "factual_base",
+      "agents": [
+        "A23"
+      ],
+      "output": "Verified claims, source hash and declared scope"
+    },
+    {
+      "stage": "specialist_review",
+      "agents": [
+        "A12",
+        "A05",
+        "A09"
+      ],
+      "output": "Independent domain critiques with evidence layers"
+    },
+    {
+      "stage": "lateral_crossing",
+      "agents": [
+        "synaptic_neurons",
+        "mirror_neurons"
+      ],
+      "output": "Coherences, contradictions and unresolved flags"
+    },
+    {
+      "stage": "cleanup",
+      "agents": [
+        "A99"
+      ],
+      "output": "Deduplicated active evidence without deleting history"
+    },
+    {
+      "stage": "synthesis",
+      "agents": [
+        "A00-B"
+      ],
+      "output": "Compressed synthesis without new unsupported claims"
+    },
+    {
+      "stage": "master_cycle",
+      "agents": [
+        "A27",
+        "A28",
+        "A29",
+        "A30",
+        "A31",
+        "A32",
+        "A33",
+        "A34"
+      ],
+      "output": "Activation through new-scale sequence"
+    },
+    {
+      "stage": "final_verdict",
+      "agents": [
+        "A00"
+      ],
+      "output": "Coherence verdict, risks and open contradictions"
+    }
+  ],
+  "evidence_layers_required": [
+    "fact",
+    "inference",
+    "hypothesis",
+    "recommendation"
+  ],
+  "input": {
+    "definition": "A strategy is operationally coherent when every promised outcome has an owner, an ordered sequence, authorized tools, evidence of completion and a defined escalation path. Activity without these links is motion, not execution.",
+    "provenance": {
+      "source_path": "systems/rules.md",
+      "source_sha256": "dbc89c4d1eac7648035ec9b8a32fcf372b773664dea52ac52d8894ccdab7a1b8",
+      "source_type": "legacy_doctrine",
+      "confidence": 0.35
+    },
+    "decision_rules": [
+      "Do not activate tasks with unresolved dependencies",
+      "Do not mark sensitive work complete without the required approval",
+      "Do not delegate to an unvalidated agent"
+    ],
+    "mcos_diagnostics": [
+      {
+        "criterion": "semantic_specificity",
+        "result": "pass",
+        "reasons": [
+          "definition_chars=226",
+          "decision_rules=3"
+        ]
+      },
+      {
+        "criterion": "observability",
+        "result": "pass",
+        "reasons": [
+          "observable_indicators=4"
+        ]
+      },
+      {
+        "criterion": "diagnostic_operability",
+        "result": "pass",
+        "reasons": [
+          "diagnostic_steps=3",
+          "analysis_questions=4"
+        ]
+      },
+      {
+        "criterion": "counterexample_strength",
+        "result": "pass",
+        "reasons": [
+          "bad_examples=1",
+          "limits=2"
+        ]
+      },
+      {
+        "criterion": "cross_modal_application",
+        "result": "pass",
+        "reasons": [
+          "modes=operational,brand,narrative"
+        ]
+      }
+    ]
+  },
+  "promotion_rule": "Gravity may recommend a revision but cannot overwrite approved canon.",
+  "status": "ready_for_gravity_execution"
+}

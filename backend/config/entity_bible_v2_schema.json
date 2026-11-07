@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orbis.local/schemas/entity-bible-v2.json",
+  "title": "Entity Bible Knowledge Unit v2",
+  "type": "object",
+  "required": [
+    "knowledge_id",
+    "title",
+    "domain",
+    "knowledge_type",
+    "status",
+    "definition",
+    "when_to_use",
+    "diagnostic_method",
+    "observable_indicators",
+    "analysis_questions",
+    "decision_rules",
+    "good_examples",
+    "bad_examples",
+    "limits_and_counterexamples",
+    "expected_result",
+    "relationships",
+    "mcos_validation",
+    "provenance",
+    "governance"
+  ],
+  "properties": {
+    "knowledge_id": {"type": "string", "pattern": "^eb-[a-z0-9-]+$"},
+    "title": {"type": "string", "minLength": 3},
+    "domain": {
+      "enum": [
+        "philosophy", "entity_detection", "entity_models", "perception",
+        "visual_psychology", "archetypes", "symbols", "narrative_architecture",
+        "storytelling", "communication", "social_media", "visual_direction",
+        "cinematic", "atmospheres", "rhythm", "emotional_intelligence",
+        "emotional_triggers", "audience_psychology", "luxury",
+        "premium_positioning", "memory", "systems", "transformation",
+        "frameworks", "prompts", "forbidden_patterns", "aesthetics"
+      ]
+    },
+    "knowledge_type": {
+      "enum": ["principle", "method", "rule", "pattern", "example", "prohibition", "framework", "hypothesis"]
+    },
+    "status": {"enum": ["draft", "in_review", "approved", "deprecated", "rejected"]},
+    "definition": {"type": "string", "minLength": 40},
+    "when_to_use": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "diagnostic_method": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "observable_indicators": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "analysis_questions": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "decision_rules": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "good_examples": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "bad_examples": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "limits_and_counterexamples": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "expected_result": {"type": "string", "minLength": 20},
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["target_id", "relation", "justification"],
+        "properties": {
+          "target_id": {"type": "string"},
+          "relation": {"enum": ["supports", "depends_on", "contradicts", "refines", "applies_to"]},
+          "justification": {"type": "string", "minLength": 20}
+        }
+      }
+    },
+    "mcos_validation": {
+      "type": "object",
+      "required": ["status", "transformations", "diagnostics", "lineage", "reviewed_by"],
+      "properties": {
+        "status": {"enum": ["not_run", "candidate", "reviewed", "accepted", "rejected"]},
+        "transformations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["mode", "input", "output", "expected_observation"],
+            "properties": {
+              "mode": {"enum": ["narrative", "character", "scene", "visual", "cinematic", "brand", "operational"]},
+              "input": {"type": "string"},
+              "output": {"type": "string"},
+              "expected_observation": {"type": "string"}
+            }
+          }
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["criterion", "result", "reasons"],
+            "properties": {
+              "criterion": {"type": "string"},
+              "result": {"enum": ["pass", "partial", "fail"]},
+              "reasons": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+            }
+          }
+        },
+        "lineage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source_id", "output_id", "action"],
+            "properties": {
+              "source_id": {"type": "string"},
+              "output_id": {"type": "string"},
+              "action": {"type": "string"}
+            }
+          }
+        },
+        "reviewed_by": {"type": ["string", "null"]}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_path", "source_sha256", "source_type", "confidence"],
+      "properties": {
+        "source_path": {"type": "string"},
+        "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "source_type": {"enum": ["legacy_doctrine", "approved_research", "human_authored", "agent_proposal"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "governance": {
+      "type": "object",
+      "required": ["version", "author", "reviewer", "approved_at", "supersedes"],
+      "properties": {
+        "version": {"type": "string"},
+        "author": {"type": ["string", "null"]},
+        "reviewer": {"type": ["string", "null"]},
+        "approved_at": {"type": ["string", "null"]},
+        "supersedes": {"type": ["string", "null"]}
+      }
+    },
+    "agent_access": {
+      "type": "object",
+      "properties": {
+        "recommended_agents": {"type": "array", "items": {"type": "string"}},
+        "forbidden_uses": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

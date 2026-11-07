@@ -1,0 +1,133 @@
+{
+  "gravity_contract_version": "1.0.0",
+  "knowledge_id": "eb-color-emotion",
+  "canon_version": "2.0.0-candidate.1",
+  "generated_at": "2026-11-07T01:15:23-03:00",
+  "rector_documents": [
+    "00_indice_maestro_agentes.md",
+    "00_protocolo_evidencia_comun.md",
+    "00_protocolo_seguridad_etica.md"
+  ],
+  "execution_order": [
+    {
+      "stage": "factual_base",
+      "agents": [
+        "A23"
+      ],
+      "output": "Verified claims, source hash and declared scope"
+    },
+    {
+      "stage": "specialist_review",
+      "agents": [
+        "A01",
+        "A03",
+        "A04"
+      ],
+      "output": "Independent domain critiques with evidence layers"
+    },
+    {
+      "stage": "lateral_crossing",
+      "agents": [
+        "synaptic_neurons",
+        "mirror_neurons"
+      ],
+      "output": "Coherences, contradictions and unresolved flags"
+    },
+    {
+      "stage": "cleanup",
+      "agents": [
+        "A99"
+      ],
+      "output": "Deduplicated active evidence without deleting history"
+    },
+    {
+      "stage": "synthesis",
+      "agents": [
+        "A00-B"
+      ],
+      "output": "Compressed synthesis without new unsupported claims"
+    },
+    {
+      "stage": "master_cycle",
+      "agents": [
+        "A27",
+        "A28",
+        "A29",
+        "A30",
+        "A31",
+        "A32",
+        "A33",
+        "A34"
+      ],
+      "output": "Activation through new-scale sequence"
+    },
+    {
+      "stage": "final_verdict",
+      "agents": [
+        "A00"
+      ],
+      "output": "Coherence verdict, risks and open contradictions"
+    }
+  ],
+  "evidence_layers_required": [
+    "fact",
+    "inference",
+    "hypothesis",
+    "recommendation"
+  ],
+  "input": {
+    "definition": "Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+    "provenance": {
+      "source_path": "visual_psychology/color_emotion.md",
+      "source_sha256": "9e93c321ea87d5e330e43f5285bc12def079ac4af7841d921732dbd9d876090d",
+      "source_type": "legacy_doctrine",
+      "confidence": 0.35
+    },
+    "decision_rules": [
+      "Evaluate color as a system, never as an isolated swatch",
+      "Reject palettes whose emotional effect contradicts the declared positioning"
+    ],
+    "mcos_diagnostics": [
+      {
+        "criterion": "semantic_specificity",
+        "result": "pass",
+        "reasons": [
+          "definition_chars=207",
+          "decision_rules=2"
+        ]
+      },
+      {
+        "criterion": "observability",
+        "result": "pass",
+        "reasons": [
+          "observable_indicators=3"
+        ]
+      },
+      {
+        "criterion": "diagnostic_operability",
+        "result": "pass",
+        "reasons": [
+          "diagnostic_steps=3",
+          "analysis_questions=3"
+        ]
+      },
+      {
+        "criterion": "counterexample_strength",
+        "result": "pass",
+        "reasons": [
+          "bad_examples=1",
+          "limits=3"
+        ]
+      },
+      {
+        "criterion": "cross_modal_application",
+        "result": "pass",
+        "reasons": [
+          "modes=visual,cinematic,brand"
+        ]
+      }
+    ]
+  },
+  "promotion_rule": "Gravity may recommend a revision but cannot overwrite approved canon.",
+  "status": "ready_for_gravity_execution"
+}

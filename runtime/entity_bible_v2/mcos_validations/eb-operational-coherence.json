@@ -1,0 +1,92 @@
+{
+  "validation_id": "mcos-validation-ca78960471b2",
+  "engine": "MCOS Semantic Validation Adapter",
+  "engine_version": "0.1.0",
+  "knowledge_id": "eb-operational-coherence",
+  "candidate_version": "2.0.0-candidate.1",
+  "generated_at": "2026-11-07T01:07:43-03:00",
+  "status": "candidate",
+  "transformations": [
+    {
+      "output_id": "mcos-operational-eb-operational-coherence",
+      "mode": "operational",
+      "input": "Apply Operational Coherence: A strategy is operationally coherent when every promised outcome has an owner, an ordered sequence, authorized tools, evidence of completion and a defined escalation path. Activity without these links is motion, not execution.",
+      "output": "Operational test for Operational Coherence: convert the principle into ownership, sequence and verification; expected outcome: The team can locate responsibility and blockage immediately.",
+      "expected_observation": "At least one observable indicator must be visible: Every task has one accountable owner"
+    },
+    {
+      "output_id": "mcos-brand-eb-operational-coherence",
+      "mode": "brand",
+      "input": "Apply Operational Coherence: A strategy is operationally coherent when every promised outcome has an owner, an ordered sequence, authorized tools, evidence of completion and a defined escalation path. Activity without these links is motion, not execution.",
+      "output": "Brand test for Operational Coherence: apply the principle to one real touchpoint and compare before/after perception; expected outcome: The team can locate responsibility and blockage immediately.",
+      "expected_observation": "At least one observable indicator must be visible: Every task has one accountable owner"
+    },
+    {
+      "output_id": "mcos-narrative-eb-operational-coherence",
+      "mode": "narrative",
+      "input": "Apply Operational Coherence: A strategy is operationally coherent when every promised outcome has an owner, an ordered sequence, authorized tools, evidence of completion and a defined escalation path. Activity without these links is motion, not execution.",
+      "output": "Narrative test for Operational Coherence: show A campaign moves from financial review to strategy to operations with evidence at each handoff through a decision and its consequence; expected outcome: The team can locate responsibility and blockage immediately.",
+      "expected_observation": "At least one observable indicator must be visible: Every task has one accountable owner"
+    }
+  ],
+  "diagnostics": [
+    {
+      "criterion": "semantic_specificity",
+      "result": "pass",
+      "reasons": [
+        "definition_chars=226",
+        "decision_rules=3"
+      ]
+    },
+    {
+      "criterion": "observability",
+      "result": "pass",
+      "reasons": [
+        "observable_indicators=4"
+      ]
+    },
+    {
+      "criterion": "diagnostic_operability",
+      "result": "pass",
+      "reasons": [
+        "diagnostic_steps=3",
+        "analysis_questions=4"
+      ]
+    },
+    {
+      "criterion": "counterexample_strength",
+      "result": "pass",
+      "reasons": [
+        "bad_examples=1",
+        "limits=2"
+      ]
+    },
+    {
+      "criterion": "cross_modal_application",
+      "result": "pass",
+      "reasons": [
+        "modes=operational,brand,narrative"
+      ]
+    }
+  ],
+  "score": 100,
+  "lineage": [
+    {
+      "source_id": "eb-operational-coherence",
+      "output_id": "mcos-operational-eb-operational-coherence",
+      "action": "MCOS transformed candidate into operational application"
+    },
+    {
+      "source_id": "eb-operational-coherence",
+      "output_id": "mcos-brand-eb-operational-coherence",
+      "action": "MCOS transformed candidate into brand application"
+    },
+    {
+      "source_id": "eb-operational-coherence",
+      "output_id": "mcos-narrative-eb-operational-coherence",
+      "action": "MCOS transformed candidate into narrative application"
+    }
+  ],
+  "reviewed_by": null,
+  "canon_effect": "none_until_human_approval"
+}

@@ -1,0 +1,169 @@
+{
+  "knowledge_id": "eb-identity-before-design",
+  "title": "Identity Before Design",
+  "domain": "philosophy",
+  "knowledge_type": "principle",
+  "definition": "A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+  "when_to_use": [
+    "Before approving identity assets",
+    "When visual directions compete",
+    "When a brand redesign lacks a strategic reason"
+  ],
+  "diagnostic_method": [
+    "State the identity commitment",
+    "Link each design decision to that commitment",
+    "Reject or revise decisions without a traceable link"
+  ],
+  "observable_indicators": [
+    "Every major asset cites an identity commitment",
+    "Contradictory visual choices are documented",
+    "Design reviews use identity criteria instead of personal taste"
+  ],
+  "analysis_questions": [
+    "What identity commitment does this decision express?",
+    "What would change if the commitment were different?",
+    "Is the choice strategic or merely decorative?"
+  ],
+  "decision_rules": [
+    "Do not approve an asset without an identity rationale",
+    "When two options are equally attractive, select the one with stronger identity traceability"
+  ],
+  "good_examples": [
+    {
+      "situation": "A premium travel brand removes visual noise because calm authority is part of its identity",
+      "result": "The design choice reinforces a declared positioning"
+    }
+  ],
+  "bad_examples": [
+    {
+      "situation": "A brand adopts neon gradients only because they are trending",
+      "result": "The identity becomes interchangeable"
+    }
+  ],
+  "limits_and_counterexamples": [
+    "Exploratory sketches may precede final identity decisions",
+    "Functional accessibility requirements override stylistic preferences"
+  ],
+  "expected_result": "Identity decisions become explicit constraints that guide design and reduce arbitrary revisions.",
+  "relationships": [
+    {
+      "target_id": "eb-perception-before-logic",
+      "relation": "supports",
+      "justification": "Identity commitments need perceptual translation to become visible before explanation."
+    }
+  ],
+  "recommended_agents": [
+    "nicolas",
+    "nova"
+  ],
+  "status": "approved",
+  "provenance": {
+    "source_path": "philosophy/identity_before_design.md",
+    "source_sha256": "82327978f34e6b5a787bf78887906acc1ba8c4c99cf447b6ddcee147a9c00568",
+    "source_type": "legacy_doctrine",
+    "confidence": 0.35
+  },
+  "governance": {
+    "version": "2.0.0-candidate.1",
+    "author": "ORBIS Entity Bible Upgrade",
+    "reviewer": "Felipe Vallejo",
+    "approved_at": "2026-11-07T01:13:33-03:00",
+    "supersedes": null
+  },
+  "agent_access": {
+    "recommended_agents": [
+      "nicolas",
+      "nova"
+    ],
+    "forbidden_uses": [
+      "Treating the candidate as approved canon",
+      "Using it as evidence of a real-world fact without an external source"
+    ]
+  },
+  "created_at": "2026-11-07T01:07:42-03:00",
+  "review_note": "Aprobado por el fundador para el canon piloto Entity Bible v2.",
+  "mcos_validation": {
+    "status": "accepted",
+    "transformations": [
+      {
+        "output_id": "mcos-narrative-eb-identity-before-design",
+        "mode": "narrative",
+        "input": "Apply Identity Before Design: A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+        "output": "Narrative test for Identity Before Design: show A premium travel brand removes visual noise because calm authority is part of its identity through a decision and its consequence; expected outcome: The design choice reinforces a declared positioning.",
+        "expected_observation": "At least one observable indicator must be visible: Every major asset cites an identity commitment"
+      },
+      {
+        "output_id": "mcos-character-eb-identity-before-design",
+        "mode": "character",
+        "input": "Apply Identity Before Design: A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+        "output": "Character test for Identity Before Design: behavior must reveal the principle before dialogue explains it; expected outcome: The design choice reinforces a declared positioning.",
+        "expected_observation": "At least one observable indicator must be visible: Every major asset cites an identity commitment"
+      },
+      {
+        "output_id": "mcos-brand-eb-identity-before-design",
+        "mode": "brand",
+        "input": "Apply Identity Before Design: A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+        "output": "Brand test for Identity Before Design: apply the principle to one real touchpoint and compare before/after perception; expected outcome: The design choice reinforces a declared positioning.",
+        "expected_observation": "At least one observable indicator must be visible: Every major asset cites an identity commitment"
+      }
+    ],
+    "diagnostics": [
+      {
+        "criterion": "semantic_specificity",
+        "result": "pass",
+        "reasons": [
+          "definition_chars=231",
+          "decision_rules=2"
+        ]
+      },
+      {
+        "criterion": "observability",
+        "result": "pass",
+        "reasons": [
+          "observable_indicators=3"
+        ]
+      },
+      {
+        "criterion": "diagnostic_operability",
+        "result": "pass",
+        "reasons": [
+          "diagnostic_steps=3",
+          "analysis_questions=3"
+        ]
+      },
+      {
+        "criterion": "counterexample_strength",
+        "result": "pass",
+        "reasons": [
+          "bad_examples=1",
+          "limits=2"
+        ]
+      },
+      {
+        "criterion": "cross_modal_application",
+        "result": "pass",
+        "reasons": [
+          "modes=narrative,character,brand"
+        ]
+      }
+    ],
+    "lineage": [
+      {
+        "source_id": "eb-identity-before-design",
+        "output_id": "mcos-narrative-eb-identity-before-design",
+        "action": "MCOS transformed candidate into narrative application"
+      },
+      {
+        "source_id": "eb-identity-before-design",
+        "output_id": "mcos-character-eb-identity-before-design",
+        "action": "MCOS transformed candidate into character application"
+      },
+      {
+        "source_id": "eb-identity-before-design",
+        "output_id": "mcos-brand-eb-identity-before-design",
+        "action": "MCOS transformed candidate into brand application"
+      }
+    ],
+    "reviewed_by": "Felipe Vallejo"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "knowledge_id": "eb-color-emotion",
+  "title": "Color as Emotional Expectation",
+  "domain": "visual_psychology",
+  "knowledge_type": "method",
+  "definition": "Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+  "when_to_use": [
+    "Building a visual system",
+    "Diagnosing inconsistent campaign assets",
+    "Directing cinematic atmosphere"
+  ],
+  "diagnostic_method": [
+    "Name the intended emotional expectation",
+    "Map dominant, supporting and accent colors",
+    "Test the palette in the real channel and cultural context"
+  ],
+  "observable_indicators": [
+    "Dominant color matches the intended emotional posture",
+    "Accent color directs attention consistently",
+    "Contrast remains legible across channels"
+  ],
+  "analysis_questions": [
+    "What should the audience feel before reading?",
+    "Which color controls attention?",
+    "Does the palette preserve meaning in the target culture and medium?"
+  ],
+  "decision_rules": [
+    "Evaluate color as a system, never as an isolated swatch",
+    "Reject palettes whose emotional effect contradicts the declared positioning"
+  ],
+  "good_examples": [
+    {
+      "situation": "A financial report uses restrained dark neutrals with one controlled signal color",
+      "result": "The hierarchy feels precise and risk-aware"
+    }
+  ],
+  "bad_examples": [
+    {
+      "situation": "Every campaign uses a different saturated palette",
+      "result": "Recognition and emotional continuity collapse"
+    }
+  ],
+  "limits_and_counterexamples": [
+    "Color associations vary by culture",
+    "Accessibility and contrast requirements take precedence",
+    "Photography can shift perceived palette"
+  ],
+  "expected_result": "Color choices create a consistent, testable emotional expectation across touchpoints.",
+  "relationships": [
+    {
+      "target_id": "eb-visual-authority",
+      "relation": "supports",
+      "justification": "Controlled color hierarchy contributes to perceived coherence and authority."
+    }
+  ],
+  "recommended_agents": [
+    "nova"
+  ],
+  "status": "approved",
+  "provenance": {
+    "source_path": "visual_psychology/color_emotion.md",
+    "source_sha256": "9e93c321ea87d5e330e43f5285bc12def079ac4af7841d921732dbd9d876090d",
+    "source_type": "legacy_doctrine",
+    "confidence": 0.35
+  },
+  "governance": {
+    "version": "2.0.0-candidate.1",
+    "author": "ORBIS Entity Bible Upgrade",
+    "reviewer": "Felipe Vallejo",
+    "approved_at": "2026-11-07T01:13:33-03:00",
+    "supersedes": null
+  },
+  "agent_access": {
+    "recommended_agents": [
+      "nova"
+    ],
+    "forbidden_uses": [
+      "Treating the candidate as approved canon",
+      "Using it as evidence of a real-world fact without an external source"
+    ]
+  },
+  "created_at": "2026-11-07T01:07:42-03:00",
+  "review_note": "Aprobado por el fundador para el canon piloto Entity Bible v2.",
+  "mcos_validation": {
+    "status": "accepted",
+    "transformations": [
+      {
+        "output_id": "mcos-visual-eb-color-emotion",
+        "mode": "visual",
+        "input": "Apply Color as Emotional Expectation: Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+        "output": "Visual test for Color as Emotional Expectation: translate the principle into hierarchy, contrast and focus; expected outcome: The hierarchy feels precise and risk-aware.",
+        "expected_observation": "At least one observable indicator must be visible: Dominant color matches the intended emotional posture"
+      },
+      {
+        "output_id": "mcos-cinematic-eb-color-emotion",
+        "mode": "cinematic",
+        "input": "Apply Color as Emotional Expectation: Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+        "output": "Cinematic test for Color as Emotional Expectation: express the principle through framing, light, rhythm and transition; expected outcome: The hierarchy feels precise and risk-aware.",
+        "expected_observation": "At least one observable indicator must be visible: Dominant color matches the intended emotional posture"
+      },
+      {
+        "output_id": "mcos-brand-eb-color-emotion",
+        "mode": "brand",
+        "input": "Apply Color as Emotional Expectation: Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+        "output": "Brand test for Color as Emotional Expectation: apply the principle to one real touchpoint and compare before/after perception; expected outcome: The hierarchy feels precise and risk-aware.",
+        "expected_observation": "At least one observable indicator must be visible: Dominant color matches the intended emotional posture"
+      }
+    ],
+    "diagnostics": [
+      {
+        "criterion": "semantic_specificity",
+        "result": "pass",
+        "reasons": [
+          "definition_chars=207",
+          "decision_rules=2"
+        ]
+      },
+      {
+        "criterion": "observability",
+        "result": "pass",
+        "reasons": [
+          "observable_indicators=3"
+        ]
+      },
+      {
+        "criterion": "diagnostic_operability",
+        "result": "pass",
+        "reasons": [
+          "diagnostic_steps=3",
+          "analysis_questions=3"
+        ]
+      },
+      {
+        "criterion": "counterexample_strength",
+        "result": "pass",
+        "reasons": [
+          "bad_examples=1",
+          "limits=3"
+        ]
+      },
+      {
+        "criterion": "cross_modal_application",
+        "result": "pass",
+        "reasons": [
+          "modes=visual,cinematic,brand"
+        ]
+      }
+    ],
+    "lineage": [
+      {
+        "source_id": "eb-color-emotion",
+        "output_id": "mcos-visual-eb-color-emotion",
+        "action": "MCOS transformed candidate into visual application"
+      },
+      {
+        "source_id": "eb-color-emotion",
+        "output_id": "mcos-cinematic-eb-color-emotion",
+        "action": "MCOS transformed candidate into cinematic application"
+      },
+      {
+        "source_id": "eb-color-emotion",
+        "output_id": "mcos-brand-eb-color-emotion",
+        "action": "MCOS transformed candidate into brand application"
+      }
+    ],
+    "reviewed_by": "Felipe Vallejo"
+  }
+}

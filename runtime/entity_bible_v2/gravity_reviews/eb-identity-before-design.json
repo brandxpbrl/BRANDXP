@@ -1,0 +1,133 @@
+{
+  "gravity_contract_version": "1.0.0",
+  "knowledge_id": "eb-identity-before-design",
+  "canon_version": "2.0.0-candidate.1",
+  "generated_at": "2026-11-07T01:15:23-03:00",
+  "rector_documents": [
+    "00_indice_maestro_agentes.md",
+    "00_protocolo_evidencia_comun.md",
+    "00_protocolo_seguridad_etica.md"
+  ],
+  "execution_order": [
+    {
+      "stage": "factual_base",
+      "agents": [
+        "A23"
+      ],
+      "output": "Verified claims, source hash and declared scope"
+    },
+    {
+      "stage": "specialist_review",
+      "agents": [
+        "A13",
+        "A07",
+        "A06"
+      ],
+      "output": "Independent domain critiques with evidence layers"
+    },
+    {
+      "stage": "lateral_crossing",
+      "agents": [
+        "synaptic_neurons",
+        "mirror_neurons"
+      ],
+      "output": "Coherences, contradictions and unresolved flags"
+    },
+    {
+      "stage": "cleanup",
+      "agents": [
+        "A99"
+      ],
+      "output": "Deduplicated active evidence without deleting history"
+    },
+    {
+      "stage": "synthesis",
+      "agents": [
+        "A00-B"
+      ],
+      "output": "Compressed synthesis without new unsupported claims"
+    },
+    {
+      "stage": "master_cycle",
+      "agents": [
+        "A27",
+        "A28",
+        "A29",
+        "A30",
+        "A31",
+        "A32",
+        "A33",
+        "A34"
+      ],
+      "output": "Activation through new-scale sequence"
+    },
+    {
+      "stage": "final_verdict",
+      "agents": [
+        "A00"
+      ],
+      "output": "Coherence verdict, risks and open contradictions"
+    }
+  ],
+  "evidence_layers_required": [
+    "fact",
+    "inference",
+    "hypothesis",
+    "recommendation"
+  ],
+  "input": {
+    "definition": "A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+    "provenance": {
+      "source_path": "philosophy/identity_before_design.md",
+      "source_sha256": "82327978f34e6b5a787bf78887906acc1ba8c4c99cf447b6ddcee147a9c00568",
+      "source_type": "legacy_doctrine",
+      "confidence": 0.35
+    },
+    "decision_rules": [
+      "Do not approve an asset without an identity rationale",
+      "When two options are equally attractive, select the one with stronger identity traceability"
+    ],
+    "mcos_diagnostics": [
+      {
+        "criterion": "semantic_specificity",
+        "result": "pass",
+        "reasons": [
+          "definition_chars=231",
+          "decision_rules=2"
+        ]
+      },
+      {
+        "criterion": "observability",
+        "result": "pass",
+        "reasons": [
+          "observable_indicators=3"
+        ]
+      },
+      {
+        "criterion": "diagnostic_operability",
+        "result": "pass",
+        "reasons": [
+          "diagnostic_steps=3",
+          "analysis_questions=3"
+        ]
+      },
+      {
+        "criterion": "counterexample_strength",
+        "result": "pass",
+        "reasons": [
+          "bad_examples=1",
+          "limits=2"
+        ]
+      },
+      {
+        "criterion": "cross_modal_application",
+        "result": "pass",
+        "reasons": [
+          "modes=narrative,character,brand"
+        ]
+      }
+    ]
+  },
+  "promotion_rule": "Gravity may recommend a revision but cannot overwrite approved canon.",
+  "status": "ready_for_gravity_execution"
+}

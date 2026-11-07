@@ -1,0 +1,116 @@
+{
+  "version": "1.0.0",
+  "source_of_truth": "ORBIS Corporate Agent Registry",
+  "agents": [
+    {
+      "id": "nicolas",
+      "name": "Nicolás",
+      "role": "CEO Digital de ORBIS",
+      "department": "Dirección ejecutiva",
+      "activation_state": "identity_validated",
+      "authority": "direct",
+      "avatar": "exports/orbis-team/nicolas/nicolas-avatar-transparent.png",
+      "video": "exports/orbis-team/nicolas/nicolas-presentation.mp4",
+      "tools": ["executive_dashboards", "consolidated_reports"]
+    },
+    {
+      "id": "nova",
+      "name": "Nova Solaris",
+      "role": "Directora de Marca, Marketing y Comunicación",
+      "department": "Marca y comunicación",
+      "activation_state": "identity_validated",
+      "authority": "propose",
+      "avatar": "exports/orbis-team/nova-solaris/nova-solaris-avatar-transparent.png",
+      "video": "exports/orbis-team/nova-solaris/nova-solaris-presentation.mp4",
+      "tools": ["campaign_calendars", "content_scripts", "social_metrics"]
+    },
+    {
+      "id": "lyra",
+      "name": "Lyra Vega",
+      "role": "Directora de Operaciones",
+      "department": "Operaciones",
+      "activation_state": "identity_validated",
+      "authority": "coordinate",
+      "avatar": "exports/orbis-team/lyra-vega/lyra-vega-avatar-transparent.png",
+      "video": "exports/orbis-team/lyra-vega/lyra-vega-presentation.mp4",
+      "tools": ["reservations", "operations", "vehicles", "tasks"]
+    },
+    {
+      "id": "axiom",
+      "name": "Axiom Vale",
+      "role": "Director de Finanzas y Economía",
+      "department": "Finanzas y economía",
+      "activation_state": "identity_validated",
+      "authority": "analyze",
+      "avatar": "exports/orbis-team/axiom-vale/axiom-vale-avatar-transparent.png",
+      "video": "exports/orbis-team/axiom-vale/axiom-vale-presentation.mp4",
+      "tools": ["spreadsheets", "tariffs", "costs", "sales", "margins", "cash"]
+    },
+    {
+      "id": "nexus",
+      "name": "Nexus Alan",
+      "role": "Director de Tecnología, Datos e IA",
+      "department": "Tecnología y datos",
+      "activation_state": "draft",
+      "authority": "none_until_validation",
+      "avatar": null,
+      "video": null,
+      "tools": ["integrations", "imports", "automation"]
+    },
+    {
+      "id": "aura",
+      "name": "Aura Celeste",
+      "role": "Directora de Personas y Cultura",
+      "department": "Personas y cultura",
+      "activation_state": "draft",
+      "authority": "none_until_validation",
+      "avatar": null,
+      "video": null,
+      "tools": ["team_availability", "workload", "performance"]
+    },
+    {
+      "id": "gaia",
+      "name": "Gaia Curie",
+      "role": "Directora de Investigación MPE",
+      "department": "Investigación",
+      "activation_state": "draft",
+      "authority": "none_until_validation",
+      "avatar": null,
+      "video": null,
+      "tools": ["research_data", "mpe_files", "evidence_quality"]
+    },
+    {
+      "id": "themis",
+      "name": "Themis Lex",
+      "role": "Directora de Gobernanza, Ética y Asuntos Legales",
+      "department": "Gobernanza",
+      "activation_state": "draft",
+      "authority": "none_until_validation",
+      "avatar": null,
+      "video": null,
+      "tools": ["approvals", "audit", "policies", "compliance"]
+    },
+    {
+      "id": "vega",
+      "name": "Vega Luna",
+      "role": "Directora de Clientes y Alianzas",
+      "department": "Clientes y alianzas",
+      "activation_state": "draft",
+      "authority": "none_until_validation",
+      "avatar": null,
+      "video": null,
+      "tools": ["crm", "clients", "follow_up", "partnerships"]
+    },
+    {
+      "id": "max",
+      "name": "MAX ORBIS",
+      "role": "Observador Sistémico MPE",
+      "department": "Observación sistémica",
+      "activation_state": "draft",
+      "authority": "none_until_validation",
+      "avatar": null,
+      "video": null,
+      "tools": ["cross_system_data", "anomalies", "trends"]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "validation_id": "mcos-validation-b2449601d025",
+  "engine": "MCOS Semantic Validation Adapter",
+  "engine_version": "0.1.0",
+  "knowledge_id": "eb-identity-before-design",
+  "candidate_version": "2.0.0-candidate.1",
+  "generated_at": "2026-11-07T01:07:42-03:00",
+  "status": "candidate",
+  "transformations": [
+    {
+      "output_id": "mcos-narrative-eb-identity-before-design",
+      "mode": "narrative",
+      "input": "Apply Identity Before Design: A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+      "output": "Narrative test for Identity Before Design: show A premium travel brand removes visual noise because calm authority is part of its identity through a decision and its consequence; expected outcome: The design choice reinforces a declared positioning.",
+      "expected_observation": "At least one observable indicator must be visible: Every major asset cites an identity commitment"
+    },
+    {
+      "output_id": "mcos-character-eb-identity-before-design",
+      "mode": "character",
+      "input": "Apply Identity Before Design: A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+      "output": "Character test for Identity Before Design: behavior must reveal the principle before dialogue explains it; expected outcome: The design choice reinforces a declared positioning.",
+      "expected_observation": "At least one observable indicator must be visible: Every major asset cites an identity commitment"
+    },
+    {
+      "output_id": "mcos-brand-eb-identity-before-design",
+      "mode": "brand",
+      "input": "Apply Identity Before Design: A visual or verbal decision is valid only when it expresses a previously defined identity commitment. Design cannot compensate for an unresolved promise, audience, position or behavior; it can only make that ambiguity more visible.",
+      "output": "Brand test for Identity Before Design: apply the principle to one real touchpoint and compare before/after perception; expected outcome: The design choice reinforces a declared positioning.",
+      "expected_observation": "At least one observable indicator must be visible: Every major asset cites an identity commitment"
+    }
+  ],
+  "diagnostics": [
+    {
+      "criterion": "semantic_specificity",
+      "result": "pass",
+      "reasons": [
+        "definition_chars=231",
+        "decision_rules=2"
+      ]
+    },
+    {
+      "criterion": "observability",
+      "result": "pass",
+      "reasons": [
+        "observable_indicators=3"
+      ]
+    },
+    {
+      "criterion": "diagnostic_operability",
+      "result": "pass",
+      "reasons": [
+        "diagnostic_steps=3",
+        "analysis_questions=3"
+      ]
+    },
+    {
+      "criterion": "counterexample_strength",
+      "result": "pass",
+      "reasons": [
+        "bad_examples=1",
+        "limits=2"
+      ]
+    },
+    {
+      "criterion": "cross_modal_application",
+      "result": "pass",
+      "reasons": [
+        "modes=narrative,character,brand"
+      ]
+    }
+  ],
+  "score": 100,
+  "lineage": [
+    {
+      "source_id": "eb-identity-before-design",
+      "output_id": "mcos-narrative-eb-identity-before-design",
+      "action": "MCOS transformed candidate into narrative application"
+    },
+    {
+      "source_id": "eb-identity-before-design",
+      "output_id": "mcos-character-eb-identity-before-design",
+      "action": "MCOS transformed candidate into character application"
+    },
+    {
+      "source_id": "eb-identity-before-design",
+      "output_id": "mcos-brand-eb-identity-before-design",
+      "action": "MCOS transformed candidate into brand application"
+    }
+  ],
+  "reviewed_by": null,
+  "canon_effect": "none_until_human_approval"
+}

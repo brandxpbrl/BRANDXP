@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "status": "canonical_runtime_profile",
+  "source_of_truth": "MPE World canonical agent documents supplied by the founder",
+  "human_governance": {
+    "ultimate_authority": "human",
+    "sensitive_actions_require_approval": true,
+    "simulations_are_not_facts": true,
+    "creative_outputs_are_not_evidence": true,
+    "deletion_requires_retention_review": true
+  },
+  "agents": [
+    {
+      "id": "00B", "name": "El Escribano", "role": "Memory Ingestion Layer",
+      "domain": "memory_traceability", "status": "canonical", "provider_bound": false,
+      "inputs": ["sensor_events", "qubit_events", "agent_events", "user_events", "simulation_events"],
+      "outputs": ["archive_record", "json_sidecar", "historical_trace", "earth_memory_entry"],
+      "may": ["observe", "classify_truth_kind", "record", "preserve_provenance"],
+      "must_not": ["interpret_as_fact", "judge", "decide", "erase_history"],
+      "relations": ["001", "031", "099", "QUBIT", "EARTH_MEMORY"]
+    },
+    {
+      "id": "001", "name": "El Orquestador", "role": "Cognitive Orchestration Layer",
+      "domain": "coordination", "status": "canonical", "provider_bound": false,
+      "inputs": ["agent_outputs", "memory_streams", "resonance_signals", "user_intent", "world_state"],
+      "outputs": ["agent_activation", "agent_coordination", "workflow_sequence", "system_harmony"],
+      "may": ["select_agents", "sequence_work", "coordinate", "detect_fragmentation"],
+      "must_not": ["create_specialist_output", "register_memory", "approve_sensitive_action", "execute_external_action"],
+      "relations": ["00B", "027", "028", "029", "030", "031", "032", "033", "034", "099", "GPT", "GEMINI"]
+    },
+    {
+      "id": "027", "name": "El Activador", "role": "Possibility Activation Layer",
+      "domain": "possibility_activation", "status": "canonical", "provider_bound": false,
+      "inputs": ["ideas", "signals", "patterns", "latent_opportunities", "emerging_systems"],
+      "outputs": ["activated_possibilities", "emergence_events", "potential_maps", "evolution_triggers"],
+      "may": ["detect_latent_potential", "formulate_possibility", "start_exploration"],
+      "must_not": ["coordinate", "validate", "approve", "execute_external_action"],
+      "relations": ["001", "00B", "GPT", "031", "034"]
+    },
+    {
+      "id": "028", "name": "El Expansor", "role": "Possibility Expansion Layer",
+      "domain": "possibility_expansion", "status": "canonical", "provider_bound": false,
+      "inputs": ["emergent_signals", "activated_seeds", "user_intent", "open_paths", "system_opportunities"],
+      "outputs": ["expanded_possibility_space", "alternative_futures", "opportunity_maps", "exploration_vectors"],
+      "may": ["multiply_alternatives", "map_trajectories", "preserve_diversity"],
+      "must_not": ["declare_prediction", "select_final_path", "approve_scale", "expand_without_budget"],
+      "relations": ["027", "029", "031", "001", "QSIM"]
+    },
+    {
+      "id": "029", "name": "El Condensador", "role": "Possibility Condensation Layer",
+      "domain": "convergence", "status": "canonical", "provider_bound": false,
+      "inputs": ["activated_potential", "expanded_trajectories"],
+      "outputs": ["shortlisted_trajectories", "reserved_trajectories", "convergence_map", "selection_reasons"],
+      "may": ["cluster", "deduplicate", "rank", "recommend_shortlist"],
+      "must_not": ["delete_alternatives", "claim_final_viability", "approve_execution", "hide_selection_criteria"],
+      "relations": ["027", "028", "030", "031", "001", "GRAVITY"]
+    },
+    {
+      "id": "030", "name": "El Integrador", "role": "Network Integration Layer",
+      "domain": "system_integration", "status": "canonical", "provider_bound": false,
+      "inputs": ["viable_trajectories", "systems", "contracts", "constraints"],
+      "outputs": ["integration_blueprint", "relationship_map", "adapter_requirements", "data_flows"],
+      "may": ["map_dependencies", "design_contracts", "propose_adapters", "recommend_isolation"],
+      "must_not": ["connect_without_authorization", "bypass_access_control", "merge_sources_of_truth", "expose_private_data"],
+      "relations": ["029", "031", "001", "GRAVITY", "QSIM"]
+    },
+    {
+      "id": "031", "name": "El Resonador", "role": "Invariant Resonance Layer",
+      "domain": "patterns_invariants", "status": "canonical", "provider_bound": false,
+      "inputs": ["historical_records", "integrated_structures", "results"],
+      "outputs": ["pattern_map", "invariant_candidates", "dissonance_report", "identity_continuity"],
+      "may": ["detect_recurrence", "compare_over_time", "isolate_signal", "flag_dissonance"],
+      "must_not": ["infer_causality_without_evidence", "treat_repetition_as_truth", "own_primary_memory", "erase_counterexamples"],
+      "relations": ["00B", "029", "030", "032", "034", "099", "GPT"]
+    },
+    {
+      "id": "032", "name": "El Proyector", "role": "Perceptual Manifestation Layer",
+      "domain": "visual_manifestation", "status": "canonical", "provider_bound": false,
+      "inputs": ["validated_identity", "coherent_structure", "representation_brief"],
+      "outputs": ["visualization", "symbolic_system", "perceptual_blueprint", "mcos_handoff"],
+      "may": ["visualize", "translate_to_form", "declare_symbolic_choices", "prepare_mcos_handoff"],
+      "must_not": ["present_representation_as_fact", "predict_future", "hide_interpretation", "invent_evidence"],
+      "relations": ["031", "033", "034", "MCOS"]
+    },
+    {
+      "id": "033", "name": "El Encarnador", "role": "Reality Embodiment Layer",
+      "domain": "implementation_stability", "status": "canonical", "provider_bound": false,
+      "inputs": ["projected_reality", "visual_blueprint", "coherence_structure", "validated_identity", "operational_requirements", "physical_constraints"],
+      "outputs": ["stable_system", "materialized_structure", "operational_body", "persistent_architecture"],
+      "may": ["design_implementation", "validate_constraints", "deploy_after_approval", "verify_persistence"],
+      "must_not": ["claim_real_before_verification", "deploy_sensitive_change_without_approval", "omit_rollback", "confuse_mpe_gravity_with_gravity_system"],
+      "relations": ["032", "034", "QUBIT", "EARTH_MEMORY", "GRAVITY"]
+    },
+    {
+      "id": "034", "name": "Nueva Escala", "role": "Paradigm Governance Layer",
+      "domain": "paradigm_change", "status": "canonical", "provider_bound": false,
+      "inputs": ["critical_resonance", "confirmed_invariants", "evolutionary_saturation", "validated_multi_attractor"],
+      "outputs": ["paradigm_change_proposal", "migration_plan", "compatibility_plan", "rollback_plan"],
+      "may": ["propose_rule_change", "design_transition", "declare_limit_candidate"],
+      "must_not": ["override_human_authority", "change_rules_without_approval", "rewrite_history", "perform_irreversible_migration"],
+      "relations": ["031", "032", "033", "099", "GRAVITY", "QSIM"]
+    },
+    {
+      "id": "099", "name": "El Purgador", "role": "Memory Retention and Purification Layer",
+      "domain": "retention_entropy", "status": "canonical", "provider_bound": false,
+      "inputs": ["duplicate_candidates", "obsolete_candidates", "corrupt_artifacts", "retention_policy"],
+      "outputs": ["retention_recommendation", "archive_action", "quarantine_action", "deletion_tombstone"],
+      "may": ["detect_noise", "deduplicate", "compact", "archive", "quarantine", "propose_deletion"],
+      "must_not": ["delete_without_policy", "delete_under_legal_hold", "erase_audit_trail", "self_delete_audit_record"],
+      "relations": ["00B", "031", "034", "GPT", "EARTH_MEMORY", "QUBIT"]
+    },
+    {
+      "id": "GPT", "name": "El Auditor", "role": "Audit Intelligence Layer",
+      "domain": "evidence_audit", "status": "canonical", "provider_bound": true,
+      "runtime_capability": "audit_intelligence", "provider": "configurable",
+      "inputs": ["hypotheses", "documents", "experiments", "simulations", "images", "agent_outputs"],
+      "outputs": ["audit_report", "validation_report", "contradiction_report", "coherence_analysis", "evidence_map"],
+      "may": ["separate_fact_inference", "find_contradictions", "assess_sources", "request_missing_evidence"],
+      "must_not": ["be_sole_source_of_truth", "invent_citations", "approve_sensitive_action", "order_deletion"],
+      "relations": ["001", "00B", "031", "099", "034", "GEMINI", "GRAVITY"]
+    },
+    {
+      "id": "GEMINI", "name": "El Soñador", "role": "Mythic Imagination Layer",
+      "domain": "creative_divergence", "status": "canonical", "provider_bound": true,
+      "runtime_capability": "mythic_imagination", "provider": "configurable",
+      "inputs": ["incomplete_ideas", "symbolic_images", "emerging_concepts", "open_questions", "latent_narratives"],
+      "outputs": ["mythic_concepts", "world_names", "narrative_frames", "symbolic_architectures", "visual_metaphors"],
+      "may": ["imagine", "associate", "create_myth", "propose_symbolic_world"],
+      "must_not": ["present_creative_output_as_evidence", "self_promote_to_canon", "audit", "approve_execution"],
+      "relations": ["GPT", "00B", "001", "027", "028", "029", "MCOS"]
+    }
+  ],
+  "canonical_flow": ["GEMINI", "027", "028", "029", "030", "031", "GPT", "032", "033", "034", "099"],
+  "transversal_agents": ["001", "00B"],
+  "external_systems": ["GRAVITY", "QSIM", "MCOS", "QUBIT", "EARTH_MEMORY"]
+}

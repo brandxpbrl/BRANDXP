@@ -1,0 +1,92 @@
+{
+  "validation_id": "mcos-validation-10c34264ceb8",
+  "engine": "MCOS Semantic Validation Adapter",
+  "engine_version": "0.1.0",
+  "knowledge_id": "eb-color-emotion",
+  "candidate_version": "2.0.0-candidate.1",
+  "generated_at": "2026-11-07T01:07:43-03:00",
+  "status": "candidate",
+  "transformations": [
+    {
+      "output_id": "mcos-visual-eb-color-emotion",
+      "mode": "visual",
+      "input": "Apply Color as Emotional Expectation: Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+      "output": "Visual test for Color as Emotional Expectation: translate the principle into hierarchy, contrast and focus; expected outcome: The hierarchy feels precise and risk-aware.",
+      "expected_observation": "At least one observable indicator must be visible: Dominant color matches the intended emotional posture"
+    },
+    {
+      "output_id": "mcos-cinematic-eb-color-emotion",
+      "mode": "cinematic",
+      "input": "Apply Color as Emotional Expectation: Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+      "output": "Cinematic test for Color as Emotional Expectation: express the principle through framing, light, rhythm and transition; expected outcome: The hierarchy feels precise and risk-aware.",
+      "expected_observation": "At least one observable indicator must be visible: Dominant color matches the intended emotional posture"
+    },
+    {
+      "output_id": "mcos-brand-eb-color-emotion",
+      "mode": "brand",
+      "input": "Apply Color as Emotional Expectation: Color establishes an emotional expectation before the audience evaluates content. Its effect depends on context, proportion, contrast, culture and repetition; no isolated color carries one universal emotion.",
+      "output": "Brand test for Color as Emotional Expectation: apply the principle to one real touchpoint and compare before/after perception; expected outcome: The hierarchy feels precise and risk-aware.",
+      "expected_observation": "At least one observable indicator must be visible: Dominant color matches the intended emotional posture"
+    }
+  ],
+  "diagnostics": [
+    {
+      "criterion": "semantic_specificity",
+      "result": "pass",
+      "reasons": [
+        "definition_chars=207",
+        "decision_rules=2"
+      ]
+    },
+    {
+      "criterion": "observability",
+      "result": "pass",
+      "reasons": [
+        "observable_indicators=3"
+      ]
+    },
+    {
+      "criterion": "diagnostic_operability",
+      "result": "pass",
+      "reasons": [
+        "diagnostic_steps=3",
+        "analysis_questions=3"
+      ]
+    },
+    {
+      "criterion": "counterexample_strength",
+      "result": "pass",
+      "reasons": [
+        "bad_examples=1",
+        "limits=3"
+      ]
+    },
+    {
+      "criterion": "cross_modal_application",
+      "result": "pass",
+      "reasons": [
+        "modes=visual,cinematic,brand"
+      ]
+    }
+  ],
+  "score": 100,
+  "lineage": [
+    {
+      "source_id": "eb-color-emotion",
+      "output_id": "mcos-visual-eb-color-emotion",
+      "action": "MCOS transformed candidate into visual application"
+    },
+    {
+      "source_id": "eb-color-emotion",
+      "output_id": "mcos-cinematic-eb-color-emotion",
+      "action": "MCOS transformed candidate into cinematic application"
+    },
+    {
+      "source_id": "eb-color-emotion",
+      "output_id": "mcos-brand-eb-color-emotion",
+      "action": "MCOS transformed candidate into brand application"
+    }
+  ],
+  "reviewed_by": null,
+  "canon_effect": "none_until_human_approval"
+}
