@@ -7,6 +7,7 @@ from threading import RLock
 from uuid import uuid4
 
 from services.gravity_registry import get_gravity_agent, gravity_execution_graph
+from services.gravity_output_validator import validate_gravity_output
 from services.gravity_trace import GravityEventType, GravityTraceEvent
 
 
@@ -188,6 +189,50 @@ def request_task(run_id, component_id):
             payload, GravityEventType.AGENT_REQUESTED, task["component_id"], task["id"],
             causal_parent_ids=parent_ids, source_hashes=source_hashes, input_hash=task["input_hash"],
             details={"dry_run": True, "model_call_performed": False},
+        )
+        _write_atomic(_run_path(run_id), payload)
+        return deepcopy(payload)
+
+
+def record_synthetic_output(run_id, component_id, output):
+    component_id = str(component_id).upper().removeprefix("GRAVITY:")
+    namespaced_id = f"GRAVITY:{component_id}"
+    with _LOCK:
+        payload = get_dry_run(run_id)
+        if not payload:
+            return None
+        if payload.get("execution_mode") != "dry_run" or payload.get("evidence_kind") != "synthetic":
+            raise ValueError("Only synthetic dry-run outputs can be recorded.")
+        task = next((item for item in payload["tasks"] if item["component_id"] == namespaced_id), None)
+        if not task:
+            raise ValueError("Gravity task not found in this run.")
+        if task["state"] != "requested":
+            raise ValueError("Gravity task must be requested before recording output.")
+        candidate = deepcopy(output)
+        candidate["component_id"] = namespaced_id
+        allowed_hashes = {payload["input"]["sha256"]}
+        allowed_hashes.update(item["output_hash"] for item in payload["tasks"] if item["output_hash"])
+        ledger = validate_gravity_output(candidate, allowed_hashes)
+        task["output"] = ledger
+        task["output_hash"] = ledger["sha256"]
+        task["state"] = "completed"
+        payload["state"] = "awaiting_review"
+        payload["updated_at"] = _now()
+        parent_ids = [payload["events"][-1]["id"]] if payload["events"] else []
+        _event(
+            payload, GravityEventType.AGENT_OUTPUT_SAVED, namespaced_id, task["id"],
+            causal_parent_ids=parent_ids,
+            source_hashes=sorted(allowed_hashes),
+            input_hash=task["input_hash"],
+            output_hash=ledger["sha256"],
+            trajectory_kind="simulated",
+            validity="structurally_valid_awaiting_human_review",
+            details={
+                "model_call_performed": False,
+                "claim_count": len(ledger["claims"]),
+                "open_contradictions": ledger["open_contradictions"],
+                "memory_promotion_allowed": False,
+            },
         )
         _write_atomic(_run_path(run_id), payload)
         return deepcopy(payload)
