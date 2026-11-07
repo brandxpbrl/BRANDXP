@@ -296,3 +296,65 @@ def review_task_output(run_id, component_id, decision, reviewer, note=""):
         )
         _write_atomic(_run_path(run_id), payload)
         return deepcopy(payload)
+
+
+def derive_minimal_specialist_run(source_run_id):
+    source = get_dry_run(source_run_id)
+    if not source:
+        return None
+    source_a23 = next(
+        (item for item in source.get("tasks", []) if item.get("component_id") == "GRAVITY:A23"),
+        None,
+    )
+    if (
+        not source_a23
+        or source_a23.get("state") != "completed"
+        or source_a23.get("review", {}).get("state") != "approved"
+        or not source_a23.get("output_hash")
+    ):
+        raise ValueError("Source run requires a human-approved A23 output.")
+
+    derived = create_dry_run({
+        "title": f"{source['title']} — especialistas mínimos",
+        "evidence": source["input"]["content"],
+        "mode": "minimal_specialists",
+        "execution_mode": "dry_run",
+        "evidence_kind": "synthetic",
+    })
+    with _LOCK:
+        payload = get_dry_run(derived["id"])
+        target_a23 = next(item for item in payload["tasks"] if item["component_id"] == "GRAVITY:A23")
+        target_a23.update({
+            "state": "completed",
+            "input_hash": source_a23.get("input_hash"),
+            "output_hash": source_a23["output_hash"],
+            "output": deepcopy(source_a23["output"]),
+            "review": deepcopy(source_a23["review"]),
+            "inherited_from": {"run_id": source["id"], "task_id": source_a23["id"]},
+        })
+        payload["lineage"] = {
+            "parent_run_id": source["id"],
+            "inherited_component_ids": ["GRAVITY:A23"],
+            "inherited_output_hashes": [source_a23["output_hash"]],
+            "derivation_kind": "approved_output_reuse",
+        }
+        payload["state"] = "ready_for_next_stage"
+        payload["updated_at"] = _now()
+        payload["approval_gate"]["state"] = "a23_human_approval_inherited"
+        parent_ids = [payload["events"][-1]["id"]] if payload["events"] else []
+        _event(
+            payload, GravityEventType.MESSAGE_CONTEXT_BUILT, "GRAVITY:A23", target_a23["id"],
+            causal_parent_ids=parent_ids,
+            source_hashes=[payload["input"]["sha256"], source_a23["output_hash"]],
+            input_hash=target_a23.get("input_hash"),
+            output_hash=source_a23["output_hash"],
+            trajectory_kind="replayed",
+            validity="inherited_human_approved",
+            details={
+                "parent_run_id": source["id"],
+                "model_call_performed": False,
+                "memory_promotion_allowed": False,
+            },
+        )
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)

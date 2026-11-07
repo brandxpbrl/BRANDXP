@@ -116,6 +116,35 @@ class GravityRuntimeTests(unittest.TestCase):
         requested = gravity_runtime.request_task(run["id"], "A01")
         self.assertEqual(next(item for item in requested["tasks"] if item["component_id"] == "GRAVITY:A01")["state"], "requested")
 
+    def test_derived_specialist_run_reuses_exact_approved_a23_output(self):
+        source = gravity_runtime.create_dry_run({
+            "title": "Approved source", "evidence": "Fictional calm brand.", "mode": "a23_only"
+        })
+        source = gravity_runtime.request_task(source["id"], "A23")
+        h = source["input"]["sha256"]
+        source = gravity_runtime.record_synthetic_output(source["id"], "A23", {
+            "sources": [{"id": "source-input", "locator": "run.input", "sha256": h}],
+            "claims": [{"id": "claim-calm", "text": "The fictional brand is calm.", "truth_kind": "fact", "confidence": 1, "source_ids": ["source-input"]}],
+        })
+        source = gravity_runtime.review_task_output(source["id"], "A23", "approved", "Human reviewer")
+        derived = gravity_runtime.derive_minimal_specialist_run(source["id"])
+        inherited = next(item for item in derived["tasks"] if item["component_id"] == "GRAVITY:A23")
+        self.assertEqual(inherited["output_hash"], source["tasks"][0]["output_hash"])
+        self.assertEqual(inherited["review"]["state"], "approved")
+        self.assertEqual(derived["lineage"]["parent_run_id"], source["id"])
+        self.assertEqual(derived["events"][-1]["trajectory_kind"], "replayed")
+        for component_id in ("A01", "A03", "A06"):
+            derived = gravity_runtime.request_task(derived["id"], component_id)
+        self.assertEqual(
+            {item["component_id"] for item in derived["tasks"] if item["state"] == "requested"},
+            {"GRAVITY:A01", "GRAVITY:A03", "GRAVITY:A06"},
+        )
+
+    def test_derived_run_rejects_unapproved_a23(self):
+        source = gravity_runtime.create_dry_run({"title": "Unapproved", "evidence": "Fictional."})
+        with self.assertRaises(ValueError):
+            gravity_runtime.derive_minimal_specialist_run(source["id"])
+
 
 if __name__ == "__main__":
     unittest.main()

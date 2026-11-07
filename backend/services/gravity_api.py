@@ -4,6 +4,7 @@ from starlette.concurrency import run_in_threadpool
 
 from services.gravity_runtime import (
     create_dry_run,
+    derive_minimal_specialist_run,
     get_dry_run,
     list_dry_runs,
     record_synthetic_output,
@@ -100,4 +101,15 @@ async def review_gravity_output(run_id: str, component_id: str, request: Gravity
         raise HTTPException(status_code=400, detail=str(error)) from error
     if not payload:
         raise HTTPException(status_code=404, detail="Gravity run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/derive-minimal-specialists")
+async def derive_gravity_minimal_specialists(run_id: str):
+    try:
+        payload = await run_in_threadpool(derive_minimal_specialist_run, run_id)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity source run not found.")
     return payload
