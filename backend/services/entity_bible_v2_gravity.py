@@ -2,6 +2,8 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+from services.entity_bible_v2_loader import get_approved_unit
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CANON_ROOT = PROJECT_ROOT / "runtime" / "entity_bible_v2" / "canon"
@@ -26,10 +28,7 @@ def _write(path, payload):
 
 
 def load_canon(knowledge_id):
-    path = CANON_ROOT / f"{knowledge_id}.json"
-    if not path.is_file():
-        return None
-    return json.loads(path.read_text(encoding="utf-8"))
+    return get_approved_unit(knowledge_id, CANON_ROOT)
 
 
 def build_gravity_review_packet(knowledge_id, persist=True):

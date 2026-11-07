@@ -8,6 +8,11 @@ from services.entity_bible_v2_mcos import (
     list_candidates,
     review_candidate,
 )
+from services.entity_bible_v2_loader import (
+    CanonValidationError,
+    get_approved_unit,
+    search_approved_units,
+)
 
 
 entity_bible_v2_router = APIRouter(tags=["Entity Bible v2"])
@@ -17,6 +22,32 @@ class CandidateReviewRequest(BaseModel):
     decision: str
     reviewer: str
     note: str = ""
+
+
+@entity_bible_v2_router.get("/canon")
+async def entity_bible_v2_canon(query: str = "", domain: str = "", agent: str = "", limit: int = 20):
+    try:
+        units = await run_in_threadpool(
+            search_approved_units,
+            query,
+            [domain] if domain else None,
+            agent or None,
+            limit,
+        )
+    except CanonValidationError as error:
+        raise HTTPException(status_code=409, detail=str(error)) from error
+    return {"access_mode": "approved_canon_only", "count": len(units), "units": units}
+
+
+@entity_bible_v2_router.get("/canon/{knowledge_id}")
+async def entity_bible_v2_canon_unit(knowledge_id: str):
+    try:
+        unit = await run_in_threadpool(get_approved_unit, knowledge_id)
+    except CanonValidationError as error:
+        raise HTTPException(status_code=409, detail=str(error)) from error
+    if not unit:
+        raise HTTPException(status_code=404, detail="Approved Entity Bible unit not found.")
+    return {"access_mode": "approved_canon_only", "unit": unit}
 
 
 @entity_bible_v2_router.get("/candidates")

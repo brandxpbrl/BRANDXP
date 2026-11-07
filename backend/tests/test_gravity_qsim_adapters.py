@@ -24,9 +24,13 @@ class GravityQsimAdapterTests(unittest.TestCase):
         (gravity.CANON_ROOT / "eb-test.json").write_text(json.dumps({
             "knowledge_id": "eb-test", "domain": "systems", "definition": "Specific system rule",
             "decision_rules": ["Require evidence"],
+            "status": "approved",
             "provenance": {"source_path": "systems/rules.md", "source_sha256": "a" * 64},
-            "governance": {"version": "2.0.0"},
-            "mcos_validation": {"diagnostics": [{"criterion": "specificity", "result": "pass", "reasons": ["complete"]}]},
+            "governance": {"version": "2.0.0", "reviewer": "Felipe", "approved_at": "2026-11-07T00:00:00-03:00"},
+            "mcos_validation": {
+                "status": "accepted", "reviewed_by": "Felipe",
+                "diagnostics": [{"criterion": "specificity", "result": "pass", "reasons": ["complete"]}],
+            },
         }), encoding="utf-8")
 
     def tearDown(self):
