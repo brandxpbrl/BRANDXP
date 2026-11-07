@@ -4,11 +4,14 @@ from starlette.concurrency import run_in_threadpool
 
 from services.gravity_runtime import (
     create_dry_run,
+    build_specialist_batch_manifest,
     derive_minimal_specialist_run,
+    derive_specialist_batch_run,
     get_dry_run,
     list_dry_runs,
     record_synthetic_output,
     review_task_output,
+    review_specialist_batch,
     request_task,
 )
 
@@ -112,4 +115,39 @@ async def derive_gravity_minimal_specialists(run_id: str):
         raise HTTPException(status_code=400, detail=str(error)) from error
     if not payload:
         raise HTTPException(status_code=404, detail="Gravity source run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/derive-specialist-batch/{batch_id}")
+async def derive_gravity_specialist_batch(run_id: str, batch_id: str):
+    try:
+        payload = await run_in_threadpool(derive_specialist_batch_run, run_id, batch_id)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity source run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/batch-manifest")
+async def create_gravity_batch_manifest(run_id: str):
+    try:
+        payload = await run_in_threadpool(build_specialist_batch_manifest, run_id)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity batch run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/batch-review")
+async def review_gravity_batch(run_id: str, request: GravityOutputReviewRequest):
+    try:
+        payload = await run_in_threadpool(
+            review_specialist_batch, run_id, request.decision, request.reviewer, request.note
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity batch run not found.")
     return payload
