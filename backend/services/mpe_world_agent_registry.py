@@ -5,14 +5,27 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = PROJECT_ROOT / "backend" / "config" / "mpe_world_agents.json"
+SOURCE_MANIFEST_PATH = PROJECT_ROOT / "backend" / "config" / "mpe_world_agent_sources.json"
 
 
 def _load_registry():
     payload = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    source_payload = json.loads(SOURCE_MANIFEST_PATH.read_text(encoding="utf-8"))
+    sources = {item["agent_id"]: item for item in source_payload.get("sources") or []}
     agents = payload.get("agents") or []
     ids = [agent.get("id") for agent in agents]
     if len(ids) != len(set(ids)):
         raise ValueError("MPE World registry contains duplicate agent IDs.")
+    if set(ids) != set(sources):
+        raise ValueError("MPE World source manifest does not cover the full registry.")
+    for agent in agents:
+        agent["provenance"] = sources[agent["id"]]
+    payload["source_manifest"] = {
+        "version": source_payload["version"],
+        "captured_at": source_payload["captured_at"],
+        "capture_kind": source_payload["capture_kind"],
+        "canonical_drive_location": source_payload["canonical_drive_location"],
+    }
     return payload
 
 

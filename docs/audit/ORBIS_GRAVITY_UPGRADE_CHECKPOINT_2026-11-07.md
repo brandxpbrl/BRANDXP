@@ -44,5 +44,10 @@ Antes de cualquier ejecución real de A23 se requieren:
 
 1. contrato y validador de output;
 2. ledger de afirmaciones, fuentes, incertidumbre y contradicciones;
-3. procedencia documental de las entidades MPE World;
-4. revisión humana del primer resultado sintético.
+3. revisión humana del primer resultado sintético.
+
+## Addendum de procedencia
+
+Después del checkpoint inicial se registraron los 13 snapshots documentales MPE World con
+identificador, versión declarada, tamaño y SHA-256. Los IDs/revisiones canónicos de Drive siguen
+pendientes de resolución y no son una dependencia del runtime.

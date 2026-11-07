@@ -31,6 +31,14 @@ class MpeWorldAgentRegistryTests(unittest.TestCase):
         self.assertTrue(governance["simulations_are_not_facts"])
         self.assertTrue(governance["creative_outputs_are_not_evidence"])
 
+    def test_every_agent_has_snapshot_provenance_without_runtime_dependency(self):
+        agents = list_mpe_world_agents()
+        self.assertTrue(all(len(item["provenance"]["sha256"]) == 64 for item in agents))
+        self.assertEqual(len({item["provenance"]["sha256"] for item in agents}), 13)
+        registry = mpe_world_registry()
+        self.assertEqual(registry["source_manifest"]["capture_kind"], "founder_supplied_attachment_snapshot")
+        self.assertIn("pending_resolution", registry["source_manifest"]["canonical_drive_location"])
+
     def test_sensitive_agents_have_runtime_limits(self):
         legislator = get_mpe_world_agent("034")
         purger = get_mpe_world_agent("099")

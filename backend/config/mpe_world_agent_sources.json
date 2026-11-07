@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "captured_at": "2026-11-07",
+  "capture_kind": "founder_supplied_attachment_snapshot",
+  "canonical_drive_location": "pending_resolution_in_002_WORLD/00_BESTUARIO",
+  "notes": [
+    "Hashes identify the exact text snapshots reviewed during the upgrade.",
+    "Attachment paths are provenance references, not permanent runtime dependencies.",
+    "Canonical Drive document IDs and revision IDs remain to be resolved."
+  ],
+  "sources": [
+    {"agent_id":"00B","document_id":"MPE-WORLD-002","document_version":"3.0","sha256":"3f51d25b77d6a32174acebbc6729e9851db8cf9be8d9025dcb57c32bfac2eca2","size_bytes":5537,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/9631f471-c961-48ce-a246-37d11b2b1774/Texto colado.txt"},
+    {"agent_id":"001","document_id":"MPE-WORLD-003","document_version":"3.0","sha256":"f478312c44f3b89cc1757cf3cea50b8fa6c86ebb48d285542a670f29abf754fe","size_bytes":6683,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/5530b50a-2bd9-4d12-8e70-5397161a6003/Texto colado.txt"},
+    {"agent_id":"027","document_id":"MPE-WORLD-027","document_version":"3.0","sha256":"b3f431b87dd0da96554cf4eea5f18b045f419dcb9758f65175e70f8a2c1f0a71","size_bytes":6123,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/2d3ba828-4cba-4603-8b7c-8434fddbd2dd/Texto colado.txt"},
+    {"agent_id":"028","document_id":"MPE-WORLD-028","document_version":"1.0","sha256":"7e1c3485000342c3da8d3a8cbd252ac294f764665929d409e3bdffe8cc8f8e3a","size_bytes":12537,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/139d743a-5669-4489-9076-e0599908a19a/Texto colado.txt"},
+    {"agent_id":"029","document_id":"MPE-WORLD-029","document_version":"1.0","sha256":"dde77f35f0df615cf7d9938cc09ba53f8f1fadec28c1e1a0fd64eae85aa7190a","size_bytes":11077,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/66be4aaf-3645-485e-a90a-3976c79659bf/Texto colado.txt"},
+    {"agent_id":"030","document_id":"MPE-WORLD-030","document_version":"1.0","sha256":"5e1de6719a016b5ca1a78ef589aebd31ea1c102eddc584846352ae10bffc97ae","size_bytes":14611,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/a0acebf2-1ee6-46b1-92a4-cd13d9ee97ff/Texto colado.txt"},
+    {"agent_id":"031","document_id":"MPE-WORLD-031","document_version":"2.0","sha256":"3b76bf5771a0c5d9d71caa886497b3d6233459f5ac1584bfcfc6a32240ca8804","size_bytes":7692,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/6c40b10f-f991-420a-a8e6-2a7f8f8ba2e9/Texto colado.txt"},
+    {"agent_id":"032","document_id":"MPE-WORLD-032","document_version":"1.0","sha256":"6589e8ebb733a38bacc55137b139cb83858da6bef0f28fcd07ad185f16a07b5b","size_bytes":7553,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/f6a230f3-9e1b-4432-a2ac-df8c267c3119/Texto colado.txt"},
+    {"agent_id":"033","document_id":"MPE-WORLD-033","document_version":"1.0","sha256":"80419aba568faef18f21787d364e2ef0b15bf1509968cb10aa423c38acab7e45","size_bytes":13761,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/5f295d7f-d865-4fca-8541-7bc2e0394ffb/Texto colado.txt"},
+    {"agent_id":"034","document_id":"MPE-WORLD-034","document_version":"unspecified","sha256":"6db4263ed8d5c5e968d988baab834e5ecf45fb7a30ddfb98c0275926c54e36a4","size_bytes":8881,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/774b1af3-b7a4-4be0-9ba0-f834f2c2c21d/Texto colado.txt"},
+    {"agent_id":"099","document_id":"MPE-WORLD-099","document_version":"unspecified","sha256":"8ed3db4073bd9fd81852fa08419546c02f4f1069ef4290096bd4e27536af6c35","size_bytes":9159,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/5481a350-3814-4fb2-8c0d-8f72c1d5b0df/Texto colado.txt"},
+    {"agent_id":"GPT","document_id":"MPE-WORLD-X01","document_version":"2.0","sha256":"521b5565efaa0e8dc828bed6bbd0602336936b989f43df9f32b8626e4f353808","size_bytes":9042,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/f6830e7e-6b70-43cc-b627-e7a6353bd133/Texto colado.txt"},
+    {"agent_id":"GEMINI","document_id":"MPE-WORLD-S01","document_version":"2.0","sha256":"162874795f524913a3353860be2b1591ab4309e734a4014d3679323bdc357b80","size_bytes":12902,"snapshot_path":"C:/Users/Bela Tours/.codex/attachments/c205c4ef-37b1-4897-98b2-47ac5020d35a/Texto colado.txt"}
+  ]
+}

@@ -14,6 +14,10 @@ Estado: integrada en backend, pendiente de ejecución de Gravity.
 
 00B, 001, 027, 028, 029, 030, 031, 032, 033, 034, 099, GPT y GEMINI.
 
+Cada entidad conserva ahora procedencia del snapshot textual revisado: identificador documental,
+versión declarada, SHA-256, tamaño y ruta de captura. La resolución de IDs y revisiones de los
+documentos canónicos en Drive sigue pendiente y está declarada, no inferida.
+
 ## Reglas transversales
 
 1. La autoridad humana es final para acciones sensibles.
