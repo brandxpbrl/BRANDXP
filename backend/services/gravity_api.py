@@ -4,6 +4,7 @@ from starlette.concurrency import run_in_threadpool
 
 from services.gravity_runtime import (
     create_dry_run,
+    close_gravity_cycle,
     build_specialist_batch_manifest,
     derive_minimal_specialist_run,
     derive_crossing_run,
@@ -238,4 +239,15 @@ async def derive_gravity_final_integration(run_id: str):
         raise HTTPException(status_code=400, detail=str(error)) from error
     if not payload:
         raise HTTPException(status_code=404, detail="Gravity macro cycle not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/close-cycle")
+async def close_gravity_final_cycle(run_id: str):
+    try:
+        payload = await run_in_threadpool(close_gravity_cycle, run_id)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity final run not found.")
     return payload

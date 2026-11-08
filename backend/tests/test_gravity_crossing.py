@@ -16,10 +16,13 @@ class GravityCrossingTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.original_root = gravity_runtime.RUNS_ROOT
+        self.original_cycles_root = gravity_runtime.CYCLES_ROOT
         gravity_runtime.RUNS_ROOT = Path(self.temp.name) / "runs"
+        gravity_runtime.CYCLES_ROOT = Path(self.temp.name) / "cycles"
 
     def tearDown(self):
         gravity_runtime.RUNS_ROOT = self.original_root
+        gravity_runtime.CYCLES_ROOT = self.original_cycles_root
         self.temp.cleanup()
 
     def test_synaptic_bundle_is_a_valid_namespaced_output(self):
@@ -69,6 +72,14 @@ class GravityCrossingTests(unittest.TestCase):
         })
         with self.assertRaises(ValueError):
             gravity_runtime.derive_final_integration_run(run["id"])
+
+    def test_cycle_closure_rejects_missing_or_unapproved_final_verdict(self):
+        self.assertIsNone(gravity_runtime.close_gravity_cycle("gravity-run-missing"))
+        run = gravity_runtime.create_dry_run({
+            "title": "Final", "evidence": "Synthetic.", "mode": "final_integration_only"
+        })
+        with self.assertRaises(ValueError):
+            gravity_runtime.close_gravity_cycle(run["id"])
 
 
 if __name__ == "__main__":

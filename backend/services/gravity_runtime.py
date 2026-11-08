@@ -13,6 +13,7 @@ from services.gravity_trace import GravityEventType, GravityTraceEvent
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RUNS_ROOT = PROJECT_ROOT / "runtime" / "gravity" / "runs"
+CYCLES_ROOT = PROJECT_ROOT / "runtime" / "gravity" / "cycles"
 _LOCK = RLock()
 
 SPECIALIST_BATCHES = {
@@ -919,3 +920,106 @@ def derive_final_integration_run(macro_run_id):
         )
         _write_atomic(_run_path(payload["id"]), payload)
         return deepcopy(payload)
+
+
+def close_gravity_cycle(final_run_id):
+    final_run = get_dry_run(final_run_id)
+    if not final_run:
+        return None
+    final_task = next(
+        (item for item in final_run.get("tasks", []) if item.get("component_id") == "GRAVITY:A00"),
+        None,
+    )
+    if (
+        final_run.get("state") != "approved"
+        or not final_task
+        or final_task.get("review", {}).get("state") != "approved"
+        or not final_task.get("output_hash")
+    ):
+        raise ValueError("Gravity cycle closure requires a human-approved A00 verdict.")
+
+    collected = {}
+    pending = [final_run_id]
+    while pending:
+        run_id = pending.pop()
+        if run_id in collected:
+            continue
+        run = get_dry_run(run_id)
+        if not run:
+            raise ValueError(f"Gravity lineage run is missing: {run_id}.")
+        collected[run_id] = run
+        lineage = run.get("lineage", {})
+        parents = lineage.get("parent_run_ids") or []
+        if lineage.get("parent_run_id"):
+            parents.append(lineage["parent_run_id"])
+        pending.extend(parents)
+
+    if any(run.get("state") != "approved" for run in collected.values()):
+        raise ValueError("Every Gravity lineage run must be approved before cycle closure.")
+
+    run_records = []
+    approvals = []
+    for run_id, run in sorted(collected.items(), key=lambda item: item[1].get("created_at", "")):
+        output_hashes = [task["output_hash"] for task in run.get("tasks", []) if task.get("output_hash")]
+        run_records.append({
+            "run_id": run_id,
+            "mode": run.get("mode"),
+            "state": run.get("state"),
+            "input_hash": run.get("input", {}).get("sha256"),
+            "output_hashes": output_hashes,
+        })
+        for task in run.get("tasks", []):
+            review = task.get("review", {})
+            if review.get("state") == "approved":
+                approvals.append({
+                    "subject": task.get("component_id"), "run_id": run_id,
+                    "output_hash": task.get("output_hash"), "reviewer": review.get("reviewer"),
+                    "reviewed_at": review.get("reviewed_at"),
+                })
+        for container_name in ("batch", "macro_cycle"):
+            review = run.get(container_name, {}).get("review", {})
+            if review.get("state") == "approved":
+                approvals.append({
+                    "subject": f"{container_name}_manifest", "run_id": run_id,
+                    "output_hash": review.get("manifest_hash"), "reviewer": review.get("reviewer"),
+                    "reviewed_at": review.get("reviewed_at"),
+                })
+
+    cycle_id = f"gravity-cycle-{final_task['output_hash'][:12]}"
+    dossier = {
+        "schema_version": "gravity-cycle-dossier-v1",
+        "id": cycle_id,
+        "state": "closed",
+        "closed_at": _now(),
+        "final_run_id": final_run_id,
+        "final_verdict_hash": final_task["output_hash"],
+        "run_count": len(run_records),
+        "runs": run_records,
+        "approvals": approvals,
+        "safe_memory_record": {
+            "kind": "methodological_history",
+            "promotable": True,
+            "facts": [
+                "A complete synthetic Gravity cycle was executed with traceable human gates.",
+                "The final verdict authorized only the design of a bounded pilot.",
+                "No external action or commercial validation occurred.",
+            ],
+        },
+        "excluded_from_canonical_memory": [
+            "commercial_hypothesis",
+            "premium_positioning_as_fact",
+            "market_demand",
+            "profitability",
+            "simulated_agent_outputs_as_real_results",
+            "scientific_validity_of_43534",
+        ],
+        "external_actions_executed": False,
+        "commercial_validation_achieved": False,
+        "automatic_memory_promotion": False,
+    }
+    dossier["sha256"] = hashlib.sha256(
+        json.dumps(dossier, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    ).hexdigest()
+    with _LOCK:
+        _write_atomic(CYCLES_ROOT / f"{cycle_id}.json", dossier)
+    return deepcopy(dossier)
