@@ -9,12 +9,15 @@ from services.gravity_runtime import (
     derive_crossing_run,
     derive_cleanup_run,
     derive_synthesis_run,
+    derive_macro_cycle_run,
+    build_macro_cycle_manifest,
     derive_specialist_batch_run,
     get_dry_run,
     list_dry_runs,
     record_synthetic_output,
     review_task_output,
     review_specialist_batch,
+    review_macro_cycle,
     request_task,
 )
 
@@ -188,4 +191,39 @@ async def derive_gravity_synthesis(run_id: str):
         raise HTTPException(status_code=400, detail=str(error)) from error
     if not payload:
         raise HTTPException(status_code=404, detail="Gravity cleanup run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/derive-macro-cycle")
+async def derive_gravity_macro_cycle(run_id: str):
+    try:
+        payload = await run_in_threadpool(derive_macro_cycle_run, run_id)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity synthesis run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/macro-cycle-manifest")
+async def create_gravity_macro_cycle_manifest(run_id: str):
+    try:
+        payload = await run_in_threadpool(build_macro_cycle_manifest, run_id)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity macro cycle not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/macro-cycle-review")
+async def review_gravity_macro_cycle(run_id: str, request: GravityOutputReviewRequest):
+    try:
+        payload = await run_in_threadpool(
+            review_macro_cycle, run_id, request.decision, request.reviewer, request.note
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity macro cycle not found.")
     return payload

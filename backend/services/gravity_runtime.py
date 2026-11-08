@@ -74,6 +74,8 @@ def _selected_ids(mode):
         return ["A99"]
     if mode == "synthesis_only":
         return ["A00B"]
+    if mode == "macro_cycle":
+        return [f"A{i:02d}" for i in range(27, 35)]
     if str(mode).startswith("specialist_batch:"):
         batch_id = str(mode).split(":", 1)[1]
         if batch_id not in SPECIALIST_BATCHES:
@@ -191,11 +193,15 @@ def request_task(run_id, component_id):
             raise ValueError("Gravity task not found in this run.")
         if task["state"] != "pending":
             raise ValueError("Gravity task is not pending.")
+        require_dependency_approval = payload.get("mode") != "macro_cycle"
         incomplete = [
             dependency for dependency in task["depends_on_components"]
             if (
                 next((item for item in payload["tasks"] if item["component_id"] == dependency), {}).get("state") != "completed"
-                or next((item for item in payload["tasks"] if item["component_id"] == dependency), {}).get("review", {}).get("state") != "approved"
+                or (
+                    require_dependency_approval
+                    and next((item for item in payload["tasks"] if item["component_id"] == dependency), {}).get("review", {}).get("state") != "approved"
+                )
             )
         ]
         if incomplete:
@@ -708,6 +714,142 @@ def derive_synthesis_run(cleanup_run_id):
             output_hash=cleanup_task["output_hash"], trajectory_kind="replayed",
             validity="approved_cleanup_context",
             details={"synthesis_mode": "compression_without_new_claims", "model_call_performed": False},
+        )
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)
+
+
+def derive_macro_cycle_run(synthesis_run_id):
+    source = get_dry_run(synthesis_run_id)
+    if not source:
+        return None
+    synthesis_task = next(
+        (item for item in source.get("tasks", []) if item.get("component_id") == "GRAVITY:A00B"),
+        None,
+    )
+    if (
+        source.get("state") != "approved"
+        or not synthesis_task
+        or synthesis_task.get("review", {}).get("state") != "approved"
+        or not synthesis_task.get("output_hash")
+    ):
+        raise ValueError("A27 requires a human-approved A00B synthesis.")
+    derived = create_dry_run({
+        "title": "Gravity — ciclo secuencial A27–A34",
+        "evidence": source["input"]["content"],
+        "mode": "macro_cycle",
+        "execution_mode": "dry_run",
+        "evidence_kind": "synthetic",
+    })
+    with _LOCK:
+        payload = get_dry_run(derived["id"])
+        inherited_hashes = [
+            *source.get("lineage", {}).get("inherited_output_hashes", []),
+            synthesis_task["output_hash"],
+        ]
+        payload["lineage"] = {
+            "parent_run_id": source["id"],
+            "inherited_component_ids": [
+                *source.get("lineage", {}).get("inherited_component_ids", []),
+                "GRAVITY:A00B",
+            ],
+            "inherited_output_hashes": inherited_hashes,
+            "derivation_kind": "approved_synthesis_macro_cycle",
+        }
+        payload["macro_cycle"] = {
+            "sequence": [f"GRAVITY:A{i:02d}" for i in range(27, 35)],
+            "protocol_43534": {
+                "expansion_cap": 4,
+                "condensation_target": 3,
+                "evaluation_cycles": 5,
+                "resonance_level": 34,
+                "interpretation": "operational_doctrine_not_scientific_proof",
+            },
+            "manifest": None,
+            "review": {"state": "not_ready", "reviewer": None, "reviewed_at": None, "note": ""},
+        }
+        payload["state"] = "ready_for_next_stage"
+        payload["updated_at"] = _now()
+        payload["approval_gate"]["state"] = "approved_a00b_inherited"
+        _event(
+            payload, GravityEventType.MESSAGE_CONTEXT_BUILT, "GRAVITY:A27", payload["tasks"][0]["id"],
+            causal_parent_ids=[payload["events"][-1]["id"]],
+            source_hashes=[payload["input"]["sha256"], *inherited_hashes],
+            output_hash=synthesis_task["output_hash"], trajectory_kind="replayed",
+            validity="approved_synthesis_context",
+            details={"sequence_length": 8, "parallel_execution": False, "model_call_performed": False},
+        )
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)
+
+
+def build_macro_cycle_manifest(run_id):
+    with _LOCK:
+        payload = get_dry_run(run_id)
+        if not payload:
+            return None
+        cycle = payload.get("macro_cycle")
+        if not cycle:
+            raise ValueError("Gravity run is not an A27-A34 macro cycle.")
+        tasks = [next(item for item in payload["tasks"] if item["component_id"] == cid) for cid in cycle["sequence"]]
+        if any(item.get("state") != "completed" or not item.get("output_hash") for item in tasks):
+            raise ValueError("Every A27-A34 task must complete before cycle manifest creation.")
+        entries = [{
+            "component_id": item["component_id"], "output_hash": item["output_hash"],
+            "claim_count": len(item["output"]["claims"]),
+            "open_contradictions": item["output"]["open_contradictions"],
+        } for item in tasks]
+        manifest = {
+            "schema_version": "gravity-macro-cycle-manifest-v1",
+            "run_id": payload["id"], "sequence": cycle["sequence"], "entries": entries,
+            "total_claims": sum(item["claim_count"] for item in entries),
+            "open_contradictions": sum(item["open_contradictions"] for item in entries),
+            "created_at": _now(), "protocol_43534": cycle["protocol_43534"],
+        }
+        manifest["sha256"] = hashlib.sha256(
+            json.dumps(manifest, ensure_ascii=False, sort_keys=True).encode("utf-8")
+        ).hexdigest()
+        cycle["manifest"] = manifest
+        cycle["review"] = {"state": "pending", "reviewer": None, "reviewed_at": None, "note": ""}
+        payload["state"] = "awaiting_cycle_review"
+        payload["updated_at"] = _now()
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)
+
+
+def review_macro_cycle(run_id, decision, reviewer, note=""):
+    decision = str(decision).strip().casefold()
+    reviewer = " ".join(str(reviewer or "").split())
+    note = " ".join(str(note or "").split())
+    if decision not in {"approved", "rejected"} or not reviewer:
+        raise ValueError("Macro-cycle review requires approved/rejected and a human reviewer.")
+    with _LOCK:
+        payload = get_dry_run(run_id)
+        if not payload:
+            return None
+        cycle = payload.get("macro_cycle") or {}
+        manifest = cycle.get("manifest")
+        if not manifest or cycle.get("review", {}).get("state") != "pending":
+            raise ValueError("Macro-cycle manifest is not pending review.")
+        reviewed_at = _now()
+        for component_id in cycle["sequence"]:
+            task = next(item for item in payload["tasks"] if item["component_id"] == component_id)
+            task["review"] = {
+                "state": decision, "reviewer": reviewer, "reviewed_at": reviewed_at,
+                "note": note, "output_hash": task["output_hash"], "cycle_manifest_hash": manifest["sha256"],
+            }
+        cycle["review"] = {
+            "state": decision, "reviewer": reviewer, "reviewed_at": reviewed_at,
+            "note": note, "manifest_hash": manifest["sha256"],
+        }
+        payload["state"] = "approved" if decision == "approved" else "needs_revision"
+        payload["updated_at"] = reviewed_at
+        payload["approval_gate"]["state"] = "human_macro_cycle_review_recorded"
+        _event(
+            payload, GravityEventType.FEEDBACK_REQUESTED, "GRAVITY:A34", payload["tasks"][-1]["id"],
+            causal_parent_ids=[payload["events"][-1]["id"]], source_hashes=[manifest["sha256"]],
+            output_hash=manifest["sha256"], trajectory_kind="observed", validity=f"human_{decision}",
+            details={"decision": decision, "reviewer": reviewer, "memory_promotion_allowed": False},
         )
         _write_atomic(_run_path(payload["id"]), payload)
         return deepcopy(payload)
