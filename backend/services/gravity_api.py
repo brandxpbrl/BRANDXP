@@ -7,6 +7,7 @@ from services.gravity_runtime import (
     build_specialist_batch_manifest,
     derive_minimal_specialist_run,
     derive_crossing_run,
+    derive_cleanup_run,
     derive_specialist_batch_run,
     get_dry_run,
     list_dry_runs,
@@ -164,4 +165,15 @@ async def derive_gravity_crossing(request: GravityCrossingRequest):
         payload = await run_in_threadpool(derive_crossing_run, request.source_run_ids)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/derive-cleanup")
+async def derive_gravity_cleanup(run_id: str):
+    try:
+        payload = await run_in_threadpool(derive_cleanup_run, run_id)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity crossing run not found.")
     return payload

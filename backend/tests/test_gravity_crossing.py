@@ -38,6 +38,14 @@ class GravityCrossingTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             gravity_runtime.derive_crossing_run(["gravity-run-missing"] * 5)
 
+    def test_cleanup_rejects_missing_or_unapproved_crossing(self):
+        self.assertIsNone(gravity_runtime.derive_cleanup_run("gravity-run-missing"))
+        run = gravity_runtime.create_dry_run({
+            "title": "Crossing", "evidence": "Synthetic.", "mode": "crossings_only"
+        })
+        with self.assertRaises(ValueError):
+            gravity_runtime.derive_cleanup_run(run["id"])
+
 
 if __name__ == "__main__":
     unittest.main()

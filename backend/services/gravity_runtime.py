@@ -70,6 +70,8 @@ def _selected_ids(mode):
         return ["A23", "A01", "A03", "A06"]
     if mode == "crossings_only":
         return ["SYNAPSES"]
+    if mode == "cleanup_only":
+        return ["A99"]
     if str(mode).startswith("specialist_batch:"):
         batch_id = str(mode).split(":", 1)[1]
         if batch_id not in SPECIALIST_BATCHES:
@@ -586,6 +588,65 @@ def derive_crossing_run(source_run_ids):
             source_hashes=[payload["input"]["sha256"], *inherited_hashes],
             trajectory_kind="replayed", validity="complete_human_approved_context",
             details={"specialist_count": 23, "synaptic_units": 10, "mirror_units": 2, "model_call_performed": False},
+        )
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)
+
+
+def derive_cleanup_run(crossing_run_id):
+    source = get_dry_run(crossing_run_id)
+    if not source:
+        return None
+    crossing_task = next(
+        (item for item in source.get("tasks", []) if item.get("component_id") == "GRAVITY:SYNAPSES"),
+        None,
+    )
+    if (
+        source.get("state") != "approved"
+        or not crossing_task
+        or crossing_task.get("review", {}).get("state") != "approved"
+        or not crossing_task.get("output_hash")
+    ):
+        raise ValueError("A99 requires a human-approved synaptic crossing.")
+    derived = create_dry_run({
+        "title": "Gravity — limpieza reversible A99",
+        "evidence": source["input"]["content"],
+        "mode": "cleanup_only",
+        "execution_mode": "dry_run",
+        "evidence_kind": "synthetic",
+    })
+    with _LOCK:
+        payload = get_dry_run(derived["id"])
+        inherited_hashes = [
+            *source.get("lineage", {}).get("inherited_output_hashes", []),
+            crossing_task["output_hash"],
+        ]
+        payload["lineage"] = {
+            "parent_run_id": source["id"],
+            "inherited_component_ids": [
+                *source.get("lineage", {}).get("inherited_component_ids", []),
+                "GRAVITY:SYNAPSES",
+            ],
+            "inherited_output_hashes": inherited_hashes,
+            "derivation_kind": "approved_crossing_cleanup",
+        }
+        payload["cleanup_policy"] = {
+            "mode": "reversible_view_only",
+            "delete_originals": False,
+            "rewrite_source_ledgers": False,
+            "close_open_contradictions": False,
+            "memory_promotion_allowed": False,
+        }
+        payload["state"] = "ready_for_next_stage"
+        payload["updated_at"] = _now()
+        payload["approval_gate"]["state"] = "approved_crossing_inherited"
+        _event(
+            payload, GravityEventType.MESSAGE_CONTEXT_BUILT, "GRAVITY:A99", payload["tasks"][0]["id"],
+            causal_parent_ids=[payload["events"][-1]["id"]],
+            source_hashes=[payload["input"]["sha256"], *inherited_hashes],
+            output_hash=crossing_task["output_hash"], trajectory_kind="replayed",
+            validity="approved_crossing_context",
+            details={"cleanup_mode": "reversible_view_only", "delete_originals": False, "model_call_performed": False},
         )
         _write_atomic(_run_path(payload["id"]), payload)
         return deepcopy(payload)
