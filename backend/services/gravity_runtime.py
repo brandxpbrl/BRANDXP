@@ -76,6 +76,8 @@ def _selected_ids(mode):
         return ["A00B"]
     if mode == "macro_cycle":
         return [f"A{i:02d}" for i in range(27, 35)]
+    if mode == "final_integration_only":
+        return ["A00"]
     if str(mode).startswith("specialist_batch:"):
         batch_id = str(mode).split(":", 1)[1]
         if batch_id not in SPECIALIST_BATCHES:
@@ -850,6 +852,70 @@ def review_macro_cycle(run_id, decision, reviewer, note=""):
             causal_parent_ids=[payload["events"][-1]["id"]], source_hashes=[manifest["sha256"]],
             output_hash=manifest["sha256"], trajectory_kind="observed", validity=f"human_{decision}",
             details={"decision": decision, "reviewer": reviewer, "memory_promotion_allowed": False},
+        )
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)
+
+
+def derive_final_integration_run(macro_run_id):
+    source = get_dry_run(macro_run_id)
+    if not source:
+        return None
+    cycle = source.get("macro_cycle") or {}
+    manifest = cycle.get("manifest")
+    if (
+        source.get("state") != "approved"
+        or cycle.get("review", {}).get("state") != "approved"
+        or not manifest
+        or cycle.get("review", {}).get("manifest_hash") != manifest.get("sha256")
+    ):
+        raise ValueError("A00 requires a human-approved A27-A34 manifest.")
+    a34 = next(
+        (item for item in source.get("tasks", []) if item.get("component_id") == "GRAVITY:A34"),
+        None,
+    )
+    if not a34 or not a34.get("output_hash"):
+        raise ValueError("A00 requires the completed A34 output.")
+    derived = create_dry_run({
+        "title": "Gravity — veredicto final A00",
+        "evidence": source["input"]["content"],
+        "mode": "final_integration_only",
+        "execution_mode": "dry_run",
+        "evidence_kind": "synthetic",
+    })
+    with _LOCK:
+        payload = get_dry_run(derived["id"])
+        inherited_hashes = [
+            *source.get("lineage", {}).get("inherited_output_hashes", []),
+            *[item["output_hash"] for item in source["tasks"] if item.get("output_hash")],
+            manifest["sha256"],
+        ]
+        payload["lineage"] = {
+            "parent_run_id": source["id"],
+            "inherited_component_ids": [
+                *source.get("lineage", {}).get("inherited_component_ids", []),
+                *cycle["sequence"], "GRAVITY:MACRO_MANIFEST",
+            ],
+            "inherited_output_hashes": inherited_hashes,
+            "derivation_kind": "approved_macro_cycle_final_integration",
+        }
+        payload["final_integration_policy"] = {
+            "may_close_unsupported_tensions": False,
+            "may_claim_real_world_results": False,
+            "may_promote_memory": False,
+            "may_execute_external_actions": False,
+            "requires_human_review": True,
+        }
+        payload["state"] = "ready_for_next_stage"
+        payload["updated_at"] = _now()
+        payload["approval_gate"]["state"] = "approved_macro_cycle_inherited"
+        _event(
+            payload, GravityEventType.MESSAGE_CONTEXT_BUILT, "GRAVITY:A00", payload["tasks"][0]["id"],
+            causal_parent_ids=[payload["events"][-1]["id"]],
+            source_hashes=[payload["input"]["sha256"], *inherited_hashes],
+            output_hash=manifest["sha256"], trajectory_kind="replayed",
+            validity="approved_macro_cycle_context",
+            details={"manifest_hash": manifest["sha256"], "model_call_performed": False},
         )
         _write_atomic(_run_path(payload["id"]), payload)
         return deepcopy(payload)

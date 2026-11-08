@@ -10,6 +10,7 @@ from services.gravity_runtime import (
     derive_cleanup_run,
     derive_synthesis_run,
     derive_macro_cycle_run,
+    derive_final_integration_run,
     build_macro_cycle_manifest,
     derive_specialist_batch_run,
     get_dry_run,
@@ -222,6 +223,17 @@ async def review_gravity_macro_cycle(run_id: str, request: GravityOutputReviewRe
         payload = await run_in_threadpool(
             review_macro_cycle, run_id, request.decision, request.reviewer, request.note
         )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not payload:
+        raise HTTPException(status_code=404, detail="Gravity macro cycle not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/{run_id}/derive-final-integration")
+async def derive_gravity_final_integration(run_id: str):
+    try:
+        payload = await run_in_threadpool(derive_final_integration_run, run_id)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     if not payload:

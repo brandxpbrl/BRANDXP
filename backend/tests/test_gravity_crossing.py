@@ -62,6 +62,14 @@ class GravityCrossingTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             gravity_runtime.derive_macro_cycle_run(run["id"])
 
+    def test_final_integration_rejects_missing_or_unapproved_macro_cycle(self):
+        self.assertIsNone(gravity_runtime.derive_final_integration_run("gravity-run-missing"))
+        run = gravity_runtime.create_dry_run({
+            "title": "Macro", "evidence": "Synthetic.", "mode": "macro_cycle"
+        })
+        with self.assertRaises(ValueError):
+            gravity_runtime.derive_final_integration_run(run["id"])
+
 
 if __name__ == "__main__":
     unittest.main()
