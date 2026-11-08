@@ -72,6 +72,8 @@ def _selected_ids(mode):
         return ["SYNAPSES"]
     if mode == "cleanup_only":
         return ["A99"]
+    if mode == "synthesis_only":
+        return ["A00B"]
     if str(mode).startswith("specialist_batch:"):
         batch_id = str(mode).split(":", 1)[1]
         if batch_id not in SPECIALIST_BATCHES:
@@ -647,6 +649,65 @@ def derive_cleanup_run(crossing_run_id):
             output_hash=crossing_task["output_hash"], trajectory_kind="replayed",
             validity="approved_crossing_context",
             details={"cleanup_mode": "reversible_view_only", "delete_originals": False, "model_call_performed": False},
+        )
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)
+
+
+def derive_synthesis_run(cleanup_run_id):
+    source = get_dry_run(cleanup_run_id)
+    if not source:
+        return None
+    cleanup_task = next(
+        (item for item in source.get("tasks", []) if item.get("component_id") == "GRAVITY:A99"),
+        None,
+    )
+    if (
+        source.get("state") != "approved"
+        or not cleanup_task
+        or cleanup_task.get("review", {}).get("state") != "approved"
+        or not cleanup_task.get("output_hash")
+    ):
+        raise ValueError("A00B requires a human-approved A99 cleanup.")
+    derived = create_dry_run({
+        "title": "Gravity — síntesis controlada A00B",
+        "evidence": source["input"]["content"],
+        "mode": "synthesis_only",
+        "execution_mode": "dry_run",
+        "evidence_kind": "synthetic",
+    })
+    with _LOCK:
+        payload = get_dry_run(derived["id"])
+        inherited_hashes = [
+            *source.get("lineage", {}).get("inherited_output_hashes", []),
+            cleanup_task["output_hash"],
+        ]
+        payload["lineage"] = {
+            "parent_run_id": source["id"],
+            "inherited_component_ids": [
+                *source.get("lineage", {}).get("inherited_component_ids", []),
+                "GRAVITY:A99",
+            ],
+            "inherited_output_hashes": inherited_hashes,
+            "derivation_kind": "approved_cleanup_semantic_compression",
+        }
+        payload["synthesis_policy"] = {
+            "mode": "compression_without_new_claims",
+            "preserve_open_tensions": True,
+            "may_overwrite_sources": False,
+            "may_promote_memory": False,
+            "requires_human_review": True,
+        }
+        payload["state"] = "ready_for_next_stage"
+        payload["updated_at"] = _now()
+        payload["approval_gate"]["state"] = "approved_cleanup_inherited"
+        _event(
+            payload, GravityEventType.MESSAGE_CONTEXT_BUILT, "GRAVITY:A00B", payload["tasks"][0]["id"],
+            causal_parent_ids=[payload["events"][-1]["id"]],
+            source_hashes=[payload["input"]["sha256"], *inherited_hashes],
+            output_hash=cleanup_task["output_hash"], trajectory_kind="replayed",
+            validity="approved_cleanup_context",
+            details={"synthesis_mode": "compression_without_new_claims", "model_call_performed": False},
         )
         _write_atomic(_run_path(payload["id"]), payload)
         return deepcopy(payload)
