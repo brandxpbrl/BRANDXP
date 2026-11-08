@@ -6,6 +6,7 @@ from services.gravity_runtime import (
     create_dry_run,
     build_specialist_batch_manifest,
     derive_minimal_specialist_run,
+    derive_crossing_run,
     derive_specialist_batch_run,
     get_dry_run,
     list_dry_runs,
@@ -37,6 +38,10 @@ class GravityOutputReviewRequest(BaseModel):
     decision: str
     reviewer: str = Field(min_length=2, max_length=200)
     note: str = Field(default="", max_length=2000)
+
+
+class GravityCrossingRequest(BaseModel):
+    source_run_ids: list[str] = Field(min_length=5, max_length=5)
 
 
 @gravity_runtime_router.post("/runs")
@@ -150,4 +155,13 @@ async def review_gravity_batch(run_id: str, request: GravityOutputReviewRequest)
         raise HTTPException(status_code=400, detail=str(error)) from error
     if not payload:
         raise HTTPException(status_code=404, detail="Gravity batch run not found.")
+    return payload
+
+
+@gravity_runtime_router.post("/runs/derive-crossing")
+async def derive_gravity_crossing(request: GravityCrossingRequest):
+    try:
+        payload = await run_in_threadpool(derive_crossing_run, request.source_run_ids)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
     return payload

@@ -34,7 +34,7 @@ def validate_gravity_output(output, allowed_source_hashes=None):
     if not isinstance(output, dict):
         raise GravityOutputValidationError("Gravity output must be an object.")
     component_id = _clean_text(output.get("component_id")).upper()
-    if not component_id.startswith("GRAVITY:A"):
+    if not (component_id.startswith("GRAVITY:A") or component_id == "GRAVITY:SYNAPSES"):
         raise GravityOutputValidationError("Gravity output requires a namespaced component_id.")
 
     sources = [_validate_source(item, index) for index, item in enumerate(output.get("sources") or [], 1)]

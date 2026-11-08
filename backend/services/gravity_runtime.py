@@ -68,6 +68,8 @@ def _selected_ids(mode):
         return ["A23"]
     if mode == "minimal_specialists":
         return ["A23", "A01", "A03", "A06"]
+    if mode == "crossings_only":
+        return ["SYNAPSES"]
     if str(mode).startswith("specialist_batch:"):
         batch_id = str(mode).split(":", 1)[1]
         if batch_id not in SPECIALIST_BATCHES:
@@ -514,6 +516,76 @@ def review_specialist_batch(run_id, decision, reviewer, note=""):
             source_hashes=[manifest["sha256"]], output_hash=manifest["sha256"],
             trajectory_kind="observed", validity=f"human_{decision}",
             details={"decision": decision, "reviewer": reviewer, "batch_id": batch["id"], "memory_promotion_allowed": False},
+        )
+        _write_atomic(_run_path(payload["id"]), payload)
+        return deepcopy(payload)
+
+
+def derive_crossing_run(source_run_ids):
+    source_run_ids = list(dict.fromkeys(source_run_ids or []))
+    if len(source_run_ids) != 5:
+        raise ValueError("Gravity crossing requires the approved minimal run and four approved batch runs.")
+    sources = []
+    approved_by_component = {}
+    for run_id in source_run_ids:
+        run = get_dry_run(run_id)
+        if not run or run.get("state") != "approved":
+            raise ValueError(f"Gravity source run is missing or not approved: {run_id}.")
+        sources.append(run)
+        for task in run.get("tasks", []):
+            component_id = task.get("component_id")
+            if (
+                component_id and component_id.startswith("GRAVITY:A")
+                and task.get("state") == "completed"
+                and task.get("review", {}).get("state") == "approved"
+                and task.get("output_hash")
+            ):
+                existing = approved_by_component.get(component_id)
+                if existing and existing["output_hash"] != task["output_hash"]:
+                    raise ValueError(f"Conflicting approved outputs for {component_id}.")
+                approved_by_component[component_id] = task
+    expected = {"GRAVITY:A23", *{f"GRAVITY:A{i:02d}" for i in range(1, 23)}}
+    if set(approved_by_component) != expected:
+        missing = sorted(expected - set(approved_by_component))
+        extra = sorted(set(approved_by_component) - expected)
+        raise ValueError(f"Crossing coverage mismatch. Missing={missing}; extra={extra}.")
+    input_hashes = {run["input"]["sha256"] for run in sources}
+    input_contents = {run["input"]["content"] for run in sources}
+    if len(input_hashes) != 1 or len(input_contents) != 1:
+        raise ValueError("All crossing source runs must share the exact same input.")
+    derived = create_dry_run({
+        "title": "Gravity — cruces sinápticos y espejos",
+        "evidence": next(iter(input_contents)),
+        "mode": "crossings_only",
+        "execution_mode": "dry_run",
+        "evidence_kind": "synthetic",
+    })
+    with _LOCK:
+        payload = get_dry_run(derived["id"])
+        ordered_components = ["GRAVITY:A23", *[f"GRAVITY:A{i:02d}" for i in range(1, 23)]]
+        inherited_hashes = [approved_by_component[item]["output_hash"] for item in ordered_components]
+        payload["lineage"] = {
+            "parent_run_ids": source_run_ids,
+            "inherited_component_ids": ordered_components,
+            "inherited_output_hashes": inherited_hashes,
+            "derivation_kind": "complete_approved_specialist_crossing",
+        }
+        payload["crossing"] = {
+            "synaptic_units": 10,
+            "mirror_units": 2,
+            "coverage": "A01-A23_complete",
+            "source_count": 23,
+            "output_contract": ["coherences", "tensions", "duplicates", "gaps", "human_impact"],
+        }
+        payload["state"] = "ready_for_next_stage"
+        payload["updated_at"] = _now()
+        payload["approval_gate"]["state"] = "complete_specialist_approval_inherited"
+        _event(
+            payload, GravityEventType.MESSAGE_CONTEXT_BUILT, "GRAVITY:SYNAPSES", payload["tasks"][0]["id"],
+            causal_parent_ids=[payload["events"][-1]["id"]],
+            source_hashes=[payload["input"]["sha256"], *inherited_hashes],
+            trajectory_kind="replayed", validity="complete_human_approved_context",
+            details={"specialist_count": 23, "synaptic_units": 10, "mirror_units": 2, "model_call_performed": False},
         )
         _write_atomic(_run_path(payload["id"]), payload)
         return deepcopy(payload)
