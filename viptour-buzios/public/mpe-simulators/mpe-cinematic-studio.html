@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPE Cinematic Studio (9:16) - Dual Mix</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            touch-action: manipulation;
+        }
+        #canvas-container {
+            width: 1080px;
+            height: 1920px;
+            max-height: 100vh;
+            max-width: 56.25vh; /* 9:16 aspect ratio */
+            background-color: #050505;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+            flex: 0 1 auto;
+        }
+        /* UI Panel - Moved to the far right outside the video canvas */
+        #ui {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(10,10,10,0.95);
+            padding: 20px;
+            border: 1px solid #0ff;
+            border-radius: 8px;
+            width: 320px;
+            font-size: 14px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        #ui-toggle {
+            display: none;
+            position: fixed;
+            right: 12px;
+            bottom: 12px;
+            z-index: 110;
+            width: auto;
+            padding: 12px 16px;
+            background: #111;
+        }
+
+        #btn-fullscreen { border-color: #fff; color: #fff; }
+
+        @media (max-width: 900px) {
+            body { align-items: center; }
+            #canvas-container {
+                width: min(100vw, 56.25vh);
+                height: min(177.78vw, 100vh);
+                max-width: none;
+                max-height: none;
+            }
+            #ui {
+                top: auto;
+                right: 8px;
+                bottom: 8px;
+                left: 8px;
+                width: auto;
+                max-height: min(70vh, 620px);
+                padding: 14px;
+                transform: translateY(calc(100% + 20px));
+                transition: transform .25s ease;
+            }
+            #ui.open { transform: translateY(0); }
+            #ui-toggle { display: block; }
+            .overlay-text { top: 18px; left: 18px; font-size: clamp(.65rem, 3vw, 1rem); }
+            #hud-title-b { top: 48px; }
+            .slider-container span:first-child { font-size: 12px; }
+        }
+
+        /* En pantalla completa el simulador ocupa toda la ventana, sin limitarse a 9:16. */
+        :fullscreen { background: #000; }
+        :fullscreen body { width: 100vw; height: 100vh; }
+        :fullscreen #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            max-height: none;
+            flex: 1 1 100vw;
+        }
+        :fullscreen #canvas-container canvas { display: block; width: 100%; height: 100%; }
+        :fullscreen #ui { z-index: 120; }
+        .control-group {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+        select, button, input[type="file"] {
+            background: #111;
+            color: #0ff;
+            border: 1px solid #0ff;
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            box-sizing: border-box;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #0ff;
+            color: #000;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        input[type="range"] {
+            width: 70%;
+            accent-color: #0ff;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #f0f;
+            font-size: 24px;
+            display: none;
+            text-shadow: 0 0 10px #f0f;
+            z-index: 50;
+        }
+        .overlay-text {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            color: rgba(255,255,255,0.8);
+            font-size: 1.5rem;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        #hud-title-b {
+            top: 75px;
+            color: rgba(255,0,255,0.8);
+        }
+        .hidden {
+            opacity: 0;
+        }
+    </style>
+    <!-- Import Three.js and GLTFLoader via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+    <div id="canvas-container">
+        <div id="loading">CARGANDO SECUENCIA CUANTICA...</div>
+        <div class="overlay-text" id="hud-title-a">MPE-009 // CAPA A: VACIA</div>
+        <div class="overlay-text" id="hud-title-b">MPE-009 // CAPA B: VACIA</div>
+    </div>
+    
+    <!-- UI moved completely outside the canvas container -->
+    <div id="ui">
+        <h3 style="margin-top: 0; color: white; text-align: center;">PANEL DE CONTROL</h3>
+        <div class="control-group">
+            <label style="color:#0ff; font-weight: bold;">Capa A (Cian):</label>
+            <input type="file" id="file-input-a" accept=".glb">
+            <div class="slider-container">
+                <span>Opacidad:</span>
+                <input type="range" id="opacity-a" min="0" max="1" step="0.01" value="1">
+                <span id="val-opacity-a">1.0</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label style="color:#f0f; font-weight: bold;">Capa B (Magenta):</label>
+            <input type="file" id="file-input-b" accept=".glb">
+            <div class="slider-container">
+                <span>Opacidad:</span>
+                <input type="range" id="opacity-b" min="0" max="1" step="0.01" value="0.5">
+                <span id="val-opacity-b">0.5</span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label style="color:#fff; font-weight: bold;">Efectos de Movimiento:</label>
+            <div class="slider-container">
+                <span>Rot. Horizontal:</span>
+                <input type="range" id="cam-speed" min="-20" max="20" step="0.5" value="2">
+                <span id="val-cam-speed">2.0</span>
+            </div>
+            <div class="slider-container" style="margin-top: 15px;">
+                <span>Rot. Vertical:</span>
+                <input type="range" id="polar-speed" min="0" max="100" step="1" value="0">
+                <span id="val-polar-speed">0x</span>
+            </div>
+            <button id="btn-spin" style="margin-top:15px;">Alternar Rotacion Auto</button>
+        </div>
+        
+        <button id="btn-wireframe">Modo Escaner (Wireframe)</button>
+        <button id="btn-toggle-hud" style="border-color: #f0f; color: #f0f;">Ocultar/Mostrar Textos HUD</button>
+        <button id="btn-fullscreen">⛶ PANTALLA COMPLETA</button>
+        
+        <div style="display:flex; gap:10px; margin-top:20px;">
+            <button id="btn-png-916" style="background-color: #0088ff; color: white; border-color: #0088ff; font-weight: bold;">📸 PNG (9:16) 4K</button>
+            <button id="btn-png-11" style="background-color: #ff8800; color: white; border-color: #ff8800; font-weight: bold;">📸 PNG (1:1) 4K</button>
+        </div>
+
+        <button id="btn-render" style="background-color: #ff0055; color: white; border-color: #ff0055; font-weight: bold; margin-top: 10px;">🎬 GRABAR VIDEO HD (Sin Lag)</button>
+    </div>
+    <button id="ui-toggle" aria-label="Mostrar controles">⚙ CONTROLES</button>
+
+    <script>
+        const container = document.getElementById('canvas-container');
+        const loading = document.getElementById('loading');
+        
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.02); // Add deep space fog
+
+        // Camera setup for 9:16
+        const camera = new THREE.PerspectiveCamera(45, 1080 / 1920, 0.1, 1000);
+        camera.position.set(0, 2, 8);
+
+        // Renderer setup
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        container.appendChild(renderer.domElement);
+
+        // Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 2.0;
+
+        // Cinematic Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+        scene.add(ambientLight);
+
+        // Cyan rim light (Left)
+        const light1 = new THREE.DirectionalLight(0x00ffff, 3);
+        light1.position.set(5, 5, -5);
+        scene.add(light1);
+
+        // Magenta rim light (Right)
+        const light2 = new THREE.DirectionalLight(0xff00ff, 3);
+        light2.position.set(-5, -5, 5);
+        scene.add(light2);
+        
+        // Core center light
+        const pointLight = new THREE.PointLight(0xffffff, 1, 20);
+        scene.add(pointLight);
+
+        // Particles for "Quantum Dust"
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 500;
+        const posArray = new Float32Array(particlesCount * 3);
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 20;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x00ffff,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // Models state
+        let modelA = null;
+        let modelB = null;
+        let isWireframe = false;
+
+        function loadModel(file, slot) {
+            loading.style.display = 'block';
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const contents = event.target.result;
+                const loader = new THREE.GLTFLoader();
+                
+                loader.parse(contents, '', function(gltf) {
+                    let currentModel = slot === 'A' ? modelA : modelB;
+                    if(currentModel) scene.remove(currentModel);
+                    
+                    currentModel = gltf.scene;
+                    
+                    // Center and scale the model
+                    const box = new THREE.Box3().setFromObject(currentModel);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const scale = 5 / maxDim;
+                    currentModel.scale.set(scale, scale, scale);
+                    
+                    currentModel.position.sub(center.multiplyScalar(scale));
+                    
+                    if(slot === 'A') {
+                        modelA = currentModel;
+                        document.getElementById('hud-title-a').innerText = "CAPA A: " + file.name.toUpperCase();
+                        updateModelMaterials(modelA, parseFloat(document.getElementById('opacity-a').value), isWireframe, 0x00ffff);
+                    } else {
+                        modelB = currentModel;
+                        document.getElementById('hud-title-b').innerText = "CAPA B: " + file.name.toUpperCase();
+                        // Slightly offset rotation so they don't exactly z-fight if they are the exact same model
+                        modelB.rotation.y = Math.PI / 8; 
+                        updateModelMaterials(modelB, parseFloat(document.getElementById('opacity-b').value), isWireframe, 0xff00ff);
+                    }
+
+                    scene.add(currentModel);
+                    loading.style.display = 'none';
+                }, undefined, function(error) {
+                    console.error(error);
+                    loading.style.display = 'none';
+                    alert("Error cargando el modelo.");
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function updateModelMaterials(model, opacity, wire, wireColor) {
+            if(!model) return;
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    // Clone original material if not stored
+                    if(!child.userData.originalMat) {
+                        child.userData.originalMat = child.material.clone();
+                    }
+                    
+                    if(wire) {
+                        child.material = new THREE.MeshBasicMaterial({ 
+                            color: wireColor, 
+                            wireframe: true,
+                            transparent: true,
+                            opacity: opacity,
+                            depthWrite: false,
+                            blending: THREE.AdditiveBlending
+                        });
+                    } else {
+                        // Restore original material but apply opacity
+                        const mat = child.userData.originalMat.clone();
+                        mat.transparent = true;
+                        mat.opacity = opacity;
+                        mat.depthWrite = opacity >= 1.0 ? true : false; // Prevent clipping issues on transparent layers
+                        child.material = mat;
+                    }
+                }
+            });
+        }
+
+        // File Input Listeners
+        document.getElementById('file-input-a').addEventListener('change', (e) => {
+            if(e.target.files[0]) loadModel(e.target.files[0], 'A');
+        });
+        document.getElementById('file-input-b').addEventListener('change', (e) => {
+            if(e.target.files[0]) loadModel(e.target.files[0], 'B');
+        });
+
+        // Opacity Listeners
+        document.getElementById('opacity-a').addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.getElementById('val-opacity-a').innerText = val.toFixed(2);
+            updateModelMaterials(modelA, val, isWireframe, 0x00ffff);
+        });
+        document.getElementById('opacity-b').addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.getElementById('val-opacity-b').innerText = val.toFixed(2);
+            updateModelMaterials(modelB, val, isWireframe, 0xff00ff);
+        });
+
+        // Global UI Listeners
+        document.getElementById('btn-spin').addEventListener('click', () => {
+            controls.autoRotate = !controls.autoRotate;
+        });
+
+        document.getElementById('cam-speed').addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.getElementById('val-cam-speed').innerText = val.toFixed(1);
+            controls.autoRotateSpeed = val;
+            if(val !== 0) controls.autoRotate = true;
+        });
+
+        let polarSpeed = 0;
+        document.getElementById('polar-speed').addEventListener('input', (e) => {
+            polarSpeed = parseFloat(e.target.value);
+            document.getElementById('val-polar-speed').innerText = polarSpeed.toFixed(0) + "x";
+        });
+
+        document.getElementById('btn-wireframe').addEventListener('click', () => {
+            isWireframe = !isWireframe;
+            updateModelMaterials(modelA, parseFloat(document.getElementById('opacity-a').value), isWireframe, 0x00ffff);
+            updateModelMaterials(modelB, parseFloat(document.getElementById('opacity-b').value), isWireframe, 0xff00ff);
+        });
+
+        // Toggle HUD Texts
+        document.getElementById('btn-toggle-hud').addEventListener('click', () => {
+            document.getElementById('hud-title-a').classList.toggle('hidden');
+            document.getElementById('hud-title-b').classList.toggle('hidden');
+        });
+
+        // Responsive controls and native browser fullscreen
+        const ui = document.getElementById('ui');
+        const uiToggle = document.getElementById('ui-toggle');
+        uiToggle.addEventListener('click', () => {
+            ui.classList.toggle('open');
+            uiToggle.textContent = ui.classList.contains('open') ? '✕ CERRAR' : '⚙ CONTROLES';
+        });
+
+        document.getElementById('btn-fullscreen').addEventListener('click', async () => {
+            try {
+                if (!document.fullscreenElement) {
+                    await document.documentElement.requestFullscreen();
+                    document.getElementById('btn-fullscreen').textContent = '⛶ SALIR DE PANTALLA COMPLETA';
+                } else {
+                    await document.exitFullscreen();
+                }
+            } catch (error) {
+                console.warn('Pantalla completa no disponible', error);
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            const isFullscreen = Boolean(document.fullscreenElement);
+            document.getElementById('btn-fullscreen').textContent = isFullscreen
+                ? '⛶ SALIR DE PANTALLA COMPLETA'
+                : '⛶ PANTALLA COMPLETA';
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+        });
+
+        // Animation loop
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // Rotate particles slowly
+            particlesMesh.rotation.y = elapsedTime * 0.05;
+            particlesMesh.rotation.x = elapsedTime * 0.02;
+
+            // Make lights pulsate slightly
+            light1.intensity = 2 + Math.sin(elapsedTime * 2);
+            light2.intensity = 2 + Math.cos(elapsedTime * 1.5);
+
+            // Apply Vertical Rotation (Tilt)
+            if(polarSpeed > 0) {
+                // Calculate time-based oscillating polar angle
+                const sweepTime = elapsedTime * (polarSpeed * 0.05);
+                // Oscillate between top (0.2 rads) and bottom (Math.PI - 0.2 rads)
+                const targetPolar = Math.PI / 2 + Math.sin(sweepTime) * (Math.PI / 2 - 0.3);
+                
+                // Get current radius and azimuth
+                const radius = camera.position.distanceTo(controls.target);
+                const azimuth = Math.atan2(camera.position.x - controls.target.x, camera.position.z - controls.target.z);
+                
+                // Manually position camera to override OrbitControls vertical lock
+                camera.position.x = controls.target.x + radius * Math.sin(targetPolar) * Math.sin(azimuth);
+                camera.position.y = controls.target.y + radius * Math.cos(targetPolar);
+                camera.position.z = controls.target.z + radius * Math.sin(targetPolar) * Math.cos(azimuth);
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // High-Quality PNG Export Function
+        function exportHighResPNG(targetWidth, targetHeight, filename) {
+            // Backup current state
+            const origWidth = container.clientWidth;
+            const origHeight = container.clientHeight;
+            const origAspect = camera.aspect;
+            const origPixelRatio = renderer.getPixelRatio();
+            
+            // Set 4K rendering
+            renderer.setPixelRatio(1.0); // Force exactly 1:1 pixel ratio for our raw output
+            renderer.setSize(targetWidth, targetHeight, false);
+            camera.aspect = targetWidth / targetHeight;
+            camera.updateProjectionMatrix();
+            
+            // Hide HUD for the photo
+            const hudA = document.getElementById('hud-title-a');
+            const hudB = document.getElementById('hud-title-b');
+            const oldA = hudA.style.display;
+            const oldB = hudB.style.display;
+            hudA.style.display = 'none';
+            hudB.style.display = 'none';
+            
+            // Force Render
+            renderer.render(scene, camera);
+            
+            // Extract Image
+            const dataURL = renderer.domElement.toDataURL('image/png', 1.0);
+            
+            // Download
+            const a = document.createElement('a');
+            a.href = dataURL;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Restore State
+            hudA.style.display = oldA;
+            hudB.style.display = oldB;
+            renderer.setPixelRatio(origPixelRatio);
+            renderer.setSize(origWidth, origHeight);
+            camera.aspect = origAspect;
+            camera.updateProjectionMatrix();
+        }
+
+        document.getElementById('btn-png-916').addEventListener('click', () => {
+            exportHighResPNG(2160, 3840, 'MPE_009_4K_9_16.png'); // 4K vertical
+        });
+
+        document.getElementById('btn-png-11').addEventListener('click', () => {
+            exportHighResPNG(3840, 3840, 'MPE_009_4K_CUADRADO.png'); // 4K square
+        });
+
+        // Start standard animation
+        let animationId = requestAnimationFrame(animate);
+
+        // Offline Rendering Logic
+        document.getElementById('btn-render').addEventListener('click', async () => {
+            const btn = document.getElementById('btn-render');
+            if(btn.innerText.includes('RENDERIZANDO')) return;
+            
+            // Wait for user to confirm
+            if(!confirm("Asegurate de haber ejecutado 'python scripts/offline_renderer.py' en la terminal primero. ¿Continuar?")) return;
+
+            btn.innerText = "RENDERIZANDO... ESPERA";
+            btn.style.backgroundColor = "#550000";
+            
+            // Stop real-time animation
+            cancelAnimationFrame(animationId);
+            
+            const totalFrames = 60 * 15; // 15 seconds at 60 FPS
+            const timeStep = 1.0 / 60.0;
+            let fakeTime = clock.getElapsedTime();
+
+            try {
+                // Notify server to start
+                await fetch('http://localhost:8000/start', { method: 'POST' });
+
+                for(let i = 0; i < totalFrames; i++) {
+                    fakeTime += timeStep;
+                    
+                    // Update physics manually
+                    particlesMesh.rotation.y = fakeTime * 0.05;
+                    particlesMesh.rotation.x = fakeTime * 0.02;
+                    light1.intensity = 2 + Math.sin(fakeTime * 2);
+                    light2.intensity = 2 + Math.cos(fakeTime * 1.5);
+
+                    if(polarSpeed > 0) {
+                        const sweepTime = fakeTime * (polarSpeed * 0.05);
+                        const targetPolar = Math.PI / 2 + Math.sin(sweepTime) * (Math.PI / 2 - 0.3);
+                        const radius = camera.position.distanceTo(controls.target);
+                        const azimuth = Math.atan2(camera.position.x - controls.target.x, camera.position.z - controls.target.z);
+                        camera.position.x = controls.target.x + radius * Math.sin(targetPolar) * Math.sin(azimuth);
+                        camera.position.y = controls.target.y + radius * Math.cos(targetPolar);
+                        camera.position.z = controls.target.z + radius * Math.sin(targetPolar) * Math.cos(azimuth);
+                    }
+
+                    if(controls.autoRotate) {
+                        // Math for OrbitControls auto-rotation manually applied
+                        const rotSpeed = controls.autoRotateSpeed * 2.0 * Math.PI / 60 / 60; // Approximate
+                        const radius = camera.position.distanceTo(controls.target);
+                        let azimuth = Math.atan2(camera.position.x - controls.target.x, camera.position.z - controls.target.z);
+                        azimuth -= rotSpeed;
+                        const polar = Math.acos((camera.position.y - controls.target.y) / radius);
+                        camera.position.x = controls.target.x + radius * Math.sin(polar) * Math.sin(azimuth);
+                        camera.position.z = controls.target.z + radius * Math.sin(polar) * Math.cos(azimuth);
+                    }
+
+                    controls.update();
+                    renderer.render(scene, camera);
+
+                    // Send frame
+                    const base64Data = renderer.domElement.toDataURL('image/jpeg', 0.95);
+                    await fetch('http://localhost:8000/frame', {
+                        method: 'POST',
+                        body: JSON.stringify({ image: base64Data }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    if(i % 10 === 0) {
+                        btn.innerText = `RENDERIZANDO... ${(i/totalFrames*100).toFixed(0)}%`;
+                    }
+                }
+
+                await fetch('http://localhost:8000/finish', { method: 'POST' });
+                alert("¡Renderizado Completado! Revisa la carpeta MPE/outputs/");
+            } catch (err) {
+                console.error(err);
+                alert("Error de conexión. ¿Está corriendo el script offline_renderer.py?");
+            }
+
+            // Resume real-time animation
+            btn.innerText = "🎬 GRABAR VIDEO HD (Sin Lag)";
+            btn.style.backgroundColor = "#ff0055";
+            clock.start();
+            animate();
+        });
+
+        // Handle window resize dynamically inside the constraints
+        window.addEventListener('resize', () => {
+            const aspect = container.clientWidth / container.clientHeight;
+            camera.aspect = aspect;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    </script>
+</body>
+</html>
+
