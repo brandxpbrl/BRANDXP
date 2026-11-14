@@ -50,7 +50,7 @@ export default function Home() {
             <button type="button" onClick={enterSite} className="rounded-full border border-white/40 bg-black/45 px-4 py-2 text-xs tracking-widest text-white backdrop-blur">ENTRAR AL SITIO</button>
           </div>
         </div>
-      }
+      )}
       <div className="relative z-10 w-full flex-grow flex flex-col justify-between">
         <MasterSolutionsGrid />
         <footer className="border-t border-white/[0.06] bg-[#03050a] px-6 py-8 text-center text-xs text-gray-500 z-10">
