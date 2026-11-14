@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ORBis — Welcome</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#01030a;color:#eefcff;font-family:Arial,Helvetica,sans-serif}body{overflow:hidden}#space{position:fixed;inset:0}canvas{display:block} .veil{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 42%,transparent 0,rgba(1,3,10,.08) 34%,rgba(1,3,10,.8) 100%)}.intro{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px;pointer-events:none}.copy{max-width:760px;text-shadow:0 2px 30px #000}.eyebrow{font-size:10px;letter-spacing:.5em;color:#72eaff;margin:0 0 22px;text-transform:uppercase}.logo{font-size:clamp(42px,10vw,110px);letter-spacing:.25em;font-weight:300;margin:0 0 18px}.sub{font-size:clamp(13px,2vw,20px);letter-spacing:.25em;text-transform:uppercase;color:#d8c8ff}.story{max-width:560px;margin:25px auto 0;color:#c6d1df;line-height:1.7;font-size:14px}.actions{position:fixed;bottom:38px;left:0;right:0;display:flex;justify-content:center;gap:12px;pointer-events:auto;flex-wrap:wrap;padding:0 18px}.btn{border:1px solid rgba(118,235,255,.7);background:rgba(3,12,24,.65);color:#eaffff;padding:13px 20px;border-radius:999px;letter-spacing:.17em;text-transform:uppercase;font-size:10px;cursor:pointer;backdrop-filter:blur(10px);transition:.25s}.btn:hover{background:rgba(70,220,255,.18);box-shadow:0 0 30px rgba(70,220,255,.2)}.btn.secondary{border-color:rgba(235,125,255,.6)}.status{position:fixed;top:22px;right:24px;color:#9aafc0;font-size:10px;letter-spacing:.16em;text-transform:uppercase}.hidden{opacity:0;transition:opacity 1s}.visible{opacity:1;transition:opacity 1s}@media(max-width:600px){.story{font-size:12px}.status{top:14px;right:14px;font-size:8px}.actions{bottom:24px}}
+</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.128.0/build/three.module.js","three/examples/jsm/":"https://unpkg.com/three@0.128.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="space"></div><div class="veil"></div>
+<div class="status">GENESIS NODE · ORBIS ONLINE</div>
+<div class="intro" id="intro"><div class="copy">
+<p class="eyebrow">Welcome to the connected ecosystem</p><h1 class="logo">ORBIS</h1><div class="sub">Everything, connected.</div>
+<p class="story">Un ecosistema de marcas, experiencias, tecnología y posibilidades. Cada mundo conserva su identidad; juntos forman una misma visión.</p>
+</div></div>
+<div class="actions"><button class="btn" id="start">Iniciar experiencia</button><button class="btn secondary" id="enter">Entrar al sitio oficial</button></div>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+const host=document.getElementById('space'), scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,.1,1000);
+camera.position.set(0,0.2,7);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);host.appendChild(renderer.domElement);
+scene.add(new THREE.AmbientLight(0x8090ff,1.1));
+const cyan=new THREE.PointLight(0x00eaff,5,18);cyan.position.set(4,3,4);scene.add(cyan);
+const magenta=new THREE.PointLight(0xff20df,4,18);magenta.position.set(-4,-2,3);scene.add(magenta);
+const particles=new THREE.BufferGeometry(), count=900, pos=new Float32Array(count*3);
+for(let i=0;i<pos.length;i++)pos[i]=(Math.random()-.5)*24;
+particles.setAttribute('position',new THREE.BufferAttribute(pos,3));
+const dust=new THREE.Points(particles,new THREE.PointsMaterial({color:0x54eaff,size:.035,transparent:true,opacity:.65,blending:THREE.AdditiveBlending}));
+scene.add(dust);
+let solid=null, wire=null, active='solid';
+function materialize(root, wireframe){
+ root.traverse(o=>{if(!o.isMesh)return; const mats=Array.isArray(o.material)?o.material:[o.material]; o.material=mats.map(m=>wireframe?new THREE.MeshBasicMaterial({color:0x71edff,wireframe:true,transparent:true,opacity:.9}):m.clone());});
+}
+new GLTFLoader().load('/orbis/nodo_genesis.glb',g=>{
+ solid=g.scene; const box=new THREE.Box3().setFromObject(solid), size=box.getSize(new THREE.Vector3()), center=box.getCenter(new THREE.Vector3());
+ const scale=3.6/Math.max(size.x,size.y,size.z); solid.scale.setScalar(scale); solid.position.sub(center.multiplyScalar(scale)); materialize(solid,false); scene.add(solid);
+ wire=solid.clone(true); materialize(wire,true); wire.visible=false; scene.add(wire);
+},undefined,err=>console.warn('Nodo Genesis no cargó',err));
+function toggleWireframe(){if(!solid||!wire)return;active=active==='solid'?'wire':'solid';solid.visible=active==='solid';wire.visible=!solid.visible;}
+document.getElementById('start').onclick=()=>{const text='Bienvenido a ORBIS. Un ecosistema conectado de marcas, experiencias, tecnología y posibilidades.'; if('speechSynthesis' in window){speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(text));}document.getElementById('intro').classList.add('visible');setTimeout(toggleWireframe,2600);setTimeout(toggleWireframe,5600)};
+document.getElementById('enter').onclick=()=>location.href='/';
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();dust.rotation.y=t*.025;dust.rotation.x=t*.008;if(solid)solid.rotation.y=t*.12;if(wire)wire.rotation.y=t*.12;cyan.intensity=4.5+Math.sin(t*1.8);magenta.intensity=3.5+Math.cos(t*1.3);renderer.render(scene,camera)}animate();
+</script></body></html>
