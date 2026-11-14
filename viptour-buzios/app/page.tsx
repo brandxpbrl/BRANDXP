@@ -1,20 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import MasterSolutionsGrid from "@/components/MasterSolutionsGrid";
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    if (sessionStorage.getItem("orbis-intro-seen") !== "1") setShowIntro(true);
-  }, []);
-
   function enterSite() {
-    sessionStorage.setItem("orbis-intro-seen", "1");
     setShowIntro(false);
   }
 
@@ -36,14 +31,13 @@ export default function Home() {
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#10031b]" aria-label="Apertura ORBIS">
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-contain"
+            className="absolute inset-0 h-full w-full object-cover"
             src="/videos/orbisfluidcuadrado.mp4"
             autoPlay
             muted={!soundEnabled}
             playsInline
             preload="auto"
             onEnded={enterSite}
-            onError={enterSite}
           />
           <div className="absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-0 right-0 flex justify-center gap-3 px-4">
             {!soundEnabled && <button type="button" onClick={enableSound} className="rounded-full border border-white/40 bg-black/45 px-4 py-2 text-xs tracking-widest text-white backdrop-blur">ACTIVAR SONIDO</button>}
