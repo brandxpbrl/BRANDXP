@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": { "incremental": false },
+  "include": [
+    "../../lib/crm-nz/**/*.ts",
+    "../../app/api/crm-nz/**/*.ts",
+    "../../app/brandexperience/crm-nz/**/*.tsx",
+    "./backend.test.ts",
+    "./styles.d.ts"
+  ],
+  "exclude": ["../../node_modules"]
+}

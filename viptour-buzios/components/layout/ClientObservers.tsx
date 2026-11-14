@@ -9,7 +9,7 @@ import { MaxPublicObserver } from "@/components/max/MaxPublicObserver";
 export function ClientObservers() {
   const pathname = usePathname();
 
-  if (pathname === "/projects/buzios-buggy" || pathname.startsWith("/projects/buzios-buggy/")) {
+  if (pathname === "/brandexperience/crm-nz" || pathname.startsWith("/brandexperience/crm-nz/") || pathname === "/projects/buzios-buggy" || pathname.startsWith("/projects/buzios-buggy/")) {
     return null;
   }
 
